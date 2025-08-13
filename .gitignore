@@ -1,0 +1,24 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs / maps
+*.log
+*.map
+
+# Env / credentials
+.env
+.env.*
+
+# Dependencies / builds
+node_modules/
+vendor/
+dist/
+build/
+.cache/
+
+# Misc
+*.tmp
+*.swp 

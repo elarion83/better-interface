@@ -1,0 +1,236 @@
+# French translation for Better Interface
+# Copyright (C) 2024 Nicolas Gruwe
+# This file is distributed under the same license as the Better Interface package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Better Interface 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/nicolasgruwe/better-interface\n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: 2024-01-01 12:00+0000\n"
+"Last-Translator: Nicolas Gruwe <contact@nicolasgruwe.com>\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: better-interface.php:15
+msgid "Better Interface"
+msgstr "Better Interface"
+
+#: better-interface.php:16
+msgid "Modernise l'interface administrateur WordPress avec 2 modes de design différents"
+msgstr "Modernise l'interface administrateur WordPress avec 2 modes de design différents"
+
+#: better-interface.php:17
+msgid "1.0.0"
+msgstr "1.0.0"
+
+#: better-interface.php:18
+msgid "Nicolas Gruwe"
+msgstr "Nicolas Gruwe"
+
+#: better-interface.php:19
+msgid "https://nicolasgruwe.com"
+msgstr "https://nicolasgruwe.com"
+
+#: better-interface.php:20
+msgid "GPL v2 or later"
+msgstr "GPL v2 ou ultérieure"
+
+#: better-interface.php:21
+msgid "https://www.gnu.org/licenses/gpl-2.0.html"
+msgstr "https://www.gnu.org/licenses/gpl-2.0.html"
+
+#: better-interface.php:22
+msgid "better-interface"
+msgstr "better-interface"
+
+#: better-interface.php:23
+msgid "/languages"
+msgstr "/languages"
+
+#: better-interface.php:24
+msgid "5.0"
+msgstr "5.0"
+
+#: better-interface.php:25
+msgid "6.4"
+msgstr "6.4"
+
+#: better-interface.php:26
+msgid "7.4"
+msgstr "7.4"
+
+#: better-interface.php:89
+msgid "Classique"
+msgstr "Classique"
+
+#: better-interface.php:90
+msgid "Moderne"
+msgstr "Moderne"
+
+
+
+#: better-interface.php:147
+msgid "Sécurité violée"
+msgstr "Sécurité violée"
+
+#: better-interface.php:151
+msgid "Permissions insuffisantes"
+msgstr "Permissions insuffisantes"
+
+#: better-interface.php:155
+msgid "Mode invalide"
+msgstr "Mode invalide"
+
+#: better-interface.php:162
+msgid "Mode sauvegardé avec succès"
+msgstr "Mode sauvegardé avec succès"
+
+#: better-interface.php:175
+msgid "Paramètres réinitialisés"
+msgstr "Paramètres réinitialisés"
+
+#: admin/admin-page.php:25
+msgid "Better Interface"
+msgstr "Better Interface"
+
+#: admin/admin-page.php:28
+msgid "Modernisez votre interface administrateur WordPress avec nos 2 modes de design différents."
+msgstr "Modernisez votre interface administrateur WordPress avec nos 2 modes de design différents."
+
+#: admin/admin-page.php:35
+msgid "Modes de Design"
+msgstr "Modes de Design"
+
+#: admin/admin-page.php:36
+msgid "Sélectionnez le mode de design qui correspond le mieux à vos préférences :"
+msgstr "Sélectionnez le mode de design qui correspond le mieux à vos préférences :"
+
+#: admin/admin-page.php:65
+msgid "Interface classique WordPress avec des améliorations subtiles."
+msgstr "Interface classique WordPress avec des améliorations subtiles."
+
+#: admin/admin-page.php:67
+msgid "Design moderne avec des couleurs vives et des animations fluides."
+msgstr "Design moderne avec des couleurs vives et des animations fluides."
+
+
+
+#: admin/admin-page.php:75
+msgid "Actuel"
+msgstr "Actuel"
+
+#: admin/admin-page.php:82
+msgid "Appliquer le mode sélectionné"
+msgstr "Appliquer le mode sélectionné"
+
+#: admin/admin-page.php:85
+msgid "Aperçu"
+msgstr "Aperçu"
+
+#: admin/admin-page.php:91
+msgid "Personnalisation Avancée"
+msgstr "Personnalisation Avancée"
+
+#: admin/admin-page.php:92
+msgid "Ajoutez vos propres styles CSS et scripts JavaScript pour personnaliser davantage l'interface :"
+msgstr "Ajoutez vos propres styles CSS et scripts JavaScript pour personnaliser davantage l'interface :"
+
+#: admin/admin-page.php:97
+msgid "CSS Personnalisé"
+msgstr "CSS Personnalisé"
+
+#: admin/admin-page.php:101
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: admin/admin-page.php:108
+msgid "CSS personnalisé :"
+msgstr "CSS personnalisé :"
+
+#: admin/admin-page.php:109
+msgid "/* Ajoutez vos styles CSS ici */"
+msgstr "/* Ajoutez vos styles CSS ici */"
+
+#: admin/admin-page.php:112
+msgid "Exemple :"
+msgstr "Exemple :"
+
+#: admin/admin-page.php:113
+msgid "#adminmenu { background: #2c3e50; }"
+msgstr "#adminmenu { background: #2c3e50; }"
+
+#: admin/admin-page.php:119
+msgid "JavaScript personnalisé :"
+msgstr "JavaScript personnalisé :"
+
+#: admin/admin-page.php:120
+msgid "// Ajoutez vos scripts JavaScript ici"
+msgstr "// Ajoutez vos scripts JavaScript ici"
+
+#: admin/admin-page.php:123
+msgid "jQuery(document).ready(function($) { console.log('Better Interface loaded!'); });"
+msgstr "jQuery(document).ready(function($) { console.log('Better Interface loaded!'); });"
+
+#: admin/admin-page.php:130
+msgid "Sauvegarder les personnalisations"
+msgstr "Sauvegarder les personnalisations"
+
+#: admin/admin-page.php:133
+msgid "Réinitialiser"
+msgstr "Réinitialiser"
+
+#: admin/admin-page.php:139
+msgid "Informations"
+msgstr "Informations"
+
+#: admin/admin-page.php:143
+msgid "Mode Actuel"
+msgstr "Mode Actuel"
+
+#: admin/admin-page.php:149
+msgid "Version"
+msgstr "Version"
+
+#: admin/admin-page.php:155
+msgid "Compatibilité"
+msgstr "Compatibilité"
+
+#: admin/admin-page.php:156
+msgid "WordPress 5.0+"
+msgstr "WordPress 5.0+"
+
+#: admin/admin-page.php:162
+msgid "Réinitialiser tous les paramètres"
+msgstr "Réinitialiser tous les paramètres"
+
+#: admin/admin-page.php:165
+msgid "Documentation"
+msgstr "Documentation"
+
+#: admin/admin-page.php:175
+msgid "Aperçu du Mode"
+msgstr "Aperçu du Mode"
+
+#: admin/admin-page.php:185
+msgid "Appliquer ce mode"
+msgstr "Appliquer ce mode"
+
+#: admin/admin-page.php:188
+msgid "Fermer"
+msgstr "Fermer"
+
+#: better-interface.php:200
+msgid "CSS invalide détecté"
+msgstr "CSS invalide détecté"
+
+#: better-interface.php:204
+msgid "JavaScript invalide détecté"
+msgstr "JavaScript invalide détecté"
+
+#: better-interface.php:209
+msgid "Personnalisations sauvegardées avec succès"
+msgstr "Personnalisations sauvegardées avec succès" 

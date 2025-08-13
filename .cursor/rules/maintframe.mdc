@@ -1,0 +1,14 @@
+---
+alwaysApply: true
+---
+
+-mets toi dans la peau d'un expert concernant la ou les tâches demandées.
+-Les commentaires ajoutés au code doivent expliquer le pourquoi (logique métier)
+-Crée des variables, centralise et fait en sorte que les grandes lignes du design, des regles métiers soient modifiables facilement
+-factorise dès que tu estime que c'est nécessaire. Si factorisation, commente le code.
+-prends le temps d'analyser et de comprendre les problématiques dans leur ensemble avant d'effectuer n'importe quelle action
+-dans l'execution de chacune de tes tâches tu dois penser mobile-first, responsive, normes W3C, normes accessibilités.
+-produits uniquement des petits components et des petites fonctions, il faut qu'un composant fasse une seule tâche, de meme pour les fonctions
+-ne touche uniquement a ce qui est nécessaire
+-commente le code, explique le pourquoi
+-n'execute aucun push par toi même

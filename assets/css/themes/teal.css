@@ -1,0 +1,34 @@
+/* ========================================
+   THÈME TEAL MODERNE - Variables de couleurs
+   ======================================== */
+
+:root {
+    /* Palette de couleurs Teal Moderne */
+    --bi-modern-primary: #0d9488;
+    --bi-modern-primary-hover: #0f766e;
+    --bi-modern-primary-rgb: 13, 148, 136;
+    --bi-modern-secondary: #f0fdfa;
+    --bi-modern-accent: #14b8a6;
+    --bi-modern-accent-rgb: 20, 184, 166;
+    --bi-modern-success: #16a34a;
+    --bi-modern-warning: #f59e0b;
+    --bi-modern-error: #ef4444;
+    
+    /* Couleurs de fond modernes */
+    --bi-modern-bg-primary: #ffffff;
+    --bi-modern-bg-secondary: #f0fdfa;
+    --bi-modern-bg-tertiary: #ccfbf1;
+    --bi-modern-bg-dark: #134e4a;
+    
+    /* Couleurs de texte modernes */
+    --bi-modern-text-primary: #0f172a;
+    --bi-modern-text-secondary: #374151;
+    --bi-modern-text-muted: #6b7280;
+    
+    /* Bordures et ombres modernes */
+    --bi-modern-border-color: #99f6e4;
+    --bi-modern-shadow-light: 0 1px 3px rgba(13, 148, 136, 0.1), 0 1px 2px rgba(13, 148, 136, 0.06);
+    --bi-modern-shadow-medium: 0 4px 6px rgba(13, 148, 136, 0.07), 0 2px 4px rgba(13, 148, 136, 0.06);
+    --bi-modern-shadow-heavy: 0 10px 15px rgba(13, 148, 136, 0.1), 0 4px 6px rgba(13, 148, 136, 0.05);
+    --bi-modern-shadow-glow: 0 0 20px rgba(13, 148, 136, 0.3);
+} 

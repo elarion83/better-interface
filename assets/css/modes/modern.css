@@ -1,0 +1,2100 @@
+/**
+ * Better Interface - Mode Moderne
+ * Design moderne avec des couleurs vives et des animations fluides
+ */
+
+/* ========================================
+   VARIABLES SPÉCIFIQUES AU MODE MODERNE
+   ======================================== */
+:root {
+    /* Palette de couleurs moderne */
+    --bi-modern-primary: #6366f1;
+    --bi-modern-primary-hover: #4f46e5;
+    --bi-modern-primary-rgb: 99, 102, 241;
+    --bi-modern-secondary: #f8fafc;
+    --bi-modern-accent: #06b6d4;
+    --bi-modern-accent-rgb: 6, 182, 212;
+    --bi-modern-success: #10b981;
+    --bi-modern-warning: #f59e0b;
+    --bi-modern-error: #ef4444;
+    
+    /* Couleurs de fond modernes */
+    --bi-modern-bg-primary: #ffffff;
+    --bi-modern-bg-secondary: #f8fafc;
+    --bi-modern-bg-tertiary: #f1f5f9;
+    --bi-modern-bg-dark: #1e293b;
+    
+    /* Couleurs de texte modernes */
+    --bi-modern-text-primary: #0f172a;
+    --bi-modern-text-secondary: #475569;
+    --bi-modern-text-muted: #64748b;
+    
+    /* Bordures et ombres modernes */
+    --bi-modern-border-color: #e2e8f0;
+    --bi-modern-border-radius: 12px;
+    --bi-modern-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --bi-modern-shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --bi-modern-shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --bi-modern-shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+    
+    /* Transitions modernes */
+    --bi-modern-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --bi-modern-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --bi-modern-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   OVERRIDE DES STYLES PRINCIPAUX POUR LE MODE MODERNE
+   ======================================== */
+
+/* Application des variables modernes */
+body {
+    background: var(--bi-modern-bg-secondary);
+    color: var(--bi-modern-text-primary);
+}
+
+/* ========================================
+   AMÉLIORATIONS DE L'INTERFACE WORDPRESS
+   ======================================== */
+
+/* Barre d'administration moderne */
+#wpadminbar {
+    background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent));
+    box-shadow: var(--bi-modern-shadow-medium);
+    backdrop-filter: blur(10px);
+}
+
+#wp-admin-bar-user-info img {
+   border-radius: 50%;
+   border: 3px solid rgba(255, 255, 255, 0.8) !important;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+   transition: all 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+#wp-admin-bar-user-info img:hover {
+   border-color: rgba(255, 255, 255, 1) !important;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+   transform: scale(1.05);
+}
+
+/* Masquer les éléments spécifiques de la barre admin */
+#wp-admin-bar-wp-logo,
+#wp-admin-bar-comments {
+    display: none !important;
+}
+
+#wpadminbar .ab-item:hover,
+#wpadminbar .ab-submenu .ab-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Top bar admin WordPress : hover/focus/active sur .ab-item */
+#wpadminbar .ab-item {
+    border-radius: 0 !important;
+    transition: background 0.2s, color 0.2s;
+}
+#wpadminbar .ab-item:hover,
+#wpadminbar .ab-item:focus,
+#wpadminbar .ab-item:active,
+#wpadminbar .hover>.ab-item {
+    background: var(--bi-modern-accent) !important;
+    color: #fff !important;
+}
+
+/* Barre admin du haut : hover sur les liens */
+#wp-admin-bar-root-default li,
+#wp-admin-bar-root-default li a {
+    border-radius: 0 !important;
+    transition: background 0.2s, color 0.2s;
+}
+
+#wp-admin-bar-root-default li:hover > a,
+#wp-admin-bar-root-default li a:hover {
+    background: var(--bi-modern-accent);
+    color: #fff !important;
+}
+
+#wp-admin-bar-root-default li:active > a,
+#wp-admin-bar-root-default li a:active {
+    background: var(--bi-modern-primary);
+    color: #fff !important;
+}
+
+/* Sous-menus de la barre admin */
+#wpadminbar .menupop .ab-sub-wrapper {
+    background: linear-gradient(135deg, var(--bi-modern-accent), var(--bi-modern-primary));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-top: 0;
+    padding: 0;
+}
+
+#wpadminbar .menupop .ab-sub-wrapper > ul {
+   padding:0;
+}
+
+#wpadminbar .menupop.hover > a,
+#wpadminbar .menupop.hover > a span {
+   color: white !important;
+}
+
+#wpadminbar .menupop .ab-sub-wrapper .ab-item {
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 4px 8px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    border-radius: 0 !important;
+}
+
+#wpadminbar .menupop .ab-sub-wrapper .ab-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+#wpadminbar .menupop .ab-sub-wrapper .ab-item:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    outline: none !important;
+}
+
+/* Responsive pour les sous-menus */
+@media (max-width: 768px) {
+    #wpadminbar .menupop .ab-sub-wrapper {
+        border-radius: 0 0 6px 6px;
+        padding: 6px 0;
+    }
+    
+    #wpadminbar .menupop .ab-sub-wrapper .ab-item {
+        padding: 6px 12px !important;
+        font-size: 13px !important;
+    }
+}
+
+/* Menu principal moderne */
+#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head, #adminmenu .wp-menu-arrow, #adminmenu .wp-menu-arrow div, #adminmenu li.current a.menu-top, #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+   background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent));
+}
+#adminmenu {
+    background: var(--bi-modern-bg-dark);
+    box-shadow: var(--bi-modern-shadow-medium);
+    border-right: none;
+    margin: 0;
+}
+
+#adminmenu li.menu-top {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#adminmenu li.menu-top:hover,
+#adminmenu li.wp-menu-open .wp-submenu,
+#adminmenu li.opensub > a.menu-top,
+#adminmenu li.menu-top.current {
+    background: linear-gradient(135deg, var(--bi-modern-accent), var(--bi-modern-primary));
+    color: #fff;
+    border-radius: 0 !important;
+}
+
+#adminmenu li.menu-top > a {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0; /* padding encore réduit */
+    font-weight: 500;
+    border-radius: 0 !important; /* coins carrés */
+    transition: all var(--bi-modern-transition-fast);
+}
+
+#adminmenu li.menu-top > a:hover {
+    color: white;
+    background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent));
+}
+
+#adminmenu .wp-menu-image:before {
+    color: rgba(255, 255, 255, 0.7);
+    transition: all var(--bi-modern-transition-fast);
+}
+
+#adminmenu li.menu-top:hover .wp-menu-image:before {
+    color: white;
+}
+
+/* Sous-menus modernes */
+#adminmenu .wp-submenu {
+    background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent)); /* plus moderne et visible */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--bi-modern-border-radius);
+    box-shadow: var(--bi-modern-shadow-heavy);
+    backdrop-filter: blur(10px);
+}
+
+#adminmenu .wp-submenu a {
+    color: #fff;
+    padding: 8px 16px; /* réduit */
+    font-size: 15px;
+    transition: all var(--bi-modern-transition-fast);
+}
+
+#adminmenu .wp-submenu a:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    padding-left: 20px;
+    box-shadow: none !important;
+}
+
+/* En-têtes des sous-menus */
+#adminmenu .wp-submenu .wp-submenu-head {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 10px 16px 8px 16px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Séparateurs du menu principal */
+#adminmenu .wp-not-current-submenu.wp-menu-separator {
+    height: 3px !important;
+    margin:   0;
+    background: linear-gradient(90deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+    border: none !important;
+    border-radius: 2px !important;
+    opacity: 0.8;
+    transition: opacity 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+#adminmenu .wp-not-current-submenu.wp-menu-separator:hover {
+    opacity: 1;
+}
+
+/* Zone de contenu principale */
+#wpcontent {
+    background: var(--bi-modern-bg-secondary);
+}
+
+/* En-têtes de pages modernes */
+.wrap h1 {
+    color: var(--bi-modern-text-primary);
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.wrap h1.bi-title {
+   color:white;
+   -webkit-text-fill-color: white;
+   background: none;
+}
+
+/* ========================================
+   BOUTONS MODERNES
+   ======================================== */
+
+/* Harmonisation boutons, champs texte, dropdowns - mode moderne */
+.wp-core-ui .button,
+.wp-core-ui .button-primary,
+.wp-core-ui .button-secondary {
+    background: var(--bi-modern-bg-primary);
+    border: 1.5px solid var(--bi-modern-border-color);
+    border-radius: 6px;
+    color: var(--bi-modern-primary);
+    font-weight: 500;
+    font-size: 15px;
+    padding: 6px 16px;
+    min-height: 36px;
+    min-width: 36px;
+    box-shadow: none;
+    transition: all var(--bi-modern-transition-fast);
+    outline: none;
+    letter-spacing: 0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.wp-core-ui .button:hover,
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-secondary:hover {
+    background: var(--bi-modern-accent);
+    color: #fff;
+    border-color: var(--bi-modern-accent);
+}
+
+.wp-core-ui .button-primary {
+    background: var(--bi-modern-primary);
+    color: #fff;
+    border-color: var(--bi-modern-primary);
+}
+
+.wp-core-ui .button-primary:hover {
+    background: var(--bi-modern-primary-hover);
+    border-color: var(--bi-modern-primary-hover);
+    color: #fff;
+}
+
+#screen-meta-links > div{
+   transform: scale(0.8);
+   margin-top: -4px;
+}
+
+/* Boutons uniformes et colorés (hors .column-title, .handle-actions, #screen-meta-links, #minor-publishing, #wpseo-metabox-root, .notice-dismiss et .media-frame-content) */
+button:not(.column-title button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button),
+input[type="button"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input),
+input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input),
+.wp-core-ui .button:not(.column-title .button):not(.handle-actions .button):not(#screen-meta-links .button):not(#minor-publishing .button):not(#wpseo-metabox-root .button):not(.notice-dismiss):not(.media-frame-content .button):not(.edit-post-editor__inserter-panel-content .button),
+.wp-core-ui .button-primary:not(.column-title .button-primary):not(.handle-actions .button-primary):not(#screen-meta-links .button-primary):not(#minor-publishing .button-primary):not(#wpseo-metabox-root .button-primary):not(.notice-dismiss):not(.media-frame-content .button-primary):not(.edit-post-editor__inserter-panel-content .button-primary),
+.wp-core-ui .button-secondary:not(.column-title .button-secondary):not(.handle-actions .button-secondary):not(#screen-meta-links .button-secondary):not(#minor-publishing .button-secondary):not(#wpseo-metabox-root .button-secondary):not(.notice-dismiss):not(.media-frame-content .button-secondary):not(.edit-post-editor__inserter-panel-content .button-secondary) {
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    line-height: 1.2 !important;
+    padding: 0 18px !important;
+    border-radius: 6px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    background: linear-gradient(90deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.10);
+    transition: background 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1), filter 0.25s cubic-bezier(.4,0,.2,1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+button:not(.column-title button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button):hover,
+input[type="button"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):hover,
+input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):hover,
+.wp-core-ui .button:not(.column-title .button):not(.handle-actions .button):not(#screen-meta-links .button):not(#minor-publishing .button):not(#wpseo-metabox-root .button):not(.notice-dismiss):not(.media-frame-content .button):not(.edit-post-editor__inserter-panel-content .button):hover,
+.wp-core-ui .button-primary:not(.column-title .button-primary):not(.handle-actions .button-primary):not(#screen-meta-links .button-primary):not(#minor-publishing .button-primary):not(#wpseo-metabox-root .button-primary):not(.notice-dismiss):not(.media-frame-content .button-primary):not(.edit-post-editor__inserter-panel-content .button-primary):hover,
+.wp-core-ui .button-secondary:not(.column-title .button-secondary):not(.handle-actions .button-secondary):not(#screen-meta-links .button-secondary):not(#minor-publishing .button-secondary):not(#wpseo-metabox-root .button-secondary):not(.notice-dismiss):not(.media-frame-content .button-secondary):not(.edit-post-editor__inserter-panel-content .button-secondary):hover {
+    filter: brightness(1.15) saturate(1.2) drop-shadow(0 0 8px rgba(99,102,241,0.18));
+    box-shadow: 0 6px 20px rgba(99,102,241,0.18);
+    background: linear-gradient(90deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+}
+
+/* Style spécifique pour les boutons d'icônes dans .handle-actions */
+.handle-actions button,
+.handle-actions .button {
+    transition: transform 0.2s cubic-bezier(.4,0,.2,1), filter 0.2s cubic-bezier(.4,0,.2,1);
+    border-radius: 4px !important;
+}
+.handle-actions button:hover,
+.handle-actions .button:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1) drop-shadow(0 0 4px rgba(99,102,241,0.15));
+}
+
+/* ========================================
+   FORMULAIRES MODERNES
+   ======================================== */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="number"],
+textarea,
+select {
+    background: var(--bi-modern-bg-primary);
+    border: 1.5px solid var(--bi-modern-border-color);
+    border-radius: 6px;
+    color: var(--bi-modern-text-primary);
+    font-size: 15px;
+    padding: 7px 12px;
+    min-height: 36px;
+    box-shadow: none;
+    transition: border-color var(--bi-modern-transition-fast), box-shadow var(--bi-modern-transition-fast);
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--bi-modern-primary);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.10);
+    outline: none;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%236366f1" height="16" viewBox="0 0 20 20" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+    padding-right: 32px;
+}
+
+/* ========================================
+   TABLEAUX MODERNES
+   ======================================== */
+
+.wp-list-table {
+    background: var(--bi-modern-bg-primary);
+    border-radius: var(--bi-modern-border-radius);
+    box-shadow: var(--bi-modern-shadow-light);
+    border: 1px solid var(--bi-modern-border-color);
+    overflow: visible;
+}
+
+.wp-list-table thead th {
+    background: var(--bi-modern-bg-secondary);
+    color: var(--bi-modern-text-primary);
+    font-weight: 600;
+    padding: 16px 12px;
+    border-bottom: 2px solid var(--bi-modern-border-color);
+}
+
+/* Intensification du hover sur les lignes de tableau */
+.wp-list-table tbody tr {
+    transition: all var(--bi-modern-transition-fast);
+}
+.wp-list-table tbody tr:hover {
+    background: var(--bi-modern-bg-secondary);
+    transform: scale(1.025);
+    box-shadow: 0 6px 24px rgba(99,102,241,0.20), 0 1.5px 4px rgba(0,0,0,0.18);
+    z-index: 2;
+    position: relative;
+}
+
+.wp-list-table tbody td {
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--bi-modern-border-color);
+}
+
+/* ========================================
+   CARTES ET WIDGETS MODERNES
+   ======================================== */
+
+.postbox {
+    background: var(--bi-modern-bg-primary);
+    border: 1px solid var(--bi-modern-border-color);
+    border-radius: var(--bi-modern-border-radius);
+    box-shadow: var(--bi-modern-shadow-light);
+    transition: all var(--bi-modern-transition-normal);
+}
+
+.postbox:hover {
+    box-shadow: var(--bi-modern-shadow-medium);
+    transform: translateY(-2px);
+}
+
+.postbox .hndle {
+    background: var(--bi-modern-bg-secondary);
+    border-bottom: 1px solid var(--bi-modern-border-color);
+    padding: 10px 12px; /* réduit */
+    font-weight: 600;
+    color: var(--bi-modern-text-primary);
+    border-radius: var(--bi-modern-border-radius) var(--bi-modern-border-radius) 0 0;
+}
+
+/* ========================================
+   NOTIFICATIONS ET MESSAGES MODERNES
+   ======================================== */
+
+.notice {
+    background: var(--bi-modern-bg-primary);
+    border: 1px solid var(--bi-modern-border-color);
+    border-radius: var(--bi-modern-border-radius);
+    box-shadow: var(--bi-modern-shadow-light);
+    padding: 16px 20px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.notice:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--bi-modern-primary);
+}
+
+.notice-success {
+    border-left-color: var(--bi-modern-success);
+}
+
+.notice-success:before {
+    background: var(--bi-modern-success);
+}
+
+.notice-warning {
+    border-left-color: var(--bi-modern-warning);
+}
+
+.notice-warning:before {
+    background: var(--bi-modern-warning);
+}
+
+.notice-error {
+    border-left-color: var(--bi-modern-error);
+}
+
+.notice-error:before {
+    background: var(--bi-modern-error);
+}
+
+/* ========================================
+   ANIMATIONS ET EFFETS MODERNES
+   ======================================== */
+
+/* Animation d'entrée pour les éléments */
+@keyframes bi-modern-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bi-modern-animate {
+    animation: bi-modern-fade-in-up 0.6s ease-out;
+}
+
+/* Animation de pulsation pour les éléments importants */
+@keyframes bi-modern-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.bi-modern-pulse {
+    animation: bi-modern-pulse 2s infinite;
+}
+
+/* Animation de glissement pour les menus */
+@keyframes bi-modern-slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+#adminmenu .wp-submenu {
+   padding: 0;
+   animation: bi-modern-slide-in 0.3s ease-out;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN MODERNE
+   ======================================== */
+
+@media (max-width: 768px) {
+    
+    .wrap h1 {
+        font-size: 1.5rem;
+    }
+    
+    .wp-core-ui .button,
+    .wp-core-ui .button-primary,
+    .wp-core-ui .button-secondary {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    #adminmenu li.menu-top > a {
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    .wrap h1 {
+        font-size: 1.25rem;
+    }
+    
+    .wp-list-table {
+        font-size: 14px;
+    }
+    
+    .wp-list-table thead th,
+    .wp-list-table tbody td {
+        padding: 8px 8px; /* réduit */
+    }
+}
+
+/* ========================================
+   AMÉLIORATIONS ACCESSIBILITÉ MODERNES
+   ======================================== */
+
+/* Focus visible amélioré */
+*:focus {
+    outline: 2px solid var(--bi-modern-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Contraste élevé */
+@media (prefers-contrast: high) {
+    :root {
+        --bi-modern-border-color: #000000;
+        --bi-modern-text-secondary: #000000;
+    }
+}
+
+/* Mode sombre du système */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bi-modern-bg-primary: #1e293b;
+        --bi-modern-bg-secondary: #334155;
+        --bi-modern-bg-tertiary: #475569;
+        --bi-modern-text-primary: #f8fafc;
+        --bi-modern-text-secondary: #cbd5e1;
+        --bi-modern-text-muted: #94a3b8;
+        --bi-modern-border-color: #475569;
+    }
+}
+
+/* ========================================
+   EFFETS SPÉCIAUX MODERNES
+   ======================================== */
+
+/* Effet de glassmorphism pour certains éléments */
+.bi-modern-glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Effet de néon pour les éléments importants */
+.bi-modern-neon {
+    box-shadow: 
+        0 0 5px var(--bi-modern-primary),
+        0 0 10px var(--bi-modern-primary),
+        0 0 15px var(--bi-modern-primary);
+}
+
+/* Effet de gradient animé */
+.bi-modern-gradient {
+    background: linear-gradient(-45deg, var(--bi-modern-primary), var(--bi-modern-accent), var(--bi-modern-success), var(--bi-modern-primary));
+    background-size: 400% 400%;
+    animation: bi-modern-gradient-shift 3s ease infinite;
+}
+
+@keyframes bi-modern-gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+} 
+
+/* Notices WordPress - effet glassmorphism fancy */
+.wp-admin .notice {
+    position: fixed !important;
+    top: 24px;
+    right: 24px;
+    left: auto !important;
+    width: 360px;
+    max-width: 90vw;
+    z-index: 99999;
+    margin: 0 !important;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(99,102,241,0.10), 0 1.5px 4px rgba(0,0,0,0.08);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+    animation: bi-toast-in 0.5s cubic-bezier(.4,0,.2,1) forwards;
+    background: rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1.5px solid rgba(99,102,241,0.10);
+    color: var(--bi-modern-text-primary) !important;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    /* conserve le border-left color selon le type */
+}
+.wp-admin .notice + .notice {
+    top: auto;
+    margin-top: 16px !important;
+    bottom: auto;
+}
+@keyframes bi-toast-in {
+    to {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+}
+.wp-admin .notice-success {
+    border-left: 4px solid var(--bi-modern-success);
+}
+.wp-admin .notice-error {
+    border-left: 4px solid var(--bi-modern-error);
+}
+.wp-admin .notice-warning {
+    border-left: 4px solid var(--bi-modern-warning);
+}
+.wp-admin .notice-info {
+    border-left: 4px solid var(--bi-modern-accent);
+}
+.wp-admin .notice .notice-dismiss {
+    right: 8px;
+    color: var(--bi-modern-text-muted);
+    font-size: 1.2em;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+.wp-admin .notice .notice-dismiss:hover {
+    background: rgba(99,102,241,0.15);
+}
+@media (max-width: 600px) {
+    .wp-admin .notice {
+        right: 8px;
+        width: 98vw;
+        max-width: 98vw;
+        font-size: 14px;
+    }
+} 
+
+/* Correction couleur du border-right du menu admin */
+#adminmenu li.wp-has-submenu.wp-not-current-submenu.opensub:hover::after,
+#adminmenu li.wp-has-submenu.wp-not-current-submenu:focus-within::after {
+    border-right-color: var(--bi-modern-primary);
+} 
+
+.wp-has-current-submenu .wp-submenu {
+    border-radius: 0;
+}
+
+/* Stack des notices flottantes (toasts) */
+#bi-wp-toast-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 16px;
+    pointer-events: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    top: auto;
+    z-index: 999999;
+    max-width: 90vw;
+}
+#bi-wp-toast-container .notice {
+    position: static !important;
+    margin: 0 !important;
+    width: 360px;
+    max-width: 90vw;
+    pointer-events: auto;
+}
+@media (max-width: 600px) {
+    #bi-wp-toast-container {
+        right: 8px;
+        bottom: 8px;
+        top: auto;
+        max-width: 98vw;
+    }
+    #bi-wp-toast-container .notice {
+        width: 98vw;
+        max-width: 98vw;
+    }
+} 
+
+/* Style bouton principal pour h1 + a.page-title-action */
+h1 + a.page-title-action {
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    line-height: 1.2 !important;
+    padding: 0 18px !important;
+    border-radius: 6px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    background: linear-gradient(90deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.10);
+    transition: background 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1), filter 0.25s cubic-bezier(.4,0,.2,1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 12px;
+    vertical-align: middle;
+}
+h1 + a.page-title-action:hover {
+    filter: brightness(1.15) saturate(1.2) drop-shadow(0 0 8px rgba(99,102,241,0.18));
+    box-shadow: 0 6px 20px rgba(99,102,241,0.18);
+    background: linear-gradient(90deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+} 
+
+/* ========================================
+   SCREEN OPTIONS - Glassmorphism moderne
+   ======================================== */
+
+/* Container principal des options d'écran */
+#screen-meta {
+   border: none;
+}
+
+#screen-options-wrap {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-radius: 12px !important;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+    padding: 12px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet de bordure lumineuse */
+#screen-options-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+    border-radius: 12px 12px 0 0;
+}
+
+/* Titre de la section */
+#screen-options-wrap legend {
+    color: var(--bi-modern-text-primary) !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.15) !important;
+    position: relative;
+}
+
+/* Layout flex pour les fieldsets */
+#adv-settings {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    max-width: 1200px !important;
+    gap: 16px !important;
+    margin-top: 12px !important;
+}
+
+/* Style des fieldsets */
+#adv-settings fieldset {
+    background: rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(99, 102, 241, 0.08) !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    margin: 0 !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+}
+
+#adv-settings fieldset:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: rgba(99, 102, 241, 0.15) !important;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08) !important;
+}
+
+/* Titre des fieldsets */
+#adv-settings fieldset legend {
+    color: var(--bi-modern-text-primary) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 4px !important;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.08) !important;
+    position: relative;
+}
+
+/* Container des préférences */
+.metabox-prefs-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+    flex-wrap: wrap;
+}
+
+/* Labels des checkboxes */
+#screen-options-wrap label {
+    display: flex !important;
+    align-items: center !important;
+    padding: 6px 8px !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(99, 102, 241, 0.06) !important;
+    border-radius: 4px !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    cursor: pointer;
+    font-weight: 500 !important;
+    color: var(--bi-modern-text-primary) !important;
+    position: relative;
+    overflow: hidden;
+    flex-grow: 1;
+    min-width: 20%;
+    font-size: 13px !important;
+}
+
+/* Effet hover sur les labels */
+#screen-options-wrap label:hover {
+    background: rgba(99, 102, 241, 0.03) !important;
+    border-color: rgba(99, 102, 241, 0.15) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.08) !important;
+}
+
+/* Checkboxes personnalisées */
+#screen-options-wrap input[type="checkbox"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    border: 2px solid rgba(99, 102, 241, 0.25) !important;
+    border-radius: 3px !important;
+    margin-right: 8px !important;
+    position: relative;
+    background: rgba(255, 255, 255, 0.9) !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    cursor: pointer;
+}
+
+/* État checked des checkboxes */
+#screen-options-wrap input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+    border-color: var(--bi-modern-primary) !important;
+    box-shadow: 0 1px 4px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* Icône de validation pour checkbox checked */
+#screen-options-wrap input[type="checkbox"]:checked::after {
+    content: '✓' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: white !important;
+    font-size: 10px !important;
+    font-weight: bold !important;
+    line-height: 1 !important;
+}
+
+/* Focus states pour l'accessibilité */
+#screen-options-wrap input[type="checkbox"]:focus,
+#screen-options-wrap label:focus-within {
+    outline: 2px solid var(--bi-modern-primary) !important;
+    outline-offset: 1px !important;
+}
+
+/* Bouton Appliquer - toujours en dessous */
+#screen-options-wrap p.submit .button {
+    margin-top: 16px !important;
+    width: 100% !important;
+    max-width: 200px !important;
+    height: 32px !important;
+    padding: 0 16px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    background: linear-gradient(90deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15) !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#screen-options-wrap p.submit button:hover {
+    filter: brightness(1.1) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    #adv-settings {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+        gap: 12px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #screen-options-wrap {
+        padding: 8px !important;
+    }
+    
+    #adv-settings {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+        gap: 10px !important;
+    }
+    
+    #adv-settings fieldset {
+        padding: 10px !important;
+    }
+    
+    #screen-options-wrap label {
+        padding: 5px 6px !important;
+        font-size: 12px !important;
+    }
+    
+    #screen-options-wrap input[type="checkbox"] {
+        width: 14px !important;
+        height: 14px !important;
+        margin-right: 6px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #screen-options-wrap {
+        padding: 8px !important;
+        border-radius: 6px !important;
+    }
+    
+    #adv-settings {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+    
+    #adv-settings fieldset {
+        padding: 8px !important;
+    }
+    
+    #screen-options-wrap legend {
+        font-size: 13px !important;
+    }
+    
+    #screen-options-wrap p {
+        font-size: 12px !important;
+        padding: 8px !important;
+        margin-bottom: 12px !important;
+    }
+} 
+
+/* ========================================
+   RESPONSIVE - Auto-fold menu
+   ======================================== */
+
+@media only screen and (max-width: 960px) {
+    .auto-fold #adminmenu a.menu-top {
+        padding: 0;
+    }
+} 
+
+/* ========================================
+   CONTEXTUAL HELP - Glassmorphism moderne
+   ======================================== */
+
+/* Container principal de l'aide contextuelle */
+#contextual-help-wrap {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px !important;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+    margin: 16px 0 !important;
+    position: relative;
+    overflow: hidden; 
+    margin-bottom: 1px !important;
+}
+
+/* Effet de bordure lumineuse */
+#contextual-help-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+    border-radius: 12px 12px 0 0; 
+}
+
+/* Structure des colonnes */
+/* Onglets de navigation */
+.contextual-help-tabs ul {
+    gap: 8px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#contextual-help-back {
+    background:none !important;
+    border:none !important;
+}
+
+.contextual-help-tabs li {
+    margin: 0 !important;
+}
+
+.contextual-help-tabs a {
+    display: block !important;
+    padding: 12px 20px !important;
+    color: var(--bi-modern-text-secondary) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid transparent !important;
+    position: relative;
+}
+
+.contextual-help-tabs a:hover {
+    color: var(--bi-modern-primary) !important;
+    background: rgba(99, 102, 241, 0.05) !important;
+    border-color: rgba(99, 102, 241, 0.1) !important;
+}
+
+
+.contextual-help-tabs li.active {
+    border-left: none;
+}
+.contextual-help-tabs li.active a {
+    color: var(--bi-modern-primary) !important;
+    background: rgba(99, 102, 241, 0.08) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+    border-bottom-color: transparent !important;
+    font-weight: 600 !important;
+}
+
+/* Contenu des onglets */
+.contextual-help-tabs-wrap {
+    grid-column: 1 !important;
+}
+
+.help-tab-content {
+    background: rgba(255, 255, 255, 0.7) !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    border: 1px solid rgba(99, 102, 241, 0.1) !important;
+    line-height: 1.6 !important;
+    color: var(--bi-modern-text-primary) !important;
+}
+
+.help-tab-content p {
+    margin-bottom: 16px !important;
+    font-size: 14px !important;
+}
+
+.help-tab-content p:last-child {
+    margin-bottom: 0 !important;
+}
+
+.help-tab-content strong {
+    color: var(--bi-modern-text-primary) !important;
+    font-weight: 600 !important;
+}
+
+.help-tab-content a {
+    color: var(--bi-modern-primary) !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.3) !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+}
+
+.help-tab-content a:hover {
+    color: var(--bi-modern-accent) !important;
+    border-bottom-color: var(--bi-modern-accent) !important;
+}
+
+/* Sidebar d'aide */
+.contextual-help-sidebar {
+    grid-column: 2 !important;
+    background: rgba(99, 102, 241, 0.03) !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    border: 1px solid rgba(99, 102, 241, 0.1) !important;
+    border-left: 3px solid var(--bi-modern-primary) !important;
+}
+
+.contextual-help-sidebar p {
+    margin-bottom: 12px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: var(--bi-modern-text-primary) !important;
+}
+
+.contextual-help-sidebar p:last-child {
+    margin-bottom: 0 !important;
+}
+
+.contextual-help-sidebar strong {
+    color: var(--bi-modern-text-primary) !important;
+    font-weight: 600 !important;
+}
+
+.contextual-help-sidebar a {
+    color: var(--bi-modern-primary) !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.3) !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+}
+
+.contextual-help-sidebar a:hover {
+    color: var(--bi-modern-accent) !important;
+    border-bottom-color: var(--bi-modern-accent) !important;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    #contextual-help-columns {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 20px !important;
+    }
+    
+    .contextual-help-sidebar {
+        grid-column: 1 !important;
+        order: -1 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #contextual-help-wrap {
+        margin: 12px 0 !important;
+        border-radius: 8px !important;
+    }
+    
+    #contextual-help-columns {
+        padding: 16px !important;
+        gap: 16px !important;
+    }
+    
+    .contextual-help-tabs ul {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+    
+    .contextual-help-tabs a {
+        padding: 10px 16px !important;
+        font-size: 14px !important;
+    }
+    
+    .help-tab-content,
+    .contextual-help-sidebar {
+        padding: 16px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #contextual-help-columns {
+        padding: 12px !important;
+    }
+    
+    .contextual-help-tabs a {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+    }
+    
+    .help-tab-content,
+    .contextual-help-sidebar {
+        padding: 12px !important;
+        font-size: 13px !important;
+    }
+} 
+
+/* ========================================
+   TABLE NAVIGATION - Système d'accordéon moderne
+   ======================================== */
+
+/* Container principal de la navigation des tableaux */
+.tablenav.top {
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.05);
+}
+
+/* Bouton d'accordéon pour les actions */
+.tablenav.top::before {
+    content: 'Actions & Filtres';
+    position: absolute;
+    left: 45px;
+    padding: 4px 12px;
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    z-index: 10;
+}
+
+/* Bouton toggle pour l'accordéon */
+.tablenav.top::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    left: ;: 20px;
+    transform: translateY(-50%);
+    color: var(--bi-modern-primary);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    z-index: 10;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 50%;
+}
+
+/* État ouvert de l'accordéon */
+.tablenav.top.bi-accordion-open::after {
+    transform: translateY(-50%) rotate(180deg);
+    background: var(--bi-modern-primary);
+    color: white;
+}
+
+/* Container des actions groupées */
+.tablenav.top .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 0;
+    border-radius: 6px;
+    border: 1px solid rgba(99, 102, 241, 0.08);
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* État ouvert des actions */
+.tablenav.top.bi-accordion-open .actions {
+    max-height: 300px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 45px;
+}
+
+/* Sous-sections des actions */
+.bi-actions-section,
+.bi-filters-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+/* Titres des sous-sections */
+.bi-actions-section::before,
+.bi-filters-section::before {
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    color: white;
+    z-index: 5;
+}
+
+.bi-actions-section::before {
+    content: 'Actions';
+    background: linear-gradient(135deg, var(--bi-modern-error), #dc2626);
+}
+
+.bi-filters-section::before {
+    content: 'Filtres';
+    background: linear-gradient(135deg, var(--bi-modern-accent), #0891b2);
+}
+
+/* Style des boutons d'action */
+.tablenav.top .actions .button {
+    height: 32px !important;
+    padding: 0 16px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    border-radius: 6px !important;
+    background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.15) !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.tablenav.top .actions .button:hover {
+    filter: brightness(1.1) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Style des dropdowns d'action */
+.tablenav.top .actions select {
+    height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 13px !important;
+    border: 1px solid rgba(99, 102, 241, 0.2) !important;
+    border-radius: 6px !important;
+    background: white !important;
+    color: var(--bi-modern-text-primary) !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    cursor: pointer;
+    /* Amélioration de la flèche du dropdown */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 8px center !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px !important;
+    padding-right: 32px !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+.tablenav.top .actions select:focus {
+    outline: none !important;
+    border-color: var(--bi-modern-primary) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+.tablenav.top .actions select:hover {
+    border-color: var(--bi-modern-primary) !important;
+    background-color: #f8fafc !important;
+}
+
+/* Style pour les options du dropdown */
+.tablenav.top .actions select option {
+    background: white !important;
+    color: var(--bi-modern-text-primary) !important;
+    padding: 8px 12px !important;
+}
+
+/* Style des dropdowns dans les sous-sections */
+.bi-actions-section select,
+.bi-filters-section select {
+    height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 13px !important;
+    border: 1px solid rgba(99, 102, 241, 0.2) !important;
+    border-radius: 6px !important;
+    background: white !important;
+    color: var(--bi-modern-text-primary) !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    cursor: pointer;
+    /* Amélioration de la flèche du dropdown */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 8px center !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px !important;
+    padding-right: 32px !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+.bi-actions-section select:focus,
+.bi-filters-section select:focus {
+    outline: none !important;
+    border-color: var(--bi-modern-primary) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+.bi-actions-section select:hover,
+.bi-filters-section select:hover {
+    border-color: var(--bi-modern-primary) !important;
+    background-color: #f8fafc !important;
+}
+
+/* Navigation des pages */
+.tablenav.top .tablenav-pages {
+    margin-top: 16px;
+    width: 100%;
+}
+
+.tablenav.top .tablenav-pages .button.current {
+    background: var(--bi-modern-primary) !important;
+    color: white !important;
+    border-color: var(--bi-modern-primary) !important;
+    font-weight: 600 !important;
+}
+
+/* Texte de pagination */
+.tablenav.top .tablenav-pages .paging-input {
+    color: var(--bi-modern-text-secondary) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .tablenav.top {
+        padding: 12px;
+        margin-bottom: 16px;
+    }
+    
+    .tablenav.top .actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .bi-actions-section,
+    .bi-filters-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .bi-actions-section .button,
+    .bi-filters-section .button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .bi-actions-section select,
+    .bi-filters-section select {
+        width: 100%;
+    }
+    
+    .tablenav.top .tablenav-pages {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tablenav.top {
+        padding: 10px;
+    }
+    
+    .tablenav.top::before {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+    
+    .tablenav.top::after {
+        right: 15px;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+    
+    .tablenav.top .tablenav-pages {
+        font-size: 12px;
+    }
+    
+    .tablenav.top .tablenav-pages .button {
+        height: 24px !important;
+        min-width: 24px !important;
+        font-size: 11px !important;
+    }
+}
+
+/* ========================================
+   JAVASCRIPT POUR L'ACCORDÉON
+   ======================================== */
+
+/* Animation d'ouverture/fermeture */
+@keyframes bi-accordion-slide-down {
+    from {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        max-height: 200px;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bi-accordion-slide-up {
+    from {
+        max-height: 200px;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Classes pour les animations */
+.bi-accordion-slide-down {
+    animation: bi-accordion-slide-down 0.3s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+.bi-accordion-slide-up {
+    animation: bi-accordion-slide-up 0.3s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* Séparateurs d'actions */
+.bi-action-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+    position: relative;
+}
+
+.bi-action-separator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+    transform: translateY(-50%);
+}
+
+.bi-action-separator span {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--bi-modern-text-secondary);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Amélioration de l'apparence de l'accordéon */
+.tablenav.top.bi-accordion-closed {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.tablenav.top.bi-accordion-closed:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(var(--bi-modern-primary-rgb), 0.15);
+    box-shadow: 0 4px 12px rgba(var(--bi-modern-primary-rgb), 0.08);
+}
+
+.tablenav.top.bi-accordion-closed::after {
+    background:rgba(var(--bi-modern-primary-rgb), 0.15);
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.tablenav.top.bi-accordion-closed:hover::after {
+    background: var(--bi-modern-primary);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Indicateur visuel pour les actions groupées */
+.bi-grouped-actions {
+    position: relative;
+    background: rgba(168, 168, 168, 0.15);
+}
+
+/* Responsive pour les séparateurs */
+@media (max-width: 768px) {
+    .bi-action-separator {
+        margin: 6px 0;
+    }
+    
+    .bi-action-separator span {
+        font-size: 10px;
+        padding: 1px 6px;
+    }
+}
+
+/* ========================================
+   PASTILLES DE COMPTEUR - Style moderne
+   ======================================== */
+
+/* Pastilles pour les compteurs */
+span.count {
+    display: inline-block !important;
+    background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+    color: white !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    padding: 2px 6px !important;
+    border-radius: 10px !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    line-height: 12px !important;
+    text-align: center !important;
+    vertical-align: baseline !important;
+    box-shadow: 0 1px 3px rgba(var(--bi-modern-primary-rgb), 0.2) !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    position: relative;
+    top: -1px;
+}
+
+#adminmenu .menu-counter {
+   background:linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
+}
+
+/* Hover effect pour les pastilles */
+span.count:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 2px 6px rgba(var(--bi-modern-primary-rgb), 0.3) !important;
+    filter: brightness(1.1) !important;
+}
+
+/* Variantes de couleurs selon le contexte */
+span.count.count-success {
+    background: linear-gradient(135deg, var(--bi-modern-success), #059669) !important;
+    box-shadow: 0 1px 3px rgba(16, 185, 129, 0.2) !important;
+}
+
+span.count.count-warning {
+    background: linear-gradient(135deg, var(--bi-modern-warning), #d97706) !important;
+    box-shadow: 0 1px 3px rgba(245, 158, 11, 0.2) !important;
+}
+
+span.count.count-error {
+    background: linear-gradient(135deg, var(--bi-modern-error), #dc2626) !important;
+    box-shadow: 0 1px 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+span.count.count-info {
+    background: linear-gradient(135deg, var(--bi-modern-accent), #0891b2) !important;
+    box-shadow: 0 1px 3px rgba(6, 182, 212, 0.2) !important;
+}
+
+/* Animation de pulsation pour les compteurs importants */
+span.count.count-highlight {
+    animation: bi-count-pulse 2s infinite;
+}
+
+@keyframes bi-count-pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 1px 3px rgba(99, 102, 241, 0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+    }
+}
+
+/* Responsive pour les pastilles */
+@media (max-width: 768px) {
+    span.count {
+        font-size: 10px !important;
+        padding: 1px 5px !important;
+        min-width: 14px !important;
+        height: 14px !important;
+        line-height: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    span.count {
+        font-size: 9px !important;
+        padding: 1px 4px !important;
+        min-width: 12px !important;
+        height: 12px !important;
+        line-height: 10px !important;
+    }
+} 
+
+/* ========================================
+   BARRE DE SCROLL PERSONNALISÉE
+   ======================================== */
+
+/* Scrollbar moderne pour Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(99, 102, 241, 0.05);
+    border-radius: 4px;
+    margin: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--bi-modern-accent), #0891b2);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0891b2, #0e7490);
+    transform: scale(1.1);
+    box-shadow: 0 2px 6px rgba(6, 182, 212, 0.3);
+}
+
+::-webkit-scrollbar-corner {
+    background: rgba(99, 102, 241, 0.05);
+    border-radius: 4px;
+}
+
+/* Scrollbar pour les conteneurs spécifiques */
+.wp-list-table::-webkit-scrollbar,
+.postbox::-webkit-scrollbar,
+.metabox-holder::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.wp-list-table::-webkit-scrollbar-thumb,
+.postbox::-webkit-scrollbar-thumb,
+.metabox-holder::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.7), rgba(8, 145, 178, 0.7));
+    border-radius: 3px;
+}
+
+.wp-list-table::-webkit-scrollbar-thumb:hover,
+.postbox::-webkit-scrollbar-thumb:hover,
+.metabox-holder::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.9), rgba(8, 145, 178, 0.9));
+}
+
+/* Scrollbar pour les zones d'édition */
+.wp-editor-container::-webkit-scrollbar,
+textarea::-webkit-scrollbar,
+.bi-editor-container textarea::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.wp-editor-container::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb,
+.bi-editor-container textarea::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--bi-modern-accent), #0891b2);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.wp-editor-container::-webkit-scrollbar-thumb:hover,
+textarea::-webkit-scrollbar-thumb:hover,
+.bi-editor-container textarea::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0891b2, #0e7490);
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.4);
+}
+
+/* Scrollbar pour Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--bi-modern-accent) rgba(6, 182, 212, 0.05);
+}
+
+/* Scrollbar pour les menus admin */
+#adminmenu::-webkit-scrollbar {
+    width: 6px;
+}
+
+#adminmenu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+#adminmenu::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5));
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#adminmenu::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.7));
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2);
+}
+
+/* Scrollbar pour les sous-menus */
+#adminmenu .wp-submenu::-webkit-scrollbar {
+    width: 4px;
+}
+
+#adminmenu .wp-submenu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+}
+
+#adminmenu .wp-submenu::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.6));
+    border-radius: 2px;
+}
+
+#adminmenu .wp-submenu::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
+}
+
+/* Animation de scroll fluide */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar pour les modales et overlays */
+.wp-dialog::-webkit-scrollbar,
+.wp-modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.wp-dialog::-webkit-scrollbar-thumb,
+.wp-modal::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--bi-modern-accent), #0891b2);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wp-dialog::-webkit-scrollbar-thumb:hover,
+.wp-modal::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0891b2, #0e7490);
+    box-shadow: 0 2px 6px rgba(6, 182, 212, 0.3);
+}
+
+/* Responsive pour les scrollbars */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .wp-list-table::-webkit-scrollbar,
+    .postbox::-webkit-scrollbar,
+    .metabox-holder::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+    
+    .wp-editor-container::-webkit-scrollbar,
+    textarea::-webkit-scrollbar,
+    .bi-editor-container textarea::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+} 
+
+/* ========================================
+   RESPONSIVE - Auto-fold menu
+   ======================================== */
+
+@media only screen and (max-width: 960px) {
+    .auto-fold #adminmenu a.menu-top {
+        padding: 0;
+    }
+} 
+
+/* ========================================
+   STYLE SPÉCIFIQUE POUR LES BOUTONS DE FERMETURE DES NOTICES
+   ======================================== */
+
+/* Style spécifique pour les boutons de fermeture des notices */
+.notice-dismiss {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 50% !important;
+    color: var(--bi-modern-text-primary) !important;
+    font-size: 1.2em !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    position: relative !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.notice-dismiss:hover {
+    background: rgba(255, 255, 255, 0.4) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: var(--bi-modern-text-primary) !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.notice-dismiss:focus {
+    outline: 2px solid var(--bi-modern-primary) !important;
+    outline-offset: 2px !important;
+}
+
+/* Amélioration de l'icône X */
+.notice-dismiss::before {
+    content: '×' !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    line-height: 1 !important;
+    color: inherit !important;
+    display: block !important;
+}
+
+/* Responsive pour les boutons de fermeture */
+@media (max-width: 768px) {
+    .notice-dismiss {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 1em !important;
+    }
+    
+    .notice-dismiss::before {
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .notice-dismiss {
+        width: 18px !important;
+        height: 18px !important;
+    }
+    
+    .notice-dismiss::before {
+        font-size: 14px !important;
+    }
+}
+
+.subsubsub {
+   margin-bottom: 15px;
+}
