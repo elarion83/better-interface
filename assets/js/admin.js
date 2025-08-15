@@ -20,6 +20,7 @@
 		this.bindRowBackgroundSelect();
 		this.bindRowCheckboxSync();
 		this.initializeSelectedRowsState();
+		this.initPageTransition();
 	};
 
 	// Pourquoi: permettre de choisir un mode de design
@@ -218,6 +219,61 @@
 				self.updateRowSelectedState($row, $checkbox.prop('checked'));
 			}
 		});
+	};
+
+	// ===== TRANSITION DE PAGE SMOOTH =====
+	// Pourquoi: créer une transition fluide lors des changements de page pour une meilleure UX
+	BetterInterfaceAdmin.prototype.initPageTransition = function(){
+		var self = this;
+		
+		// Créer l'overlay de transition s'il n'existe pas
+		if ($('.bi-page-transition-overlay').length === 0) {
+			$('body').append('<div class="bi-page-transition-overlay"></div>');
+		}
+
+		// Intercepter les clics sur les liens de navigation
+		$(document).on('click', 'a[href*="admin.php"], a[href*="post.php"], a[href*="edit.php"], a[href*="upload.php"], a[href*="users.php"], a[href*="plugins.php"], a[href*="themes.php"], a[href*="options-general.php"], a[href*="tools.php"], a[href*="edit-comments.php"]', function(e){
+			var href = $(this).attr('href');
+			
+			// Ignorer les liens avec des ancres ou des paramètres spécifiques
+			if (href.indexOf('#') === 0 || href.indexOf('javascript:') === 0) return;
+			
+			// Ignorer les liens qui ouvrent dans un nouvel onglet
+			if ($(this).attr('target') === '_blank') return;
+			
+			// Ignorer les liens de téléchargement
+			if (href.indexOf('download') !== -1 || href.indexOf('export') !== -1) return;
+			
+			// Activer la transition
+			self.showPageTransition();
+			
+			// Délai pour permettre à l'animation de se déclencher
+			setTimeout(function(){
+				window.location.href = href;
+			}, 300);
+		});
+
+		// Intercepter les soumissions de formulaires
+		$(document).on('submit', 'form', function(e){
+			var $form = $(this);
+			var action = $form.attr('action') || '';
+			
+			// Ignorer les formulaires AJAX ou avec des actions spécifiques
+			if ($form.hasClass('no-transition') || action.indexOf('ajax') !== -1) return;
+			
+			// Activer la transition
+			self.showPageTransition();
+		});
+
+		// Intercepter les clics sur les boutons de sauvegarde du plugin
+		$(document).on('click', '.bi-save-mode, .bi-save-theme', function(){
+			self.showPageTransition();
+		});
+	};
+
+	// Afficher l'overlay de transition
+	BetterInterfaceAdmin.prototype.showPageTransition = function(){
+		$('.bi-page-transition-overlay').addClass('active');
 	};
 
 	$(function(){
