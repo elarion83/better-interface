@@ -669,15 +669,6 @@ th.check-column label, td.check-column label {
     overflow: hidden;
 }
 
-.notice:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--bi-modern-primary);
-}
 
 .notice-success {
     border-left-color: var(--bi-modern-success);
@@ -862,57 +853,64 @@ th.check-column label, td.check-column label {
     }
 } 
 
-/* Notices WordPress - effet glassmorphism fancy */
-.wp-admin .notice {
-    position: fixed !important;
+/* ========================================
+   SYSTÈME DE POSITIONNEMENT DES NOTICES
+   ======================================== */
+
+/* Container pour les notices positionnées à droite */
+.bi-notices-container {
+    position: fixed;
     bottom: 24px;
     right: 24px;
-    left: auto !important;
-    width: 360px;
-    max-width: 90vw;
-    z-index: 99999;
-    margin: 0 !important;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(99,102,241,0.10), 0 1.5px 4px rgba(0,0,0,0.08);
-    opacity: 0;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 360px;
     pointer-events: none;
-    transform: translateY(-20px);
-    animation: bi-toast-in 0.5s cubic-bezier(.4,0,.2,1) forwards;
-    background: rgba(255, 255, 255, 0.35) !important;
-    backdrop-filter: blur(12px) saturate(1.2);
-    -webkit-backdrop-filter: blur(12px) saturate(1.2);
-    border: 1.5px solid rgba(99,102,241,0.10);
-    color: var(--bi-modern-text-primary) !important;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    top: auto !important;
-    /* conserve le border-left color selon le type */
 }
-.wp-admin .notice + .notice {
-    top: auto;
-    margin-top: 16px !important;
-    bottom: auto;
+
+/* Notices WordPress positionnées à droite */
+.bi-notices-container .notice,
+.bi-notices-container .notice-success,
+.bi-notices-container .notice-error,
+.bi-notices-container .notice-warning,
+.bi-notices-container .notice-info {
+    position: static !important;
+    margin: 0 !important;
+    width: 100%;
+    max-width: 360px;
+    pointer-events: auto;
+    background: var(--bi-modern-bg-primary);
+    border: 1px solid var(--bi-modern-border-color);
+    border-radius: var(--bi-modern-border-radius);
+    box-shadow: var(--bi-modern-shadow-medium);
+    padding: 16px 20px;
+    position: relative;
+    overflow: hidden;
 }
-@keyframes bi-toast-in {
-    to {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-    }
-}
-.wp-admin .notice-success {
+
+/* Couleurs spécifiques pour chaque type de notice */
+.bi-notices-container .notice-success {
     border-left: 4px solid var(--bi-modern-success);
 }
-.wp-admin .notice-error {
+
+.bi-notices-container .notice-error {
     border-left: 4px solid var(--bi-modern-error);
 }
-.wp-admin .notice-warning {
+
+.bi-notices-container .notice-warning {
     border-left: 4px solid var(--bi-modern-warning);
 }
-.wp-admin .notice-info {
+
+.bi-notices-container .notice-info {
     border-left: 4px solid var(--bi-modern-accent);
 }
-.wp-admin .notice .notice-dismiss {
+
+/* Bouton de fermeture des notices */
+.bi-notices-container .notice .notice-dismiss {
+    position: absolute;
+    top: 8px;
     right: 8px;
     color: var(--bi-modern-text-muted);
     font-size: 1.2em;
@@ -920,14 +918,25 @@ th.check-column label, td.check-column label {
     border-radius: 50%;
     transition: background 0.2s;
 }
-.wp-admin .notice .notice-dismiss:hover {
+
+.bi-notices-container .notice .notice-dismiss:hover {
     background: rgba(99,102,241,0.15);
 }
+
+/* Responsive */
 @media (max-width: 600px) {
-    .wp-admin .notice {
+    .bi-notices-container {
         right: 8px;
-        width: 98vw;
-        max-width: 98vw;
+        bottom: 8px;
+        max-width: calc(100vw - 16px);
+    }
+    
+    .bi-notices-container .notice,
+    .bi-notices-container .notice-success,
+    .bi-notices-container .notice-error,
+    .bi-notices-container .notice-warning,
+    .bi-notices-container .notice-info {
+        max-width: calc(100vw - 16px);
         font-size: 14px;
     }
 } 
@@ -942,39 +951,7 @@ th.check-column label, td.check-column label {
     border-radius: 0;
 }
 
-/* Stack des notices flottantes (toasts) */
-#bi-wp-toast-container {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: flex-end;
-    gap: 16px;
-    pointer-events: none;
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    top: auto;
-    z-index: 999999;
-    max-width: 90vw;
-}
-#bi-wp-toast-container .notice {
-    position: static !important;
-    margin: 0 !important;
-    width: 360px;
-    max-width: 90vw;
-    pointer-events: auto;
-}
-@media (max-width: 600px) {
-    #bi-wp-toast-container {
-        right: 8px;
-        bottom: 8px;
-        top: auto;
-        max-width: 98vw;
-    }
-    #bi-wp-toast-container .notice {
-        width: 98vw;
-        max-width: 98vw;
-    }
-} 
+ 
 
 /* Style bouton principal pour h1 + a.page-title-action */
 h1 + a.page-title-action {

@@ -21,6 +21,7 @@
 		this.bindRowCheckboxSync();
 		this.initializeSelectedRowsState();
 		this.initPageTransition();
+		this.initNoticesPositioning();
 	};
 
 	// Pourquoi: permettre de choisir un mode de design
@@ -274,6 +275,56 @@
 	// Afficher l'overlay de transition
 	BetterInterfaceAdmin.prototype.showPageTransition = function(){
 		$('.bi-page-transition-overlay').addClass('active');
+	};
+
+	// ===== SYSTÈME DE POSITIONNEMENT DES NOTICES =====
+	// Pourquoi: organiser les notices WordPress en colonne verticale à droite pour éviter les superpositions
+	BetterInterfaceAdmin.prototype.initNoticesPositioning = function(){
+		var self = this;
+		
+		// Créer le container pour les notices s'il n'existe pas
+		if ($('.bi-notices-container').length === 0) {
+			$('body').append('<div class="bi-notices-container"></div>');
+		}
+
+		// Fonction pour déplacer une notice dans le container
+		function moveNoticeToContainer($notice) {
+			if ($notice.closest('.bi-notices-container').length === 0) {
+				$('.bi-notices-container').append($notice);
+			}
+		}
+
+		// Observer les nouvelles notices qui apparaissent
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				mutation.addedNodes.forEach(function(node) {
+					if (node.nodeType === 1) { // Element node
+						var $node = $(node);
+						
+						// Vérifier si c'est une notice ou contient des notices
+						if ($node.hasClass('notice') || $node.hasClass('notice-success') || $node.hasClass('notice-error') || $node.hasClass('notice-warning') || $node.hasClass('notice-info')) {
+							moveNoticeToContainer($node);
+						}
+						
+						// Chercher des notices dans les enfants
+						$node.find('.notice, .notice-success, .notice-error, .notice-warning, .notice-info').each(function() {
+							moveNoticeToContainer($(this));
+						});
+					}
+				});
+			});
+		});
+
+		// Démarrer l'observation
+		observer.observe(document.body, {
+			childList: true,
+			subtree: true
+		});
+
+		// Déplacer les notices existantes
+		$('.notice, .notice-success, .notice-error, .notice-warning, .notice-info').each(function() {
+			moveNoticeToContainer($(this));
+		});
 	};
 
 	$(function(){
