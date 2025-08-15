@@ -286,150 +286,18 @@
     cursor: not-allowed;
 }
 
-.bi-preview-mode {
-    background: var(--bi-bg-primary);
-    color: var(--bi-text-primary);
-    border: 2px solid var(--bi-border-color);
-}
-
-.bi-preview-mode:hover {
-    border-color: var(--bi-primary);
-    color: var(--bi-primary);
-    transform: translateY(-1px);
-}
-
-/* Onglets de personnalisation */
-.bi-custom-tabs {
-    margin-top: 20px;
-}
-
-.bi-tabs-nav {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--bi-border-color);
-}
-
-.bi-tab-button {
-    background: var(--bi-bg-secondary);
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px 8px 0 0;
-    cursor: pointer;
-    font-weight: 500;
-    color: var(--bi-text-secondary);
-    transition: all var(--bi-transition-fast);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.bi-tab-button:hover {
-    background: var(--bi-bg-tertiary);
-    color: var(--bi-text-primary);
-}
-
-.bi-tab-button.active {
-    background: var(--bi-primary);
-    color: white;
-}
-
-.bi-tab-button .dashicons {
-    font-size: 16px;
-    width: auto;
-    height: auto;
-}
-
-/* Contenu des onglets */
-.bi-tabs-content {
-    position: relative;
-}
-
-.bi-tab-content {
-    display: none;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-.bi-tab-content.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Éditeurs de code */
-.bi-editor-container {
-    margin-bottom: 20px;
-}
-
-.bi-editor-container label {
-    display: block;
-    font-weight: 600;
-    color: var(--bi-text-primary);
-    margin-bottom: 8px;
-}
-
-.bi-editor-container textarea {
-    width: 100%;
-    min-height: 200px;
-    padding: 15px;
-    border: 2px solid var(--bi-border-color);
-    border-radius: 8px;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 13px;
-    line-height: 1.5;
-    background: var(--bi-bg-primary);
-    color: var(--bi-text-primary);
-    resize: vertical;
-    transition: border-color var(--bi-transition-fast);
-}
-
-.bi-editor-container textarea:focus {
-    outline: none;
-    border-color: var(--bi-primary);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.bi-editor-info {
-    margin-top: 10px;
-    padding: 12px;
-    background: var(--bi-bg-secondary);
-    border-radius: 6px;
-    border-left: 3px solid var(--bi-primary);
-}
-
-.bi-editor-info p {
-    margin: 0 0 8px 0;
-    font-size: 0.9rem;
-    color: var(--bi-text-secondary);
-}
-
-.bi-editor-info code {
-    background: var(--bi-bg-tertiary);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--bi-text-primary);
-    border: 1px solid var(--bi-border-color);
-}
-
-/* Actions de personnalisation */
+/* Personnalisation avancée retirée: les styles suivants ne sont plus utilisés mais conservés pour référence
+.bi-custom-tabs,
+.bi-tabs-nav,
+.bi-tab-button,
+.bi-tabs-content,
+.bi-tab-content,
+.bi-editor-container,
+.bi-editor-info,
 .bi-custom-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    /* retirés */
 }
-
-.bi-custom-actions .button {
-    padding: 10px 20px;
-    font-weight: 600;
-    border-radius: 6px;
-    transition: all var(--bi-transition-fast);
-}
+*/
 
 /* Section d'informations */
 .bi-info-section {
@@ -466,30 +334,7 @@
     margin: 0;
 }
 
-/* Actions de réinitialisation */
-.bi-reset-section {
-    text-align: center;
-    margin-top: 30px;
-    padding: 20px;
-    background: var(--bi-bg-secondary);
-    border-radius: var(--bi-border-radius);
-    border: 1px solid var(--bi-border-color);
-}
-
-.bi-reset-section .button {
-    background: var(--bi-error);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: all var(--bi-transition-fast);
-}
-
-.bi-reset-section .button:hover {
-    background: #dc2626;
-    transform: translateY(-1px);
-}
+/* Section de réinitialisation retirée (UI non câblée) */
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -578,21 +423,7 @@
     animation: bi-spin 1s linear infinite;
 }
 
-/* Animation de notification */
-@keyframes bi-slide-in {
-    from {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.bi-notification {
-    animation: bi-slide-in 0.3s ease-out;
-}
+/* Animation de notification retirée (aucune notification utilisée) */
 
 /* ========================================
    ÉTATS ET INTERACTIONS

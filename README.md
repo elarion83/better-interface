@@ -12,7 +12,6 @@ Un plugin WordPress moderne qui transforme l'interface administrateur avec 2 mod
 ### Caractéristiques Principales
 
 - ✅ **Interface Responsive** - Optimisée pour tous les appareils
-- ✅ **Personnalisation Avancée** - CSS et JavaScript personnalisés
 - ✅ **Accessibilité** - Conforme aux normes WCAG
 - ✅ **Performance** - Code optimisé et léger
 - ✅ **Sécurité** - Validation et sanitisation des données
@@ -42,30 +41,7 @@ Un plugin WordPress moderne qui transforme l'interface administrateur avec 2 mod
 3. Cliquez sur **"Appliquer le mode sélectionné"**
 4. La page se recharge automatiquement avec le nouveau design
 
-### Personnalisation Avancée
-
-#### CSS Personnalisé
-```css
-/* Exemple : Changer la couleur du menu admin */
-#adminmenu {
-    background: #2c3e50;
-}
-
-/* Exemple : Modifier les boutons */
-.wp-core-ui .button-primary {
-    background: #e74c3c;
-    border-color: #c0392b;
-}
-```
-
-#### JavaScript Personnalisé
-```javascript
-// Exemple : Ajouter une fonctionnalité personnalisée
-jQuery(document).ready(function($) {
-    // Votre code JavaScript ici
-    console.log('Better Interface chargé !');
-});
-```
+<!-- Personnalisation avancée retirée dans cette version -->
 
 ### Fonctionnalités par Mode
 
@@ -115,13 +91,9 @@ add_action('admin_init')
 add_action('admin_enqueue_scripts')
 add_action('admin_menu')
 
-// Styles et Scripts
-add_action('admin_head')
-add_action('admin_footer')
-
 // AJAX
 add_action('wp_ajax_bi_save_mode')
-add_action('wp_ajax_bi_reset_settings')
+add_action('wp_ajax_bi_save_color_theme')
 ```
 
 ### Variables CSS Personnalisables
@@ -144,15 +116,11 @@ add_action('wp_ajax_bi_reset_settings')
 ### Options Disponibles
 
 - `bi_design_mode` - Mode de design actuel
-- `bi_custom_css` - CSS personnalisé
-- `bi_custom_js` - JavaScript personnalisé
+- `bi_color_theme` - Thème de couleurs pour le mode moderne
 
 ### API JavaScript
 
 ```javascript
-// Accès à l'instance du plugin
-window.BetterInterfaceAdmin
-
 // Variables AJAX disponibles
 bi_ajax.current_mode
 bi_ajax.available_modes
@@ -162,19 +130,7 @@ bi_ajax.nonce
 
 ## 🎯 Fonctionnalités Avancées
 
-### Système de Notifications
-- Notifications en temps réel
-- Types : success, error, warning, info
-- Fermeture automatique après 5 secondes
-
-### Aperçu en Temps Réel
-- Modal d'aperçu des modes
-- Prévisualisation sans sauvegarde
-- Application directe depuis l'aperçu
-
-### Raccourcis Clavier
-- `Escape` - Fermer les modals
-- `Ctrl+S` - Sauvegarder les modifications
+<!-- Sections de fonctionnalités non implémentées retirées pour cohérence -->
 
 ### Responsive Design
 - Mobile-first approach

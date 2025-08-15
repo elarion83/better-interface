@@ -345,13 +345,13 @@ body {
    margin-top: -4px;
 }
 
-/* Boutons uniformes et colorés (hors .column-title, .handle-actions, #screen-meta-links, #minor-publishing, #wpseo-metabox-root, .notice-dismiss et .media-frame-content) */
-button:not(.column-title button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button),
-input[type="button"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input),
-input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input),
-.wp-core-ui .button:not(.column-title .button):not(.handle-actions .button):not(#screen-meta-links .button):not(#minor-publishing .button):not(#wpseo-metabox-root .button):not(.notice-dismiss):not(.media-frame-content .button):not(.edit-post-editor__inserter-panel-content .button),
-.wp-core-ui .button-primary:not(.column-title .button-primary):not(.handle-actions .button-primary):not(#screen-meta-links .button-primary):not(#minor-publishing .button-primary):not(#wpseo-metabox-root .button-primary):not(.notice-dismiss):not(.media-frame-content .button-primary):not(.edit-post-editor__inserter-panel-content .button-primary),
-.wp-core-ui .button-secondary:not(.column-title .button-secondary):not(.handle-actions .button-secondary):not(#screen-meta-links .button-secondary):not(#minor-publishing .button-secondary):not(#wpseo-metabox-root .button-secondary):not(.notice-dismiss):not(.media-frame-content .button-secondary):not(.edit-post-editor__inserter-panel-content .button-secondary) {
+/* Boutons uniformes et colorés (hors .column-title, .handle-actions, #screen-meta-links, #minor-publishing, #wpseo-metabox-root, .notice-dismiss, .media-frame-content, .mce-container, #wp-content-editor-tools et .interface-interface-skeleton__editor) */
+button:not(.column-title button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button):not(.mce-container button):not(#wp-content-editor-tools button):not(.interface-interface-skeleton__editor button),
+input[type="button"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):not(.mce-container input):not(#wp-content-editor-tools input):not(.interface-interface-skeleton__editor input),
+input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):not(.mce-container input):not(#wp-content-editor-tools input):not(.interface-interface-skeleton__editor input),
+.wp-core-ui .button:not(.column-title .button):not(.handle-actions .button):not(#screen-meta-links .button):not(#minor-publishing .button):not(#wpseo-metabox-root .button):not(.notice-dismiss):not(.media-frame-content .button):not(.edit-post-editor__inserter-panel-content .button):not(.mce-container .button):not(#wp-content-editor-tools .button):not(.interface-interface-skeleton__editor .button),
+.wp-core-ui .button-primary:not(.column-title .button-primary):not(.handle-actions .button-primary):not(#screen-meta-links .button-primary):not(#minor-publishing .button-primary):not(#wpseo-metabox-root .button-primary):not(.notice-dismiss):not(.media-frame-content .button-primary):not(.edit-post-editor__inserter-panel-content .button-primary):not(.mce-container .button-primary):not(#wp-content-editor-tools .button-primary):not(.interface-interface-skeleton__editor .button-primary),
+.wp-core-ui .button-secondary:not(.column-title .button-secondary):not(.handle-actions .button-secondary):not(#screen-meta-links .button-secondary):not(#minor-publishing .button-secondary):not(#wpseo-metabox-root .button-secondary):not(.notice-dismiss):not(.media-frame-content .button-secondary):not(.edit-post-editor__inserter-panel-content .button-secondary):not(.mce-container .button-secondary):not(#wp-content-editor-tools .button-secondary):not(.interface-interface-skeleton__editor .button-secondary) {
     height: 30px !important;
     min-height: 30px !important;
     max-height: 30px !important;
@@ -371,12 +371,12 @@ input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#sc
     cursor: pointer;
 }
 
-button:not(.column-title button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button):hover,
-input[type="button"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):hover,
-input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):hover,
-.wp-core-ui .button:not(.column-title .button):not(.handle-actions .button):not(#screen-meta-links .button):not(#minor-publishing .button):not(#wpseo-metabox-root .button):not(.notice-dismiss):not(.media-frame-content .button):not(.edit-post-editor__inserter-panel-content .button):hover,
-.wp-core-ui .button-primary:not(.column-title .button-primary):not(.handle-actions .button-primary):not(#screen-meta-links .button-primary):not(#minor-publishing .button-primary):not(#wpseo-metabox-root .button-primary):not(.notice-dismiss):not(.media-frame-content .button-primary):not(.edit-post-editor__inserter-panel-content .button-primary):hover,
-.wp-core-ui .button-secondary:not(.column-title .button-secondary):not(.handle-actions .button-secondary):not(#screen-meta-links .button-secondary):not(#minor-publishing .button-secondary):not(#wpseo-metabox-root .button-secondary):not(.notice-dismiss):not(.media-frame-content .button-secondary):not(.edit-post-editor__inserter-panel-content .button-secondary):hover {
+button:not(.column-title button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button):not(.mce-container button):not(#wp-content-editor-tools button):not(.interface-interface-skeleton__editor button):hover,
+input[type="button"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):not(.mce-container input):not(#wp-content-editor-tools input):not(.interface-interface-skeleton__editor input):hover,
+input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):not(.mce-container input):not(#wp-content-editor-tools input):not(.interface-interface-skeleton__editor input):hover,
+.wp-core-ui .button:not(.column-title .button):not(.handle-actions .button):not(#screen-meta-links .button):not(#minor-publishing .button):not(#wpseo-metabox-root .button):not(.notice-dismiss):not(.media-frame-content .button):not(.edit-post-editor__inserter-panel-content .button):not(.mce-container .button):not(#wp-content-editor-tools .button):not(.interface-interface-skeleton__editor .button):hover,
+.wp-core-ui .button-primary:not(.column-title .button-primary):not(.handle-actions .button-primary):not(#screen-meta-links .button-primary):not(#minor-publishing .button-primary):not(#wpseo-metabox-root .button-primary):not(.notice-dismiss):not(.media-frame-content .button-primary):not(.edit-post-editor__inserter-panel-content .button-primary):not(.mce-container .button-primary):not(#wp-content-editor-tools .button-primary):not(.interface-interface-skeleton__editor .button-primary):hover,
+.wp-core-ui .button-secondary:not(.column-title .button-secondary):not(.handle-actions .button-secondary):not(#screen-meta-links .button-secondary):not(#minor-publishing .button-secondary):not(#wpseo-metabox-root .button-secondary):not(.notice-dismiss):not(.media-frame-content .button-secondary):not(.edit-post-editor__inserter-panel-content .button-secondary):not(.mce-container .button-secondary):not(#wp-content-editor-tools .button-secondary):not(.interface-interface-skeleton__editor .button-secondary):hover {
     filter: brightness(1.15) saturate(1.2) drop-shadow(0 0 8px rgba(99,102,241,0.18));
     box-shadow: 0 6px 20px rgba(99,102,241,0.18);
     background: linear-gradient(90deg, var(--bi-modern-primary), var(--bi-modern-accent)) !important;
@@ -452,6 +452,10 @@ select {
     overflow: visible;
 }
 
+.wp-list-table .toggle-row {
+    display: none !important;
+}
+
 .wp-list-table thead th {
     background: var(--bi-modern-bg-secondary);
     color: var(--bi-modern-text-primary);
@@ -470,6 +474,93 @@ select {
     box-shadow: 0 6px 24px rgba(99,102,241,0.20), 0 1.5px 4px rgba(0,0,0,0.18);
     z-index: 2;
     position: relative;
+}
+
+/* Sélection de ligne moderne: état visuel quand la ligne est cochée */
+.wp-list-table tbody tr.bi-row-selected {
+    border-left: 4px solid var(--bi-modern-primary);
+    position: relative;
+    transform: none;
+    background-color: var(--bi-modern-bg-primary);
+    background-image: linear-gradient(90deg, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0.08) 35%, rgba(16, 185, 129, 0) 70%);
+    background-repeat: no-repeat;
+}
+
+/* Pas de sur-zoom ni d'ombre quand sélectionnée */
+.wp-list-table tbody tr.bi-row-selected:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: var(--bi-modern-bg-primary);
+    background-image: linear-gradient(90deg, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0.08) 35%, rgba(16, 185, 129, 0) 70%);
+}
+
+/* Rendre la zone de la case à cocher visuellement propre: masquer l'input mais conserver l'accessibilité */
+th.check-column input[type="checkbox"],
+td.check-column input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Remplacer la case par un indicateur moderne via le label associé */
+th.check-column label[for^="cb-select-"],
+td.check-column label[for^="cb-select-"],
+th.check-column label, td.check-column label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid rgba(99, 102, 241, 0.25);
+    background: rgba(255, 255, 255, 0.9);
+    transition: all var(--bi-modern-transition-fast);
+    cursor: pointer;
+    position: relative;
+}
+
+/* Icône de sélection (check) quand la ligne est sélectionnée */
+.wp-list-table tbody tr.bi-row-selected th.check-column label::after,
+.wp-list-table tbody tr.bi-row-selected td.check-column label::after {
+    content: '✓';
+    position: absolute;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Effet coloré sur l'indicateur quand sélectionné */
+.wp-list-table tbody tr.bi-row-selected th.check-column label,
+.wp-list-table tbody tr.bi-row-selected td.check-column label {
+    background: linear-gradient(135deg, var(--bi-modern-primary), var(--bi-modern-accent));
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.25);
+}
+
+/* Hover sur la ligne: accentuer l'indicateur sans forcer la sélection */
+.wp-list-table tbody tr:hover th.check-column label,
+.wp-list-table tbody tr:hover td.check-column label {
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* Unifier la bordure gauche entre lignes sélectionnées consécutives */
+.wp-list-table tbody tr.bi-row-selected + tr.bi-row-selected {
+    border-left-color: var(--bi-modern-primary);
+}
+
+/* Fusionner les séparateurs internes des lignes sélectionnées */
+.wp-list-table tbody tr.bi-row-selected td {
+    border-bottom-color: transparent; /* supprime la bordure interne de la ligne sélectionnée */
+}
+
+/* Début de groupe sélectionné: ajouter une bordure supérieure lisible */
+.wp-list-table tbody tr:not(.bi-row-selected) + tr.bi-row-selected td {
+    border-top: 1px solid rgba(var(--bi-modern-primary-rgb), 0.35);
+}
+
+/* Fin de groupe sélectionné: ajouter une bordure supérieure sur la ligne suivante (sert de bordure basse au groupe) */
+.wp-list-table tbody tr.bi-row-selected + tr:not(.bi-row-selected) td {
+    border-top: 1px solid rgba(var(--bi-modern-primary-rgb), 0.35);
 }
 
 .wp-list-table tbody td {
@@ -714,7 +805,7 @@ select {
 /* Notices WordPress - effet glassmorphism fancy */
 .wp-admin .notice {
     position: fixed !important;
-    top: 24px;
+    bottom: 24px;
     right: 24px;
     left: auto !important;
     width: 360px;
@@ -829,7 +920,6 @@ h1 + a.page-title-action {
     height: 30px !important;
     min-height: 30px !important;
     max-height: 30px !important;
-    line-height: 1.2 !important;
     padding: 0 18px !important;
     border-radius: 6px !important;
     font-size: 15px !important;
@@ -1404,8 +1494,10 @@ h1 + a.page-title-action:hover {
 .tablenav.top.bi-accordion-open .actions {
     max-height: 300px;
     opacity: 1;
+    min-width: 100%;
+    border: none;
     transform: translateY(0);
-    margin-top: 45px;
+    padding-top: 45px;
 }
 
 /* Sous-sections des actions */
@@ -1730,7 +1822,8 @@ h1 + a.page-title-action:hover {
 /* Indicateur visuel pour les actions groupées */
 .bi-grouped-actions {
     position: relative;
-    background: rgba(168, 168, 168, 0.15);
+    background: rgba(168, 168, 168, 0.15);  
+    padding-top: 20px;
 }
 
 /* Responsive pour les séparateurs */

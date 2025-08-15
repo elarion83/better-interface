@@ -81,9 +81,6 @@ $custom_js = get_option('bi_custom_js', '');
                 <button type="button" class="button button-primary bi-save-mode" disabled>
                     <?php _e('Appliquer le mode sélectionné', 'better-interface'); ?>
                 </button>
-                <button type="button" class="button bi-preview-mode">
-                    <?php _e('Aperçu', 'better-interface'); ?>
-                </button>
             </div>
         </div>
 
@@ -113,30 +110,14 @@ $custom_js = get_option('bi_custom_js', '');
                             <p class="bi-theme-description">
                                 <?php
                                 switch ($theme_key) {
-                                    case 'ocean':
-                                        _e('Bleu océan moderne et apaisant.', 'better-interface');
-                                        break;
-                                    case 'forest':
-                                        _e('Vert forêt naturel et reposant.', 'better-interface');
-                                        break;
-                                    case 'sunset':
-                                        _e('Orange coucher de soleil chaleureux.', 'better-interface');
-                                        break;
-                                    case 'lavender':
-                                        _e('Violet lavande élégant et sophistiqué.', 'better-interface');
-                                        break;
-                                    case 'midnight':
-                                        _e('Noir minuit sobre et professionnel.', 'better-interface');
-                                        break;
-                                    case 'coral':
-                                        _e('Coral moderne vibrant et énergique.', 'better-interface');
-                                        break;
-                                    case 'teal':
-                                        _e('Turquoise élégant et sophistiqué.', 'better-interface');
-                                        break;
-                                    case 'amber':
-                                        _e('Ambre doré chaleureux et accueillant.', 'better-interface');
-                                        break;
+                                    case 'ocean': _e('Bleu océan moderne et apaisant.', 'better-interface'); break;
+                                    case 'forest': _e('Vert forêt naturel et reposant.', 'better-interface'); break;
+                                    case 'sunset': _e('Orange coucher de soleil chaleureux.', 'better-interface'); break;
+                                    case 'lavender': _e('Violet lavande élégant et sophistiqué.', 'better-interface'); break;
+                                    case 'midnight': _e('Noir minuit sobre et professionnel.', 'better-interface'); break;
+                                    case 'coral': _e('Coral moderne vibrant et énergique.', 'better-interface'); break;
+                                    case 'teal': _e('Turquoise élégant et sophistiqué.', 'better-interface'); break;
+                                    case 'amber': _e('Ambre doré chaleureux et accueillant.', 'better-interface'); break;
                                 }
                                 ?>
                             </p>
@@ -155,58 +136,6 @@ $custom_js = get_option('bi_custom_js', '');
             </div>
         </div>
         <?php endif; ?>
-
-        <!-- Section personnalisation avancée -->
-        <div class="bi-section">
-            <h2><?php _e('Personnalisation Avancée', 'better-interface'); ?></h2>
-            <p><?php _e('Ajoutez vos propres styles CSS et scripts JavaScript pour personnaliser davantage l\'interface :', 'better-interface'); ?></p>
-            
-            <div class="bi-custom-tabs">
-                <div class="bi-tabs-nav">
-                    <button type="button" class="bi-tab-button active" data-tab="css">
-                        <span class="dashicons dashicons-admin-appearance"></span>
-                        <?php _e('CSS Personnalisé', 'better-interface'); ?>
-                    </button>
-                    <button type="button" class="bi-tab-button" data-tab="js">
-                        <span class="dashicons dashicons-editor-code"></span>
-                        <?php _e('JavaScript', 'better-interface'); ?>
-                    </button>
-                </div>
-                
-                <div class="bi-tabs-content">
-                    <div class="bi-tab-content active" data-tab="css">
-                        <div class="bi-editor-container">
-                            <label for="bi-custom-css"><?php _e('CSS personnalisé :', 'better-interface'); ?></label>
-                            <textarea id="bi-custom-css" name="bi_custom_css" rows="15" placeholder="/* Ajoutez vos styles CSS ici */"><?php echo esc_textarea($custom_css); ?></textarea>
-                            <div class="bi-editor-info">
-                                <p><?php _e('Exemple :', 'better-interface'); ?></p>
-                                <code>#adminmenu { background: #2c3e50; }</code>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bi-tab-content" data-tab="js">
-                        <div class="bi-editor-container">
-                            <label for="bi-custom-js"><?php _e('JavaScript personnalisé :', 'better-interface'); ?></label>
-                            <textarea id="bi-custom-js" name="bi_custom_js" rows="15" placeholder="// Ajoutez vos scripts JavaScript ici"><?php echo esc_textarea($custom_js); ?></textarea>
-                            <div class="bi-editor-info">
-                                <p><?php _e('Exemple :', 'better-interface'); ?></p>
-                                <code>jQuery(document).ready(function($) { console.log('Better Interface loaded!'); });</code>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bi-custom-actions">
-                <button type="button" class="button button-primary bi-save-custom">
-                    <?php _e('Sauvegarder les personnalisations', 'better-interface'); ?>
-                </button>
-                <button type="button" class="button bi-reset-custom">
-                    <?php _e('Réinitialiser', 'better-interface'); ?>
-                </button>
-            </div>
-        </div>
 
         <!-- Section informations -->
         <div class="bi-section">
@@ -237,29 +166,6 @@ $custom_js = get_option('bi_custom_js', '');
                     <?php _e('Documentation', 'better-interface'); ?>
                 </a>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal d'aperçu -->
-<div id="bi-preview-modal" class="bi-modal">
-    <div class="bi-modal-content">
-        <div class="bi-modal-header">
-            <h3><?php _e('Aperçu du Mode', 'better-interface'); ?></h3>
-            <button type="button" class="bi-modal-close">&times;</button>
-        </div>
-        <div class="bi-modal-body">
-            <div class="bi-preview-frame">
-                <iframe id="bi-preview-iframe" src="<?php echo admin_url(); ?>"></iframe>
-            </div>
-        </div>
-        <div class="bi-modal-footer">
-            <button type="button" class="button bi-apply-preview">
-                <?php _e('Appliquer ce mode', 'better-interface'); ?>
-            </button>
-            <button type="button" class="button bi-modal-close">
-                <?php _e('Fermer', 'better-interface'); ?>
-            </button>
         </div>
     </div>
 </div>
