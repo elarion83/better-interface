@@ -402,7 +402,7 @@ body {
 }
 
 /* Boutons uniformes et colorés (hors .column-title, .handle-actions, #screen-meta-links, #minor-publishing, #wpseo-metabox-root, .notice-dismiss, .media-frame-content, .mce-container, #wp-content-editor-tools, .interface-interface-skeleton__editor et .components-popover) */
-button:not(.column-title button):not(.wp-auth-check-close):not(.notice button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button):not(.mce-container button):not(#wp-content-editor-tools button):not(.interface-interface-skeleton__editor button):not(.components-popover button):not(#collapse-menu button),
+button:not(.column-title button):not(#bulk-titles button):not(.media-modal button):not(.column-comment button):not(.wp-auth-check-close):not(.notice button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button):not(.mce-container button):not(#wp-content-editor-tools button):not(.interface-interface-skeleton__editor button):not(.components-popover button):not(#collapse-menu button),
 input[type="button"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):not(.mce-container input):not(#wp-content-editor-tools input):not(.interface-interface-skeleton__editor input):not(.components-popover input),
 input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):not(.mce-container input):not(#wp-content-editor-tools input):not(.interface-interface-skeleton__editor input):not(.components-popover input),
 .wp-core-ui .button:not(.column-title .button):not(.handle-actions .button):not(#screen-meta-links .button):not(#minor-publishing .button):not(#wpseo-metabox-root .button):not(.notice-dismiss):not(.media-frame-content .button):not(.edit-post-editor__inserter-panel-content .button):not(.mce-container .button):not(#wp-content-editor-tools .button):not(.interface-interface-skeleton__editor .button):not(.components-popover .button),
@@ -552,8 +552,9 @@ select {
 }
 
 /* Rendre la zone de la case à cocher visuellement propre: masquer l'input mais conserver l'accessibilité */
-th.check-column {
-   border-bottom: 1px solid var(--bi-modern-border-color);
+th.check-column,td.check-column {
+    text-align: center !important;
+   border-bottom: 1px solid var(--bi-modern-border-color) !important;
 }
 th.check-column input[type="checkbox"],
 td.check-column input[type="checkbox"] {
@@ -907,13 +908,34 @@ th.check-column label, td.check-column label {
     border: 1px solid rgba(16, 185, 129, 0.2);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .bi-selection-counter.has-selection {
-    background: #10b981;
-    color: white;
-    border-color: #10b981;
-    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+	background: #10b981;
+	color: white;
+	border-color: #10b981;
+	box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+/* Bouton poubelle - styles de base */
+.bi-trash-button {
+	background: var(--bi-modern-bg-primary);
+	color: var(--bi-modern-text-secondary);
+	border: 1px solid var(--bi-modern-border-color);
+	border-radius: 6px;
+	padding: 8px;
+	font-size: 14px;
+	cursor: pointer;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 36px;
+	height: 36px;
 }
 
 /* Container des filtres */
@@ -954,6 +976,71 @@ th.check-column label, td.check-column label {
     border-color: var(--bi-modern-primary-hover);
     box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
     transform: translateY(-1px);
+}
+
+/* Règles CSS avec haute spécificité pour surcharger les styles des boutons dans la barre flottante */
+.bi-floating-action-bar .bi-floating-actions button:not(.bi-trash-button),
+.bi-floating-action-bar .bi-floating-actions input[type="submit"] {
+    background: var(--bi-modern-accent) !important;
+    color: white !important;
+    border: 1px solid var(--bi-modern-accent) !important;
+    box-shadow: 0 2px 4px rgba(var(--bi-modern-accent-rgb, 16, 185, 129), 0.3) !important;
+}
+
+.bi-floating-action-bar .bi-floating-actions button:not(.bi-trash-button):hover,
+.bi-floating-action-bar .bi-floating-actions input[type="submit"]:hover {
+    background: var(--bi-modern-accent-hover, #059669) !important;
+    border-color: var(--bi-modern-accent-hover, #059669) !important;
+    box-shadow: 0 4px 8px rgba(var(--bi-modern-accent-rgb, 16, 185, 129), 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Bouton poubelle avec fond rouge */
+.bi-floating-action-bar .bi-trash-button {
+    background: #dc2626 !important;
+    color: white !important;
+    border: 1px solid #dc2626 !important;
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3) !important;
+}
+
+.bi-floating-action-bar .bi-trash-button:hover:not(:disabled) {
+    background: #b91c1c !important;
+    border-color: #b91c1c !important;
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+.bi-floating-action-bar .bi-trash-button:disabled {
+    background: #6b7280 !important;
+    color: #9ca3af !important;
+    border-color: #6b7280 !important;
+    opacity: 0.5 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* Bouton edit avec fond bleu */
+.bi-floating-action-bar .bi-edit-button {
+    background: #3b82f6 !important;
+    color: white !important;
+    border: 1px solid #3b82f6 !important;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3) !important;
+}
+
+.bi-floating-action-bar .bi-edit-button:hover:not(:disabled) {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+.bi-floating-action-bar .bi-edit-button:disabled {
+    background: #6b7280 !important;
+    color: #9ca3af !important;
+    border-color: #6b7280 !important;
+    opacity: 0.5 !important;
+    box-shadow: none !important;
+    transform: none !important;
 }
 
 /* Styles spécifiques pour les boutons de filtres */
@@ -1084,7 +1171,7 @@ th.check-column label, td.check-column label {
     margin: 0 !important;
     width: 100%;
     max-width: 300px;
-    pointer-events: auto;
+        pointer-events: auto;
     background: var(--bi-modern-bg-primary);
     border: 1px solid var(--bi-modern-border-color);
     border-radius: var(--bi-modern-border-radius);

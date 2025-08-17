@@ -165,8 +165,95 @@
 		var $filtersContainer = $('<div class="bi-floating-filters"></div>');
 		
 		// Créer le compteur d'éléments sélectionnés
-		var $counter = $('<div class="bi-selection-counter">0 selected</div>');
+		var $counter = $('<div class="bi-selection-counter">0 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>');
 		$actionsContainer.append($counter);
+		
+		// Configuration des actions personnalisées
+		var customActions = {
+			'trash': {
+				buttonClass: 'bi-trash-button',
+				title: 'Move to trash',
+				icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6H5H21M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+			},
+			'delete': {
+				buttonClass: 'bi-trash-button',
+				title: 'Delete permanently',
+				icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6H5H21M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+			},
+			'edit': {
+				buttonClass: 'bi-edit-button',
+				title: 'Edit selected',
+				icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13M18.5 2.50023C18.8978 2.10243 19.4374 1.87891 20 1.87891C20.5626 1.87891 21.1022 2.10243 21.5 2.50023C21.8978 2.89804 22.1213 3.43762 22.1213 4.00023C22.1213 4.56285 21.8978 5.10243 21.5 5.50023L12 15.0002L8 16.0002L9 12.0002L18.5 2.50023Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+			}
+		};
+		
+		// Traiter les actions du select
+		var $actionSelect = $nav.find('#bulk-action-selector-top');
+		var customButtons = [];
+		
+		if ($actionSelect.length > 0) {
+			// Énumérer les options du select
+			$actionSelect.find('option').each(function(){
+				var $option = $(this);
+				var value = $option.val();
+				
+				// Ignorer l'option par défaut
+				if (value === '-1') return;
+				
+				// Vérifier si c'est une action personnalisée
+				if (customActions[value]) {
+					var action = customActions[value];
+					var $button = $('<button type="button" class="' + action.buttonClass + '" title="' + action.title + '">' + action.icon + '</button>');
+					
+					// Configurer l'action du bouton
+					$button.on('click', function(e){
+						e.preventDefault();
+						
+						// Vérifier qu'il y a des éléments sélectionnés
+						var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
+						if (selectedCount === 0) {
+							alert('Please select at least one item to perform this action on.');
+							return;
+						}
+						
+						// S'assurer que le select est visible et fonctionnel
+						$actionSelect.show();
+						
+						// Définir la valeur et déclencher l'action
+						$actionSelect.val(value);
+						
+						// Attendre un peu pour s'assurer que le DOM est mis à jour
+						setTimeout(function(){
+							// Déclencher le changement
+							$actionSelect.trigger('change');
+							
+							// Déclencher automatiquement le bouton Apply
+							var $applyButton = $nav.find('input[type="submit"][value="Apply"]');
+							if ($applyButton.length > 0) {
+								$applyButton.show().trigger('click');
+							}
+						}, 10);
+					});
+					
+					customButtons.push($button);
+					// Masquer l'option au lieu de la supprimer
+					$option.hide();
+				}
+			});
+			
+			// Ajouter les boutons personnalisés
+			customButtons.forEach(function($button){
+				$actionsContainer.append($button);
+			});
+			
+			// Vérifier s'il reste des options visibles dans le select
+			var visibleOptions = $actionSelect.find('option:visible').not('[value="-1"]').length;
+			if (visibleOptions === 0) {
+				// Cacher le select et le bouton apply
+				$actionSelect.hide();
+				$nav.find('input[type="submit"][value="Apply"]').hide();
+			}
+		}
 		
 		// Créer des références visuelles sans déplacer les éléments originaux
 		$nav.find('.bi-actions-section > *').each(function(){
@@ -285,22 +372,27 @@
 		var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
 		var hasSelectedItems = selectedCount > 0;
 		var $actions = $('.bi-floating-actions button, .bi-floating-actions input[type="submit"], .bi-floating-actions select');
+		var $customButtons = $('.bi-trash-button, .bi-edit-button');
 		var $counter = $('.bi-selection-counter');
 		
 		// Mettre à jour le compteur
+		var iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		
 		if (selectedCount === 0) {
-			$counter.text('0 selected');
+			$counter.html('0 ' + iconSvg);
 		} else if (selectedCount === 1) {
-			$counter.text('1 selected');
+			$counter.html('1 ' + iconSvg);
 		} else {
-			$counter.text(selectedCount + ' selected');
+			$counter.html(selectedCount + ' ' + iconSvg);
 		}
 		
 		if (hasSelectedItems) {
 			$actions.prop('disabled', false).removeClass('disabled');
+			$customButtons.prop('disabled', false).removeClass('disabled');
 			$counter.addClass('has-selection');
 		} else {
 			$actions.prop('disabled', true).addClass('disabled');
+			$customButtons.prop('disabled', true).addClass('disabled');
 			$counter.removeClass('has-selection');
 		}
 	};
