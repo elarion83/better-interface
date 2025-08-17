@@ -62,9 +62,6 @@ class BetterInterface {
      */
     private $available_color_themes = [
         'ocean' => 'Ocean Blue',
-        'forest' => 'Forest Green',
-        'sunset' => 'Sunset Orange',
-        'lavender' => 'Lavender Purple',
         'midnight' => 'Midnight Dark',
         'teal' => 'Teal Elegant',
     ];
@@ -211,7 +208,27 @@ class BetterInterface {
             BI_PLUGIN_VERSION
         );
         
-        // Scripts principaux - uniquement en mode moderne
+        // Script de sélection de mode/thème - toujours chargé
+        wp_enqueue_script(
+            'better-interface-mode-selector',
+            BI_PLUGIN_URL . 'assets/js/mode-selector.js',
+            ['jquery'],
+            BI_PLUGIN_VERSION,
+            true
+        );
+        
+        // Localisation pour AJAX
+        wp_localize_script('better-interface-mode-selector', 'bi_ajax', [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('bi_nonce'),
+            'current_mode' => $this->current_mode,
+            'available_modes' => $this->available_modes,
+            // Thèmes de couleurs pour le mode moderne
+            'current_color_theme' => $this->current_color_theme,
+            'available_color_themes' => $this->available_color_themes,
+        ]);
+        
+        // Scripts spécifiques au mode moderne
         if ($this->current_mode === 'modern') {
             wp_enqueue_script(
                 'better-interface-admin',
@@ -220,17 +237,6 @@ class BetterInterface {
                 BI_PLUGIN_VERSION,
                 true
             );
-            
-            // Localisation pour AJAX
-            wp_localize_script('better-interface-admin', 'bi_ajax', [
-                'ajax_url' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('bi_nonce'),
-                'current_mode' => $this->current_mode,
-                'available_modes' => $this->available_modes,
-                // Thèmes de couleurs pour le mode moderne
-                'current_color_theme' => $this->current_color_theme,
-                'available_color_themes' => $this->available_color_themes,
-            ]);
         }
         
         // Styles spécifiques au mode

@@ -111,9 +111,6 @@ $custom_js = get_option('bi_custom_js', '');
                                 <?php
                                 switch ($theme_key) {
                                     case 'ocean': _e('Bleu océan moderne et apaisant.', 'better-interface'); break;
-                                    case 'forest': _e('Vert forêt naturel et reposant.', 'better-interface'); break;
-                                    case 'sunset': _e('Orange coucher de soleil chaleureux.', 'better-interface'); break;
-                                    case 'lavender': _e('Violet lavande élégant et sophistiqué.', 'better-interface'); break;
                                     case 'midnight': _e('Noir minuit sobre et professionnel.', 'better-interface'); break;
                                     case 'teal': _e('Turquoise élégant et sophistiqué.', 'better-interface'); break;
                                 }
