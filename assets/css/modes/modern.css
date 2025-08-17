@@ -1192,18 +1192,22 @@ th.check-column label, td.check-column label {
 
 /* Couleurs spécifiques pour chaque type de notice */
 .bi-notices-container .notice-success {
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
     border-left: 4px solid var(--bi-modern-success);
 }
 
 .bi-notices-container .notice-error {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
     border-left: 4px solid var(--bi-modern-error);
 }
 
 .bi-notices-container .notice-warning {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
     border-left: 4px solid var(--bi-modern-warning);
 }
 
 .bi-notices-container .notice-info {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
     border-left: 4px solid var(--bi-modern-accent);
 }
 
@@ -1249,6 +1253,7 @@ th.check-column label, td.check-column label {
 }
 
 .notice.updated {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
     border-left: 4px solid var(--bi-accent);
     min-height: 35px;
 }
