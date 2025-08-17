@@ -23,7 +23,7 @@
 
 
 
-	// ===== Accordéon Actions & Filtres =====
+	// ===== Barre d'actions flottante (desktop/tablette paysage) =====
 	BetterInterfaceAdmin.prototype.initAccordionTables = function(){
 		var self = this;
 		$('.tablenav.top').each(function(){
@@ -32,13 +32,50 @@
 			$nav.data('biAccordionInit', true);
 
 			self.groupTableActions($nav);
+			
+					// Sur desktop/tablette paysage : créer une barre flottante
+		if (window.innerWidth >= 768) {
+			self.createFloatingActionBar($nav);
+		} else {
+			// Sur mobile/tablette portrait : garder l'accordéon
 			$nav.addClass('bi-accordion-closed');
-
 			$nav.on('click', function(e){
 				var $target = $(e.target);
-				if (self.isInteractive($target)) return; // ne pas toggle si clic sur élément interactif
+				if (self.isInteractive($target)) return;
 				self.toggleAccordion($nav);
 			});
+		}
+		
+		// Gérer le redimensionnement de la fenêtre
+		$(window).on('resize', function(){
+			var isDesktop = window.innerWidth >= 768;
+			var hasFloatingBar = $('.bi-floating-action-bar').length > 0;
+			
+			if (isDesktop && !hasFloatingBar) {
+				// Passer en mode desktop : créer la barre flottante
+				$('.tablenav.top').each(function(){
+					var $nav = $(this);
+					if (!$nav.data('biAccordionInit')) return;
+					$nav.removeClass('bi-accordion-closed bi-accordion-open');
+					$nav.off('click');
+					self.createFloatingActionBar($nav);
+				});
+			} else if (!isDesktop && hasFloatingBar) {
+				// Passer en mode mobile : supprimer la barre flottante et restaurer l'accordéon
+				$('.bi-floating-action-bar').remove();
+				$('.tablenav.top').each(function(){
+					var $nav = $(this);
+					if (!$nav.data('biAccordionInit')) return;
+					$nav.show();
+					$nav.addClass('bi-accordion-closed');
+					$nav.on('click', function(e){
+						var $target = $(e.target);
+						if (self.isInteractive($target)) return;
+						self.toggleAccordion($nav);
+					});
+				});
+			}
+		});
 		});
 	};
 
@@ -115,6 +152,156 @@
 			if ($el.find('input[type="search"], input[type="text"], input[type="date"], input[type="number"], input[type="month"], input[type="time"]').length) return 'filters';
 			// 3) Par défaut, ranger dans Filtres pour éviter de polluer la zone Actions
 			return 'filters';
+		}
+	};
+
+	// Créer une barre d'actions flottante en bas de l'écran
+	BetterInterfaceAdmin.prototype.createFloatingActionBar = function($nav){
+		var self = this;
+		
+		// Créer le container de la barre flottante
+		var $floatingBar = $('<div class="bi-floating-action-bar"></div>');
+		var $actionsContainer = $('<div class="bi-floating-actions"></div>');
+		var $filtersContainer = $('<div class="bi-floating-filters"></div>');
+		
+		// Créer le compteur d'éléments sélectionnés
+		var $counter = $('<div class="bi-selection-counter">0 selected</div>');
+		$actionsContainer.append($counter);
+		
+		// Créer des références visuelles sans déplacer les éléments originaux
+		$nav.find('.bi-actions-section > *').each(function(){
+			var $original = $(this);
+			var $clone = $original.clone();
+			
+			// Copier les attributs importants
+			$clone.attr('id', $original.attr('id'));
+			$clone.attr('name', $original.attr('name'));
+			$clone.attr('form', $original.attr('form'));
+			$clone.attr('type', $original.attr('type'));
+			$clone.attr('value', $original.attr('value'));
+			
+			// Pour les boutons, déclencher l'action sur l'original
+			if ($clone.is('button, input[type="submit"]')) {
+				$clone.on('click', function(e){
+					e.preventDefault();
+					$original.trigger('click');
+				});
+			}
+			
+			// Pour les selects, synchroniser avec l'original
+			if ($clone.is('select')) {
+				$clone.on('change', function(){
+					$original.val($(this).val()).trigger('change');
+				});
+				$original.on('change', function(){
+					$clone.val($(this).val());
+				});
+			}
+			
+			// Pour les inputs, synchroniser avec l'original
+			if ($clone.is('input[type="text"], input[type="search"], input[type="date"], input[type="number"]')) {
+				$clone.on('input', function(){
+					$original.val($(this).val()).trigger('input');
+				});
+				$original.on('input', function(){
+					$clone.val($(this).val());
+				});
+			}
+			
+			$actionsContainer.append($clone);
+		});
+		
+		$nav.find('.bi-filters-section > *').each(function(){
+			var $original = $(this);
+			var $clone = $original.clone();
+			
+			// Copier les attributs importants
+			$clone.attr('id', $original.attr('id') + '-floating');
+			$clone.attr('name', $original.attr('name'));
+			$clone.attr('form', $original.attr('form'));
+			$clone.attr('type', $original.attr('type'));
+			$clone.attr('value', $original.attr('value'));
+			
+			// Pour les boutons, déclencher l'action sur l'original
+			if ($clone.is('button, input[type="submit"]')) {
+				$clone.on('click', function(e){
+					e.preventDefault();
+					$original.trigger('click');
+				});
+			}
+			
+			// Pour les selects, synchroniser avec l'original
+			if ($clone.is('select')) {
+				$clone.on('change', function(){
+					$original.val($(this).val()).trigger('change');
+				});
+				$original.on('change', function(){
+					$clone.val($(this).val());
+				});
+			}
+			
+			// Pour les inputs, synchroniser avec l'original
+			if ($clone.is('input[type="text"], input[type="search"], input[type="date"], input[type="number"]')) {
+				$clone.on('input', function(){
+					$original.val($(this).val()).trigger('input');
+				});
+				$original.on('input', function(){
+					$clone.val($(this).val());
+				});
+			}
+			
+			$filtersContainer.append($clone);
+		});
+		
+		// Assembler la barre
+		if ($actionsContainer.children().length > 0) {
+			$floatingBar.append($actionsContainer);
+		}
+		if ($filtersContainer.children().length > 0) {
+			$floatingBar.append($filtersContainer);
+		}
+		
+		// Ajouter au body si on a du contenu
+		if ($floatingBar.children().length > 0) {
+			$('body').append($floatingBar);
+			
+			// Gérer l'état des actions selon la sélection
+			self.updateFloatingBarState();
+			
+			// Écouter les changements de sélection
+			$(document).on('change', '.wp-list-table input[type="checkbox"]', function(){
+				self.updateFloatingBarState();
+			});
+			
+			// Masquer la navigation originale seulement sur desktop
+			if (window.innerWidth >= 768) {
+				$nav.hide();
+			}
+		}
+	};
+
+	// Mettre à jour l'état de la barre flottante (activer/désactiver les actions)
+	BetterInterfaceAdmin.prototype.updateFloatingBarState = function(){
+		var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
+		var hasSelectedItems = selectedCount > 0;
+		var $actions = $('.bi-floating-actions button, .bi-floating-actions input[type="submit"], .bi-floating-actions select');
+		var $counter = $('.bi-selection-counter');
+		
+		// Mettre à jour le compteur
+		if (selectedCount === 0) {
+			$counter.text('0 selected');
+		} else if (selectedCount === 1) {
+			$counter.text('1 selected');
+		} else {
+			$counter.text(selectedCount + ' selected');
+		}
+		
+		if (hasSelectedItems) {
+			$actions.prop('disabled', false).removeClass('disabled');
+			$counter.addClass('has-selection');
+		} else {
+			$actions.prop('disabled', true).addClass('disabled');
+			$counter.removeClass('has-selection');
 		}
 	};
 

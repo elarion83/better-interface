@@ -854,6 +854,210 @@ th.check-column label, td.check-column label {
 } 
 
 /* ========================================
+   BARRE D'ACTIONS FLOTTANTE (DESKTOP/TABLETTE PAYSAGE)
+   ======================================== */
+
+/* Barre d'actions flottante en bas de l'écran */
+.bi-floating-action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 160px; /* Largeur du menu admin */
+    right: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(255, 255, 255, 0.85) 100%);
+    border-top: 1px solid var(--bi-modern-border-color);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 99999;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Ajustement quand le menu admin est replié */
+.folded .bi-floating-action-bar {
+    left: 36px;
+}
+
+/* Ajustement sur mobile (menu admin masqué) */
+@media (max-width: 960px) {
+    .bi-floating-action-bar {
+        left: 0;
+    }
+}
+
+/* Container des actions */
+.bi-floating-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Compteur d'éléments sélectionnés */
+.bi-selection-counter {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--bi-modern-text-secondary);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.bi-selection-counter.has-selection {
+    background: #10b981;
+    color: white;
+    border-color: #10b981;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+/* Container des filtres */
+.bi-floating-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Actions désactivées quand aucun élément sélectionné */
+.bi-floating-actions button.disabled,
+.bi-floating-actions input[type="submit"].disabled,
+.bi-floating-actions select.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Styles spécifiques pour les boutons d'actions */
+.bi-floating-actions button,
+.bi-floating-actions input[type="submit"] {
+    background: var(--bi-modern-primary);
+    color: white;
+    border: 1px solid var(--bi-modern-primary);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+}
+
+.bi-floating-actions button:hover:not(.disabled),
+.bi-floating-actions input[type="submit"]:hover:not(.disabled) {
+    background: var(--bi-modern-primary-hover);
+    border-color: var(--bi-modern-primary-hover);
+    box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Styles spécifiques pour les boutons de filtres */
+.bi-floating-filters button,
+.bi-floating-filters input[type="submit"] {
+    background: var(--bi-modern-bg-primary);
+    color: var(--bi-modern-text-primary);
+    border: 1px solid var(--bi-modern-border-color);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.bi-floating-filters button:hover:not(.disabled),
+.bi-floating-filters input[type="submit"]:hover:not(.disabled) {
+    background: var(--bi-modern-bg-secondary);
+    border-color: var(--bi-modern-primary);
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.15);
+}
+
+/* Styles modernes pour les selects dans la barre flottante */
+.bi-floating-action-bar select {
+    background: var(--bi-modern-bg-primary);
+    border: 1px solid var(--bi-modern-border-color);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--bi-modern-text-primary);
+    min-width: 120px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 32px;
+}
+
+.bi-floating-action-bar select:hover {
+    border-color: var(--bi-modern-primary);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+}
+
+.bi-floating-action-bar select:focus {
+    outline: none;
+    border-color: var(--bi-modern-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.bi-floating-action-bar select option {
+    background: var(--bi-modern-bg-primary);
+    color: var(--bi-modern-text-primary);
+    padding: 8px 12px;
+}
+
+/* Styles pour les inputs dans la barre flottante */
+.bi-floating-action-bar input[type="text"],
+.bi-floating-action-bar input[type="search"],
+.bi-floating-action-bar input[type="date"],
+.bi-floating-action-bar input[type="number"] {
+    background: var(--bi-modern-bg-primary);
+    border: 1px solid var(--bi-modern-border-color);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--bi-modern-text-primary);
+    min-width: 120px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.bi-floating-action-bar input[type="text"]:hover,
+.bi-floating-action-bar input[type="search"]:hover,
+.bi-floating-action-bar input[type="date"]:hover,
+.bi-floating-action-bar input[type="number"]:hover {
+    border-color: var(--bi-modern-primary);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+}
+
+.bi-floating-action-bar input[type="text"]:focus,
+.bi-floating-action-bar input[type="search"]:focus,
+.bi-floating-action-bar input[type="date"]:focus,
+.bi-floating-action-bar input[type="number"]:focus {
+    outline: none;
+    border-color: var(--bi-modern-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Responsive : masquer sur mobile/tablette portrait */
+@media (max-width: 767px) {
+    .bi-floating-action-bar {
+        display: none;
+    }
+}
+
+/* ========================================
    SYSTÈME DE POSITIONNEMENT DES NOTICES
    ======================================== */
 
@@ -1518,6 +1722,10 @@ h1 + a.page-title-action:hover {
     border: 1px solid rgba(99, 102, 241, 0.1);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.05);
+}
+
+.tablenav.bottom {
+    display: none;
 }
 
 /* Bouton d'accordéon pour les actions */
