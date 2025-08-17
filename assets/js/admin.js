@@ -164,8 +164,21 @@
 		var $actionsContainer = $('<div class="bi-floating-actions"></div>');
 		var $filtersContainer = $('<div class="bi-floating-filters"></div>');
 		
+		// Récupérer le nom des éléments depuis le titre de la page
+		var itemName = 'items';
+		var $pageTitle = $('h1.wp-heading-inline');
+		if ($pageTitle.length > 0) {
+			itemName = $pageTitle.text().trim().toLowerCase();
+			// Nettoyer le nom (retirer les pluriels, articles, etc.)
+			itemName = itemName.replace(/^all\s+/i, '').replace(/^manage\s+/i, '').replace(/^edit\s+/i, '');
+			// Mettre au pluriel si nécessaire
+			if (!itemName.endsWith('s')) {
+				itemName += 's';
+			}
+		}
+		
 		// Créer le compteur d'éléments sélectionnés
-		var $counter = $('<div class="bi-selection-counter">0 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>');
+		var $counter = $('<div class="bi-selection-counter"><span class="bi-counter-number">0</span><span class="bi-counter-text">' + itemName + '</span></div>');
 		$actionsContainer.append($counter);
 		
 		// Configuration des actions personnalisées
@@ -173,23 +186,54 @@
 			'trash': {
 				buttonClass: 'bi-trash-button',
 				title: 'Move to trash',
-				icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6H5H21M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+				icon: '<span class="dashicons dashicons-trash"></span>'
+			},
+			'untrash': {
+				buttonClass: 'bi-untrash-button',
+				title: 'Restore from trash',
+				icon: '<span class="dashicons dashicons-backup"></span>'
 			},
 			'delete': {
 				buttonClass: 'bi-trash-button',
 				title: 'Delete permanently',
-				icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6H5H21M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+				icon: '<span class="dashicons dashicons-trash"></span>'
 			},
 			'edit': {
 				buttonClass: 'bi-edit-button',
 				title: 'Edit selected',
-				icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13M18.5 2.50023C18.8978 2.10243 19.4374 1.87891 20 1.87891C20.5626 1.87891 21.1022 2.10243 21.5 2.50023C21.8978 2.89804 22.1213 3.43762 22.1213 4.00023C22.1213 4.56285 21.8978 5.10243 21.5 5.50023L12 15.0002L8 16.0002L9 12.0002L18.5 2.50023Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+				icon: '<span class="dashicons dashicons-edit"></span>'
+			},
+			'update-selected': {
+				buttonClass: 'bi-update-button',
+				title: 'Update selected',
+				icon: '<span class="dashicons dashicons-arrow-up-alt"></span>'
+			},
+			'delete-selected': {
+				buttonClass: 'bi-trash-button',
+				title: 'Delete selected',
+				icon: '<span class="dashicons dashicons-trash"></span>'
+			},
+			'approve': {
+				buttonClass: 'bi-approve-button',
+				title: 'Approve selected',
+				icon: '<span class="dashicons dashicons-thumbs-up"></span>'
+			},
+			'unapprove': {
+				buttonClass: 'bi-unapprove-button',
+				title: 'Unapprove selected',
+				icon: '<span class="dashicons dashicons-thumbs-down"></span>'
+			},
+			'spam': {
+				buttonClass: 'bi-spam-button',
+				title: 'Mark as spam',
+				icon: '<span class="dashicons dashicons-flag"></span>'
 			}
 		};
 		
 		// Traiter les actions du select
 		var $actionSelect = $nav.find('#bulk-action-selector-top');
 		var customButtons = [];
+		var approvalButtons = [];
 		
 		if ($actionSelect.length > 0) {
 			// Énumérer les options du select
@@ -203,7 +247,10 @@
 				// Vérifier si c'est une action personnalisée
 				if (customActions[value]) {
 					var action = customActions[value];
-					var $button = $('<button type="button" class="' + action.buttonClass + '" title="' + action.title + '">' + action.icon + '</button>');
+					var $button = $('<button type="button" class="' + action.buttonClass + '" title="' + action.title + '" data-action="' + value + '">' + action.icon + '</button>');
+					
+					// Stocker l'icône originale dans les données du bouton
+					$button.data('original-icon', action.icon);
 					
 					// Configurer l'action du bouton
 					$button.on('click', function(e){
@@ -216,26 +263,37 @@
 							return;
 						}
 						
+						// Remplacer l'icône par une icône de chargement WordPress
+						var loadingIcon = '<span class="dashicons dashicons-update bi-loading-spinner"></span>';
+						
+						$(this).html(loadingIcon);
+						
+						// Désactiver le bouton pendant le chargement
+						$(this).prop('disabled', true).addClass('loading');
+						
 						// S'assurer que le select est visible et fonctionnel
 						$actionSelect.show();
 						
 						// Définir la valeur et déclencher l'action
 						$actionSelect.val(value);
 						
-						// Attendre un peu pour s'assurer que le DOM est mis à jour
-						setTimeout(function(){
-							// Déclencher le changement
-							$actionSelect.trigger('change');
-							
-							// Déclencher automatiquement le bouton Apply
-							var $applyButton = $nav.find('input[type="submit"][value="Apply"]');
-							if ($applyButton.length > 0) {
-								$applyButton.show().trigger('click');
-							}
-						}, 10);
+						// Déclencher le changement immédiatement
+						$actionSelect.trigger('change');
+						
+						// Déclencher automatiquement le bouton Apply
+						var $applyButton = $nav.find('input[type="submit"][value="Apply"]');
+						if ($applyButton.length > 0) {
+							$applyButton.show().trigger('click');
+						}
 					});
 					
-					customButtons.push($button);
+					// Séparer les boutons approve/unapprove des autres
+					if (value === 'approve' || value === 'unapprove') {
+						approvalButtons.push($button);
+					} else {
+						customButtons.push($button);
+					}
+					
 					// Masquer l'option au lieu de la supprimer
 					$option.hide();
 				}
@@ -246,14 +304,142 @@
 				$actionsContainer.append($button);
 			});
 			
-			// Vérifier s'il reste des options visibles dans le select
-			var visibleOptions = $actionSelect.find('option:visible').not('[value="-1"]').length;
-			if (visibleOptions === 0) {
-				// Cacher le select et le bouton apply
-				$actionSelect.hide();
-				$nav.find('input[type="submit"][value="Apply"]').hide();
+			// Créer le groupe pour les boutons approve/unapprove
+			if (approvalButtons.length > 0) {
+				var $approvalGroup = $('<div class="bi-approval-group"></div>');
+				approvalButtons.forEach(function($button){
+					$approvalGroup.append($button);
+				});
+				$actionsContainer.append($approvalGroup);
+			}
+			
+			// Vérifier s'il ne reste qu'une seule option non convertie en bouton
+			var nonConvertedOptions = 0;
+			$actionSelect.find('option').each(function(){
+				var $option = $(this);
+				var value = $option.val();
+				// Compter seulement les options qui ne sont pas converties en boutons personnalisés
+				if (value !== '-1' && !customActions[value]) {
+					nonConvertedOptions++;
+				}
+			});
+			
+			// Si toutes les options sont soit converties en boutons soit l'option par défaut, masquer le select
+			if (nonConvertedOptions === 0) {
+				// Masquer le select et le bouton Apply
+				$actionSelect.css({
+					'opacity': '0',
+					'width': '0',
+					'overflow': 'hidden'
+				});
+				$actionSelect.next('input[type="submit"]').css({
+					'opacity': '0',
+					'width': '0',
+					'overflow': 'hidden'
+				});
 			}
 		}
+		
+		// Intercepter les soumissions de formulaires pour détecter les actions AJAX
+		$(document).on('submit', 'form', function(e){
+			var $form = $(this);
+			var $submitButton = $form.find('input[type="submit"][value="Apply"]');
+			
+			// Vérifier si c'est un formulaire d'action en lot
+			if ($submitButton.length > 0 && $form.find('select[name="action"], select[name="action2"]').length > 0) {
+				// Trouver le bouton personnalisé correspondant
+				var actionValue = $form.find('select[name="action"]').val() || $form.find('select[name="action2"]').val();
+				var $customButton = $('.bi-floating-action-bar button[data-action="' + actionValue + '"]');
+				
+				if ($customButton.length > 0) {
+					// Marquer le bouton comme en cours de traitement
+					$customButton.addClass('processing');
+					
+					// Stocker l'URL de la requête pour la détection
+					$customButton.data('request-url', $form.attr('action') || window.location.href);
+				}
+			}
+		});
+		
+		// Écouter les événements de fin de requête AJAX
+		$(document).ajaxComplete(function(event, xhr, settings){
+			// Vérifier si c'est une requête d'action en lot WordPress
+			if (settings.url && (settings.url.includes('admin-ajax.php') || settings.url.includes('edit.php') || settings.url.includes('post.php'))) {
+				// Restaurer tous les boutons en cours de traitement
+				$('.bi-floating-action-bar button.loading').each(function(){
+					var $button = $(this);
+					var $originalIcon = $button.data('original-icon');
+					
+					if ($originalIcon) {
+						$button.html($originalIcon);
+					}
+					
+					$button.prop('disabled', false).removeClass('loading processing');
+				});
+			}
+		});
+		
+		// Écouter aussi les redirections et rechargements de page
+		$(window).on('beforeunload', function(){
+			// Restaurer tous les boutons avant le rechargement
+			$('.bi-floating-action-bar button.loading').each(function(){
+				var $button = $(this);
+				var $originalIcon = $button.data('original-icon');
+				
+				if ($originalIcon) {
+					$button.html($originalIcon);
+				}
+				
+				$button.prop('disabled', false).removeClass('loading processing');
+			});
+		});
+		
+		// Écouter aussi les erreurs AJAX pour restaurer les boutons
+		$(document).ajaxError(function(event, xhr, settings, error){
+			// Restaurer tous les boutons en cours de traitement en cas d'erreur
+			$('.bi-floating-action-bar button.loading').each(function(){
+				var $button = $(this);
+				var $originalIcon = $button.data('original-icon');
+				
+				if ($originalIcon) {
+					$button.html($originalIcon);
+				}
+				
+				$button.prop('disabled', false).removeClass('loading processing');
+			});
+		});
+		
+		// Écouter les changements de DOM pour détecter les mises à jour de la page
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				// Si des notices WordPress apparaissent, c'est probablement la fin d'une action
+				if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+					for (var i = 0; i < mutation.addedNodes.length; i++) {
+						var node = mutation.addedNodes[i];
+						if (node.nodeType === 1 && node.classList && node.classList.contains('notice')) {
+							// Une notice WordPress est apparue, restaurer les boutons
+							$('.bi-floating-action-bar button.loading').each(function(){
+								var $button = $(this);
+								var $originalIcon = $button.data('original-icon');
+								
+								if ($originalIcon) {
+									$button.html($originalIcon);
+								}
+								
+								$button.prop('disabled', false).removeClass('loading processing');
+							});
+							break;
+						}
+					}
+				}
+			});
+		});
+		
+		// Observer les changements dans le body
+		observer.observe(document.body, {
+			childList: true,
+			subtree: true
+		});
 		
 		// Créer des références visuelles sans déplacer les éléments originaux
 		$nav.find('.bi-actions-section > *').each(function(){
@@ -372,18 +558,29 @@
 		var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
 		var hasSelectedItems = selectedCount > 0;
 		var $actions = $('.bi-floating-actions button, .bi-floating-actions input[type="submit"], .bi-floating-actions select');
-		var $customButtons = $('.bi-trash-button, .bi-edit-button');
+		var $customButtons = $('.bi-trash-button, .bi-edit-button, .bi-update-button');
 		var $counter = $('.bi-selection-counter');
 		
-		// Mettre à jour le compteur
-		var iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		// Récupérer le nom des éléments depuis le titre de la page
+		var itemName = 'items';
+		var $pageTitle = $('h1.wp-heading-inline');
+		if ($pageTitle.length > 0) {
+			itemName = $pageTitle.text().trim().toLowerCase();
+			// Nettoyer le nom (retirer les pluriels, articles, etc.)
+			itemName = itemName.replace(/^all\s+/i, '').replace(/^manage\s+/i, '').replace(/^edit\s+/i, '');
+			// Mettre au pluriel si nécessaire
+			if (!itemName.endsWith('s')) {
+				itemName += 's';
+			}
+		}
 		
+		// Mettre à jour le compteur
 		if (selectedCount === 0) {
-			$counter.html('0 ' + iconSvg);
+			$counter.find('.bi-counter-number').text('0');
 		} else if (selectedCount === 1) {
-			$counter.html('1 ' + iconSvg);
+			$counter.find('.bi-counter-number').text('1');
 		} else {
-			$counter.html(selectedCount + ' ' + iconSvg);
+			$counter.find('.bi-counter-number').text(selectedCount);
 		}
 		
 		if (hasSelectedItems) {

@@ -1,0 +1,34 @@
+/* ========================================
+   THÈME DARK PRO - Variables de couleurs
+   ======================================== */
+
+:root {
+    /* Palette de couleurs Dark Pro */
+    --bi-modern-primary: #10b981;
+    --bi-modern-primary-hover: #059669;
+    --bi-modern-primary-rgb: 16, 185, 129;
+    --bi-modern-secondary: #111827;
+    --bi-modern-accent: #06b6d4;
+    --bi-modern-accent-rgb: 6, 182, 212;
+    --bi-modern-success: #16a34a;
+    --bi-modern-warning: #f59e0b;
+    --bi-modern-error: #ef4444;
+    
+    /* Couleurs de fond modernes */
+    --bi-modern-bg-primary: #111827;
+    --bi-modern-bg-secondary: #1f2937;
+    --bi-modern-bg-tertiary: #374151;
+    --bi-modern-bg-dark: #0f172a;
+    
+    /* Couleurs de texte modernes */
+    --bi-modern-text-primary: #f9fafb;
+    --bi-modern-text-secondary: #d1d5db;
+    --bi-modern-text-muted: #9ca3af;
+    
+    /* Bordures et ombres modernes */
+    --bi-modern-border-color: #374151;
+    --bi-modern-shadow-light: 0 1px 3px rgba(16, 185, 129, 0.1), 0 1px 2px rgba(16, 185, 129, 0.06);
+    --bi-modern-shadow-medium: 0 4px 6px rgba(16, 185, 129, 0.07), 0 2px 4px rgba(16, 185, 129, 0.06);
+    --bi-modern-shadow-heavy: 0 10px 15px rgba(16, 185, 129, 0.1), 0 4px 6px rgba(16, 185, 129, 0.05);
+    --bi-modern-shadow-glow: 0 0 20px rgba(16, 185, 129, 0.3);
+}

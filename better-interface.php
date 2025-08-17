@@ -64,6 +64,9 @@ class BetterInterface {
         'ocean' => 'Ocean Blue',
         'midnight' => 'Midnight Dark',
         'teal' => 'Teal Elegant',
+        'minimal-contrast' => 'Minimal Contrast',
+        'dark-pro' => 'Dark Pro',
+        'warm-accent' => 'Warm Accent',
     ];
     
     /**

@@ -113,6 +113,9 @@ $custom_js = get_option('bi_custom_js', '');
                                     case 'ocean': _e('Bleu océan moderne et apaisant.', 'better-interface'); break;
                                     case 'midnight': _e('Noir minuit sobre et professionnel.', 'better-interface'); break;
                                     case 'teal': _e('Turquoise élégant et sophistiqué.', 'better-interface'); break;
+                                    case 'minimal-contrast': _e('Clair, élégant et professionnel, inspiré de Notion et Tailwind UI.', 'better-interface'); break;
+                                    case 'dark-pro': _e('Sombre, tech et reposant pour les yeux, idéal pour le mode nuit.', 'better-interface'); break;
+                                    case 'warm-accent': _e('Plus créatif et vivant avec des accents chaleureux.', 'better-interface'); break;
                                 }
                                 ?>
                             </p>
