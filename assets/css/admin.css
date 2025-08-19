@@ -111,33 +111,85 @@
     margin-bottom: 30px;
 }
 
-/* Cartes des modes */
-.bi-mode-card {
+/* Section du toggle */
+.bi-toggle-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+/* Carte du toggle */
+.bi-toggle-card {
     background: var(--bi-bg-secondary);
     border: 2px solid var(--bi-border-color);
     border-radius: var(--bi-border-radius);
-    padding: 20px;
-    cursor: pointer;
+    padding: 30px;
     transition: all var(--bi-transition-normal);
     position: relative;
     overflow: hidden;
+    max-width: 500px;
+    width: 100%;
+    cursor: pointer;
 }
 
-.bi-mode-card:hover {
+.bi-toggle-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--bi-shadow-medium);
     border-color: var(--bi-primary);
 }
 
-.bi-mode-card.active {
+.bi-toggle-card.active {
     border-color: var(--bi-primary);
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(6, 182, 212, 0.05));
     box-shadow: var(--bi-shadow-medium);
 }
 
-/* Aperçu visuel du mode */
-.bi-mode-preview {
-    margin-bottom: 15px;
+/* Aperçu visuel du toggle */
+.bi-toggle-preview {
+    margin-bottom: 20px;
+    transition: all var(--bi-transition-normal);
+}
+
+/* Aperçu classique (désactivé) */
+.bi-toggle-preview .bi-preview-header {
+    background: #f1f5f9;
+}
+
+.bi-toggle-preview .bi-preview-sidebar {
+    background: #64748b;
+}
+
+.bi-toggle-preview .bi-preview-main {
+    background: #ffffff;
+}
+
+.bi-toggle-preview .bi-preview-bar {
+    background: #f1f5f9;
+}
+
+.bi-toggle-preview .bi-preview-content-area {
+    background: #ffffff;
+}
+
+/* Aperçu moderne (activé) */
+.bi-toggle-preview.modern-preview .bi-preview-header {
+    background: linear-gradient(135deg, var(--bi-primary), var(--bi-accent));
+}
+
+.bi-toggle-preview.modern-preview .bi-preview-sidebar {
+    background: linear-gradient(180deg, var(--bi-primary), var(--bi-accent));
+}
+
+.bi-toggle-preview.modern-preview .bi-preview-main {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(6, 182, 212, 0.05));
+}
+
+.bi-toggle-preview.modern-preview .bi-preview-bar {
+    background: linear-gradient(90deg, var(--bi-primary), var(--bi-accent));
+}
+
+.bi-toggle-preview.modern-preview .bi-preview-content-area {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.02), rgba(6, 182, 212, 0.02));
 }
 
 .bi-preview-header {
@@ -218,23 +270,84 @@
     border: 1px solid var(--bi-border-color);
 }
 
-/* Informations du mode */
-.bi-mode-info {
-    text-align: center;
+/* Informations du toggle */
+.bi-toggle-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
 }
 
-.bi-mode-info h3 {
+.bi-toggle-switch {
+    flex-shrink: 0;
+}
+
+.bi-toggle-text {
+    flex: 1;
+}
+
+.bi-toggle-text h3 {
     color: var(--bi-text-primary);
     font-size: 1.2rem;
     font-weight: 600;
     margin: 0 0 8px 0;
 }
 
-.bi-mode-description {
+.bi-toggle-description {
     color: var(--bi-text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
     margin: 0;
+}
+
+/* Toggle switch */
+.bi-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.bi-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.bi-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.bi-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .bi-slider {
+    background-color: var(--bi-primary);
+}
+
+input:focus + .bi-slider {
+    box-shadow: 0 0 1px var(--bi-primary);
+}
+
+input:checked + .bi-slider:before {
+    transform: translateX(26px);
 }
 
 .bi-current-badge {
@@ -251,15 +364,15 @@
     letter-spacing: 0.5px;
 }
 
-/* Actions des modes */
-.bi-mode-actions {
+/* Actions du toggle */
+.bi-toggle-actions {
     display: flex;
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.bi-mode-actions .button {
+.bi-toggle-actions .button {
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
@@ -268,20 +381,20 @@
     cursor: pointer;
 }
 
-.bi-save-mode {
+.bi-save-toggle {
     background: linear-gradient(135deg, var(--bi-primary), var(--bi-accent));
     color: white;
     border: none;
     box-shadow: var(--bi-shadow-light);
 }
 
-.bi-save-mode:hover:not(:disabled) {
+.bi-save-toggle:hover:not(:disabled) {
     transform: translateY(-1px);
     box-shadow: var(--bi-shadow-medium);
     filter: brightness(1.05);
 }
 
-.bi-save-mode:disabled {
+.bi-save-toggle:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }

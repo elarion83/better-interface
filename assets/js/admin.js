@@ -757,7 +757,7 @@
 		});
 
 		// Intercepter les clics sur les boutons de sauvegarde du plugin
-		$(document).on('click', '.bi-save-mode, .bi-save-theme', function(){
+		$(document).on('click', '.bi-save-toggle, .bi-save-theme', function(){
 			self.showPageTransition();
 		});
 	};

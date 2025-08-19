@@ -226,7 +226,7 @@ class BetterInterface {
             'nonce' => wp_create_nonce('bi_nonce'),
             'current_mode' => $this->current_mode,
             'available_modes' => $this->available_modes,
-            // Thèmes de couleurs pour le mode moderne
+            // Thèmes de couleurs pour l'affichage transformé
             'current_color_theme' => $this->current_color_theme,
             'available_color_themes' => $this->available_color_themes,
         ]);

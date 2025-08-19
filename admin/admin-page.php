@@ -1,7 +1,7 @@
 <?php
 /**
  * Page d'administration du plugin Better Interface
- * Interface moderne pour la gestion des modes de design
+ * Interface moderne pour la gestion de l'affichage transformé
  */
 
 // Sécurité : empêcher l'accès direct
@@ -11,8 +11,7 @@ if (!defined('ABSPATH')) {
 
 // Récupération de l'instance du plugin
 $bi = BetterInterface::get_instance();
-$current_mode = $bi->get_current_mode();
-$available_modes = $bi->get_available_modes();
+$is_transformed = $bi->get_current_mode() === 'modern';
 $current_color_theme = $bi->get_current_color_theme();
 $available_color_themes = $bi->get_available_color_themes();
 $custom_css = get_option('bi_custom_css', '');
@@ -26,66 +25,62 @@ $custom_js = get_option('bi_custom_js', '');
             <?php _e('Better Interface', 'better-interface'); ?>
         </h1>
         <p class="bi-description">
-            <?php _e('Modernisez votre interface administrateur WordPress avec nos 2 modes de design différents.', 'better-interface'); ?>
+            <?php _e('Modernisez votre interface administrateur WordPress avec un design transformé.', 'better-interface'); ?>
         </p>
     </div>
 
     <div class="bi-content">
-        <!-- Section des modes de design -->
+        <!-- Section de l'affichage transformé -->
         <div class="bi-section">
-            <h2><?php _e('Modes de Design', 'better-interface'); ?></h2>
-            <p><?php _e('Sélectionnez le mode de design qui correspond le mieux à vos préférences :', 'better-interface'); ?></p>
+            <h2><?php _e('Affichage Transformé', 'better-interface'); ?></h2>
+            <p><?php _e('Activez ou désactivez l\'affichage transformé de votre interface administrateur :', 'better-interface'); ?></p>
             
-            <div class="bi-modes-grid">
-                <?php foreach ($available_modes as $mode_key => $mode_name) : ?>
-                    <div class="bi-mode-card <?php echo ($current_mode === $mode_key) ? 'active' : ''; ?>" data-mode="<?php echo esc_attr($mode_key); ?>">
-                        <div class="bi-mode-preview">
-                            <div class="bi-preview-header">
-                                <div class="bi-preview-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                            </div>
-                            <div class="bi-preview-content">
-                                <div class="bi-preview-sidebar"></div>
-                                <div class="bi-preview-main">
-                                    <div class="bi-preview-bar"></div>
-                                    <div class="bi-preview-content-area"></div>
-                                </div>
+            <div class="bi-toggle-section">
+                <div class="bi-toggle-card <?php echo $is_transformed ? 'active' : ''; ?>" data-transformed="<?php echo $is_transformed ? '1' : '0'; ?>">
+                    <div class="bi-toggle-preview">
+                        <div class="bi-preview-header">
+                            <div class="bi-preview-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
                             </div>
                         </div>
-                        <div class="bi-mode-info">
-                            <h3><?php echo esc_html($mode_name); ?></h3>
-                            <p class="bi-mode-description">
-                                <?php
-                                switch ($mode_key) {
-                                    case 'default':
-                                        _e('Interface classique WordPress avec des améliorations subtiles.', 'better-interface');
-                                        break;
-                                    case 'modern':
-                                        _e('Design moderne avec des couleurs vives et des animations fluides.', 'better-interface');
-                                        break;
-                                }
-                                ?>
-                            </p>
-                            <?php if ($current_mode === $mode_key) : ?>
-                                <span class="bi-current-badge"><?php _e('Actuel', 'better-interface'); ?></span>
-                            <?php endif; ?>
+                        <div class="bi-preview-content">
+                            <div class="bi-preview-sidebar"></div>
+                            <div class="bi-preview-main">
+                                <div class="bi-preview-bar"></div>
+                                <div class="bi-preview-content-area"></div>
+                            </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                    <div class="bi-toggle-info">
+                        <div class="bi-toggle-switch">
+                            <label class="bi-switch">
+                                <input type="checkbox" id="bi-transformed-toggle" <?php echo $is_transformed ? 'checked' : ''; ?>>
+                                <span class="bi-slider"></span>
+                            </label>
+                        </div>
+                        <div class="bi-toggle-text">
+                            <h3><?php echo $is_transformed ? __('Activé', 'better-interface') : __('Désactivé', 'better-interface'); ?></h3>
+                            <p class="bi-toggle-description">
+                                <?php echo $is_transformed 
+                                    ? __('Interface moderne avec des couleurs vives et des animations fluides.', 'better-interface')
+                                    : __('Interface classique WordPress avec des améliorations subtiles.', 'better-interface'); ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="bi-mode-actions">
-                <button type="button" class="button button-primary bi-save-mode" disabled>
-                    <?php _e('Appliquer le mode sélectionné', 'better-interface'); ?>
+            <div class="bi-toggle-actions">
+                <button type="button" class="button button-primary bi-save-toggle" disabled>
+                    <?php _e('Appliquer les changements', 'better-interface'); ?>
                 </button>
             </div>
         </div>
 
-        <!-- Section des thèmes de couleurs (uniquement pour le mode moderne) -->
-        <?php if ($current_mode === 'modern') : ?>
+        <!-- Section des thèmes de couleurs (uniquement si l'affichage transformé est activé) -->
+        <?php if ($is_transformed) : ?>
         <div class="bi-section">
             <h2><?php _e('Thèmes de Couleurs', 'better-interface'); ?></h2>
             <p><?php _e('Personnalisez l\'apparence de votre interface avec nos thèmes de couleurs modernes :', 'better-interface'); ?></p>
@@ -141,8 +136,8 @@ $custom_js = get_option('bi_custom_js', '');
             
             <div class="bi-info-grid">
                 <div class="bi-info-card">
-                    <h3><?php _e('Mode Actuel', 'better-interface'); ?></h3>
-                    <p class="bi-info-value"><?php echo esc_html($available_modes[$current_mode]); ?></p>
+                    <h3><?php _e('Affichage Transformé', 'better-interface'); ?></h3>
+                    <p class="bi-info-value"><?php echo $is_transformed ? __('Activé', 'better-interface') : __('Désactivé', 'better-interface'); ?></p>
                 </div>
                 
                 <div class="bi-info-card">
