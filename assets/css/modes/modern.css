@@ -402,7 +402,7 @@ body {
 }
 
 /* Boutons uniformes et colorés (hors .column-title, .handle-actions, #screen-meta-links, #minor-publishing, #wpseo-metabox-root, .notice-dismiss, .media-frame-content, .mce-container, #wp-content-editor-tools, .interface-interface-skeleton__editor et .components-popover) */
-button:not(.column-title button):not(.health-check-body button):not(.bi-floating-actions button):not(#bulk-titles button):not(.media-modal button):not(.column-comment button):not(.wp-auth-check-close):not(.notice button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button):not(.mce-container button):not(#wp-content-editor-tools button):not(.interface-interface-skeleton__editor button):not(.components-popover button):not(#collapse-menu button),
+button:not(.column-title button):not(.row-actions button):not(.health-check-body button):not(.bi-floating-actions button):not(#bulk-titles button):not(.media-modal button):not(.column-comment button):not(.wp-auth-check-close):not(.notice button):not(.handle-actions button):not(#screen-meta-links button):not(#minor-publishing button):not(#wpseo-metabox-root button):not(.notice-dismiss):not(.media-frame-content button):not(.edit-post-editor__inserter-panel-content button):not(.mce-container button):not(#wp-content-editor-tools button):not(.interface-interface-skeleton__editor button):not(.components-popover button):not(#collapse-menu button),
 input[type="button"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):not(.mce-container input):not(#wp-content-editor-tools input):not(.interface-interface-skeleton__editor input):not(.components-popover input),
 input[type="submit"]:not(.column-title input):not(.handle-actions input):not(#screen-meta-links input):not(#minor-publishing input):not(#wpseo-metabox-root input):not(.notice-dismiss):not(.media-frame-content input):not(.edit-post-editor__inserter-panel-content input):not(.mce-container input):not(#wp-content-editor-tools input):not(.interface-interface-skeleton__editor input):not(.components-popover input),
 .wp-core-ui .button:not(.column-title .button):not(.handle-actions .button):not(#screen-meta-links .button):not(#minor-publishing .button):not(#wpseo-metabox-root .button):not(.notice-dismiss):not(.media-frame-content .button):not(.edit-post-editor__inserter-panel-content .button):not(.mce-container .button):not(#wp-content-editor-tools .button):not(.interface-interface-skeleton__editor .button):not(.components-popover .button),
@@ -875,6 +875,18 @@ th.check-column label, td.check-column label {
     gap: 24px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animation slide in */
+.bi-floating-action-bar.slide-in {
+    transform: translateY(0);
+}
+
+/* Animation slide out */
+.bi-floating-action-bar.slide-out {
+    transform: translateY(100%);
 }
 
 /* Ajustement quand le menu admin est replié */
@@ -908,7 +920,7 @@ th.check-column label, td.check-column label {
 	padding: 6px 12px;
 	border-radius: 20px;
 	font-size: 13px;
-	font-weight: 500;
+    font-weight: 500;
 	border: 1px solid rgba(16, 185, 129, 0.2);
 	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 	white-space: nowrap;
@@ -922,6 +934,32 @@ th.check-column label, td.check-column label {
 	font-size: 18px;
 	font-weight: 700;
 	color: var(--bi-modern-text-primary);
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	display: inline-block;
+}
+
+/* Animation de défilement du compteur */
+.bi-counter-number.counter-changing {
+	animation: counterScroll 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes counterScroll {
+	0% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	50% {
+		transform: translateY(-20px);
+    opacity: 0;
+	}
+	51% {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
 
 /* Texte du compteur */
@@ -933,6 +971,7 @@ th.check-column label, td.check-column label {
 
 .bi-selection-counter.has-selection {
 	background: #10b981;
+    overflow: hidden;
 	color: white;
 	border-color: #10b981;
     transform: scale(0.8);
@@ -946,6 +985,34 @@ th.check-column label, td.check-column label {
 
 .bi-selection-counter.has-selection .bi-counter-text {
 	color: rgba(255, 255, 255, 0.9);
+}
+
+/* Bouton de désélection intégré au compteur */
+.bi-selection-counter .bi-deselect-all {
+	background: rgba(255, 255, 255, 0.2) !important;
+	color: rgba(255, 255, 255, 0.8) !important;
+	border: 1px solid rgba(255, 255, 255, 0.3) !important;
+	border-radius: 50% !important;
+	width: 20px !important;
+	height: 20px !important;
+	min-width: 20px !important;
+	padding: 0 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	cursor: pointer !important;
+	margin-left: 8px !important;
+}
+
+.bi-selection-counter .bi-deselect-all .dashicons {
+	font-size: 12px !important;
+	width: 12px !important;
+	height: 12px !important;
+}
+
+/* Masquer le bouton quand aucun élément n'est sélectionné */
+.bi-selection-counter:not(.has-selection) .bi-deselect-all {
+	display: none !important;
 }
 
 /* Bouton update - styles de base */
@@ -1050,13 +1117,13 @@ th.check-column label, td.check-column label {
     border: 1px solid var(--bi-modern-accent) !important;
     box-shadow: 0 2px 4px rgba(var(--bi-modern-accent-rgb, 16, 185, 129), 0.3) !important;
 }
-
-.bi-floating-action-bar .bi-floating-actions button:not(.bi-trash-button):hover,
+.bi-floating-action-bar .bi-floating-actions button:not(.bi-trash-button,.bi-approve-button,  .bi-unapprove-button):hover,
 .bi-floating-action-bar .bi-floating-actions input[type="submit"]:hover {
     background: var(--bi-modern-accent-hover, #059669) !important;
     border-color: var(--bi-modern-accent-hover, #059669) !important;
     box-shadow: 0 4px 8px rgba(var(--bi-modern-accent-rgb, 16, 185, 129), 0.4) !important;
     transform: translateY(-1px) !important;
+    justify-content: flex-start !important;
 }
 
 /* Bouton poubelle avec fond rouge */
@@ -1073,6 +1140,9 @@ th.check-column label, td.check-column label {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
 .bi-floating-action-bar .bi-trash-button:hover:not(:disabled) {
@@ -1080,6 +1150,7 @@ th.check-column label, td.check-column label {
     border-color: #dc2626 !important;
     box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4) !important;
     transform: translateY(-1px) !important;
+    justify-content: flex-start !important;
 }
 
 /* Bouton update dans la barre flottante */
@@ -1096,6 +1167,9 @@ th.check-column label, td.check-column label {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
 .bi-floating-action-bar .bi-update-button:hover:not(:disabled) {
@@ -1119,6 +1193,9 @@ th.check-column label, td.check-column label {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
 .bi-floating-action-bar .bi-untrash-button:hover:not(:disabled) {
@@ -1130,7 +1207,9 @@ th.check-column label, td.check-column label {
 
 /* Boutons approve et unapprove dans la barre flottante */
 .bi-floating-action-bar .bi-approve-button,
-.bi-floating-action-bar .bi-unapprove-button {
+.bi-floating-action-bar .bi-unapprove-button,
+.bi-floating-action-bar .bi-activate-button,
+.bi-floating-action-bar .bi-deactivate-button {
     width: 36px !important;
     height: 36px !important;
     min-width: 36px !important;
@@ -1141,7 +1220,9 @@ th.check-column label, td.check-column label {
     color: white !important;
     border: 1px solid !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
 /* Styles spécifiques pour approve */
@@ -1172,8 +1253,45 @@ th.check-column label, td.check-column label {
     transform: translateY(-1px) !important;
 }
 
+/* Styles spécifiques pour activate */
+.bi-floating-action-bar .bi-activate-button {
+    background: #10b981 !important;
+    border-color: #10b981 !important;
+    border-radius: 6px 0 0 6px !important;
+}
+
+.bi-floating-action-bar .bi-activate-button:hover:not(:disabled) {
+    background: #059669 !important;
+    border-color: #059669 !important;
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Styles spécifiques pour deactivate */
+.bi-floating-action-bar .bi-deactivate-button {
+    background: #ef4444 !important;
+    border-color: #ef4444 !important;
+    border-radius: 0 6px 6px 0 !important;
+}
+
+.bi-floating-action-bar .bi-deactivate-button:hover:not(:disabled) {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
 /* Groupe des boutons approve/unapprove */
 .bi-approval-group {
+    display: flex !important;
+    align-items: center !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Groupe des boutons activate/deactivate */
+.bi-activate-group {
     display: flex !important;
     align-items: center !important;
     border-radius: 6px !important;
@@ -1195,6 +1313,9 @@ th.check-column label, td.check-column label {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
 .bi-floating-action-bar .bi-spam-button:hover:not(:disabled) {
@@ -1202,6 +1323,66 @@ th.check-column label, td.check-column label {
     border-color: #d97706 !important;
     box-shadow: 0 4px 8px rgba(245, 158, 11, 0.4) !important;
     transform: translateY(-1px) !important;
+}
+
+/* Bouton reset password dans la barre flottante */
+.bi-floating-action-bar .bi-reset-password-button {
+    background: #8b5cf6 !important;
+    color: white !important;
+    border: 1px solid #8b5cf6 !important;
+    box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3) !important;
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.bi-floating-action-bar .bi-reset-password-button:hover:not(:disabled) {
+    background: #7c3aed !important;
+    border-color: #7c3aed !important;
+    box-shadow: 0 4px 8px rgba(139, 92, 246, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Effet de déploiement pour tous les boutons personnalisés */
+.bi-floating-action-bar button[data-action]:hover:not(.bi-approve-button):not(.bi-unapprove-button),
+.bi-floating-action-bar button[data-action]:focus:not(.bi-approve-button):not(.bi-unapprove-button) {
+    min-width: 130px !important;
+    padding: 0 12px !important;
+    gap: 8px !important;
+    border-radius: 6px !important;
+}
+
+.bi-floating-action-bar button[data-action]:hover:not(.bi-approve-button):not(.bi-unapprove-button)::after,
+.bi-floating-action-bar button[data-action]:focus:not(.bi-approve-button):not(.bi-unapprove-button)::after {
+    content: attr(title);
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0;
+    animation: slideInText 0.3s ease forwards;
+}
+
+@keyframes slideInText {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
 }
 
 .bi-floating-action-bar .bi-trash-button:disabled {
@@ -1227,6 +1408,9 @@ th.check-column label, td.check-column label {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
 .bi-floating-action-bar .bi-edit-button:hover:not(:disabled) {
@@ -2073,7 +2257,7 @@ h1 + a.page-title-action:hover {
 }
 
 .tablenav.bottom {
-    display: none;
+    opacity: 0;
 }
 
 /* Bouton d'accordéon pour les actions */

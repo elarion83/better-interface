@@ -155,14 +155,14 @@
 		}
 	};
 
-	// Créer une barre d'actions flottante en bas de l'écran
-	BetterInterfaceAdmin.prototype.createFloatingActionBar = function($nav){
-		var self = this;
-		
-		// Créer le container de la barre flottante
-		var $floatingBar = $('<div class="bi-floating-action-bar"></div>');
-		var $actionsContainer = $('<div class="bi-floating-actions"></div>');
-		var $filtersContainer = $('<div class="bi-floating-filters"></div>');
+			// Créer une barre d'actions flottante en bas de l'écran
+		BetterInterfaceAdmin.prototype.createFloatingActionBar = function($nav){
+			var self = this;
+			
+			// Créer le container de la barre flottante
+			var $floatingBar = $('<div class="bi-floating-action-bar slide-out"></div>');
+			var $actionsContainer = $('<div class="bi-floating-actions"></div>');
+			var $filtersContainer = $('<div class="bi-floating-filters"></div>');
 		
 		// Récupérer le nom des éléments depuis le titre de la page
 		var itemName = 'items';
@@ -177,8 +177,20 @@
 			}
 		}
 		
-		// Créer le compteur d'éléments sélectionnés
-		var $counter = $('<div class="bi-selection-counter"><span class="bi-counter-number">0</span><span class="bi-counter-text">' + itemName + '</span></div>');
+		// Créer le compteur d'éléments sélectionnés avec bouton de désélection
+		var $counter = $('<div class="bi-selection-counter"><span class="bi-counter-number">0</span><span class="bi-counter-text">' + itemName + '</span><button type="button" class="bi-deselect-all" title="Désélectionner tout"><span class="dashicons dashicons-no-alt"></span></button></div>');
+		
+		// Configurer le bouton de désélection
+		$counter.find('.bi-deselect-all').on('click', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			
+			// Désélectionner toutes les cases à cocher
+			$('.wp-list-table tbody input[type="checkbox"]:checked').prop('checked', false).trigger('change');
+			
+			// Désélectionner les cases "tout sélectionner"
+			$('.wp-list-table thead input[type="checkbox"], .wp-list-table tfoot input[type="checkbox"]').prop('checked', false).trigger('change');
+		});
 		$actionsContainer.append($counter);
 		
 		// Configuration des actions personnalisées
@@ -227,6 +239,21 @@
 				buttonClass: 'bi-spam-button',
 				title: 'Mark as spam',
 				icon: '<span class="dashicons dashicons-flag"></span>'
+			},
+			'resetpassword': {
+				buttonClass: 'bi-reset-password-button',
+				title: 'Reset password',
+				icon: '<span class="dashicons dashicons-unlock"></span>'
+			},
+			'activate-selected': {
+				buttonClass: 'bi-activate-button',
+				title: 'Activate selected',
+				icon: '<span class="dashicons dashicons-yes-alt"></span>'
+			},
+			'deactivate-selected': {
+				buttonClass: 'bi-deactivate-button',
+				title: 'Deactivate selected',
+				icon: '<span class="dashicons dashicons-no-alt"></span>'
 			}
 		};
 		
@@ -287,8 +314,8 @@
 						}
 					});
 					
-					// Séparer les boutons approve/unapprove des autres
-					if (value === 'approve' || value === 'unapprove') {
+					// Séparer les boutons approve/unapprove et activate/deactivate des autres
+					if (value === 'approve' || value === 'unapprove' || value === 'activate-selected' || value === 'deactivate-selected') {
 						approvalButtons.push($button);
 					} else {
 						customButtons.push($button);
@@ -299,15 +326,37 @@
 				}
 			});
 			
-			// Ajouter les boutons personnalisés
+			// Séparer les boutons activate/deactivate des autres boutons approve/unapprove
+			var activateButtons = [];
+			var otherApprovalButtons = [];
+			
+			approvalButtons.forEach(function($button){
+				var actionValue = $button.data('action');
+				if (actionValue === 'activate-selected' || actionValue === 'deactivate-selected') {
+					activateButtons.push($button);
+				} else {
+					otherApprovalButtons.push($button);
+				}
+			});
+			
+			// Ajouter d'abord les boutons activate/deactivate
+			if (activateButtons.length > 0) {
+				var $activateGroup = $('<div class="bi-activate-group"></div>');
+				activateButtons.forEach(function($button){
+					$activateGroup.append($button);
+				});
+				$actionsContainer.append($activateGroup);
+			}
+			
+			// Puis les autres boutons personnalisés
 			customButtons.forEach(function($button){
 				$actionsContainer.append($button);
 			});
 			
-			// Créer le groupe pour les boutons approve/unapprove
-			if (approvalButtons.length > 0) {
+			// Enfin les autres boutons approve/unapprove
+			if (otherApprovalButtons.length > 0) {
 				var $approvalGroup = $('<div class="bi-approval-group"></div>');
-				approvalButtons.forEach(function($button){
+				otherApprovalButtons.forEach(function($button){
 					$approvalGroup.append($button);
 				});
 				$actionsContainer.append($approvalGroup);
@@ -574,13 +623,30 @@
 			}
 		}
 		
-		// Mettre à jour le compteur
-		if (selectedCount === 0) {
-			$counter.find('.bi-counter-number').text('0');
-		} else if (selectedCount === 1) {
-			$counter.find('.bi-counter-number').text('1');
+		// Mettre à jour le compteur avec effet de défilement
+		var $counterNumber = $counter.find('.bi-counter-number');
+		var currentValue = parseInt($counterNumber.text()) || 0;
+		
+		if (currentValue !== selectedCount) {
+			// Ajouter la classe pour l'animation
+			$counterNumber.addClass('counter-changing');
+			
+			// Mettre à jour la valeur après un court délai pour déclencher l'animation
+			setTimeout(function(){
+				$counterNumber.text(selectedCount);
+				$counterNumber.removeClass('counter-changing');
+			}, 50);
+		}
+		
+		// Vérifier s'il y a des filtres actifs
+		var hasActiveFilters = $('.bi-floating-filters').children().length > 0;
+		
+		// Afficher/masquer la barre selon les conditions avec animation
+		var $floatingBar = $('.bi-floating-action-bar');
+		if (hasSelectedItems || hasActiveFilters) {
+			$floatingBar.removeClass('slide-out').addClass('slide-in');
 		} else {
-			$counter.find('.bi-counter-number').text(selectedCount);
+			$floatingBar.removeClass('slide-in').addClass('slide-out');
 		}
 		
 		if (hasSelectedItems) {
