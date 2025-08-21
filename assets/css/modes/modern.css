@@ -2245,19 +2245,6 @@ h1 + a.page-title-action:hover {
     opacity: 0;
 }
 
-/* Bouton d'accordéon pour les actions */
-.tablenav.top::before {
-    content: 'Actions & Filtres';
-    position: absolute;
-    left: 45px;
-    padding: 4px 12px;
-    font-size: 1em;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    z-index: 10;
-}
-
 /* Bouton toggle pour l'accordéon */
 .tablenav.top::after {
     content: '▼';
@@ -2280,74 +2267,9 @@ h1 + a.page-title-action:hover {
     border-radius: 50%;
 }
 
-/* État ouvert de l'accordéon */
-.tablenav.top.ngBetterInterface-accordion-open::after {
-    transform: translateY(-50%) rotate(180deg);
-    background: var(--ngBetterInterface-modern-primary);
-    color: white;
-}
 
-/* Container des actions groupées */
-.tablenav.top .actions {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 16px 0;
-    border-radius: 6px;
-    border: 1px solid rgba(99, 102, 241, 0.08);
-    transition: all 0.3s cubic-bezier(.4,0,.2,1);
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-10px);
-}
 
-/* État ouvert des actions */
-.tablenav.top.ngBetterInterface-accordion-open .actions {
-    max-height: 300px;
-    opacity: 1;
-    min-width: 100%;
-    border: none;
-    transform: translateY(0);
-    padding-top: 45px;
-}
 
-/* Sous-sections des actions */
-.ngBetterInterface-actions-section,
-.ngBetterInterface-filters-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    position: relative;
-    flex-wrap: wrap;
-}
-
-/* Titres des sous-sections */
-.ngBetterInterface-actions-section::before,
-.ngBetterInterface-filters-section::before {
-    position: absolute;
-    top: -8px;
-    left: 12px;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 2px 8px;
-    border-radius: 8px;
-    color: white;
-    z-index: 5;
-}
-
-.ngBetterInterface-actions-section::before {
-    content: 'Actions';
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-error), #dc2626);
-}
-
-.ngBetterInterface-filters-section::before {
-    content: 'Filtres';
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-accent), #0891b2);
-}
 
 /* Style des boutons d'action */
 #collapse-menu #collapse-button {
@@ -2540,119 +2462,15 @@ h1 + a.page-title-action:hover {
     }
 }
 
-/* ========================================
-   JAVASCRIPT POUR L'ACCORDÉON
-   ======================================== */
 
-/* Animation d'ouverture/fermeture */
-@keyframes ngBetterInterface-accordion-slide-down {
-    from {
-        max-height: 0;
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        max-height: 200px;
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-@keyframes ngBetterInterface-accordion-slide-up {
-    from {
-        max-height: 200px;
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        max-height: 0;
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-}
 
-/* Classes pour les animations */
-.ngBetterInterface-accordion-slide-down {
-    animation: ngBetterInterface-accordion-slide-down 0.3s cubic-bezier(.4,0,.2,1) forwards;
-}
 
-.ngBetterInterface-accordion-slide-up {
-    animation: ngBetterInterface-accordion-slide-up 0.3s cubic-bezier(.4,0,.2,1) forwards;
-}
 
-/* Séparateurs d'actions */
-.ngBetterInterface-action-separator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 8px 0;
-    position: relative;
-}
 
-.ngBetterInterface-action-separator::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
-    transform: translateY(-50%);
-}
 
-.ngBetterInterface-action-separator span {
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--ngBetterInterface-modern-text-secondary);
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    position: relative;
-    z-index: 1;
-}
-
-/* Amélioration de l'apparence de l'accordéon */
-.tablenav.top.ngBetterInterface-accordion-closed {
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(.4,0,.2,1);
-}
-
-.tablenav.top.ngBetterInterface-accordion-closed:hover {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(var(--ngBetterInterface-modern-primary-rgb), 0.15);
-    box-shadow: 0 4px 12px rgba(var(--ngBetterInterface-modern-primary-rgb), 0.08);
-}
-
-.tablenav.top.ngBetterInterface-accordion-closed::after {
-    background:rgba(var(--ngBetterInterface-modern-primary-rgb), 0.15);
-    transition: all 0.3s cubic-bezier(.4,0,.2,1);
-}
-
-.tablenav.top.ngBetterInterface-accordion-closed:hover::after {
-    background: var(--ngBetterInterface-modern-primary);
-    color: white;
-    transform: translateY(-50%) scale(1.1);
-}
-
-/* Indicateur visuel pour les actions groupées */
-.ngBetterInterface-grouped-actions {
-    position: relative;
-    background: rgba(168, 168, 168, 0.15);  
-    padding-top: 20px;
-}
-
-/* Responsive pour les séparateurs */
-@media (max-width: 768px) {
-    .ngBetterInterface-action-separator {
-        margin: 6px 0;
-    }
     
-    .ngBetterInterface-action-separator span {
-        font-size: 10px;
-        padding: 1px 6px;
-    }
+
 }
 
 /* ========================================
@@ -3010,4 +2828,99 @@ html {
 
 .subsubsub {
    margin-bottom: 15px;
+}
+
+/* ========================================
+   PAGE D'INSTALLATION DE PLUGINS
+   ======================================== */
+
+/* Styles pour la page d'installation de plugins */
+body.plugin-install-php .wp-list-table {
+    /* Conserve les espacements existants */
+    border:none;
+    background: transparent;
+    box-shadow: none;
+    padding-top:10px;
+}
+
+/* Cartes de plugins modernisées */
+body.plugin-install-php .plugin-card ,
+body.plugin-install-php .wp-filter{
+    background: var(--ngBetterInterface-modern-bg-primary);
+    border: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-radius: var(--ngBetterInterface-modern-border-radius);
+    box-shadow: var(--ngBetterInterface-modern-shadow-light);
+    transition: all var(--ngBetterInterface-modern-transition-normal);
+    overflow: hidden;
+}
+
+body.plugin-install-php .plugin-card:hover {
+    border-color: var(--ngBetterInterface-modern-primary);
+    box-shadow: var(--ngBetterInterface-modern-shadow-medium);
+    transform: translateY(-2px);
+}
+
+/* Boutons d'action */
+body.plugin-install-php .plugin-card .button {
+    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent));
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    padding: 8px 16px;
+    transition: all var(--ngBetterInterface-modern-transition-fast);
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px 5px 0 0;
+}
+
+body.plugin-install-php .plugin-card .button:hover {
+    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary-hover), var(--ngBetterInterface-modern-accent));
+    transform: translateY(-1px);
+    box-shadow: var(--ngBetterInterface-modern-shadow-medium);
+}
+
+/* Bouton d'installation principal */
+body.plugin-install-php .plugin-card .install-now {
+    background: linear-gradient(135deg, var(--ngBetterInterface-modern-success), #059669);
+    font-weight: 600;
+}
+
+body.plugin-install-php .plugin-card .install-now:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+}
+
+/* Étoiles de notation */
+body.plugin-install-php .plugin-card .star-rating {
+    color: var(--ngBetterInterface-modern-warning);
+    margin: 10px 0;
+}
+
+/* Nombre d'installations */
+body.plugin-install-php .plugin-card .num-ratings {
+    color: var(--ngBetterInterface-modern-text-muted);
+    font-size: 0.85rem;
+    margin-left: 5px;
+}
+
+/* Tags et catégories */
+body.plugin-install-php .plugin-card .plugin-tags {
+    margin: 10px 0;
+}
+
+body.plugin-install-php .plugin-card .plugin-tags a {
+    background: var(--ngBetterInterface-modern-bg-secondary);
+    color: var(--ngBetterInterface-modern-text-secondary);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    margin: 0 4px 4px 0;
+    display: inline-block;
+    transition: all var(--ngBetterInterface-modern-transition-fast);
+}
+
+body.plugin-install-php .plugin-card .plugin-tags a:hover {
+    background: var(--ngBetterInterface-modern-primary);
+    color: white;
 }

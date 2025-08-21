@@ -23,7 +23,7 @@
 
 
 
-	// ===== Barre d'actions flottante (desktop/tablette paysage) =====
+	// ===== Barre d'actions flottante =====
 	BetterInterfaceAdmin.prototype.initAccordionTables = function(){
 		var self = this;
 		$('.tablenav.top').each(function(){
@@ -31,23 +31,21 @@
 			if ($nav.data('biAccordionInit')) return;
 			$nav.data('biAccordionInit', true);
 
-			self.groupTableActions($nav);
+			// Créer une barre flottante sur tous les supports
+			self.createFloatingActionBar($nav);
 			
-					// Créer une barre flottante sur tous les supports
-		self.createFloatingActionBar($nav);
-		
-		// Gérer le redimensionnement de la fenêtre pour adapter la largeur
-		$(window).on('resize', function(){
-			var $floatingBar = $('.ngBetterInterface-floating-action-bar');
-			if ($floatingBar.length > 0) {
-				// Adapter la largeur selon le format d'écran
-				if (window.innerWidth < 768) {
-					$floatingBar.addClass('ngBetterInterface-full-width');
-				} else {
-					$floatingBar.removeClass('ngBetterInterface-full-width');
+			// Gérer le redimensionnement de la fenêtre pour adapter la largeur
+			$(window).on('resize', function(){
+				var $floatingBar = $('.ngBetterInterface-floating-action-bar');
+				if ($floatingBar.length > 0) {
+					// Adapter la largeur selon le format d'écran
+					if (window.innerWidth < 768) {
+						$floatingBar.addClass('ngBetterInterface-full-width');
+					} else {
+						$floatingBar.removeClass('ngBetterInterface-full-width');
+					}
 				}
-			}
-		});
+			});
 		});
 	};
 
@@ -55,77 +53,7 @@
 		return $el.is('button, input, select, textarea, a, label, [contenteditable="true"]') || $el.closest('button, input, select, textarea, a, label, [contenteditable="true"]').length > 0;
 	};
 
-	BetterInterfaceAdmin.prototype.toggleAccordion = function($nav){
-		var isOpen = $nav.hasClass('ngBetterInterface-accordion-open');
-		$nav.toggleClass('ngBetterInterface-accordion-open', !isOpen);
-		$nav.toggleClass('ngBetterInterface-accordion-closed', isOpen);
-	};
 
-	BetterInterfaceAdmin.prototype.groupTableActions = function($nav){
-		var $actionsBlocks = $nav.find('.actions');
-		if ($actionsBlocks.length === 0) return;
-
-		var $host = $actionsBlocks.first();
-		var $others = $actionsBlocks.slice(1);
-
-		var $container = $('<div/>', { class: 'ngBetterInterface-grouped-actions' });
-		var $actionsSection = $('<div/>', { class: 'ngBetterInterface-actions-section' });
-		var $filtersSection = $('<div/>', { class: 'ngBetterInterface-filters-section' });
-
-		$actionsBlocks.each(function(){
-			var $block = $(this);
-			$block.children().each(function(){
-				var $child = $(this);
-				var bucket = classify($child);
-				if (bucket === 'actions') { $actionsSection.append($child); }
-				else { $filtersSection.append($child); }
-			});
-		});
-
-		$container.append($actionsSection).append($filtersSection);
-
-		// Supprimer les sections vides pour masquer les pastilles correspondantes
-		var hasActions = $actionsSection.children().length > 0 && ($actionsSection.text()||'').trim() !== '';
-		var hasFilters = $filtersSection.children().length > 0 && ($filtersSection.text()||'').trim() !== '';
-		if (!hasActions) { $actionsSection.remove(); }
-		if (!hasFilters) { $filtersSection.remove(); }
-		if (!hasActions && !hasFilters) {
-			// Aucun contenu pertinent: ne pas insérer le container
-			$others.remove();
-			return;
-		}
-
-		$host.empty().append($container);
-		$others.remove();
-
-		function classify($el){
-			// 1) Wrappers/éléments spécifiques aux actions groupées
-			if ($el.hasClass('bulkactions') || $el.closest('.bulkactions').length) return 'actions';
-			if ($el.find('select[name="action"], select[name="action2"]').length) return 'actions';
-			if ($el.find('input[id^="doaction"]').length) return 'actions';
-			if ($el.is('select')) {
-				var n = ($el.attr('name')||'').toLowerCase();
-				if (n === 'action' || n === 'action2') return 'actions';
-			}
-			if ($el.is('input[type="submit"], button')) {
-				var id = ($el.attr('id')||'').toLowerCase();
-				var name = ($el.attr('name')||'').toLowerCase();
-				var text = (($el.text()||$el.val()||'')+"").toLowerCase();
-				if (id.indexOf('doaction') === 0 || name === 'doaction' || name === 'doaction2') return 'actions';
-				if (id === 'post-query-submit' || /filtrer|filter/.test(text)) return 'filters';
-			}
-			// 2) Filtres (champs et sélecteurs hors actions)
-			if ($el.is('select')) return 'filters';
-			if ($el.find('select').length) {
-				if ($el.find('select[name="action"], select[name="action2"]').length) return 'actions';
-				return 'filters';
-			}
-			if ($el.is('input[type="search"], input[type="text"], input[type="date"], input[type="number"], input[type="month"], input[type="time"]')) return 'filters';
-			if ($el.find('input[type="search"], input[type="text"], input[type="date"], input[type="number"], input[type="month"], input[type="time"]').length) return 'filters';
-			// 3) Par défaut, ranger dans Filtres pour éviter de polluer la zone Actions
-			return 'filters';
-		}
-	};
 
 			// Créer une barre d'actions flottante en bas de l'écran
 		BetterInterfaceAdmin.prototype.createFloatingActionBar = function($nav){
@@ -479,58 +407,34 @@
 				}
 			});
 		});
-		
+
 		// Observer les changements dans le body
 		observer.observe(document.body, {
 			childList: true,
 			subtree: true
 		});
 		
-		// Créer des références visuelles sans déplacer les éléments originaux
-		$nav.find('.ngBetterInterface-actions-section > *').each(function(){
+		// Récupérer les filtres depuis le DOM original
+		$nav.find('.actions > *').each(function(){
 			var $original = $(this);
-			var $clone = $original.clone();
 			
-			// Copier les attributs importants
-			$clone.attr('id', $original.attr('id'));
-			$clone.attr('name', $original.attr('name'));
-			$clone.attr('form', $original.attr('form'));
-			$clone.attr('type', $original.attr('type'));
-			$clone.attr('value', $original.attr('value'));
-			
-			// Pour les boutons, déclencher l'action sur l'original
-			if ($clone.is('button, input[type="submit"]')) {
-				$clone.on('click', function(e){
-					e.preventDefault();
-					$original.trigger('click');
-				});
+			// Ignorer les éléments d'action (select[name="action"], boutons Apply, etc.)
+			if ($original.is('select[name="action"], select[name="action2"]') || 
+				$original.is('input[type="submit"][value="Apply"]') ||
+				$original.closest('.bulkactions').length > 0) {
+			return;
+		}
+
+			// Ignorer les éléments déjà traités comme boutons personnalisés
+			var isCustomAction = false;
+			if ($original.is('select')) {
+				var value = $original.val();
+				if (customActions[value]) {
+					isCustomAction = true;
+				}
 			}
+			if (isCustomAction) return;
 			
-			// Pour les selects, synchroniser avec l'original
-			if ($clone.is('select')) {
-				$clone.on('change', function(){
-					$original.val($(this).val()).trigger('change');
-				});
-				$original.on('change', function(){
-					$clone.val($(this).val());
-				});
-			}
-			
-			// Pour les inputs, synchroniser avec l'original
-			if ($clone.is('input[type="text"], input[type="search"], input[type="date"], input[type="number"]')) {
-				$clone.on('input', function(){
-					$original.val($(this).val()).trigger('input');
-				});
-				$original.on('input', function(){
-					$clone.val($(this).val());
-				});
-			}
-			
-			$actionsContainer.append($clone);
-		});
-		
-		$nav.find('.ngBetterInterface-filters-section > *').each(function(){
-			var $original = $(this);
 			var $clone = $original.clone();
 			
 			// Copier les attributs importants
