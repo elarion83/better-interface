@@ -1,0 +1,31 @@
+
+/* ========================================
+   CLASSES UTILITAIRES D'EXCLUSION
+   ======================================== */
+
+/* Classes pour exclure des propriétés spécifiques du style moderne */
+.ngBetterInterface-no-border-radius {
+    border-radius: 0 !important;
+}
+
+.ngBetterInterface-no-shadow {
+    box-shadow: none !important;
+}
+
+.ngBetterInterface-no-gradient {
+    background: var(--ngBetterInterface-modern-bg-primary) !important;
+}
+
+.ngBetterInterface-no-transition {
+    transition: none !important;
+}
+
+.ngBetterInterface-no-hover {
+    transition: none !important;
+}
+
+.ngBetterInterface-no-hover:hover {
+    filter: none !important;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.10) !important;
+    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+}

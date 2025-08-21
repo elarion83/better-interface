@@ -26,7 +26,8 @@
             // Boutons dans les métaboxes
             '.postbox .button',
             '.meta-box-sortables .button',
-            '#collapse-menu button'
+            '#collapse-menu button',
+            '.ngBetterInterface-filters-panel-content input[type="submit"]'
         ],
         
         // Éléments à exclure (ne pas styler)

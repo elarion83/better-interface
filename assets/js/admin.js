@@ -49,10 +49,10 @@
 		BetterInterfaceAdmin.prototype.createFloatingActionBar = function($nav){
 			var self = this;
 			
-			// Créer le container de la barre flottante
-			var $floatingBar = $('<div class="ngBetterInterface-floating-action-bar slide-out"></div>');
-			var $actionsContainer = $('<div class="ngBetterInterface-floating-actions"></div>');
-			var $filtersContainer = $('<div class="ngBetterInterface-floating-filters"></div>');
+					// Créer le container de la barre flottante
+		var $floatingBar = $('<div class="ngBetterInterface-floating-action-bar slide-out"></div>');
+		var $actionsContainer = $('<div class="ngBetterInterface-floating-actions"></div>');
+		var $paginationContainer = $('<div class="ngBetterInterface-floating-pagination"></div>');
 		
 		// Récupérer le nom des éléments depuis le titre de la page
 		var itemName = 'selected';
@@ -63,9 +63,26 @@
 			itemName = itemName.replace(/^all\s+/i, '').replace(/^manage\s+/i, '').replace(/^edit\s+/i, '');
 		}
 		
+		// Récupérer le nombre total d'éléments depuis .displaying-num
+		var totalItems = 0;
+		var $displayingNum = $('.displaying-num');
+		if ($displayingNum.length > 0) {
+			var displayingText = $displayingNum.text().trim();
+			// Extraire le nombre du texte (gère différents formats)
+			// "Showing 1-20 of 100 items" -> 100
+			// "100 items" -> 100
+			// "Showing 1-20 of 100" -> 100
+			var match = displayingText.match(/(\d+)(?=\s*(?:items?|$))/i) || displayingText.match(/(\d+)$/);
+			if (match) {
+				totalItems = parseInt(match[1]);
+			}
+		}
+		
+
+		
 		// Créer le compteur d'éléments sélectionnés avec bouton de désélection
 		var deselectAllText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.deselect_all) || 'Deselect';
-		var $counter = $('<div class="ngBetterInterface-selection-counter"><div class="ngBetterInterface-counter-content"><span class="ngBetterInterface-counter-number">0</span><span class="ngBetterInterface-counter-text">' + itemName + '</span></div><button type="button" class="ngBetterInterface-deselect-all" title="' + deselectAllText + '"><span class="dashicons dashicons-no-alt"></span></button></div>');
+		var $counter = $('<div class="ngBetterInterface-selection-counter"><div class="ngBetterInterface-counter-content"><span class="ngBetterInterface-counter-number">' + totalItems + '</span><span class="ngBetterInterface-counter-text">' + itemName + '</span></div><button type="button" class="ngBetterInterface-deselect-all" title="' + deselectAllText + '"><span class="dashicons dashicons-no-alt"></span></button></div>');
 		
 		// Configurer le bouton de désélection
 		$counter.find('.ngBetterInterface-deselect-all').on('click', function(e){
@@ -83,10 +100,52 @@
 		// Utiliser la configuration des actions personnalisées depuis le fichier externe
 		var customActions = window.ngBetterInterfaceCustomActions || {};
 		
-		// Traiter les actions du select
+		// Ajouter le bouton delete_all s'il existe
+		var $deleteAllButton = $nav.find('#delete_all');
+		if ($deleteAllButton.length > 0) {
+			customActions['delete_all'] = {
+				buttonClass: 'ngBetterInterface-delete-all-button',
+				title: 'Delete All',
+				icon: '<span class="dashicons dashicons-trash"></span>',
+				backgroundColor: '#dc2626',
+				hoverBackgroundColor: '#b91c1c'
+			};
+		}
+		
+		// Traiter les actions du select et le bouton delete_all
 		var $actionSelect = $nav.find('#bulk-action-selector-top');
 		var customButtons = [];
 		var groupedButtons = {};
+		
+		// Traiter le bouton delete_all s'il existe
+		if ($deleteAllButton.length > 0) {
+			var action = customActions['delete_all'];
+			var $button = $('<button type="button" class="' + action.buttonClass + '" title="' + action.title + '" data-action="delete_all">' + action.icon + '</button>');
+			
+			// Stocker l'icône originale dans les données du bouton
+			$button.data('original-icon', action.icon);
+			
+			// Appliquer les couleurs personnalisées
+			if (action.backgroundColor) {
+				$button.css('background', action.backgroundColor);
+			}
+			if (action.hoverBackgroundColor) {
+				$button.data('hover-color', action.hoverBackgroundColor);
+			}
+			
+			// Configurer l'action du bouton
+			$button.on('click', function(e){
+				e.preventDefault();
+				
+				// Déclencher le clic sur le bouton original
+				$deleteAllButton.trigger('click');
+			});
+			
+			customButtons.push($button);
+			
+			// Masquer le bouton original
+			$deleteAllButton.hide();
+		}
 		
 		if ($actionSelect.length > 0) {
 			// Énumérer les options du select
@@ -332,6 +391,17 @@
 			subtree: true
 		});
 		
+		// Créer le bouton "Filtres" pour ouvrir le sur-panel
+		var $filtersButton = $('<button type="button" class="ngBetterInterface-filters-button" title="Filtres"><span class="dashicons dashicons-filter"></span></button>');
+		
+		// Créer le voile sombre
+		var $filtersOverlay = $('<div class="ngBetterInterface-filters-overlay"></div>');
+		
+		// Créer le sur-panel des filtres
+		var $filtersPanel = $('<div class="ngBetterInterface-filters-panel"></div>');
+		var $filtersPanelContent = $('<div class="ngBetterInterface-filters-panel-content"></div>');
+		var $filtersPanelHeader = $('<div class="ngBetterInterface-filters-panel-header"><h3><span class="dashicons dashicons-filter"></span> Filtres</h3><button type="button" class="ngBetterInterface-filters-close"><span class="dashicons dashicons-no-alt"></span></button></div>');
+		
 		// Récupérer les filtres depuis le DOM original
 		$nav.find('.actions > *').each(function(){
 			var $original = $(this);
@@ -390,15 +460,179 @@
 				});
 			}
 			
-			$filtersContainer.append($clone);
+			$filtersPanelContent.append($clone);
 		});
+		
+		// Assembler le panel des filtres
+		$filtersPanel.append($filtersPanelHeader).append($filtersPanelContent);
+		
+		// Gérer l'ouverture/fermeture du panel des filtres
+		$filtersButton.on('click', function(e){
+			e.preventDefault();
+			$filtersPanel.addClass('ngBetterInterface-filters-panel-open');
+			$filtersOverlay.addClass('ngBetterInterface-filters-overlay-open');
+			$filtersButton.addClass('active');
+		});
+		
+		$filtersPanel.find('.ngBetterInterface-filters-close').on('click', function(e){
+			e.preventDefault();
+			$filtersPanel.removeClass('ngBetterInterface-filters-panel-open');
+			$filtersOverlay.removeClass('ngBetterInterface-filters-overlay-open');
+			$filtersButton.removeClass('active');
+		});
+		
+		// Fermer le panel en cliquant à l'extérieur ou sur l'overlay
+		$(document).on('click', function(e){
+			if (!$(e.target).closest('.ngBetterInterface-filters-panel').length && 
+				!$(e.target).closest('.ngBetterInterface-filters-button').length) {
+				$filtersPanel.removeClass('ngBetterInterface-filters-panel-open');
+				$filtersOverlay.removeClass('ngBetterInterface-filters-overlay-open');
+				$filtersButton.removeClass('active');
+			}
+		});
+		
+		// Fermer en cliquant sur l'overlay
+		$filtersOverlay.on('click', function(e){
+			$filtersPanel.removeClass('ngBetterInterface-filters-panel-open');
+			$filtersOverlay.removeClass('ngBetterInterface-filters-overlay-open');
+			$filtersButton.removeClass('active');
+		});
+		
+		// Créer la pagination moderne
+		var currentPage = 1;
+		var $currentPageInput = $('#current-page-selector');
+		if ($currentPageInput.length > 0) {
+			currentPage = parseInt($currentPageInput.val()) || 1;
+		}
+		
+		// Récupérer le nombre total de pages depuis l'URL ou les éléments existants
+		var totalPages = 1;
+		var $pagination = $('.tablenav-pages, .wp-pagenavi, .pagination').first();
+		if ($pagination.length > 0) {
+			// Essayer de trouver le nombre total de pages dans les liens existants
+			var maxPage = 0;
+			$pagination.find('a').each(function(){
+				var href = $(this).attr('href');
+				if (href) {
+					var match = href.match(/[?&]paged=(\d+)/);
+					if (match) {
+						var pageNum = parseInt(match[1]);
+						if (pageNum > maxPage) maxPage = pageNum;
+					}
+				}
+			});
+			if (maxPage > 0) totalPages = maxPage;
+		}
+		
+		// Créer les éléments de pagination
+		var $paginationElements = $('<div class="ngBetterInterface-modern-pagination"></div>');
+		
+		// Bouton première page
+		if (currentPage > 1) {
+			var $firstPageBtn = $('<button type="button" class="ngBetterInterface-pagination-btn ngBetterInterface-pagination-first" title="Première page"><span class="dashicons dashicons-controls-skipback"></span></button>');
+			$firstPageBtn.on('click', function(){
+				changePage(1);
+			});
+			$paginationElements.append($firstPageBtn);
+		}
+		
+		// Bouton page précédente
+		if (currentPage > 1) {
+			var $prevPageBtn = $('<button type="button" class="ngBetterInterface-pagination-btn ngBetterInterface-pagination-prev" title="Page précédente"><span class="dashicons dashicons-controls-back"></span></button>');
+			$prevPageBtn.on('click', function(){
+				changePage(currentPage - 1);
+			});
+			$paginationElements.append($prevPageBtn);
+		}
+		
+		// Champ de saisie de la page actuelle
+		var $pageInput = $('<input type="number" class="ngBetterInterface-pagination-input" value="' + currentPage + '" min="1" max="' + totalPages + '" title="Page actuelle" />');
+		$pageInput.on('change', function(){
+			var newPage = parseInt($(this).val());
+			if (newPage >= 1 && newPage <= totalPages) {
+				changePage(newPage);
+			} else {
+				$(this).val(currentPage); // Remettre la valeur actuelle si invalide
+			}
+		});
+		$pageInput.on('keypress', function(e){
+			if (e.which === 13) { // Enter
+				$(this).trigger('change');
+			}
+		});
+		$paginationElements.append($pageInput);
+		
+		// Séparateur "sur"
+		var $separator = $('<span class="ngBetterInterface-pagination-separator">/</span>');
+		$paginationElements.append($separator);
+		
+		// Nombre total de pages
+		var $totalPages = $('<span class="ngBetterInterface-pagination-total">' + totalPages + '</span>');
+		$paginationElements.append($totalPages);
+		
+		// Bouton page suivante
+		if (currentPage < totalPages) {
+			var $nextPageBtn = $('<button type="button" class="ngBetterInterface-pagination-btn ngBetterInterface-pagination-next" title="Page suivante"><span class="dashicons dashicons-controls-forward"></span></button>');
+			$nextPageBtn.on('click', function(){
+				changePage(currentPage + 1);
+			});
+			$paginationElements.append($nextPageBtn);
+		}
+		
+		// Bouton dernière page
+		if (currentPage < totalPages) {
+			var $lastPageBtn = $('<button type="button" class="ngBetterInterface-pagination-btn ngBetterInterface-pagination-last" title="Dernière page"><span class="dashicons dashicons-controls-skipforward"></span></button>');
+			$lastPageBtn.on('click', function(){
+				changePage(totalPages);
+			});
+			$paginationElements.append($lastPageBtn);
+		}
+		
+		// Fonction pour changer de page
+		function changePage(page) {
+			var currentUrl = window.location.href;
+			var newUrl;
+			
+			if (currentUrl.includes('paged=')) {
+				// Remplacer le paramètre paged existant
+				newUrl = currentUrl.replace(/[?&]paged=\d+/, function(match) {
+					return match.charAt(0) === '?' ? '?paged=' + page : '&paged=' + page;
+				});
+			} else {
+				// Ajouter le paramètre paged
+				var separator = currentUrl.includes('?') ? '&' : '?';
+				newUrl = currentUrl + separator + 'paged=' + page;
+			}
+			
+			window.location.href = newUrl;
+		}
+		
+		$paginationContainer.append($paginationElements);
+		
+		// Ajouter le bouton filtres en premier si il y a des filtres
+		if ($filtersPanelContent.children().length > 0) {
+			$actionsContainer.prepend($filtersButton);
+		}
 		
 		// Assembler la barre
 		if ($actionsContainer.children().length > 0) {
 			$floatingBar.append($actionsContainer);
 		}
-		if ($filtersContainer.children().length > 0) {
-			$floatingBar.append($filtersContainer);
+		
+		// Ajouter la pagination à droite
+		var $rightSection = $('<div class="ngBetterInterface-floating-right"></div>');
+		if ($paginationContainer.children().length > 0) {
+			$rightSection.append($paginationContainer);
+		}
+		
+		if ($rightSection.children().length > 0) {
+			$floatingBar.append($rightSection);
+		}
+		
+		// Ajouter le panel des filtres et l'overlay au body
+		if ($filtersPanelContent.children().length > 0) {
+			$('body').append($filtersOverlay);
+			$('body').append($filtersPanel);
 		}
 		
 		// Ajouter au body si on a du contenu
@@ -433,6 +667,21 @@
 		var $customButtons = $('.ngBetterInterface-trash-button, .ngBetterInterface-edit-button, .ngBetterInterface-update-button');
 		var $counter = $('.ngBetterInterface-selection-counter');
 		
+		// Récupérer le nombre total d'éléments depuis .displaying-num
+		var totalItems = 0;
+		var $displayingNum = $('.displaying-num');
+		if ($displayingNum.length > 0) {
+			var displayingText = $displayingNum.text().trim();
+			// Extraire le nombre du texte (gère différents formats)
+			// "Showing 1-20 of 100 items" -> 100
+			// "100 items" -> 100
+			// "Showing 1-20 of 100" -> 100
+			var match = displayingText.match(/(\d+)(?=\s*(?:items?|$))/i) || displayingText.match(/(\d+)$/);
+			if (match) {
+				totalItems = parseInt(match[1]);
+			}
+		}
+		
 		// Récupérer le nom des éléments depuis le titre de la page
 		var itemName = 'selection';
 		var $pageTitle = $('h1.wp-heading-inline');
@@ -444,21 +693,34 @@
 		
 		// Mettre à jour le compteur avec effet de défilement
 		var $counterNumber = $counter.find('.ngBetterInterface-counter-number');
+		var $counterText = $counter.find('.ngBetterInterface-counter-text');
 		var currentValue = parseInt($counterNumber.text()) || 0;
 		
-		if (currentValue !== selectedCount) {
+		// Déterminer la valeur à afficher et le texte
+		var displayValue, displayText;
+		if (hasSelectedItems) {
+			displayValue = selectedCount + ' / ' + totalItems;
+			displayText = 'selected';
+		} else {
+			displayValue = totalItems;
+			displayText = itemName;
+		}
+		
+		// Vérifier si la valeur a changé
+		if (currentValue !== displayValue) {
 			// Ajouter la classe pour l'animation
 			$counterNumber.addClass('counter-changing');
 			
-			// Mettre à jour la valeur après un court délai pour déclencher l'animation
+			// Mettre à jour la valeur et le texte après un court délai pour déclencher l'animation
 			setTimeout(function(){
-				$counterNumber.text(selectedCount);
+				$counterNumber.text(displayValue);
+				$counterText.text(displayText);
 				$counterNumber.removeClass('counter-changing');
 			}, 50);
 		}
 		
 		// Vérifier s'il y a des filtres actifs
-		var hasActiveFilters = $('.ngBetterInterface-floating-filters').children().length > 0;
+		var hasActiveFilters = $('.ngBetterInterface-filters-panel-content').children().length > 0;
 		
 		// Afficher/masquer la barre selon les conditions avec animation
 		var $floatingBar = $('.ngBetterInterface-floating-action-bar');
@@ -477,6 +739,9 @@
 			$customButtons.prop('disabled', true).addClass('disabled');
 			$counter.removeClass('has-selection');
 		}
+		
+		// Le bouton filtres reste toujours actif
+		$('.ngBetterInterface-filters-button').prop('disabled', false).removeClass('disabled');
 	};
 
 	// Pourquoi: améliorer l'ergonomie des listes WP; un clic sur l'arrière-plan d'une ligne toggle la première case à cocher

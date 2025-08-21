@@ -401,17 +401,6 @@ input[type="submit"].ngBetterInterface-modern-input:hover {
 }
 
 
-/* Style spécifique pour les boutons d'icônes dans .handle-actions */
-.handle-actions button,
-.handle-actions .button {
-    transition: transform 0.2s cubic-bezier(.4,0,.2,1), filter 0.2s cubic-bezier(.4,0,.2,1);
-    border-radius: 4px !important;
-}
-.handle-actions button:hover,
-.handle-actions .button:hover {
-    transform: scale(1.1);
-    filter: brightness(1.1) drop-shadow(0 0 4px rgba(99,102,241,0.15));
-}
 
 /* ========================================
    FORMULAIRES MODERNES (Approche par inclusion)
@@ -621,57 +610,6 @@ th.check-column label, td.check-column label {
 }
 
 /* ========================================
-   ANIMATIONS ET EFFETS MODERNES
-   ======================================== */
-
-/* Animation d'entrée pour les éléments */
-@keyframes ngBetterInterface-modern-fade-in-up {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.ngBetterInterface-modern-animate {
-    animation: ngBetterInterface-modern-fade-in-up 0.6s ease-out;
-}
-
-/* Animation de pulsation pour les éléments importants */
-@keyframes ngBetterInterface-modern-pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-.ngBetterInterface-modern-pulse {
-    animation: ngBetterInterface-modern-pulse 2s infinite;
-}
-
-/* Animation de glissement pour les menus */
-@keyframes ngBetterInterface-modern-slide-in {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-#adminmenu .wp-submenu {
-   padding: 0;
-   animation: ngBetterInterface-modern-slide-in 0.3s ease-out;
-}
-
-/* ========================================
    RESPONSIVE DESIGN MODERNE
    ======================================== */
 
@@ -741,43 +679,6 @@ th.check-column label, td.check-column label {
     }
 }
 
-/* ========================================
-   EFFETS SPÉCIAUX MODERNES
-   ======================================== */
-
-/* Effet de glassmorphism pour certains éléments */
-.ngBetterInterface-modern-glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Effet de néon pour les éléments importants */
-.ngBetterInterface-modern-neon {
-    box-shadow: 
-        0 0 5px var(--ngBetterInterface-modern-primary),
-        0 0 10px var(--ngBetterInterface-modern-primary),
-        0 0 15px var(--ngBetterInterface-modern-primary);
-}
-
-/* Effet de gradient animé */
-.ngBetterInterface-modern-gradient {
-    background: linear-gradient(-45deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent), var(--ngBetterInterface-modern-success), var(--ngBetterInterface-modern-primary));
-    background-size: 400% 400%;
-    animation: ngBetterInterface-modern-gradient-shift 3s ease infinite;
-}
-
-@keyframes ngBetterInterface-modern-gradient-shift {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-} 
 
 /* ========================================
    BARRE D'ACTIONS FLOTTANTE (DESKTOP/TABLETTE PAYSAGE)
@@ -837,7 +738,7 @@ th.check-column label, td.check-column label {
 
 /* Ajustement du contenu sur mobile */
 .ngBetterInterface-floating-action-bar.ngBetterInterface-full-width .ngBetterInterface-floating-actions,
-.ngBetterInterface-floating-action-bar.ngBetterInterface-full-width .ngBetterInterface-floating-filters {
+.ngBetterInterface-floating-action-bar.ngBetterInterface-full-width .ngBetterInterface-floating-right {
     gap: 8px;
     flex-wrap: nowrap;
 }
@@ -848,6 +749,269 @@ th.check-column label, td.check-column label {
     align-items: center;
     gap: 20px;
     flex-wrap: nowrap;
+}
+
+/* Section de droite (filtres + pagination) */
+.ngBetterInterface-floating-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+}
+
+/* Bouton filtres */
+.ngBetterInterface-filters-button {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    border: 1px solid !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    background: #8b5cf6 !important; /* Violet pour les filtres */
+    border-color: #8b5cf6 !important;
+}
+
+.ngBetterInterface-filters-button:hover {
+    background: #7c3aed !important; /* Violet plus foncé au hover */
+    border-color: #7c3aed !important;
+    box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* État actif quand le panel est ouvert */
+.ngBetterInterface-filters-button.active {
+    background: #7c3aed !important;
+    border-color: #7c3aed !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+.ngBetterInterface-filters-button.active:hover {
+    background: #6d28d9 !important;
+    border-color: #6d28d9 !important;
+    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5) !important;
+}
+
+/* Effet de déploiement pour le bouton filtres */
+.ngBetterInterface-filters-button:hover,
+.ngBetterInterface-filters-button:focus {
+    width: auto !important;
+    min-width: 135px !important;
+    padding: 0 12px !important;
+    gap: 8px !important;
+    border-radius: 8px !important;
+    justify-content: flex-start !important;
+}
+
+.ngBetterInterface-filters-button:hover::after,
+.ngBetterInterface-filters-button:focus::after {
+    content: 'Filter';
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0;
+    animation: slideInText 0.3s ease forwards;
+    pointer-events: none;
+}
+
+.ngBetterInterface-filters-button .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Overlay sombre pour les filtres */
+.ngBetterInterface-filters-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999997;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.ngBetterInterface-filters-overlay-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Panel des filtres */
+.ngBetterInterface-filters-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: var(--ngBetterInterface-modern-bg-primary);
+    border-left: 1px solid var(--ngBetterInterface-modern-border-color);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+    z-index: 999998;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.ngBetterInterface-filters-panel-open {
+    right: 0;
+}
+
+.ngBetterInterface-filters-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+}
+
+.ngBetterInterface-filters-panel-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ngBetterInterface-filters-panel-header h3 .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.ngBetterInterface-filters-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.ngBetterInterface-filters-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.ngBetterInterface-filters-panel-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ngBetterInterface-filters-panel-content > * {
+    width: 100%;
+}
+
+/* Pagination moderne */
+.ngBetterInterface-modern-pagination {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Boutons de pagination */
+.ngBetterInterface-pagination-btn {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    border: 1px solid !important;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    background: var(--ngBetterInterface-modern-primary) !important;
+    border-color: var(--ngBetterInterface-modern-primary) !important;
+}
+
+.ngBetterInterface-pagination-btn:hover {
+    background: var(--ngBetterInterface-modern-primary-hover) !important;
+    border-color: var(--ngBetterInterface-modern-primary-hover) !important;
+    box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+.ngBetterInterface-pagination-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Input de page */
+.ngBetterInterface-pagination-input {
+    width: 50px;
+    height: 28px;
+    background: var(--ngBetterInterface-modern-bg-primary);
+    border: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-radius: 4px;
+    color: var(--ngBetterInterface-modern-text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    padding: 0 8px;
+    transition: all 0.2s;
+}
+
+.ngBetterInterface-pagination-input:focus {
+    outline: none;
+    border-color: var(--ngBetterInterface-modern-primary);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.ngBetterInterface-pagination-input:hover {
+    border-color: var(--ngBetterInterface-modern-primary);
+}
+
+/* Séparateur */
+.ngBetterInterface-pagination-separator {
+    color: var(--ngBetterInterface-modern-text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 4px;
+}
+
+/* Total des pages */
+.ngBetterInterface-pagination-total {
+    color: var(--ngBetterInterface-modern-text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 4px;
+    text-align: center;
+}
+
+/* Pagination legacy (masquée) */
+.ngBetterInterface-floating-pagination .tablenav-pages,
+.ngBetterInterface-floating-pagination .wp-pagenavi,
+.ngBetterInterface-floating-pagination .pagination {
+    display: none;
 }
 
 #delete_all-floating {
@@ -899,16 +1063,16 @@ th.check-column label, td.check-column label {
 	0% {
 		transform: translateY(0);
         opacity: 1;
-	}
-	50% {
+    }
+    50% {
 		transform: translateY(-20px);
     opacity: 0;
 	}
 	51% {
 		transform: translateY(20px);
 		opacity: 0;
-	}
-	100% {
+    }
+    100% {
         transform: translateY(0);
 		opacity: 1;
 	}
@@ -923,12 +1087,16 @@ th.check-column label, td.check-column label {
 	display: block;
 }
 
+.ngBetterInterface-selection-counter {
+    transform: scale(0.8);
+}
+
 .ngBetterInterface-selection-counter.has-selection {
 	background: #10b981;
     overflow: hidden;
 	color: white;
 	border-color: #10b981;
-    transform: scale(0.8);
+    transform: scale(1);
 	box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
 }
 .ngBetterInterface-selection-counter.has-selection *{
@@ -1169,7 +1337,7 @@ th.check-column label, td.check-column label {
     border: 1px solid var(--ngBetterInterface-modern-border-color);
     border-radius: 6px;
     padding: 8px 12px;
-    font-size: 14px;
+        font-size: 14px;
     font-weight: 500;
     color: var(--ngBetterInterface-modern-text-primary);
     min-width: 120px;
@@ -1213,7 +1381,7 @@ th.check-column label, td.check-column label {
     font-size: 14px;
     font-weight: 500;
     color: var(--ngBetterInterface-modern-text-primary);
-    min-width: 120px;
+    min-width: 70px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -1851,36 +2019,22 @@ span.count.count-highlight {
     }
 } 
 
-/* ========================================
-   CLASSES UTILITAIRES D'EXCLUSION
-   ======================================== */
+/* Responsive pour le panel des filtres */
+@media (max-width: 768px) {
+    .ngBetterInterface-filters-panel {
+        width: 100vw;
+        right: -100vw;
+    }
+    
+    .ngBetterInterface-floating-right {
+        gap: 12px;
+    }
+    
+    .ngBetterInterface-filters-button {
+        padding: 0;
+    }
+} 
 
-/* Classes pour exclure des propriétés spécifiques du style moderne */
-.ngBetterInterface-no-border-radius {
-    border-radius: 0 !important;
-}
-
-.ngBetterInterface-no-shadow {
-    box-shadow: none !important;
-}
-
-.ngBetterInterface-no-gradient {
-    background: var(--ngBetterInterface-modern-bg-primary) !important;
-}
-
-.ngBetterInterface-no-transition {
-    transition: none !important;
-}
-
-.ngBetterInterface-no-hover {
-    transition: none !important;
-}
-
-.ngBetterInterface-no-hover:hover {
-    filter: none !important;
-    box-shadow: 0 2px 8px rgba(99,102,241,0.10) !important;
-    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
-}
 
 /* Classes pour personnaliser les couleurs */
 .ngBetterInterface-custom-bg {

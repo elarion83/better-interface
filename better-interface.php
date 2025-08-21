@@ -293,6 +293,14 @@ class BetterInterface {
             ['better-interface-modern'],
             BI_PLUGIN_VERSION
         );
+
+        // Styles pour la logique des boutons modernes
+        wp_enqueue_style(
+            'better-interface-buttons-logic',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/css/buttonsLogic.css',
+            ['better-interface-modern'],
+            BI_PLUGIN_VERSION
+        );
         
         // Styles pour Contact Form 7
         wp_enqueue_style(
