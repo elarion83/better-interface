@@ -28,23 +28,13 @@
 		var self = this;
 		$('.tablenav.top').each(function(){
 			var $nav = $(this);
-			if ($nav.data('biAccordionInit')) return;
-			$nav.data('biAccordionInit', true);
 
 			// Créer une barre flottante sur tous les supports
 			self.createFloatingActionBar($nav);
 			
 			// Gérer le redimensionnement de la fenêtre pour adapter la largeur
 			$(window).on('resize', function(){
-				var $floatingBar = $('.ngBetterInterface-floating-action-bar');
-				if ($floatingBar.length > 0) {
-					// Adapter la largeur selon le format d'écran
-					if (window.innerWidth < 768) {
-						$floatingBar.addClass('ngBetterInterface-full-width');
-					} else {
-						$floatingBar.removeClass('ngBetterInterface-full-width');
-					}
-				}
+				$('.ngBetterInterface-floating-action-bar').toggleClass('ngBetterInterface-full-width', window.innerWidth < 768);
 			});
 		});
 	};
@@ -65,20 +55,16 @@
 			var $filtersContainer = $('<div class="ngBetterInterface-floating-filters"></div>');
 		
 		// Récupérer le nom des éléments depuis le titre de la page
-		var itemName = 'items';
+		var itemName = 'selected';
 		var $pageTitle = $('h1.wp-heading-inline');
 		if ($pageTitle.length > 0) {
 			itemName = $pageTitle.text().trim().toLowerCase();
 			// Nettoyer le nom (retirer les pluriels, articles, etc.)
 			itemName = itemName.replace(/^all\s+/i, '').replace(/^manage\s+/i, '').replace(/^edit\s+/i, '');
-			// Mettre au pluriel si nécessaire
-			if (!itemName.endsWith('s')) {
-				itemName += 's';
-			}
 		}
 		
 		// Créer le compteur d'éléments sélectionnés avec bouton de désélection
-		var deselectAllText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.deselect_all) || 'Désélectionner tout';
+		var deselectAllText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.deselect_all) || 'Deselect';
 		var $counter = $('<div class="ngBetterInterface-selection-counter"><div class="ngBetterInterface-counter-content"><span class="ngBetterInterface-counter-number">0</span><span class="ngBetterInterface-counter-text">' + itemName + '</span></div><button type="button" class="ngBetterInterface-deselect-all" title="' + deselectAllText + '"><span class="dashicons dashicons-no-alt"></span></button></div>');
 		
 		// Configurer le bouton de désélection
@@ -94,99 +80,8 @@
 		});
 		$actionsContainer.append($counter);
 		
-		// Configuration des actions personnalisées
-		var customActions = {
-			'trash': {
-				buttonClass: 'ngBetterInterface-trash-button',
-				title: 'Move to trash',
-				icon: '<span class="dashicons dashicons-trash"></span>',
-				group: null
-			},
-			'untrash': {
-				buttonClass: 'ngBetterInterface-untrash-button',
-				title: 'Restore from trash',
-				icon: '<span class="dashicons dashicons-backup"></span>',
-				group: null
-			},
-			'delete': {
-				buttonClass: 'ngBetterInterface-trash-button',
-				title: 'Delete permanently',
-				icon: '<span class="dashicons dashicons-trash"></span>',
-				group: null
-			},
-			'edit': {
-				buttonClass: 'ngBetterInterface-edit-button',
-				title: 'Edit selected',
-				icon: '<span class="dashicons dashicons-edit"></span>',
-				group: null
-			},
-			'update-selected': {
-				buttonClass: 'ngBetterInterface-update-button',
-				title: 'Update selected',
-				icon: '<span class="dashicons dashicons-update"></span>',
-				group: null
-			},
-			'delete-selected': {
-				buttonClass: 'ngBetterInterface-trash-button',
-				title: 'Delete selected',
-				icon: '<span class="dashicons dashicons-trash"></span>',
-				group: null
-			},
-			'approve': {
-				buttonClass: 'ngBetterInterface-approve-button',
-				title: 'Approve selected',
-				icon: '<span class="dashicons dashicons-thumbs-up"></span>',
-				group: 'approval'
-			},
-			'unapprove': {
-				buttonClass: 'ngBetterInterface-unapprove-button',
-				title: 'Unapprove selected',
-				icon: '<span class="dashicons dashicons-thumbs-down"></span>',
-				group: 'approval'
-			},
-			'spam': {
-				buttonClass: 'ngBetterInterface-spam-button',
-				title: 'Mark as spam',
-				icon: '<span class="dashicons dashicons-flag"></span>',
-				group: null
-			},
-			'unspam': {
-				buttonClass: 'ngBetterInterface-unspam-button',
-				title: 'Remove from spam',
-				icon: '<span class="dashicons dashicons-undo"></span>',
-				group: null
-			},
-			'resetpassword': {
-				buttonClass: 'ngBetterInterface-reset-password-button',
-				title: 'Reset password',
-				icon: '<span class="dashicons dashicons-admin-network"></span>',
-				group: null
-			},	
-			'activate-selected': {
-				buttonClass: 'ngBetterInterface-activate-button',
-				title: 'Activate selected',
-				icon: '<span class="dashicons dashicons-yes-alt"></span>',
-				group: 'activation'
-			},
-			'deactivate-selected': {
-				buttonClass: 'ngBetterInterface-deactivate-button',
-				title: 'Deactivate selected',
-				icon: '<span class="dashicons dashicons-no-alt"></span>',
-				group: 'activation'
-			},
-			'enable-auto-update-selected': {
-				buttonClass: 'ngBetterInterface-enable-auto-update-button',
-				title: 'Enable auto updates',
-				icon: '<span class="dashicons dashicons-update"></span><span class="dashicons dashicons-yes-alt ngBetterInterface-secondary-icon"></span>',
-				group: 'auto-update'
-			},
-			'disable-auto-update-selected': {
-				buttonClass: 'ngBetterInterface-disable-auto-update-button',
-				title: 'Disable auto updates',
-				icon: '<span class="dashicons dashicons-update"></span><span class="dashicons dashicons-no-alt ngBetterInterface-secondary-icon"></span>',
-				group: 'auto-update'
-			}
-		};
+		// Utiliser la configuration des actions personnalisées depuis le fichier externe
+		var customActions = window.ngBetterInterfaceCustomActions || {};
 		
 		// Traiter les actions du select
 		var $actionSelect = $nav.find('#bulk-action-selector-top');
@@ -209,6 +104,14 @@
 					
 					// Stocker l'icône originale dans les données du bouton
 					$button.data('original-icon', action.icon);
+					
+					// Appliquer les couleurs personnalisées si définies
+					if (action.backgroundColor) {
+						$button.css('background', action.backgroundColor);
+					}
+					if (action.hoverBackgroundColor) {
+						$button.data('hover-color', action.hoverBackgroundColor);
+					}
 					
 					// Configurer l'action du bouton
 					$button.on('click', function(e){
@@ -286,6 +189,19 @@
 				$actionsContainer.append($button);
 			});
 			
+			// Appliquer les événements hover pour les couleurs personnalisées
+			$('.ngBetterInterface-floating-action-bar button[data-hover-color]').each(function(){
+				var $button = $(this);
+				var hoverColor = $button.data('hover-color');
+				var originalColor = $button.css('background');
+				
+				$button.on('mouseenter', function(){
+					$(this).css('background', hoverColor);
+				}).on('mouseleave', function(){
+					$(this).css('background', originalColor);
+				});
+			});
+			
 			// Vérifier s'il ne reste qu'une seule option non convertie en bouton
 			var nonConvertedOptions = 0;
 			$actionSelect.find('option').each(function(){
@@ -350,6 +266,8 @@
 					$button.prop('disabled', false).removeClass('loading processing');
 				});
 			}
+			
+
 		});
 		
 		// Écouter aussi les redirections et rechargements de page
@@ -366,7 +284,7 @@
 				$button.prop('disabled', false).removeClass('loading processing');
 			});
 		});
-		
+
 		// Écouter aussi les erreurs AJAX pour restaurer les boutons
 		$(document).ajaxError(function(event, xhr, settings, error){
 			// Restaurer tous les boutons en cours de traitement en cas d'erreur
@@ -381,7 +299,7 @@
 				$button.prop('disabled', false).removeClass('loading processing');
 			});
 		});
-		
+
 		// Écouter les changements de DOM pour détecter les mises à jour de la page
 		var observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
@@ -516,16 +434,12 @@
 		var $counter = $('.ngBetterInterface-selection-counter');
 		
 		// Récupérer le nom des éléments depuis le titre de la page
-		var itemName = 'items';
+		var itemName = 'selection';
 		var $pageTitle = $('h1.wp-heading-inline');
 		if ($pageTitle.length > 0) {
 			itemName = $pageTitle.text().trim().toLowerCase();
 			// Nettoyer le nom (retirer les pluriels, articles, etc.)
 			itemName = itemName.replace(/^all\s+/i, '').replace(/^manage\s+/i, '').replace(/^edit\s+/i, '');
-			// Mettre au pluriel si nécessaire
-			if (!itemName.endsWith('s')) {
-				itemName += 's';
-			}
 		}
 		
 		// Mettre à jour le compteur avec effet de défilement
@@ -649,6 +563,19 @@
 			}, 300);
 		});
 
+		// Éléments à qui ajouter la classe no-transition (pas de transition de page)
+		var noTransitionSelectors = [
+			'.search-form.search-plugins',  // Formulaire de recherche de plugins
+			// Ajouter d'autres sélecteurs ici selon les besoins
+			// '.mon-formulaire-specifique',
+			// '.autre-formulaire-ajax'
+		];
+		
+		// Appliquer la classe no-transition aux éléments ciblés
+		noTransitionSelectors.forEach(function(selector) {
+			$(selector).addClass('no-transition');
+		});
+
 		// Intercepter les soumissions de formulaires
 		$(document).on('submit', 'form', function(e){
 			var $form = $(this);
@@ -677,6 +604,11 @@
 	BetterInterfaceAdmin.prototype.initNoticesPositioning = function(){
 		var self = this;
 		
+		// Vérifier si on est sur une page d'édition avec le block editor
+		if ($('#editor.block-editor__container').length > 0) {
+			return; // Ne pas activer le système de notices sur les pages d'édition
+		}
+		
 		// Créer le container pour les notices s'il n'existe pas
 		if ($('.ngBetterInterface-notices-container').length === 0) {
 			$('body').append('<div class="ngBetterInterface-notices-container"></div>');
@@ -684,6 +616,11 @@
 
 		// Fonction pour déplacer une notice dans le container
 		function moveNoticeToContainer($notice) {
+			// Ignorer les notices avec la classe plugin-dependencies
+			if ($notice.hasClass('plugin-dependencies')) {
+				return;
+			}
+			
 			if ($notice.closest('.ngBetterInterface-notices-container').length === 0) {
 				$('.ngBetterInterface-notices-container').append($notice);
 			}

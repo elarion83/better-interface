@@ -281,7 +281,7 @@ class BetterInterface {
     }
     
     /**
-     * Chargement des styles spécifiques aux plugins en mode moderne
+     * Chargement des styles et scripts spécifiques aux plugins en mode moderne
      */
     private function enqueue_plugin_specific_styles() {
         // Styles pour Contact Form 7
@@ -290,6 +290,33 @@ class BetterInterface {
             BI_PLUGIN_URL . 'assets/css/modes/modern/plugins/contact-form-7.css',
             ['better-interface-modern'],
             BI_PLUGIN_VERSION
+        );
+        
+        // Scripts de configuration pour le mode moderne
+        wp_enqueue_script(
+            'better-interface-custom-actions',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/js/customActionsButtons.js',
+            ['better-interface-admin'],
+            BI_PLUGIN_VERSION,
+            false
+        );
+        
+        // Script d'application automatique des styles modernes
+        wp_enqueue_script(
+            'better-interface-modern-styles',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/js/modernStyles.js',
+            ['better-interface-admin', 'better-interface-custom-actions'],
+            BI_PLUGIN_VERSION,
+            false
+        );
+        
+        // Script d'application des styles de formulaire modernes
+        wp_enqueue_script(
+            'better-interface-modern-form-styles',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/js/modernFormStyles.js',
+            ['better-interface-admin', 'better-interface-modern-styles'],
+            BI_PLUGIN_VERSION,
+            false
         );
     }
     
