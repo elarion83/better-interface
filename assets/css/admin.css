@@ -57,18 +57,22 @@
 }
 
 .ngBetterInterface-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0 0 10px 0;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 1.5rem !important;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
+    color:white !important;
+    -webkit-text-fill-color: white !important;
+    background: none !important;
 }
 
 .ngBetterInterface-title .dashicons {
     font-size: 2rem;
     width: auto;
+    color:white;
     height: auto;
 }
 

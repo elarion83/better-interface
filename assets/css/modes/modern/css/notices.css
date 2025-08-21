@@ -1,0 +1,177 @@
+/**
+ * Better Interface - Styles pour les notices modernes
+ * Système de positionnement et de style des notices WordPress
+ */
+
+/* ========================================
+   SYSTÈME DE POSITIONNEMENT DES NOTICES
+   ======================================== */
+
+/* Container pour les notices positionnées à droite */
+.ngBetterInterface-notices-container {
+    position: fixed;
+    bottom: 85px;
+    right: 12px;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 360px;
+    pointer-events: none;
+}
+
+/* Notices WordPress positionnées à droite */
+.ngBetterInterface-notices-container .notice,
+.ngBetterInterface-notices-container .notice-success,
+.ngBetterInterface-notices-container .notice-error,
+.ngBetterInterface-notices-container .notice-warning,
+.ngBetterInterface-notices-container .notice-info {
+    position: static !important;
+    margin: 0 !important;
+    width: 100%;
+    max-width: 300px;
+    pointer-events: auto;
+    background: var(--ngBetterInterface-modern-bg-primary);
+    border: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-radius: var(--ngBetterInterface-modern-border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 4px 10px;
+    align-self: flex-end;
+    overflow: hidden;
+}
+
+/* Notices avec bouton de fermeture */
+.ngBetterInterface-notices-container .notice.is-dismissible,
+.ngBetterInterface-notices-container .notice-success.is-dismissible,
+.ngBetterInterface-notices-container .notice-error.is-dismissible,
+.ngBetterInterface-notices-container .notice-warning.is-dismissible,
+.ngBetterInterface-notices-container .notice-info.is-dismissible {
+    position: relative !important;
+}
+
+/* Couleurs spécifiques pour chaque type de notice */
+.ngBetterInterface-notices-container .notice-success {
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+    border-left: 4px solid var(--ngBetterInterface-modern-success);
+}
+
+.ngBetterInterface-notices-container .notice-error {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+    border-left: 4px solid var(--ngBetterInterface-modern-error);
+}
+
+.ngBetterInterface-notices-container .notice-warning {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border-left: 4px solid var(--ngBetterInterface-modern-warning);
+}
+
+.ngBetterInterface-notices-container .notice-info {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-left: 4px solid var(--ngBetterInterface-modern-accent);
+}
+
+/* Bouton de fermeture des notices */
+.ngBetterInterface-notices-container .notice .notice-dismiss {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: var(--ngBetterInterface-modern-text-muted);
+    font-size: 1.2em;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+/* Reset du padding des paragraphes dans les notices */
+.ngBetterInterface-notices-container .notice p {
+    padding: 0;
+    margin: 0;
+}
+
+/* Effet hover sur les notices */
+.ngBetterInterface-notices-container .notice {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ngBetterInterface-notices-container:hover .notice {
+    opacity: 0.8;
+    transform: scale(0.98);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.ngBetterInterface-notices-container .notice:hover {
+    opacity: 1 !important;
+    transform: scale(1.02) !important;
+    z-index: 1;
+}
+
+.ngBetterInterface-notices-container .notice .notice-dismiss:hover {
+    background: rgba(99,102,241,0.15);
+}
+
+/* Notices WordPress standard */
+.notice.updated {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-left: 4px solid var(--ngBetterInterface-accent);
+    min-height: 35px;
+}
+
+.notice.updated p{
+    line-height: 35px;
+}
+
+/* ========================================
+   STYLE SPÉCIFIQUE POUR LES BOUTONS DE FERMETURE DES NOTICES
+   ======================================== */
+
+/* Style spécifique pour les boutons de fermeture des notices */
+.notice-dismiss {
+    color: var(--ngBetterInterface-modern-text-primary) !important;
+    font-size: 1.2em !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
+    position: absolute !important;
+}
+
+.notice-dismiss:hover {
+    color: var(--ngBetterInterface-modern-text-primary) !important;
+    transform: scale(1.1) !important;
+}
+
+/* Amélioration de l'icône X */
+.notice-dismiss::before {
+    content: '×' !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    line-height: 1 !important;
+    color: inherit !important;
+    display: block !important;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+/* Responsive pour les notices */
+@media (max-width: 600px) {
+    .ngBetterInterface-notices-container {
+        right: 8px;
+        bottom: 8px;
+        max-width: calc(100vw - 16px);
+    }
+    
+    .ngBetterInterface-notices-container .notice,
+    .ngBetterInterface-notices-container .notice-success,
+    .ngBetterInterface-notices-container .notice-error,
+    .ngBetterInterface-notices-container .notice-warning,
+    .ngBetterInterface-notices-container .notice-info {
+        max-width: calc(100vw - 16px);
+        font-size: 14px;
+    }
+}

@@ -7,7 +7,7 @@
     'use strict';
     
     // Configuration des sélecteurs pour l'application automatique
-    var modernStylesConfig = {
+    var modernButtonStylesConfig = {
         // Boutons à styler automatiquement
         buttons: [
             // Boutons principaux de WordPress
@@ -25,7 +25,8 @@
             
             // Boutons dans les métaboxes
             '.postbox .button',
-            '.meta-box-sortables .button'
+            '.meta-box-sortables .button',
+            '#collapse-menu button'
         ],
         
         // Éléments à exclure (ne pas styler)
@@ -42,37 +43,22 @@
             '#wp-content-editor-tools button',
             '.interface-interface-skeleton__editor button',
             '.components-popover button',
-            '#collapse-menu button',
-            '.ngBetterInterface-floating-actions button',
-            '.ngBetterInterface-custom-button', // Nos boutons personnalisés
-            '.ngBetterInterface-trash-button',
-            '.ngBetterInterface-approve-button',
-            '.ngBetterInterface-unapprove-button',
-            '.ngBetterInterface-activate-button',
-            '.ngBetterInterface-deactivate-button',
-            '.ngBetterInterface-spam-button',
-            '.ngBetterInterface-unspam-button',
-            '.ngBetterInterface-reset-password-button',
-            '.ngBetterInterface-enable-auto-update-button',
-            '.ngBetterInterface-disable-auto-update-button',
-            '.ngBetterInterface-edit-button',
-            '.ngBetterInterface-update-button',
-            '.ngBetterInterface-untrash-button'
+            '.ngBetterInterface-floating-actions button'
         ]
     };
     
     /**
      * Applique les styles modernes aux éléments
      */
-    function applyModernStyles() {
+    function applyModernButtonStyles() {
         // Appliquer aux boutons
-        modernStylesConfig.buttons.forEach(function(selector) {
+        modernButtonStylesConfig.buttons.forEach(function(selector) {
             $(selector).each(function() {
                 var $element = $(this);
                 
                 // Vérifier si l'élément doit être exclu
                 var shouldExclude = false;
-                modernStylesConfig.exclude.forEach(function(excludeSelector) {
+                modernButtonStylesConfig.exclude.forEach(function(excludeSelector) {
                     if ($element.is(excludeSelector) || $element.closest(excludeSelector).length > 0) {
                         shouldExclude = true;
                         return false; // break
@@ -90,9 +76,9 @@
     /**
      * Initialise l'application des styles modernes
      */
-    function initModernStyles() {
+    function initModernButtonStyles() {
         // Appliquer immédiatement
-        applyModernStyles();
+        applyModernButtonStyles();
         
         // Observer les changements DOM pour les éléments dynamiques
         if (window.MutationObserver) {
@@ -100,7 +86,7 @@
                 mutations.forEach(function(mutation) {
                     if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                         // Attendre un peu pour que le DOM soit stable
-                        setTimeout(applyModernStyles, 100);
+                        setTimeout(applyModernButtonStyles, 100);
                     }
                 });
             });
@@ -114,13 +100,13 @@
         
         // Réappliquer sur les événements AJAX
         $(document).ajaxComplete(function() {
-            setTimeout(applyModernStyles, 100);
+            setTimeout(applyModernButtonStyles, 100);
         });
     }
     
     // Initialiser quand le DOM est prêt
     $(document).ready(function() {
-        initModernStyles();
+        initModernButtonStyles();
     });
     
 })(jQuery);

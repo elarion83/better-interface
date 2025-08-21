@@ -207,11 +207,7 @@ body {
     border-radius: 0 !important;
 }
 
-#wpadminbar .menupop .ab-sub-wrapper .ab-item:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-}
-
+#wpadminbar .menupop .ab-sub-wrapper .ab-item:hover,
 #wpadminbar .menupop .ab-sub-wrapper .ab-item:focus {
     background: rgba(255, 255, 255, 0.15) !important;
     color: white !important;
@@ -342,12 +338,6 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-}
-
-.wrap h1.ngBetterInterface-title {
-   color:white;
-   -webkit-text-fill-color: white;
-   background: none;
 }
 
 /* ========================================
@@ -948,7 +938,7 @@ th.check-column label, td.check-column label {
 @keyframes counterScroll {
 	0% {
 		transform: translateY(0);
-		opacity: 1;
+        opacity: 1;
 	}
 	50% {
 		transform: translateY(-20px);
@@ -959,7 +949,7 @@ th.check-column label, td.check-column label {
 		opacity: 0;
 	}
 	100% {
-		transform: translateY(0);
+        transform: translateY(0);
 		opacity: 1;
 	}
 }
@@ -981,25 +971,17 @@ th.check-column label, td.check-column label {
     transform: scale(0.8);
 	box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
 }
-
-.ngBetterInterface-selection-counter.has-selection .ngBetterInterface-counter-number {
+.ngBetterInterface-selection-counter.has-selection *{
 	color: white;
-	font-size: 18px;
-}
-
-.ngBetterInterface-selection-counter.has-selection .ngBetterInterface-counter-text {
-	color: rgba(255, 255, 255, 0.9);
 }
 
 /* Bouton de désélection intégré au compteur */
 .ngBetterInterface-selection-counter .ngBetterInterface-deselect-all {
 	background: transparent !important;
-	color: rgba(255, 255, 255, 0.8) !important;
 	border: none !important;
 	padding: 0 !important;
 	cursor: pointer !important;
 	margin-left: 8px !important;
-    box-shadow: none !important;
 }
 
 
@@ -1007,10 +989,6 @@ th.check-column label, td.check-column label {
 .ngBetterInterface-selection-counter:not(.has-selection) .ngBetterInterface-deselect-all {
 	display: none !important;
 }
-
-
-
-
 
 /* Container des filtres */
 .ngBetterInterface-floating-filters {
@@ -1037,7 +1015,7 @@ th.check-column label, td.check-column label {
     border: 1px solid var(--ngBetterInterface-modern-primary);
     border-radius: 6px;
     padding: 8px 16px;
-    font-size: 14px;
+        font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1061,8 +1039,6 @@ th.check-column label, td.check-column label {
     display: flex !important;
     align-items: center !important;
     border-radius: 6px !important;
-    overflow: hidden !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Boutons groupés dans la barre flottante */
@@ -1080,53 +1056,6 @@ th.check-column label, td.check-column label {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     position: relative !important;
     overflow: hidden !important;
-}
-
-/* Styles spécifiques pour le groupe approval */
-.ngBetterInterface-floating-action-bar .ngBetterInterface-approval-group .ngBetterInterface-approve-button {
-    border-radius: 6px 0 0 6px !important;
-}
-
-.ngBetterInterface-floating-action-bar .ngBetterInterface-approval-group .ngBetterInterface-approve-button:hover:not(:disabled) {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
-    transform: translateY(-1px) !important;
-}
-
-.ngBetterInterface-floating-action-bar .ngBetterInterface-approval-group .ngBetterInterface-unapprove-button {
-    border-radius: 0 6px 6px 0 !important;
-}
-
-.ngBetterInterface-floating-action-bar .ngBetterInterface-approval-group .ngBetterInterface-unapprove-button:hover:not(:disabled) {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
-    transform: translateY(-1px) !important;
-}
-
-/* Styles spécifiques pour le groupe activation */
-.ngBetterInterface-floating-action-bar .ngBetterInterface-activation-group .ngBetterInterface-activate-button {
-    border-radius: 6px 0 0 6px !important;
-}
-
-.ngBetterInterface-floating-action-bar .ngBetterInterface-activation-group .ngBetterInterface-activate-button:hover:not(:disabled) {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
-    transform: translateY(-1px) !important;
-}
-
-.ngBetterInterface-floating-action-bar .ngBetterInterface-activation-group .ngBetterInterface-deactivate-button {
-    border-radius: 0 6px 6px 0 !important;
-}
-
-.ngBetterInterface-floating-action-bar .ngBetterInterface-activation-group .ngBetterInterface-deactivate-button:hover:not(:disabled) {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
-    transform: translateY(-1px) !important;
-}
-
-/* Groupe générique pour tous les boutons groupés */
-.ngBetterInterface-button-group {
-    display: flex !important;
-    align-items: center !important;
-    border-radius: 6px !important;
-    overflow: hidden !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* ========================================
@@ -1152,38 +1081,24 @@ th.check-column label, td.check-column label {
     cursor: pointer !important;
 }
 
-/* États hover pour tous les boutons */
-.ngBetterInterface-floating-action-bar button[data-action]:hover:not(:disabled) {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
-}
-
-
-
 /* États disabled pour tous les boutons */
 .ngBetterInterface-floating-action-bar button[data-action]:disabled {
-    background: #6b7280 !important;
-    color: #9ca3af !important;
-    border-color: #6b7280 !important;
-    opacity: 0.5 !important;
-    box-shadow: none !important;
-    transform: none !important;
+    opacity: 0.3 !important;
     cursor: not-allowed !important;
 }
 
 /* Classes utilitaires pour les border-radius */
-.ngBetterInterface-floating-action-bar button[data-action].no-br-left {
+.ngBetterInterface-floating-action-bar button[data-action].no-br-left ,
+.ngBetterInterface-floating-action-bar button[data-action].no-br-left:hover {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
 }
 
-.ngBetterInterface-floating-action-bar button[data-action].no-br-right {
+.ngBetterInterface-floating-action-bar button[data-action].no-br-right,
+.ngBetterInterface-floating-action-bar button[data-action].no-br-right:hover {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
 }
-
-
-
 
 
 /* Boutons avec icônes doubles */
@@ -1204,17 +1119,7 @@ th.check-column label, td.check-column label {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-}
-
-/* Styles spécifiques pour le groupe auto-update */
-.ngBetterInterface-floating-action-bar .ngBetterInterface-auto-update-group .ngBetterInterface-enable-auto-update-button .ngBetterInterface-secondary-icon {
-    color: inherit !important;
-}
-
-.ngBetterInterface-floating-action-bar .ngBetterInterface-auto-update-group .ngBetterInterface-disable-auto-update-button .ngBetterInterface-secondary-icon {
-    color: inherit !important;
+    color:var(--ngBetterInterface-modern-accent);
 }
 
 /* Effet de déploiement pour tous les boutons personnalisés */
@@ -1241,11 +1146,6 @@ th.check-column label, td.check-column label {
     opacity: 0;
     animation: slideInText 0.3s ease forwards;
     pointer-events: none;
-}
-
-.ngBetterInterface-floating-action-bar .ngBetterInterface-button-group .no-br-right:hover,
-.ngBetterInterface-floating-action-bar .ngBetterInterface-button-group .no-br-left:hover {
-    border-radius: 0 !important;
 }
 
 @keyframes slideInText {
@@ -1376,140 +1276,7 @@ th.check-column label, td.check-column label {
 }
 
 
-/* ========================================
-   SYSTÈME DE POSITIONNEMENT DES NOTICES
-   ======================================== */
-
-/* Container pour les notices positionnées à droite */
-.ngBetterInterface-notices-container {
-    position: fixed;
-    bottom: 85px;
-    right: 12px;
-    z-index: 999999;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 360px;
-    pointer-events: none;
-}
-
-/* Notices WordPress positionnées à droite */
-.ngBetterInterface-notices-container .notice,
-.ngBetterInterface-notices-container .notice-success,
-.ngBetterInterface-notices-container .notice-error,
-.ngBetterInterface-notices-container .notice-warning,
-.ngBetterInterface-notices-container .notice-info {
-    position: static !important;
-    margin: 0 !important;
-    width: 100%;
-    max-width: 300px;
-        pointer-events: auto;
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
-    border-radius: var(--ngBetterInterface-modern-border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 4px 10px;
-    align-self: flex-end;
-    overflow: hidden;
-}
-
-/* Notices avec bouton de fermeture */
-.ngBetterInterface-notices-container .notice.is-dismissible,
-.ngBetterInterface-notices-container .notice-success.is-dismissible,
-.ngBetterInterface-notices-container .notice-error.is-dismissible,
-.ngBetterInterface-notices-container .notice-warning.is-dismissible,
-.ngBetterInterface-notices-container .notice-info.is-dismissible {
-    position: relative !important;
-}
-
-/* Couleurs spécifiques pour chaque type de notice */
-.ngBetterInterface-notices-container .notice-success {
-    background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-modern-success);
-}
-
-.ngBetterInterface-notices-container .notice-error {
-    background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-modern-error);
-}
-
-.ngBetterInterface-notices-container .notice-warning {
-    background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-modern-warning);
-}
-
-.ngBetterInterface-notices-container .notice-info {
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-modern-accent);
-}
-
-/* Bouton de fermeture des notices */
-.ngBetterInterface-notices-container .notice .notice-dismiss {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    color: var(--ngBetterInterface-modern-text-muted);
-    font-size: 1.2em;
-    background: rgba(255,255,255,0.25);
-    border-radius: 50%;
-    transition: background 0.2s;
-}
-
-/* Reset du padding des paragraphes dans les notices */
-.ngBetterInterface-notices-container .notice p {
-    padding: 0;
-    margin: 0;
-}
-
-/* Effet hover sur les notices */
-.ngBetterInterface-notices-container .notice {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-
-.ngBetterInterface-notices-container:hover .notice {
-    opacity: 0.8;
-    transform: scale(0.98);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.ngBetterInterface-notices-container .notice:hover {
-    opacity: 1 !important;
-    transform: scale(1.02) !important;
-    z-index: 1;
-}
-
-.ngBetterInterface-notices-container .notice .notice-dismiss:hover {
-    background: rgba(99,102,241,0.15);
-}
-
-.notice.updated {
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-accent);
-    min-height: 35px;
-}
-
-.notice.updated p{
-    line-height: 35px;
-}
-/* Responsive */
-@media (max-width: 600px) {
-    .ngBetterInterface-notices-container {
-        right: 8px;
-        bottom: 8px;
-        max-width: calc(100vw - 16px);
-    }
-    
-    .ngBetterInterface-notices-container .notice,
-    .ngBetterInterface-notices-container .notice-success,
-    .ngBetterInterface-notices-container .notice-error,
-    .ngBetterInterface-notices-container .notice-warning,
-    .ngBetterInterface-notices-container .notice-info {
-        max-width: calc(100vw - 16px);
-        font-size: 14px;
-    }
-} 
+ 
 
 /* Correction couleur du border-right du menu admin */
 #adminmenu li.wp-has-submenu.wp-not-current-submenu.opensub:hover::after,
@@ -2272,133 +2039,6 @@ html {
     box-shadow: 0 2px 6px rgba(6, 182, 212, 0.3);
 }
 
-/* Responsive pour les scrollbars */
-@media (max-width: 768px) {
-    ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .wp-list-table::-webkit-scrollbar,
-    .postbox::-webkit-scrollbar,
-    .metabox-holder::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-    }
-}
-
-@media (max-width: 480px) {
-    ::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-    }
-    
-    .wp-editor-container::-webkit-scrollbar,
-    textarea::-webkit-scrollbar,
-    .ngBetterInterface-editor-container textarea::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-    }
-} 
-
-/* ========================================
-   RESPONSIVE - Auto-fold menu
-   ======================================== */
-
-@media only screen and (max-width: 960px) {
-    .auto-fold #adminmenu a.menu-top {
-        padding: 0;
-    }
-} 
-
-/* ========================================
-   STYLE SPÉCIFIQUE POUR LES BOUTONS DE FERMETURE DES NOTICES
-   ======================================== */
-
-/* Style spécifique pour les boutons de fermeture des notices */
-.notice-dismiss {
-    color: var(--ngBetterInterface-modern-text-primary) !important;
-    font-size: 1.2em !important;
-    width: 24px !important;
-    height: 24px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer !important;
-    transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
-    position: absolute !important;
-}
-
-.notice-dismiss:hover {
-    color: var(--ngBetterInterface-modern-text-primary) !important;
-    transform: scale(1.1) !important;
-}
 
 
-/* Amélioration de l'icône X */
-.notice-dismiss::before {
-    content: '×' !important;
-    font-size: 18px !important;
-    font-weight: bold !important;
-    line-height: 1 !important;
-    color: inherit !important;
-    display: block !important;
-}
 
-/* Responsive pour les boutons de fermeture */
-@media (max-width: 768px) {
-    .notice-dismiss {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 1em !important;
-    }
-    
-    .notice-dismiss::before {
-        font-size: 16px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .notice-dismiss {
-        width: 18px !important;
-        height: 18px !important;
-    }
-    
-    .notice-dismiss::before {
-        font-size: 14px !important;
-    }
-}
-
-.subsubsub {
-   margin-bottom: 15px;
-}
-
-/* ========================================
-   PAGE D'INSTALLATION DE PLUGINS
-   ======================================== */
-
-/* Styles pour la page d'installation de plugins */
-body.plugin-install-php .wp-list-table {
-    /* Conserve les espacements existants */
-    border:none;
-    background: transparent;
-    box-shadow: none;
-    padding-top:10px;
-}
-
-/* Cartes de plugins modernisées */
-body.plugin-install-php .plugin-card ,
-body.plugin-install-php .wp-filter{
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
-    border-radius: var(--ngBetterInterface-modern-border-radius);
-    box-shadow: var(--ngBetterInterface-modern-shadow-light);
-    transition: all var(--ngBetterInterface-modern-transition-normal);
-    overflow: hidden;
-}
-
-body.plugin-install-php .plugin-card:hover {
-    border-color: var(--ngBetterInterface-modern-primary);
-    box-shadow: var(--ngBetterInterface-modern-shadow-medium);
-    transform: translateY(-2px);
-}

@@ -1,0 +1,34 @@
+/**
+ * Better Interface - Styles pour la page d'installation de plugins
+ * Styles modernes pour les cartes de plugins et l'interface d'installation
+ */
+
+/* ========================================
+   PAGE D'INSTALLATION DE PLUGINS
+   ======================================== */
+
+/* Styles pour la page d'installation de plugins */
+body.plugin-install-php .wp-list-table {
+    /* Conserve les espacements existants */
+    border:none;
+    background: transparent;
+    box-shadow: none;
+    padding-top:10px;
+}
+
+/* Cartes de plugins modernisées */
+body.plugin-install-php .plugin-card ,
+body.plugin-install-php .wp-filter{
+    background: var(--ngBetterInterface-modern-bg-primary);
+    border: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-radius: var(--ngBetterInterface-modern-border-radius);
+    box-shadow: var(--ngBetterInterface-modern-shadow-light);
+    transition: all var(--ngBetterInterface-modern-transition-normal);
+    overflow: hidden;
+}
+
+body.plugin-install-php .plugin-card:hover {
+    border-color: var(--ngBetterInterface-modern-primary);
+    box-shadow: var(--ngBetterInterface-modern-shadow-medium);
+    transform: translateY(-2px);
+}

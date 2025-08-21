@@ -70,7 +70,7 @@ class BetterInterface {
      * Constructeur privé (Singleton)
      */
     private function __construct() {
-        $this->init_hooks();
+        $this->ngBetterInterface_init_hooks();
     }
     
     /**
@@ -86,71 +86,64 @@ class BetterInterface {
     /**
      * Initialise les hooks WordPress
      */
-    private function init_hooks() {
+    private function ngBetterInterface_init_hooks() {
         // Hooks d'activation/désactivation
-        register_activation_hook(__FILE__, [$this, 'activate']);
-        register_deactivation_hook(__FILE__, [$this, 'deactivate']);
+        register_activation_hook(__FILE__, [$this, 'ngBetterInterface_activate']);
+        register_deactivation_hook(__FILE__, [$this, 'ngBetterInterface_deactivate']);
         
         // Hooks d'initialisation
-        add_action('init', [$this, 'init']);
-        add_action('admin_init', [$this, 'admin_init']);
+        add_action('init', [$this, 'ngBetterInterface_init']);
+        add_action('admin_init', [$this, 'ngBetterInterface_admin_init']);
         
         // Hooks pour l'interface admin
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
-        add_action('admin_menu', [$this, 'add_admin_menu']);
+        add_action('admin_enqueue_scripts', [$this, 'ngBetterInterface_enqueue_admin_assets']);
+        add_action('admin_menu', [$this, 'ngBetterInterface_add_admin_menu']);
         
         // Hooks AJAX
-        		add_action('wp_ajax_ngBetterInterface_save_mode', [$this, 'save_design_mode']);
-		add_action('wp_ajax_ngBetterInterface_save_color_theme', [$this, 'save_color_theme']);
+        add_action('wp_ajax_ngBetterInterface_save_mode', [$this, 'ngBetterInterface_save_design_mode']);
+        add_action('wp_ajax_ngBetterInterface_save_color_theme', [$this, 'ngBetterInterface_save_color_theme']);
     }
     
     /**
      * Initialisation du plugin
      */
-    public function init() {
+    public function ngBetterInterface_init() {
         // Chargement des traductions
         load_plugin_textdomain('better-interface', false, dirname(BI_PLUGIN_BASENAME) . '/languages');
         
         // Récupération du mode actuel
-        $this->current_mode = get_option('bi_design_mode', 'default');
-
-        // Si un ancien site avait le mode "minimal", on force un fallback vers "modern"
-        // Pourquoi: le mode minimal est retiré du plugin et ne dispose plus de styles/assets.
-        if ($this->current_mode === 'minimal') {
-            $this->current_mode = 'modern';
-            update_option('bi_design_mode', 'modern');
-        }
+        $this->current_mode = get_option('ngBetterInterface_design_mode', 'default');
 
         // Récupération du thème de couleurs actuel (pour le mode moderne)
         // Pourquoi: utilisé par la page d’admin pour afficher et manipuler les thèmes
-        $this->current_color_theme = get_option('bi_color_theme', 'ocean');
+        $this->current_color_theme = get_option('ngBetterInterface_color_theme', 'ocean');
     }
     
     /**
      * Initialisation spécifique à l'admin
      */
-    public function admin_init() {
+    public function ngBetterInterface_admin_init() {
         // Vérification des permissions
         if (!current_user_can('manage_options')) {
             return;
         }
         
         // Enregistrement des paramètres
-        register_setting('bi_settings', 'bi_design_mode');
+        register_setting('ngBetterInterface_settings', 'ngBetterInterface_design_mode');
         // Thème de couleurs du mode moderne
-        register_setting('bi_settings', 'bi_color_theme');
+        register_setting('ngBetterInterface_settings', 'ngBetterInterface_color_theme');
     }
     
     /**
      * Activation du plugin
      */
-    public function activate() {
+    public function ngBetterInterface_activate() {
         // Création des options par défaut
-        if (!get_option('bi_design_mode')) {
-            add_option('bi_design_mode', 'default');
+        if (!get_option('ngBetterInterface_design_mode')) {
+            add_option('ngBetterInterface_design_mode', 'default');
         }
-        if (!get_option('bi_color_theme')) {
-            add_option('bi_color_theme', 'ocean');
+        if (!get_option('ngBetterInterface_color_theme')) {
+            add_option('ngBetterInterface_color_theme', 'ocean');
         }
         
         // Flush des règles de réécriture
@@ -160,9 +153,9 @@ class BetterInterface {
     /**
      * Désactivation du plugin
      */
-    public function deactivate() {
+    public function ngBetterInterface_deactivate() {
         // Nettoyage des options (optionnel - commenté pour préserver les données)
-        // delete_option('bi_design_mode');
+        // delete_option('ngBetterInterface_design_mode');
         
         flush_rewrite_rules();
     }
@@ -172,14 +165,14 @@ class BetterInterface {
     /**
      * Ajout du menu d'administration
      */
-    public function add_admin_menu() {
+    public function ngBetterInterface_add_admin_menu() {
         add_menu_page(
             __('Better Interface', 'better-interface'),
             __('Better Interface', 'better-interface'),
             'manage_options',
             'better-interface',
-            [$this, 'admin_page'],
-            'dashicons-admin-appearance',
+            [$this, 'ngBetterInterface_admin_page'],
+            'dashicons-welcome-widgets-menus',
             60
         );
     }
@@ -187,14 +180,14 @@ class BetterInterface {
     /**
      * Page d'administration du plugin
      */
-    public function admin_page() {
+    public function ngBetterInterface_admin_page() {
         include BI_PLUGIN_PATH . 'admin/admin-page.php';
     }
     
     /**
      * Chargement des assets admin
      */
-    public function enqueue_admin_assets($hook) {
+    public function ngBetterInterface_enqueue_admin_assets($hook) {
         // Chargement uniquement sur les pages admin
         if (!is_admin()) {
             return;
@@ -207,6 +200,7 @@ class BetterInterface {
             [],
             BI_PLUGIN_VERSION
         );
+        
         
         // Script de sélection de mode/thème - toujours chargé
         wp_enqueue_script(
@@ -245,13 +239,13 @@ class BetterInterface {
         }
         
         // Styles spécifiques au mode
-        $this->enqueue_mode_specific_assets();
+        $this->ngBetterInterface_enqueue_mode_specific_assets();
     }
     
     /**
      * Chargement des assets spécifiques au mode
      */
-    private function enqueue_mode_specific_assets() {
+    private function ngBetterInterface_enqueue_mode_specific_assets() {
         $mode = $this->current_mode;
         
         if ($mode !== 'default') {
@@ -275,7 +269,7 @@ class BetterInterface {
             
             // Si le mode est moderne, charger les styles spécifiques aux plugins
             if ($mode === 'modern') {
-                $this->enqueue_plugin_specific_styles();
+                $this->ngBetterInterface_enqueue_plugin_specific_styles();
             }
         }
     }
@@ -283,11 +277,35 @@ class BetterInterface {
     /**
      * Chargement des styles et scripts spécifiques aux plugins en mode moderne
      */
-    private function enqueue_plugin_specific_styles() {
+    private function ngBetterInterface_enqueue_plugin_specific_styles() {
+        // Styles pour les scrollbars modernes
+        wp_enqueue_style(
+            'better-interface-scrollbars',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/css/scrollbars.css',
+            ['better-interface-modern'],
+            BI_PLUGIN_VERSION
+        );
+        
+        // Styles pour les notices modernes
+        wp_enqueue_style(
+            'better-interface-notices',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/css/notices.css',
+            ['better-interface-modern'],
+            BI_PLUGIN_VERSION
+        );
+        
         // Styles pour Contact Form 7
         wp_enqueue_style(
             'better-interface-contact-form-7',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/plugins/contact-form-7.css',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/contact-form-7.css',
+            ['better-interface-modern'],
+            BI_PLUGIN_VERSION
+        );
+        
+        // Styles pour la page d'installation de plugins
+        wp_enqueue_style(
+            'better-interface-plugins',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/plugins.css',
             ['better-interface-modern'],
             BI_PLUGIN_VERSION
         );
@@ -304,7 +322,7 @@ class BetterInterface {
         // Script d'application automatique des styles modernes
         wp_enqueue_script(
             'better-interface-modern-styles',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/js/modernStyles.js',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/js/modernButtonStyles.js',
             ['better-interface-admin', 'better-interface-custom-actions'],
             BI_PLUGIN_VERSION,
             false
@@ -323,7 +341,7 @@ class BetterInterface {
     /**
      * Sauvegarde du mode de design (AJAX)
      */
-    public function save_design_mode() {
+    public function ngBetterInterface_save_design_mode() {
         // Vérification de sécurité
         if (!wp_verify_nonce($_POST['nonce'], 'ngBetterInterface_nonce')) {
             wp_die(__('Sécurité violée', 'better-interface'));
@@ -341,7 +359,7 @@ class BetterInterface {
         }
         
         // Sauvegarde
-        update_option('bi_design_mode', $mode);
+        update_option('ngBetterInterface_design_mode', $mode);
         
         wp_send_json_success([
             'message' => __('Mode sauvegardé avec succès', 'better-interface'),
@@ -355,7 +373,7 @@ class BetterInterface {
      * Sauvegarde du thème de couleur (AJAX)
      * Pourquoi: permet de changer dynamiquement la palette via variables CSS
      */
-    public function save_color_theme() {
+    public function ngBetterInterface_save_color_theme() {
         // Sécurité
         if (!wp_verify_nonce($_POST['nonce'], 'ngBetterInterface_nonce')) {
             wp_die(__('Sécurité violée', 'better-interface'));
@@ -370,7 +388,7 @@ class BetterInterface {
             wp_send_json_error(['message' => __('Thème de couleur invalide', 'better-interface')]);
         }
 
-        update_option('bi_color_theme', $theme);
+        update_option('ngBetterInterface_color_theme', $theme);
         $this->current_color_theme = $theme;
 
         wp_send_json_success([
@@ -382,28 +400,28 @@ class BetterInterface {
     /**
      * Obtient le mode actuel
      */
-    public function get_current_mode() {
+    public function ngBetterInterface_get_current_mode() {
         return $this->current_mode;
     }
     
     /**
      * Obtient le thème de couleur actuel (mode moderne)
      */
-    public function get_current_color_theme() {
+    public function ngBetterInterface_get_current_color_theme() {
         return $this->current_color_theme;
     }
     
     /**
      * Obtient les thèmes de couleur disponibles (mode moderne)
      */
-    public function get_available_color_themes() {
+    public function ngBetterInterface_get_available_color_themes() {
         return $this->available_color_themes;
     }
     
     /**
      * Obtient les modes disponibles
      */
-    public function get_available_modes() {
+    public function ngBetterInterface_get_available_modes() {
         return $this->available_modes;
     }
 }

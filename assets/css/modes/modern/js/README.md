@@ -7,11 +7,15 @@ Cette nouvelle approche remplace l'ancienne méthode par exclusion (`:not`) par 
 ### 📁 Structure des fichiers
 
 ```
-assets/css/modes/modern/js/
-├── customActionsButtons.js    # Configuration des boutons d'actions
-├── modernStyles.js           # Application automatique des styles boutons
-├── modernFormStyles.js       # Application automatique des styles formulaires
-└── README.md                 # Cette documentation
+assets/css/modes/modern/
+├── js/
+│   ├── customActionsButtons.js    # Configuration des boutons d'actions
+│   ├── modernStyles.js           # Application automatique des styles boutons
+│   ├── modernFormStyles.js       # Application automatique des styles formulaires
+│   └── README.md                 # Cette documentation
+└── plugins/
+    ├── contact-form-7.css        # Styles spécifiques à Contact Form 7
+    └── plugins.css               # Styles pour la page d'installation de plugins
 ```
 
 ### 🔧 Configuration des boutons d'actions
@@ -41,6 +45,15 @@ assets/css/modes/modern/js/
 - **Reset Password** : Teal (`#20c997` → `#1ea085`)
 - **Auto-update Enable** : Teal (`#20c997` → `#1ea085`)
 - **Auto-update Disable** : Gris (`#6c757d` → `#5a6268`)
+
+### 🎨 Styles spécifiques aux plugins
+
+Le plugin charge automatiquement des styles spécifiques pour certains plugins WordPress :
+
+- **Contact Form 7** (`contact-form-7.css`) : Styles modernes pour les formulaires CF7
+- **Page d'installation de plugins** (`plugins.css`) : Styles pour les cartes de plugins
+
+Ces fichiers sont chargés automatiquement en mode moderne et peuvent être étendus selon les besoins.
 
 ### 🔧 Classes CSS disponibles
 
@@ -93,7 +106,7 @@ Vous pouvez aussi appliquer manuellement les classes :
 ### ⚙️ Configuration
 
 #### Ajouter un nouvel élément à styler
-Dans `modernStyles.js` ou `modernFormStyles.js`, ajoutez le sélecteur dans le tableau `buttons` ou `inputs`.
+Dans `modernButtonStyles.js` ou `modernFormStyles.js`, ajoutez le sélecteur dans le tableau `buttons` ou `inputs`.
 
 #### Exclure un élément
 Ajoutez le sélecteur dans le tableau `exclude` du fichier approprié.

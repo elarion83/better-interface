@@ -10,10 +10,10 @@ if (!defined('ABSPATH')) {
 }
 
 // Récupération de l'instance du plugin
-	$ngBetterInterface = BetterInterface::get_instance();
-	$is_transformed = $ngBetterInterface->get_current_mode() === 'modern';
-	$current_color_theme = $ngBetterInterface->get_current_color_theme();
-	$available_color_themes = $ngBetterInterface->get_available_color_themes();
+$ngBetterInterface = BetterInterface::get_instance();
+$is_transformed = $ngBetterInterface->ngBetterInterface_get_current_mode() === 'modern';
+$current_color_theme = $ngBetterInterface->ngBetterInterface_get_current_color_theme();
+$available_color_themes = $ngBetterInterface->ngBetterInterface_get_available_color_themes();
 $custom_css = get_option('bi_custom_css', '');
 $custom_js = get_option('bi_custom_js', '');
 ?>
@@ -152,7 +152,7 @@ $custom_js = get_option('bi_custom_js', '');
                 <button type="button" class="button ngBetterInterface-reset-all">
                     <?php _e('Réinitialiser tous les paramètres', 'better-interface'); ?>
                 </button>
-                <a href="https://github.com/nicolasgruwe/better-interface" target="_blank" class="button">
+                <a href="https://github.com/elarion83/better-interface" target="_blank" class="button">
                     <?php _e('Documentation', 'better-interface'); ?>
                 </a>
             </div>
