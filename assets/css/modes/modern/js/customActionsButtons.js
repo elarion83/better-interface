@@ -105,7 +105,7 @@ var ngBetterInterfaceCustomActions = {
 		title: 'Deactivate selected',
 		icon: '<span class="dashicons dashicons-no-alt"></span>',
 		group: 'activation',
-		backgroundColor: '#dc3545',
+		backgroundColor: '#ef4444',
 		hoverBackgroundColor: '#c82333'
 	},
 	'enable-auto-update-selected': {

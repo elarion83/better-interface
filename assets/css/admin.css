@@ -540,8 +540,6 @@ input:checked + .ngBetterInterface-slider:before {
     animation: ngBetterInterface-spin 1s linear infinite;
 }
 
-/* Animation de notification retirée (aucune notification utilisée) */
-
 /* ========================================
    ÉTATS ET INTERACTIONS
    ======================================== */

@@ -44,7 +44,23 @@
             '.interface-interface-skeleton__editor button',
             '.components-popover button',
             '.ngBetterInterface-floating-actions button'
-        ]
+        ],
+        
+        // Configuration des exclusions de propriétés par sélecteur
+        propertyExclusions: {
+            '#collapse-menu button': ['border-radius'],
+            // Exemple: '.mon-bouton-specifique': ['border-radius', 'shadow']
+            // Format: 'sélecteur': ['propriété1', 'propriété2']
+        },
+        
+        // Classes d'exclusion automatiques basées sur les attributs data
+        dataExclusions: {
+            'data-no-border-radius': 'ngBetterInterface-no-border-radius',
+            'data-no-shadow': 'ngBetterInterface-no-shadow',
+            'data-no-gradient': 'ngBetterInterface-no-gradient',
+            'data-no-transition': 'ngBetterInterface-no-transition',
+            'data-no-hover': 'ngBetterInterface-no-hover'
+        }
     };
     
     /**
@@ -68,6 +84,23 @@
                 // Appliquer la classe si pas exclu et pas déjà appliquée
                 if (!shouldExclude && !$element.hasClass('ngBetterInterface-modern-button')) {
                     $element.addClass('ngBetterInterface-modern-button');
+                    
+                    // Appliquer les classes d'exclusion basées sur les attributs data
+                    Object.keys(modernButtonStylesConfig.dataExclusions).forEach(function(dataAttr) {
+                        if ($element.attr(dataAttr)) {
+                            $element.addClass(modernButtonStylesConfig.dataExclusions[dataAttr]);
+                        }
+                    });
+                    
+                    // Appliquer les exclusions de propriétés configurées
+                    Object.keys(modernButtonStylesConfig.propertyExclusions).forEach(function(selector) {
+                        if ($element.is(selector)) {
+                            modernButtonStylesConfig.propertyExclusions[selector].forEach(function(property) {
+                                var exclusionClass = 'ngBetterInterface-no-' + property;
+                                $element.addClass(exclusionClass);
+                            });
+                        }
+                    });
                 }
             });
         });

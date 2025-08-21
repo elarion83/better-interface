@@ -60,6 +60,7 @@
     border-left: 4px solid var(--ngBetterInterface-modern-error);
 }
 
+
 .ngBetterInterface-notices-container .notice-warning {
     background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
     border-left: 4px solid var(--ngBetterInterface-modern-warning);
@@ -90,6 +91,7 @@
 
 /* Effet hover sur les notices */
 .ngBetterInterface-notices-container .notice {
+    background-color: rgba(255, 255, 255, 0.85) !important;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -101,9 +103,10 @@
 }
 
 .ngBetterInterface-notices-container .notice:hover {
-    opacity: 1 !important;
+    opacity: 1.2 !important;
     transform: scale(1.02) !important;
     z-index: 1;
+    background-color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .ngBetterInterface-notices-container .notice .notice-dismiss:hover {
@@ -112,7 +115,6 @@
 
 /* Notices WordPress standard */
 .notice.updated {
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
     border-left: 4px solid var(--ngBetterInterface-accent);
     min-height: 35px;
 }
