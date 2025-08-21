@@ -7,31 +7,31 @@
    VARIABLES CSS GLOBALES
    ======================================== */
 :root {
-    --bi-primary: #6366f1;
-    --bi-primary-hover: #4f46e5;
-    --bi-secondary: #f8fafc;
-    --bi-accent: #06b6d4;
-    --bi-success: #10b981;
-    --bi-warning: #f59e0b;
-    --bi-error: #ef4444;
+    --ngBetterInterface-primary: #6366f1;
+    --ngBetterInterface-primary-hover: #4f46e5;
+    --ngBetterInterface-secondary: #f8fafc;
+    --ngBetterInterface-accent: #06b6d4;
+    --ngBetterInterface-success: #10b981;
+    --ngBetterInterface-warning: #f59e0b;
+    --ngBetterInterface-error: #ef4444;
     
-    --bi-bg-primary: #ffffff;
-    --bi-bg-secondary: #f8fafc;
-    --bi-bg-tertiary: #f1f5f9;
+    --ngBetterInterface-bg-primary: #ffffff;
+    --ngBetterInterface-bg-secondary: #f8fafc;
+    --ngBetterInterface-bg-tertiary: #f1f5f9;
     
-    --bi-text-primary: #0f172a;
-    --bi-text-secondary: #475569;
-    --bi-text-muted: #64748b;
+    --ngBetterInterface-text-primary: #0f172a;
+    --ngBetterInterface-text-secondary: #475569;
+    --ngBetterInterface-text-muted: #64748b;
     
-    --bi-border-color: #e2e8f0;
-    --bi-border-radius: 12px;
-    --bi-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-    --bi-shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
-    --bi-shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --ngBetterInterface-border-color: #e2e8f0;
+    --ngBetterInterface-border-radius: 12px;
+    --ngBetterInterface-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --ngBetterInterface-shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --ngBetterInterface-shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
     
-    --bi-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --bi-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --bi-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngBetterInterface-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngBetterInterface-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngBetterInterface-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ========================================
@@ -39,24 +39,24 @@
    ======================================== */
 
 /* Container principal */
-.bi-admin-page {
+.ngBetterInterface-admin-page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
 /* En-tête de la page */
-.bi-header {
+.ngBetterInterface-header {
     text-align: center;
     margin-bottom: 40px;
     padding: 30px;
-    background: linear-gradient(135deg, var(--bi-primary), var(--bi-accent));
-    border-radius: var(--bi-border-radius);
+    background: linear-gradient(135deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
+    border-radius: var(--ngBetterInterface-border-radius);
     color: white;
-    box-shadow: var(--bi-shadow-medium);
+    box-shadow: var(--ngBetterInterface-shadow-medium);
 }
 
-.bi-title {
+.ngBetterInterface-title {
     font-size: 2.5rem;
     font-weight: 700;
     margin: 0 0 10px 0;
@@ -66,13 +66,13 @@
     gap: 15px;
 }
 
-.bi-title .dashicons {
+.ngBetterInterface-title .dashicons {
     font-size: 2rem;
     width: auto;
     height: auto;
 }
 
-.bi-description {
+.ngBetterInterface-description {
     font-size: 1.1rem;
     margin: 0;
     opacity: 0.9;
@@ -80,31 +80,31 @@
 }
 
 /* Sections de contenu */
-.bi-section {
-    background: var(--bi-bg-primary);
-    border-radius: var(--bi-border-radius);
+.ngBetterInterface-section {
+    background: var(--ngBetterInterface-bg-primary);
+    border-radius: var(--ngBetterInterface-border-radius);
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: var(--bi-shadow-light);
-    border: 1px solid var(--bi-border-color);
+    box-shadow: var(--ngBetterInterface-shadow-light);
+    border: 1px solid var(--ngBetterInterface-border-color);
 }
 
-.bi-section h2 {
-    color: var(--bi-text-primary);
+.ngBetterInterface-section h2 {
+    color: var(--ngBetterInterface-text-primary);
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0 0 15px 0;
     padding-bottom: 10px;
 }
 
-.bi-section p {
-    color: var(--bi-text-secondary);
+.ngBetterInterface-section p {
+    color: var(--ngBetterInterface-text-secondary);
     margin: 0 0 25px 0;
     line-height: 1.6;
 }
 
 /* Grille des modes de design */
-.bi-modes-grid {
+.ngBetterInterface-modes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
@@ -112,19 +112,19 @@
 }
 
 /* Section du toggle */
-.bi-toggle-section {
+.ngBetterInterface-toggle-section {
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
 }
 
 /* Carte du toggle */
-.bi-toggle-card {
-    background: var(--bi-bg-secondary);
-    border: 2px solid var(--bi-border-color);
-    border-radius: var(--bi-border-radius);
+.ngBetterInterface-toggle-card {
+    background: var(--ngBetterInterface-bg-secondary);
+    border: 2px solid var(--ngBetterInterface-border-color);
+    border-radius: var(--ngBetterInterface-border-radius);
     padding: 30px;
-    transition: all var(--bi-transition-normal);
+    transition: all var(--ngBetterInterface-transition-normal);
     position: relative;
     overflow: hidden;
     max-width: 500px;
@@ -132,189 +132,189 @@
     cursor: pointer;
 }
 
-.bi-toggle-card:hover {
+.ngBetterInterface-toggle-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--bi-shadow-medium);
-    border-color: var(--bi-primary);
+    box-shadow: var(--ngBetterInterface-shadow-medium);
+    border-color: var(--ngBetterInterface-primary);
 }
 
-.bi-toggle-card.active {
-    border-color: var(--bi-primary);
+.ngBetterInterface-toggle-card.active {
+    border-color: var(--ngBetterInterface-primary);
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(6, 182, 212, 0.05));
-    box-shadow: var(--bi-shadow-medium);
+    box-shadow: var(--ngBetterInterface-shadow-medium);
 }
 
 /* Aperçu visuel du toggle */
-.bi-toggle-preview {
+.ngBetterInterface-toggle-preview {
     margin-bottom: 20px;
-    transition: all var(--bi-transition-normal);
+    transition: all var(--ngBetterInterface-transition-normal);
 }
 
 /* Aperçu classique (désactivé) */
-.bi-toggle-preview .bi-preview-header {
+.ngBetterInterface-toggle-preview .ngBetterInterface-preview-header {
     background: #f1f5f9;
 }
 
-.bi-toggle-preview .bi-preview-sidebar {
+.ngBetterInterface-toggle-preview .ngBetterInterface-preview-sidebar {
     background: #64748b;
 }
 
-.bi-toggle-preview .bi-preview-main {
+.ngBetterInterface-toggle-preview .ngBetterInterface-preview-main {
     background: #ffffff;
 }
 
-.bi-toggle-preview .bi-preview-bar {
+.ngBetterInterface-toggle-preview .ngBetterInterface-preview-bar {
     background: #f1f5f9;
 }
 
-.bi-toggle-preview .bi-preview-content-area {
+.ngBetterInterface-toggle-preview .ngBetterInterface-preview-content-area {
     background: #ffffff;
 }
 
 /* Aperçu moderne (activé) */
-.bi-toggle-preview.modern-preview .bi-preview-header {
-    background: linear-gradient(135deg, var(--bi-primary), var(--bi-accent));
+.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-header {
+    background: linear-gradient(135deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
 }
 
-.bi-toggle-preview.modern-preview .bi-preview-sidebar {
-    background: linear-gradient(180deg, var(--bi-primary), var(--bi-accent));
+.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-sidebar {
+    background: linear-gradient(180deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
 }
 
-.bi-toggle-preview.modern-preview .bi-preview-main {
+.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-main {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(6, 182, 212, 0.05));
 }
 
-.bi-toggle-preview.modern-preview .bi-preview-bar {
-    background: linear-gradient(90deg, var(--bi-primary), var(--bi-accent));
+.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-bar {
+    background: linear-gradient(90deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
 }
 
-.bi-toggle-preview.modern-preview .bi-preview-content-area {
+.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-content-area {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.02), rgba(6, 182, 212, 0.02));
 }
 
-.bi-preview-header {
-    background: var(--bi-bg-tertiary);
+.ngBetterInterface-preview-header {
+    background: var(--ngBetterInterface-bg-tertiary);
     padding: 8px 12px;
     border-radius: 6px 6px 0 0;
-    border-bottom: 1px solid var(--bi-border-color);
+    border-bottom: 1px solid var(--ngBetterInterface-border-color);
 }
 
-.bi-preview-dots {
+.ngBetterInterface-preview-dots {
     display: flex;
     gap: 6px;
 }
 
-.bi-preview-dots span {
+.ngBetterInterface-preview-dots span {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--bi-text-muted);
+    background: var(--ngBetterInterface-text-muted);
 }
 
-.bi-preview-dots span:nth-child(1) { background: var(--bi-error); }
-.bi-preview-dots span:nth-child(2) { background: var(--bi-warning); }
-.bi-preview-dots span:nth-child(3) { background: var(--bi-success); }
+.ngBetterInterface-preview-dots span:nth-child(1) { background: var(--ngBetterInterface-error); }
+.ngBetterInterface-preview-dots span:nth-child(2) { background: var(--ngBetterInterface-warning); }
+.ngBetterInterface-preview-dots span:nth-child(3) { background: var(--ngBetterInterface-success); }
 
-.bi-preview-content {
+.ngBetterInterface-preview-content {
     display: flex;
     height: 80px;
-    background: var(--bi-bg-primary);
+    background: var(--ngBetterInterface-bg-primary);
     border-radius: 0 0 6px 6px;
     overflow: hidden;
 }
 
-.bi-preview-sidebar {
+.ngBetterInterface-preview-sidebar {
     width: 30%;
-    background: var(--bi-text-primary);
+    background: var(--ngBetterInterface-text-primary);
     position: relative;
 }
 
-.bi-preview-sidebar::before {
+.ngBetterInterface-preview-sidebar::before {
     content: '';
     position: absolute;
     top: 10px;
     left: 10px;
     width: 60%;
     height: 3px;
-    background: var(--bi-text-muted);
+    background: var(--ngBetterInterface-text-muted);
     border-radius: 2px;
 }
 
-.bi-preview-sidebar::after {
+.ngBetterInterface-preview-sidebar::after {
     content: '';
     position: absolute;
     top: 20px;
     left: 10px;
     width: 40%;
     height: 3px;
-    background: var(--bi-text-muted);
+    background: var(--ngBetterInterface-text-muted);
     border-radius: 2px;
 }
 
-.bi-preview-main {
+.ngBetterInterface-preview-main {
     flex: 1;
     padding: 10px;
 }
 
-.bi-preview-bar {
+.ngBetterInterface-preview-bar {
     height: 20px;
-    background: var(--bi-bg-tertiary);
+    background: var(--ngBetterInterface-bg-tertiary);
     border-radius: 4px;
     margin-bottom: 8px;
 }
 
-.bi-preview-content-area {
+.ngBetterInterface-preview-content-area {
     height: 30px;
-    background: var(--bi-bg-secondary);
+    background: var(--ngBetterInterface-bg-secondary);
     border-radius: 4px;
-    border: 1px solid var(--bi-border-color);
+    border: 1px solid var(--ngBetterInterface-border-color);
 }
 
 /* Informations du toggle */
-.bi-toggle-info {
+.ngBetterInterface-toggle-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
 }
 
-.bi-toggle-switch {
+.ngBetterInterface-toggle-switch {
     flex-shrink: 0;
 }
 
-.bi-toggle-text {
+.ngBetterInterface-toggle-text {
     flex: 1;
 }
 
-.bi-toggle-text h3 {
-    color: var(--bi-text-primary);
+.ngBetterInterface-toggle-text h3 {
+    color: var(--ngBetterInterface-text-primary);
     font-size: 1.2rem;
     font-weight: 600;
     margin: 0 0 8px 0;
 }
 
-.bi-toggle-description {
-    color: var(--bi-text-secondary);
+.ngBetterInterface-toggle-description {
+    color: var(--ngBetterInterface-text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
     margin: 0;
 }
 
 /* Toggle switch */
-.bi-switch {
+.ngBetterInterface-switch {
     position: relative;
     display: inline-block;
     width: 60px;
     height: 34px;
 }
 
-.bi-switch input {
+.ngBetterInterface-switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.bi-slider {
+.ngBetterInterface-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -326,7 +326,7 @@
     border-radius: 34px;
 }
 
-.bi-slider:before {
+.ngBetterInterface-slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -338,23 +338,23 @@
     border-radius: 50%;
 }
 
-input:checked + .bi-slider {
-    background-color: var(--bi-primary);
+input:checked + .ngBetterInterface-slider {
+    background-color: var(--ngBetterInterface-primary);
 }
 
-input:focus + .bi-slider {
-    box-shadow: 0 0 1px var(--bi-primary);
+input:focus + .ngBetterInterface-slider {
+    box-shadow: 0 0 1px var(--ngBetterInterface-primary);
 }
 
-input:checked + .bi-slider:before {
+input:checked + .ngBetterInterface-slider:before {
     transform: translateX(26px);
 }
 
-.bi-current-badge {
+.ngBetterInterface-current-badge {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: var(--bi-success);
+    background: var(--ngBetterInterface-success);
     color: white;
     padding: 4px 8px;
     border-radius: 12px;
@@ -365,84 +365,84 @@ input:checked + .bi-slider:before {
 }
 
 /* Actions du toggle */
-.bi-toggle-actions {
+.ngBetterInterface-toggle-actions {
     display: flex;
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.bi-toggle-actions .button {
+.ngBetterInterface-toggle-actions .button {
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
     border-radius: 8px;
-    transition: all var(--bi-transition-fast);
+    transition: all var(--ngBetterInterface-transition-fast);
     cursor: pointer;
 }
 
-.bi-save-toggle {
-    background: linear-gradient(135deg, var(--bi-primary), var(--bi-accent));
+.ngBetterInterface-save-toggle {
+    background: linear-gradient(135deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
     color: white;
     border: none;
-    box-shadow: var(--bi-shadow-light);
+    box-shadow: var(--ngBetterInterface-shadow-light);
 }
 
-.bi-save-toggle:hover:not(:disabled) {
+.ngBetterInterface-save-toggle:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: var(--bi-shadow-medium);
+    box-shadow: var(--ngBetterInterface-shadow-medium);
     filter: brightness(1.05);
 }
 
-.bi-save-toggle:disabled {
+.ngBetterInterface-save-toggle:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 /* Personnalisation avancée retirée: les styles suivants ne sont plus utilisés mais conservés pour référence
-.bi-custom-tabs,
-.bi-tabs-nav,
-.bi-tab-button,
-.bi-tabs-content,
-.bi-tab-content,
-.bi-editor-container,
-.bi-editor-info,
-.bi-custom-actions {
+.ngBetterInterface-custom-tabs,
+.ngBetterInterface-tabs-nav,
+.ngBetterInterface-tab-button,
+.ngBetterInterface-tabs-content,
+.ngBetterInterface-tab-content,
+.ngBetterInterface-editor-container,
+.ngBetterInterface-editor-info,
+.ngBetterInterface-custom-actions {
     /* retirés */
 }
 */
 
 /* Section d'informations */
-.bi-info-section {
-    background: var(--bi-bg-secondary);
-    border-radius: var(--bi-border-radius);
+.ngBetterInterface-info-section {
+    background: var(--ngBetterInterface-bg-secondary);
+    border-radius: var(--ngBetterInterface-border-radius);
     padding: 20px;
     margin-top: 30px;
 }
 
-.bi-info-grid {
+.ngBetterInterface-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
 }
 
-.bi-info-item {
+.ngBetterInterface-info-item {
     text-align: center;
     padding: 15px;
-    background: var(--bi-bg-primary);
+    background: var(--ngBetterInterface-bg-primary);
     border-radius: 8px;
-    border: 1px solid var(--bi-border-color);
+    border: 1px solid var(--ngBetterInterface-border-color);
 }
 
-.bi-info-item h4 {
-    color: var(--bi-text-primary);
+.ngBetterInterface-info-item h4 {
+    color: var(--ngBetterInterface-text-primary);
     font-size: 1rem;
     font-weight: 600;
     margin: 0 0 8px 0;
 }
 
-.bi-info-item p {
-    color: var(--bi-text-secondary);
+.ngBetterInterface-info-item p {
+    color: var(--ngBetterInterface-text-secondary);
     font-size: 0.9rem;
     margin: 0;
 }
@@ -451,74 +451,74 @@ input:checked + .bi-slider:before {
 
 /* Responsive design */
 @media (max-width: 768px) {
-    .bi-admin-page {
+    .ngBetterInterface-admin-page {
         padding: 15px;
     }
     
-    .bi-header {
+    .ngBetterInterface-header {
         padding: 20px;
         margin-bottom: 30px;
     }
     
-    .bi-title {
+    .ngBetterInterface-title {
         font-size: 2rem;
         flex-direction: column;
         gap: 10px;
     }
     
-    .bi-section {
+    .ngBetterInterface-section {
         padding: 20px;
         margin-bottom: 20px;
     }
     
-    .bi-modes-grid {
+    .ngBetterInterface-modes-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
     
-    .bi-mode-actions {
+    .ngBetterInterface-mode-actions {
         flex-direction: column;
         align-items: center;
     }
     
-    .bi-tabs-nav {
+    .ngBetterInterface-tabs-nav {
         flex-direction: column;
         gap: 5px;
     }
     
-    .bi-tab-button {
+    .ngBetterInterface-tab-button {
         border-radius: 6px;
         text-align: left;
     }
     
-    .bi-info-grid {
+    .ngBetterInterface-info-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .bi-admin-page {
+    .ngBetterInterface-admin-page {
         padding: 10px;
     }
     
-    .bi-header {
+    .ngBetterInterface-header {
         padding: 15px;
     }
     
-    .bi-title {
+    .ngBetterInterface-title {
         font-size: 1.5rem;
     }
     
-    .bi-section {
+    .ngBetterInterface-section {
         padding: 15px;
     }
     
-    .bi-mode-card {
+    .ngBetterInterface-mode-card {
         padding: 15px;
     }
     
-    .bi-preview-content {
+    .ngBetterInterface-preview-content {
         height: 60px;
     }
 }
@@ -528,12 +528,12 @@ input:checked + .bi-slider:before {
    ======================================== */
 
 /* Animation de chargement */
-@keyframes bi-spin {
+@keyframes ngBetterInterface-spin {
     to { transform: rotate(360deg); }
 }
 
-.bi-loading {
-    animation: bi-spin 1s linear infinite;
+.ngBetterInterface-loading {
+    animation: ngBetterInterface-spin 1s linear infinite;
 }
 
 /* Animation de notification retirée (aucune notification utilisée) */
@@ -543,21 +543,21 @@ input:checked + .bi-slider:before {
    ======================================== */
 
 /* États de focus pour l'accessibilité */
-.bi-mode-card:focus,
-.bi-tab-button:focus,
-.bi-editor-container textarea:focus {
-    outline: 2px solid var(--bi-primary);
+.ngBetterInterface-mode-card:focus,
+.ngBetterInterface-tab-button:focus,
+.ngBetterInterface-editor-container textarea:focus {
+    outline: 2px solid var(--ngBetterInterface-primary);
     outline-offset: 2px;
 }
 
 /* États de survol améliorés */
-.bi-mode-card:hover .bi-preview-content {
+.ngBetterInterface-mode-card:hover .ngBetterInterface-preview-content {
     transform: scale(1.02);
-    transition: transform var(--bi-transition-fast);
+    transition: transform var(--ngBetterInterface-transition-fast);
 }
 
 /* États de chargement */
-.bi-loading-overlay {
+.ngBetterInterface-loading-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -567,7 +567,7 @@ input:checked + .bi-slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--bi-border-radius);
+    border-radius: var(--ngBetterInterface-border-radius);
     z-index: 10;
 }
 
@@ -575,19 +575,19 @@ input:checked + .bi-slider:before {
    UTILITAIRES
    ======================================== */
 
-.bi-hidden {
+.ngBetterInterface-hidden {
     display: none !important;
 }
 
-.bi-text-center {
+.ngBetterInterface-text-center {
     text-align: center;
 }
 
-.bi-mt-20 {
+.ngBetterInterface-mt-20 {
     margin-top: 20px;
 }
 
-.bi-mb-20 {
+.ngBetterInterface-mb-20 {
     margin-bottom: 20px;
 } 
 
@@ -596,7 +596,7 @@ input:checked + .bi-slider:before {
    ======================================== */
 
 /* Grille des thèmes */
-.bi-themes-grid {
+.ngBetterInterface-themes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
@@ -604,7 +604,7 @@ input:checked + .bi-slider:before {
 }
 
 /* Cartes de thèmes */
-.bi-theme-card {
+.ngBetterInterface-theme-card {
     background: white;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
@@ -615,32 +615,32 @@ input:checked + .bi-slider:before {
     overflow: hidden;
 }
 
-.bi-theme-card:hover {
+.ngBetterInterface-theme-card:hover {
     border-color: #6366f1;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
 }
 
-.bi-theme-card.active {
+.ngBetterInterface-theme-card.active {
     border-color: #6366f1;
     background: linear-gradient(135deg, #f8fafc, #e0e7ff);
     box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
 }
 
 /* Aperçu des thèmes */
-.bi-theme-preview {
+.ngBetterInterface-theme-preview {
     margin-bottom: 15px;
 }
 
-.bi-theme-colors {
+.ngBetterInterface-theme-colors {
     display: flex;
     gap: 8px;
     margin-bottom: 12px;
 }
 
-.bi-color-primary,
-.bi-color-accent,
-.bi-color-secondary {
+.ngBetterInterface-color-primary,
+.ngBetterInterface-color-accent,
+.ngBetterInterface-color-secondary {
     width: 24px;
     height: 24px;
     border-radius: 6px;
@@ -648,27 +648,27 @@ input:checked + .bi-slider:before {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.bi-theme-preview-ui {
+.ngBetterInterface-theme-preview-ui {
     display: flex;
     gap: 4px;
     height: 60px;
 }
 
-.bi-preview-header-mini {
+.ngBetterInterface-preview-header-mini {
     flex: 1;
     background: linear-gradient(135deg, #6366f1, #06b6d4);
     border-radius: 4px;
     opacity: 0.8;
 }
 
-.bi-preview-sidebar-mini {
+.ngBetterInterface-preview-sidebar-mini {
     width: 20px;
     background: #1e293b;
     border-radius: 4px;
     opacity: 0.8;
 }
 
-.bi-preview-content-mini {
+.ngBetterInterface-preview-content-mini {
     flex: 2;
     background: #f8fafc;
     border-radius: 4px;
@@ -676,14 +676,14 @@ input:checked + .bi-slider:before {
 }
 
 /* Informations des thèmes */
-.bi-theme-info h3 {
+.ngBetterInterface-theme-info h3 {
     margin: 0 0 8px 0;
     font-size: 16px;
     font-weight: 600;
     color: #1e293b;
 }
 
-.bi-theme-description {
+.ngBetterInterface-theme-description {
     margin: 0;
     font-size: 14px;
     color: #64748b;
@@ -691,7 +691,7 @@ input:checked + .bi-slider:before {
 }
 
 /* Badge actuel */
-.bi-current-badge {
+.ngBetterInterface-current-badge {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -706,12 +706,12 @@ input:checked + .bi-slider:before {
 }
 
 /* Actions des thèmes */
-.bi-theme-actions {
+.ngBetterInterface-theme-actions {
     margin-top: 20px;
     text-align: center;
 }
 
-.bi-save-theme {
+.ngBetterInterface-save-theme {
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
@@ -719,56 +719,46 @@ input:checked + .bi-slider:before {
     transition: all 0.3s cubic-bezier(.4,0,.2,1);
 }
 
-.bi-save-theme:disabled {
+.ngBetterInterface-save-theme:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 /* Variables CSS pour les aperçus de couleurs */
 :root {
-    --bi-ocean-primary: #6366f1;
-    --bi-ocean-accent: #06b6d4;
-    --bi-ocean-secondary: #f8fafc;
+    --ngBetterInterface-ocean-primary: #6366f1;
+    --ngBetterInterface-ocean-accent: #06b6d4;
+    --ngBetterInterface-ocean-secondary: #f8fafc;
     
-    --bi-midnight-primary: #1e293b;
-    --bi-midnight-accent: #475569;
-    --bi-midnight-secondary: #f8fafc;
+    --ngBetterInterface-midnight-primary: #1e293b;
+    --ngBetterInterface-midnight-accent: #475569;
+    --ngBetterInterface-midnight-secondary: #f8fafc;
     
-    --bi-teal-primary: #0d9488;
-    --bi-teal-accent: #14b8a6;
-    --bi-teal-secondary: #f0fdfa;
+    --ngBetterInterface-teal-primary: #0d9488;
+    --ngBetterInterface-teal-accent: #14b8a6;
+    --ngBetterInterface-teal-secondary: #f0fdfa;
     
-    --bi-minimal-contrast-primary: #3b82f6;
-    --bi-minimal-contrast-accent: #2563eb;
-    --bi-minimal-contrast-secondary: #f8f9fa;
-    
-    --bi-dark-pro-primary: #10b981;
-    --bi-dark-pro-accent: #06b6d4;
-    --bi-dark-pro-secondary: #111827;
-    
-    --bi-warm-accent-primary: #f97316;
-    --bi-warm-accent-accent: #fb7185;
-    --bi-warm-accent-secondary: #ffffff;
+
 }
 
 /* Responsive pour les thèmes */
 @media (max-width: 768px) {
-    .bi-themes-grid {
+    .ngBetterInterface-themes-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
     
-    .bi-theme-card {
+    .ngBetterInterface-theme-card {
         padding: 15px;
     }
     
-    .bi-theme-preview-ui {
+    .ngBetterInterface-theme-preview-ui {
         height: 50px;
     }
     
-    .bi-color-primary,
-    .bi-color-accent,
-    .bi-color-secondary {
+    .ngBetterInterface-color-primary,
+    .ngBetterInterface-color-accent,
+    .ngBetterInterface-color-secondary {
         width: 20px;
         height: 20px;
     }

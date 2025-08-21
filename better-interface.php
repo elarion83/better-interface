@@ -64,9 +64,6 @@ class BetterInterface {
         'ocean' => 'Ocean Blue',
         'midnight' => 'Midnight Dark',
         'teal' => 'Teal Elegant',
-        'minimal-contrast' => 'Minimal Contrast',
-        'dark-pro' => 'Dark Pro',
-        'warm-accent' => 'Warm Accent',
     ];
     
     /**
@@ -103,8 +100,8 @@ class BetterInterface {
         add_action('admin_menu', [$this, 'add_admin_menu']);
         
         // Hooks AJAX
-        add_action('wp_ajax_bi_save_mode', [$this, 'save_design_mode']);
-        add_action('wp_ajax_bi_save_color_theme', [$this, 'save_color_theme']);
+        		add_action('wp_ajax_ngBetterInterface_save_mode', [$this, 'save_design_mode']);
+		add_action('wp_ajax_ngBetterInterface_save_color_theme', [$this, 'save_color_theme']);
     }
     
     /**
@@ -220,16 +217,21 @@ class BetterInterface {
             true
         );
         
-        // Localisation pour AJAX
-        wp_localize_script('better-interface-mode-selector', 'bi_ajax', [
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('bi_nonce'),
-            'current_mode' => $this->current_mode,
-            'available_modes' => $this->available_modes,
-            // Thèmes de couleurs pour l'affichage transformé
-            'current_color_theme' => $this->current_color_theme,
-            'available_color_themes' => $this->available_color_themes,
-        ]);
+        		// Localisation pour AJAX
+		wp_localize_script('better-interface-mode-selector', 'ngBetterInterface_ajax', [
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('ngBetterInterface_nonce'),
+			'current_mode' => $this->current_mode,
+			'available_modes' => $this->available_modes,
+			// Thèmes de couleurs pour l'affichage transformé
+			'current_color_theme' => $this->current_color_theme,
+			'available_color_themes' => $this->available_color_themes,
+			// Traductions JavaScript
+			'i18n' => [
+				'please_select_items' => __('Please select at least one item to perform this action on.', 'better-interface'),
+				'deselect_all' => __('Désélectionner tout', 'better-interface'),
+			],
+		]);
         
         // Scripts spécifiques au mode moderne
         if ($this->current_mode === 'modern') {
@@ -270,7 +272,25 @@ class BetterInterface {
                     BI_PLUGIN_VERSION
                 );
             }
+            
+            // Si le mode est moderne, charger les styles spécifiques aux plugins
+            if ($mode === 'modern') {
+                $this->enqueue_plugin_specific_styles();
+            }
         }
+    }
+    
+    /**
+     * Chargement des styles spécifiques aux plugins en mode moderne
+     */
+    private function enqueue_plugin_specific_styles() {
+        // Styles pour Contact Form 7
+        wp_enqueue_style(
+            'better-interface-contact-form-7',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/plugins/contact-form-7.css',
+            ['better-interface-modern'],
+            BI_PLUGIN_VERSION
+        );
     }
     
     /**
@@ -278,7 +298,7 @@ class BetterInterface {
      */
     public function save_design_mode() {
         // Vérification de sécurité
-        if (!wp_verify_nonce($_POST['nonce'], 'bi_nonce')) {
+        if (!wp_verify_nonce($_POST['nonce'], 'ngBetterInterface_nonce')) {
             wp_die(__('Sécurité violée', 'better-interface'));
         }
         
@@ -310,7 +330,7 @@ class BetterInterface {
      */
     public function save_color_theme() {
         // Sécurité
-        if (!wp_verify_nonce($_POST['nonce'], 'bi_nonce')) {
+        if (!wp_verify_nonce($_POST['nonce'], 'ngBetterInterface_nonce')) {
             wp_die(__('Sécurité violée', 'better-interface'));
         }
         if (!current_user_can('manage_options')) {

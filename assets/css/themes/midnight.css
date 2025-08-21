@@ -4,31 +4,31 @@
 
 :root {
     /* Palette de couleurs Midnight Dark */
-    --bi-modern-primary: #1e293b;
-    --bi-modern-primary-hover: #0f172a;
-    --bi-modern-primary-rgb: 30, 41, 59;
-    --bi-modern-secondary: #f8fafc;
-    --bi-modern-accent: #475569;
-    --bi-modern-accent-rgb: 71, 85, 105;
-    --bi-modern-success: #16a34a;
-    --bi-modern-warning: #f59e0b;
-    --bi-modern-error: #ef4444;
+    --ngBetterInterface-modern-primary: #1e293b;
+    --ngBetterInterface-modern-primary-hover: #0f172a;
+    --ngBetterInterface-modern-primary-rgb: 30, 41, 59;
+    --ngBetterInterface-modern-secondary: #f8fafc;
+    --ngBetterInterface-modern-accent: #475569;
+    --ngBetterInterface-modern-accent-rgb: 71, 85, 105;
+    --ngBetterInterface-modern-success: #16a34a;
+    --ngBetterInterface-modern-warning: #f59e0b;
+    --ngBetterInterface-modern-error: #ef4444;
     
     /* Couleurs de fond modernes */
-    --bi-modern-bg-primary: #ffffff;
-    --bi-modern-bg-secondary: #f8fafc;
-    --bi-modern-bg-tertiary: #e2e8f0;
-    --bi-modern-bg-dark: #0f172a;
+    --ngBetterInterface-modern-bg-primary: #ffffff;
+    --ngBetterInterface-modern-bg-secondary: #f8fafc;
+    --ngBetterInterface-modern-bg-tertiary: #e2e8f0;
+    --ngBetterInterface-modern-bg-dark: #0f172a;
     
     /* Couleurs de texte modernes */
-    --bi-modern-text-primary: #0f172a;
-    --bi-modern-text-secondary: #374151;
-    --bi-modern-text-muted: #6b7280;
+    --ngBetterInterface-modern-text-primary: #0f172a;
+    --ngBetterInterface-modern-text-secondary: #374151;
+    --ngBetterInterface-modern-text-muted: #6b7280;
     
     /* Bordures et ombres modernes */
-    --bi-modern-border-color: #cbd5e1;
-    --bi-modern-shadow-light: 0 1px 3px rgba(30, 41, 59, 0.1), 0 1px 2px rgba(30, 41, 59, 0.06);
-    --bi-modern-shadow-medium: 0 4px 6px rgba(30, 41, 59, 0.07), 0 2px 4px rgba(30, 41, 59, 0.06);
-    --bi-modern-shadow-heavy: 0 10px 15px rgba(30, 41, 59, 0.1), 0 4px 6px rgba(30, 41, 59, 0.05);
-    --bi-modern-shadow-glow: 0 0 20px rgba(30, 41, 59, 0.3);
-} 
+    --ngBetterInterface-modern-border-color: #cbd5e1;
+    --ngBetterInterface-modern-shadow-light: 0 1px 3px rgba(30, 41, 59, 0.1), 0 1px 2px rgba(30, 41, 59, 0.06);
+    --ngBetterInterface-modern-shadow-medium: 0 4px 6px rgba(30, 41, 59, 0.07), 0 2px 4px rgba(30, 41, 59, 0.06);
+    --ngBetterInterface-modern-shadow-heavy: 0 10px 15px rgba(30, 41, 59, 0.1), 0 4px 6px rgba(30, 41, 59, 0.05);
+    --ngBetterInterface-modern-shadow-glow: 0 0 20px rgba(30, 41, 59, 0.3);
+}

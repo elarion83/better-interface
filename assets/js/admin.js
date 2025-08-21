@@ -1,12 +1,12 @@
 (function($){
 	// BetterInterfaceAdmin: gère les interactions de la page d’admin
 	function BetterInterfaceAdmin(){
-		this.currentMode = (window.bi_ajax && bi_ajax.current_mode) || 'default';
-		this.availableModes = (window.bi_ajax && bi_ajax.available_modes) || {};
-		this.currentColorTheme = (window.bi_ajax && bi_ajax.current_color_theme) || 'ocean';
-		this.availableColorThemes = (window.bi_ajax && bi_ajax.available_color_themes) || {};
-		this.ajaxUrl = (window.bi_ajax && bi_ajax.ajax_url) || ajaxurl;
-		this.nonce = (window.bi_ajax && bi_ajax.nonce) || '';
+		this.currentMode = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_mode) || 'default';
+		this.availableModes = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.available_modes) || {};
+		this.currentColorTheme = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_color_theme) || 'ocean';
+		this.availableColorThemes = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.available_color_themes) || {};
+		this.ajaxUrl = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.ajax_url) || ajaxurl;
+		this.nonce = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.nonce) || '';
 
 		this.selectedMode = null;
 		this.selectedTheme = null;
@@ -33,47 +33,19 @@
 
 			self.groupTableActions($nav);
 			
-					// Sur desktop/tablette paysage : créer une barre flottante
-		if (window.innerWidth >= 768) {
-			self.createFloatingActionBar($nav);
-		} else {
-			// Sur mobile/tablette portrait : garder l'accordéon
-			$nav.addClass('bi-accordion-closed');
-			$nav.on('click', function(e){
-				var $target = $(e.target);
-				if (self.isInteractive($target)) return;
-				self.toggleAccordion($nav);
-			});
-		}
+					// Créer une barre flottante sur tous les supports
+		self.createFloatingActionBar($nav);
 		
-		// Gérer le redimensionnement de la fenêtre
+		// Gérer le redimensionnement de la fenêtre pour adapter la largeur
 		$(window).on('resize', function(){
-			var isDesktop = window.innerWidth >= 768;
-			var hasFloatingBar = $('.bi-floating-action-bar').length > 0;
-			
-			if (isDesktop && !hasFloatingBar) {
-				// Passer en mode desktop : créer la barre flottante
-				$('.tablenav.top').each(function(){
-					var $nav = $(this);
-					if (!$nav.data('biAccordionInit')) return;
-					$nav.removeClass('bi-accordion-closed bi-accordion-open');
-					$nav.off('click');
-					self.createFloatingActionBar($nav);
-				});
-			} else if (!isDesktop && hasFloatingBar) {
-				// Passer en mode mobile : supprimer la barre flottante et restaurer l'accordéon
-				$('.bi-floating-action-bar').remove();
-				$('.tablenav.top').each(function(){
-					var $nav = $(this);
-					if (!$nav.data('biAccordionInit')) return;
-					$nav.show();
-					$nav.addClass('bi-accordion-closed');
-					$nav.on('click', function(e){
-						var $target = $(e.target);
-						if (self.isInteractive($target)) return;
-						self.toggleAccordion($nav);
-					});
-				});
+			var $floatingBar = $('.ngBetterInterface-floating-action-bar');
+			if ($floatingBar.length > 0) {
+				// Adapter la largeur selon le format d'écran
+				if (window.innerWidth < 768) {
+					$floatingBar.addClass('ngBetterInterface-full-width');
+				} else {
+					$floatingBar.removeClass('ngBetterInterface-full-width');
+				}
 			}
 		});
 		});
@@ -84,9 +56,9 @@
 	};
 
 	BetterInterfaceAdmin.prototype.toggleAccordion = function($nav){
-		var isOpen = $nav.hasClass('bi-accordion-open');
-		$nav.toggleClass('bi-accordion-open', !isOpen);
-		$nav.toggleClass('bi-accordion-closed', isOpen);
+		var isOpen = $nav.hasClass('ngBetterInterface-accordion-open');
+		$nav.toggleClass('ngBetterInterface-accordion-open', !isOpen);
+		$nav.toggleClass('ngBetterInterface-accordion-closed', isOpen);
 	};
 
 	BetterInterfaceAdmin.prototype.groupTableActions = function($nav){
@@ -96,9 +68,9 @@
 		var $host = $actionsBlocks.first();
 		var $others = $actionsBlocks.slice(1);
 
-		var $container = $('<div/>', { class: 'bi-grouped-actions' });
-		var $actionsSection = $('<div/>', { class: 'bi-actions-section' });
-		var $filtersSection = $('<div/>', { class: 'bi-filters-section' });
+		var $container = $('<div/>', { class: 'ngBetterInterface-grouped-actions' });
+		var $actionsSection = $('<div/>', { class: 'ngBetterInterface-actions-section' });
+		var $filtersSection = $('<div/>', { class: 'ngBetterInterface-filters-section' });
 
 		$actionsBlocks.each(function(){
 			var $block = $(this);
@@ -160,9 +132,9 @@
 			var self = this;
 			
 			// Créer le container de la barre flottante
-			var $floatingBar = $('<div class="bi-floating-action-bar slide-out"></div>');
-			var $actionsContainer = $('<div class="bi-floating-actions"></div>');
-			var $filtersContainer = $('<div class="bi-floating-filters"></div>');
+			var $floatingBar = $('<div class="ngBetterInterface-floating-action-bar slide-out"></div>');
+			var $actionsContainer = $('<div class="ngBetterInterface-floating-actions"></div>');
+			var $filtersContainer = $('<div class="ngBetterInterface-floating-filters"></div>');
 		
 		// Récupérer le nom des éléments depuis le titre de la page
 		var itemName = 'items';
@@ -178,10 +150,11 @@
 		}
 		
 		// Créer le compteur d'éléments sélectionnés avec bouton de désélection
-		var $counter = $('<div class="bi-selection-counter"><span class="bi-counter-number">0</span><span class="bi-counter-text">' + itemName + '</span><button type="button" class="bi-deselect-all" title="Désélectionner tout"><span class="dashicons dashicons-no-alt"></span></button></div>');
+		var deselectAllText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.deselect_all) || 'Désélectionner tout';
+		var $counter = $('<div class="ngBetterInterface-selection-counter"><div class="ngBetterInterface-counter-content"><span class="ngBetterInterface-counter-number">0</span><span class="ngBetterInterface-counter-text">' + itemName + '</span></div><button type="button" class="ngBetterInterface-deselect-all" title="' + deselectAllText + '"><span class="dashicons dashicons-no-alt"></span></button></div>');
 		
 		// Configurer le bouton de désélection
-		$counter.find('.bi-deselect-all').on('click', function(e){
+		$counter.find('.ngBetterInterface-deselect-all').on('click', function(e){
 			e.preventDefault();
 			e.stopPropagation();
 			
@@ -196,71 +169,101 @@
 		// Configuration des actions personnalisées
 		var customActions = {
 			'trash': {
-				buttonClass: 'bi-trash-button',
+				buttonClass: 'ngBetterInterface-trash-button',
 				title: 'Move to trash',
-				icon: '<span class="dashicons dashicons-trash"></span>'
+				icon: '<span class="dashicons dashicons-trash"></span>',
+				group: null
 			},
 			'untrash': {
-				buttonClass: 'bi-untrash-button',
+				buttonClass: 'ngBetterInterface-untrash-button',
 				title: 'Restore from trash',
-				icon: '<span class="dashicons dashicons-backup"></span>'
+				icon: '<span class="dashicons dashicons-backup"></span>',
+				group: null
 			},
 			'delete': {
-				buttonClass: 'bi-trash-button',
+				buttonClass: 'ngBetterInterface-trash-button',
 				title: 'Delete permanently',
-				icon: '<span class="dashicons dashicons-trash"></span>'
+				icon: '<span class="dashicons dashicons-trash"></span>',
+				group: null
 			},
 			'edit': {
-				buttonClass: 'bi-edit-button',
+				buttonClass: 'ngBetterInterface-edit-button',
 				title: 'Edit selected',
-				icon: '<span class="dashicons dashicons-edit"></span>'
+				icon: '<span class="dashicons dashicons-edit"></span>',
+				group: null
 			},
 			'update-selected': {
-				buttonClass: 'bi-update-button',
+				buttonClass: 'ngBetterInterface-update-button',
 				title: 'Update selected',
-				icon: '<span class="dashicons dashicons-arrow-up-alt"></span>'
+				icon: '<span class="dashicons dashicons-update"></span>',
+				group: null
 			},
 			'delete-selected': {
-				buttonClass: 'bi-trash-button',
+				buttonClass: 'ngBetterInterface-trash-button',
 				title: 'Delete selected',
-				icon: '<span class="dashicons dashicons-trash"></span>'
+				icon: '<span class="dashicons dashicons-trash"></span>',
+				group: null
 			},
 			'approve': {
-				buttonClass: 'bi-approve-button',
+				buttonClass: 'ngBetterInterface-approve-button',
 				title: 'Approve selected',
-				icon: '<span class="dashicons dashicons-thumbs-up"></span>'
+				icon: '<span class="dashicons dashicons-thumbs-up"></span>',
+				group: 'approval'
 			},
 			'unapprove': {
-				buttonClass: 'bi-unapprove-button',
+				buttonClass: 'ngBetterInterface-unapprove-button',
 				title: 'Unapprove selected',
-				icon: '<span class="dashicons dashicons-thumbs-down"></span>'
+				icon: '<span class="dashicons dashicons-thumbs-down"></span>',
+				group: 'approval'
 			},
 			'spam': {
-				buttonClass: 'bi-spam-button',
+				buttonClass: 'ngBetterInterface-spam-button',
 				title: 'Mark as spam',
-				icon: '<span class="dashicons dashicons-flag"></span>'
+				icon: '<span class="dashicons dashicons-flag"></span>',
+				group: null
+			},
+			'unspam': {
+				buttonClass: 'ngBetterInterface-unspam-button',
+				title: 'Remove from spam',
+				icon: '<span class="dashicons dashicons-undo"></span>',
+				group: null
 			},
 			'resetpassword': {
-				buttonClass: 'bi-reset-password-button',
+				buttonClass: 'ngBetterInterface-reset-password-button',
 				title: 'Reset password',
-				icon: '<span class="dashicons dashicons-unlock"></span>'
-			},
+				icon: '<span class="dashicons dashicons-admin-network"></span>',
+				group: null
+			},	
 			'activate-selected': {
-				buttonClass: 'bi-activate-button',
+				buttonClass: 'ngBetterInterface-activate-button',
 				title: 'Activate selected',
-				icon: '<span class="dashicons dashicons-yes-alt"></span>'
+				icon: '<span class="dashicons dashicons-yes-alt"></span>',
+				group: 'activation'
 			},
 			'deactivate-selected': {
-				buttonClass: 'bi-deactivate-button',
+				buttonClass: 'ngBetterInterface-deactivate-button',
 				title: 'Deactivate selected',
-				icon: '<span class="dashicons dashicons-no-alt"></span>'
+				icon: '<span class="dashicons dashicons-no-alt"></span>',
+				group: 'activation'
+			},
+			'enable-auto-update-selected': {
+				buttonClass: 'ngBetterInterface-enable-auto-update-button',
+				title: 'Enable auto updates',
+				icon: '<span class="dashicons dashicons-update"></span><span class="dashicons dashicons-yes-alt ngBetterInterface-secondary-icon"></span>',
+				group: 'auto-update'
+			},
+			'disable-auto-update-selected': {
+				buttonClass: 'ngBetterInterface-disable-auto-update-button',
+				title: 'Disable auto updates',
+				icon: '<span class="dashicons dashicons-update"></span><span class="dashicons dashicons-no-alt ngBetterInterface-secondary-icon"></span>',
+				group: 'auto-update'
 			}
 		};
 		
 		// Traiter les actions du select
 		var $actionSelect = $nav.find('#bulk-action-selector-top');
 		var customButtons = [];
-		var approvalButtons = [];
+		var groupedButtons = {};
 		
 		if ($actionSelect.length > 0) {
 			// Énumérer les options du select
@@ -286,12 +289,13 @@
 						// Vérifier qu'il y a des éléments sélectionnés
 						var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
 						if (selectedCount === 0) {
-							alert('Please select at least one item to perform this action on.');
+							var pleaseSelectText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.please_select_items) || 'Please select at least one item to perform this action on.';
+							alert(pleaseSelectText);
 							return;
 						}
 						
 						// Remplacer l'icône par une icône de chargement WordPress
-						var loadingIcon = '<span class="dashicons dashicons-update bi-loading-spinner"></span>';
+						var loadingIcon = '<span class="dashicons dashicons-update ngBetterInterface-loading-spinner"></span>';
 						
 						$(this).html(loadingIcon);
 						
@@ -314,9 +318,12 @@
 						}
 					});
 					
-					// Séparer les boutons approve/unapprove et activate/deactivate des autres
-					if (value === 'approve' || value === 'unapprove' || value === 'activate-selected' || value === 'deactivate-selected') {
-						approvalButtons.push($button);
+					// Grouper les boutons selon leur configuration
+					if (action.group) {
+						if (!groupedButtons[action.group]) {
+							groupedButtons[action.group] = [];
+						}
+						groupedButtons[action.group].push($button);
 					} else {
 						customButtons.push($button);
 					}
@@ -326,41 +333,30 @@
 				}
 			});
 			
-			// Séparer les boutons activate/deactivate des autres boutons approve/unapprove
-			var activateButtons = [];
-			var otherApprovalButtons = [];
-			
-			approvalButtons.forEach(function($button){
-				var actionValue = $button.data('action');
-				if (actionValue === 'activate-selected' || actionValue === 'deactivate-selected') {
-					activateButtons.push($button);
-				} else {
-					otherApprovalButtons.push($button);
+			// Ajouter d'abord les boutons groupés
+			Object.keys(groupedButtons).forEach(function(groupName) {
+				var buttons = groupedButtons[groupName];
+				if (buttons.length > 0) {
+					var $group = $('<div class="ngBetterInterface-button-group ngBetterInterface-' + groupName + '-group"></div>');
+					buttons.forEach(function($button, index){
+						// Ajouter les classes utilitaires pour les border-radius
+						if (index === 0) {
+							$button.addClass('no-br-right');
+						} else if (index === buttons.length - 1) {
+							$button.addClass('no-br-left');
+						} else {
+							$button.addClass('no-br-left no-br-right');
+						}
+						$group.append($button);
+					});
+					$actionsContainer.append($group);
 				}
 			});
 			
-			// Ajouter d'abord les boutons activate/deactivate
-			if (activateButtons.length > 0) {
-				var $activateGroup = $('<div class="bi-activate-group"></div>');
-				activateButtons.forEach(function($button){
-					$activateGroup.append($button);
-				});
-				$actionsContainer.append($activateGroup);
-			}
-			
-			// Puis les autres boutons personnalisés
+			// Puis les boutons individuels
 			customButtons.forEach(function($button){
 				$actionsContainer.append($button);
 			});
-			
-			// Enfin les autres boutons approve/unapprove
-			if (otherApprovalButtons.length > 0) {
-				var $approvalGroup = $('<div class="bi-approval-group"></div>');
-				otherApprovalButtons.forEach(function($button){
-					$approvalGroup.append($button);
-				});
-				$actionsContainer.append($approvalGroup);
-			}
 			
 			// Vérifier s'il ne reste qu'une seule option non convertie en bouton
 			var nonConvertedOptions = 0;
@@ -398,7 +394,7 @@
 			if ($submitButton.length > 0 && $form.find('select[name="action"], select[name="action2"]').length > 0) {
 				// Trouver le bouton personnalisé correspondant
 				var actionValue = $form.find('select[name="action"]').val() || $form.find('select[name="action2"]').val();
-				var $customButton = $('.bi-floating-action-bar button[data-action="' + actionValue + '"]');
+				var $customButton = $('.ngBetterInterface-floating-action-bar button[data-action="' + actionValue + '"]');
 				
 				if ($customButton.length > 0) {
 					// Marquer le bouton comme en cours de traitement
@@ -415,7 +411,7 @@
 			// Vérifier si c'est une requête d'action en lot WordPress
 			if (settings.url && (settings.url.includes('admin-ajax.php') || settings.url.includes('edit.php') || settings.url.includes('post.php'))) {
 				// Restaurer tous les boutons en cours de traitement
-				$('.bi-floating-action-bar button.loading').each(function(){
+				$('.ngBetterInterface-floating-action-bar button.loading').each(function(){
 					var $button = $(this);
 					var $originalIcon = $button.data('original-icon');
 					
@@ -431,7 +427,7 @@
 		// Écouter aussi les redirections et rechargements de page
 		$(window).on('beforeunload', function(){
 			// Restaurer tous les boutons avant le rechargement
-			$('.bi-floating-action-bar button.loading').each(function(){
+			$('.ngBetterInterface-floating-action-bar button.loading').each(function(){
 				var $button = $(this);
 				var $originalIcon = $button.data('original-icon');
 				
@@ -446,7 +442,7 @@
 		// Écouter aussi les erreurs AJAX pour restaurer les boutons
 		$(document).ajaxError(function(event, xhr, settings, error){
 			// Restaurer tous les boutons en cours de traitement en cas d'erreur
-			$('.bi-floating-action-bar button.loading').each(function(){
+			$('.ngBetterInterface-floating-action-bar button.loading').each(function(){
 				var $button = $(this);
 				var $originalIcon = $button.data('original-icon');
 				
@@ -467,7 +463,7 @@
 						var node = mutation.addedNodes[i];
 						if (node.nodeType === 1 && node.classList && node.classList.contains('notice')) {
 							// Une notice WordPress est apparue, restaurer les boutons
-							$('.bi-floating-action-bar button.loading').each(function(){
+							$('.ngBetterInterface-floating-action-bar button.loading').each(function(){
 								var $button = $(this);
 								var $originalIcon = $button.data('original-icon');
 								
@@ -491,7 +487,7 @@
 		});
 		
 		// Créer des références visuelles sans déplacer les éléments originaux
-		$nav.find('.bi-actions-section > *').each(function(){
+		$nav.find('.ngBetterInterface-actions-section > *').each(function(){
 			var $original = $(this);
 			var $clone = $original.clone();
 			
@@ -533,7 +529,7 @@
 			$actionsContainer.append($clone);
 		});
 		
-		$nav.find('.bi-filters-section > *').each(function(){
+		$nav.find('.ngBetterInterface-filters-section > *').each(function(){
 			var $original = $(this);
 			var $clone = $original.clone();
 			
@@ -595,6 +591,11 @@
 				self.updateFloatingBarState();
 			});
 			
+			// Appliquer la classe de largeur selon le format d'écran
+			if (window.innerWidth < 768) {
+				$floatingBar.addClass('ngBetterInterface-full-width');
+			}
+			
 			// Masquer la navigation originale seulement sur desktop
 			if (window.innerWidth >= 768) {
 				$nav.hide();
@@ -606,9 +607,9 @@
 	BetterInterfaceAdmin.prototype.updateFloatingBarState = function(){
 		var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
 		var hasSelectedItems = selectedCount > 0;
-		var $actions = $('.bi-floating-actions button, .bi-floating-actions input[type="submit"], .bi-floating-actions select');
-		var $customButtons = $('.bi-trash-button, .bi-edit-button, .bi-update-button');
-		var $counter = $('.bi-selection-counter');
+		var $actions = $('.ngBetterInterface-floating-actions button, .ngBetterInterface-floating-actions input[type="submit"], .ngBetterInterface-floating-actions select');
+		var $customButtons = $('.ngBetterInterface-trash-button, .ngBetterInterface-edit-button, .ngBetterInterface-update-button');
+		var $counter = $('.ngBetterInterface-selection-counter');
 		
 		// Récupérer le nom des éléments depuis le titre de la page
 		var itemName = 'items';
@@ -624,7 +625,7 @@
 		}
 		
 		// Mettre à jour le compteur avec effet de défilement
-		var $counterNumber = $counter.find('.bi-counter-number');
+		var $counterNumber = $counter.find('.ngBetterInterface-counter-number');
 		var currentValue = parseInt($counterNumber.text()) || 0;
 		
 		if (currentValue !== selectedCount) {
@@ -639,10 +640,10 @@
 		}
 		
 		// Vérifier s'il y a des filtres actifs
-		var hasActiveFilters = $('.bi-floating-filters').children().length > 0;
+		var hasActiveFilters = $('.ngBetterInterface-floating-filters').children().length > 0;
 		
 		// Afficher/masquer la barre selon les conditions avec animation
-		var $floatingBar = $('.bi-floating-action-bar');
+		var $floatingBar = $('.ngBetterInterface-floating-action-bar');
 		if (hasSelectedItems || hasActiveFilters) {
 			$floatingBar.removeClass('slide-out').addClass('slide-in');
 		} else {
@@ -697,7 +698,7 @@
 
 	// Met à jour la classe de sélection sur la ligne (pour les styles modernes)
 	BetterInterfaceAdmin.prototype.updateRowSelectedState = function($row, isSelected){
-		$row.toggleClass('bi-row-selected', !!isSelected);
+		$row.toggleClass('ngBetterInterface-row-selected', !!isSelected);
 	};
 
 	// À l'init: synchroniser l'état visuel des lignes déjà sélectionnées
@@ -718,8 +719,8 @@
 		var self = this;
 		
 		// Créer l'overlay de transition s'il n'existe pas
-		if ($('.bi-page-transition-overlay').length === 0) {
-			$('body').append('<div class="bi-page-transition-overlay"></div>');
+		if ($('.ngBetterInterface-page-transition-overlay').length === 0) {
+			$('body').append('<div class="ngBetterInterface-page-transition-overlay"></div>');
 		}
 
 		// Intercepter les clics sur les liens de navigation
@@ -757,14 +758,14 @@
 		});
 
 		// Intercepter les clics sur les boutons de sauvegarde du plugin
-		$(document).on('click', '.bi-save-toggle, .bi-save-theme', function(){
+		$(document).on('click', '.ngBetterInterface-save-toggle, .ngBetterInterface-save-theme', function(){
 			self.showPageTransition();
 		});
 	};
 
 	// Afficher l'overlay de transition
 	BetterInterfaceAdmin.prototype.showPageTransition = function(){
-		$('.bi-page-transition-overlay').addClass('active');
+		$('.ngBetterInterface-page-transition-overlay').addClass('active');
 	};
 
 	// ===== SYSTÈME DE POSITIONNEMENT DES NOTICES =====
@@ -773,14 +774,14 @@
 		var self = this;
 		
 		// Créer le container pour les notices s'il n'existe pas
-		if ($('.bi-notices-container').length === 0) {
-			$('body').append('<div class="bi-notices-container"></div>');
+		if ($('.ngBetterInterface-notices-container').length === 0) {
+			$('body').append('<div class="ngBetterInterface-notices-container"></div>');
 		}
 
 		// Fonction pour déplacer une notice dans le container
 		function moveNoticeToContainer($notice) {
-			if ($notice.closest('.bi-notices-container').length === 0) {
-				$('.bi-notices-container').append($notice);
+			if ($notice.closest('.ngBetterInterface-notices-container').length === 0) {
+				$('.ngBetterInterface-notices-container').append($notice);
 			}
 		}
 

@@ -1,4 +1,4 @@
-# French translation for Better Interface
+# Portuguese translation for Better Interface
 # Copyright (C) 2024 Nicolas Gruwe
 # This file is distributed under the same license as the Better Interface package.
 msgid ""
@@ -8,12 +8,12 @@ msgstr ""
 "POT-Creation-Date: 2024-01-01 12:00+0000\n"
 "PO-Revision-Date: 2024-01-01 12:00+0000\n"
 "Last-Translator: Nicolas Gruwe <contact@nicolasgruwe.com>\n"
-"Language-Team: French\n"
-"Language: fr_FR\n"
+"Language-Team: Portuguese\n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: better-interface.php:15
 msgid "Better Interface"
@@ -21,7 +21,7 @@ msgstr "Better Interface"
 
 #: better-interface.php:16
 msgid "Modernise l'interface administrateur WordPress avec 2 modes de design différents"
-msgstr "Modernise l'interface administrateur WordPress avec 2 modes de design différents"
+msgstr "Moderniza a interface de administração do WordPress com 2 modos de design diferentes"
 
 #: better-interface.php:17
 msgid "1.0.0"
@@ -37,7 +37,7 @@ msgstr "https://nicolasgruwe.com"
 
 #: better-interface.php:20
 msgid "GPL v2 or later"
-msgstr "GPL v2 ou ultérieure"
+msgstr "GPL v2 ou posterior"
 
 #: better-interface.php:21
 msgid "https://www.gnu.org/licenses/gpl-2.0.html"
@@ -65,39 +65,39 @@ msgstr "7.4"
 
 #: better-interface.php:89
 msgid "Classique"
-msgstr "Classique"
+msgstr "Clássico"
 
 #: better-interface.php:90
 msgid "Moderne"
-msgstr "Moderne"
+msgstr "Moderno"
 
 #: better-interface.php:147
 msgid "Sécurité violée"
-msgstr "Sécurité violée"
+msgstr "Violação de segurança"
 
 #: better-interface.php:151
 msgid "Permissions insuffisantes"
-msgstr "Permissions insuffisantes"
+msgstr "Permissões insuficientes"
 
 #: better-interface.php:155
 msgid "Mode invalide"
-msgstr "Mode invalide"
+msgstr "Modo inválido"
 
 #: better-interface.php:162
 msgid "Mode sauvegardé avec succès"
-msgstr "Mode sauvegardé avec succès"
+msgstr "Modo guardado com sucesso"
 
 #: better-interface.php:175
 msgid "Paramètres réinitialisés"
-msgstr "Paramètres réinitialisés"
+msgstr "Configurações redefinidas"
 
 #: better-interface.php:322
 msgid "Thème de couleur invalide"
-msgstr "Thème de couleur invalide"
+msgstr "Tema de cor inválido"
 
 #: better-interface.php:329
 msgid "Thème de couleur sauvegardé"
-msgstr "Thème de couleur sauvegardé"
+msgstr "Tema de cor guardado"
 
 #: admin/admin-page.php:24
 msgid "Better Interface"
@@ -105,104 +105,104 @@ msgstr "Better Interface"
 
 #: admin/admin-page.php:27
 msgid "Modernisez votre interface administrateur WordPress avec un design transformé."
-msgstr "Modernisez votre interface administrateur WordPress avec un design transformé."
+msgstr "Modernize a sua interface de administração do WordPress com um design transformado."
 
 #: admin/admin-page.php:34
 msgid "Affichage Transformé"
-msgstr "Affichage Transformé"
+msgstr "Exibição Transformada"
 
 #: admin/admin-page.php:35
 msgid "Activez ou désactivez l'affichage transformé de votre interface administrateur :"
-msgstr "Activez ou désactivez l'affichage transformé de votre interface administrateur :"
+msgstr "Ative ou desative a exibição transformada da sua interface de administração:"
 
 #: admin/admin-page.php:63
 msgid "Activé"
-msgstr "Activé"
+msgstr "Ativado"
 
 #: admin/admin-page.php:63
 msgid "Désactivé"
-msgstr "Désactivé"
+msgstr "Desativado"
 
 #: admin/admin-page.php:66
 msgid "Interface moderne avec des couleurs vives et des animations fluides."
-msgstr "Interface moderne avec des couleurs vives et des animations fluides."
+msgstr "Interface moderna com cores vibrantes e animações fluidas."
 
 #: admin/admin-page.php:67
 msgid "Interface classique WordPress avec des améliorations subtiles."
-msgstr "Interface classique WordPress avec des améliorations subtiles."
+msgstr "Interface WordPress clássica com melhorias subtis."
 
 #: admin/admin-page.php:76
 msgid "Appliquer les changements"
-msgstr "Appliquer les changements"
+msgstr "Aplicar alterações"
 
 #: admin/admin-page.php:84
 msgid "Thèmes de Couleurs"
-msgstr "Thèmes de Couleurs"
+msgstr "Temas de Cores"
 
 #: admin/admin-page.php:85
 msgid "Personnalisez l'apparence de votre interface avec nos thèmes de couleurs modernes :"
-msgstr "Personnalisez l'apparence de votre interface avec nos thèmes de couleurs modernes :"
+msgstr "Personalize a aparência da sua interface com os nossos temas de cores modernos:"
 
 #: admin/admin-page.php:107
 msgid "Bleu océan moderne et apaisant."
-msgstr "Bleu océan moderne et apaisant."
+msgstr "Azul oceano moderno e calmante."
 
 #: admin/admin-page.php:108
-msgid "Noir minuit sobre et professionnel."
-msgstr "Noir minuit sobre et professionnel."
+msgid "Noir minuit sur et professionnel."
+msgstr "Preto meia-noite sóbrio e profissional."
 
 #: admin/admin-page.php:109
 msgid "Turquoise élégant et sophistiqué."
-msgstr "Turquoise élégant et sophistiqué."
+msgstr "Turquesa elegante e sofisticado."
 
 #: admin/admin-page.php:110
 msgid "Clair, élégant et professionnel, inspiré de Notion et Tailwind UI."
-msgstr "Clair, élégant et professionnel, inspiré de Notion et Tailwind UI."
+msgstr "Limpo, elegante e profissional, inspirado no Notion e Tailwind UI."
 
 #: admin/admin-page.php:111
 msgid "Sombre, tech et reposant pour les yeux, idéal pour le mode nuit."
-msgstr "Sombre, tech et reposant pour les yeux, idéal pour le mode nuit."
+msgstr "Escuro, tecnológico e repousante para os olhos, ideal para o modo noturno."
 
 #: admin/admin-page.php:112
 msgid "Plus créatif et vivant avec des accents chaleureux."
-msgstr "Plus créatif et vivant avec des accents chaleureux."
+msgstr "Mais criativo e vibrante com acentos quentes."
 
 #: admin/admin-page.php:117
 msgid "Actuel"
-msgstr "Actuel"
+msgstr "Atual"
 
 #: admin/admin-page.php:126
 msgid "Appliquer le thème sélectionné"
-msgstr "Appliquer le thème sélectionné"
+msgstr "Aplicar tema selecionado"
 
 #: admin/admin-page.php:134
 msgid "Informations"
-msgstr "Informations"
+msgstr "Informações"
 
 #: admin/admin-page.php:138
 msgid "Affichage Transformé"
-msgstr "Affichage Transformé"
+msgstr "Exibição Transformada"
 
 #: admin/admin-page.php:143
 msgid "Version"
-msgstr "Version"
+msgstr "Versão"
 
 #: admin/admin-page.php:148
 msgid "Compatibilité"
-msgstr "Compatibilité"
+msgstr "Compatibilidade"
 
 #: admin/admin-page.php:155
 msgid "Réinitialiser tous les paramètres"
-msgstr "Réinitialiser tous les paramètres"
+msgstr "Redefinir todas as configurações"
 
 #: admin/admin-page.php:158
 msgid "Documentation"
-msgstr "Documentation"
+msgstr "Documentação"
 
 #: assets/js/admin.js:291
 msgid "Please select at least one item to perform this action on."
-msgstr "Veuillez sélectionner au moins un élément pour effectuer cette action."
+msgstr "Por favor selecione pelo menos um item para executar esta ação."
 
 #: assets/js/admin.js:156
 msgid "Désélectionner tout"
-msgstr "Désélectionner tout" 
+msgstr "Desselecionar tudo"
