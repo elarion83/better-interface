@@ -32,3 +32,8 @@ body.plugin-install-php .plugin-card:hover {
     box-shadow: var(--ngBetterInterface-modern-shadow-medium);
     transform: translateY(-2px);
 }
+
+/* Style pour la barre d'action */
+body.plugin-install-php .ngBetterInterface-selection-counter {
+    display: none;
+}

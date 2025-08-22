@@ -95,6 +95,11 @@
 			// Désélectionner les cases "tout sélectionner"
 			$('.wp-list-table thead input[type="checkbox"], .wp-list-table tfoot input[type="checkbox"]').prop('checked', false).trigger('change');
 		});
+		
+		// Ajouter le bouton delete_all à gauche du compteur s'il existe
+		if ($deleteAllButtonCustom) {
+			$actionsContainer.append($deleteAllButtonCustom);
+		}
 		$actionsContainer.append($counter);
 		
 		// Utiliser la configuration des actions personnalisées depuis le fichier externe
@@ -106,9 +111,10 @@
 			customActions['delete_all'] = {
 				buttonClass: 'ngBetterInterface-delete-all-button',
 				title: 'Delete All',
-				icon: '<span class="dashicons dashicons-trash"></span>',
-				backgroundColor: '#dc2626',
-				hoverBackgroundColor: '#b91c1c'
+				icon: '<span class="material-icons">cleaning_services</span>',
+				backgroundColor: '#dc2996',
+				hoverBackgroundColor: '#b91c1c',
+				alwaysVisible: true
 			};
 		}
 		
@@ -118,9 +124,10 @@
 		var groupedButtons = {};
 		
 		// Traiter le bouton delete_all s'il existe
+		var $deleteAllButtonCustom = null;
 		if ($deleteAllButton.length > 0) {
 			var action = customActions['delete_all'];
-			var $button = $('<button type="button" class="' + action.buttonClass + '" title="' + action.title + '" data-action="delete_all">' + action.icon + '</button>');
+			var $button = $('<button type="button" class="' + action.buttonClass + '" title="' + action.title + '" data-action="delete_all" data-always-visible="true">' + action.icon + '</button>');
 			
 			// Stocker l'icône originale dans les données du bouton
 			$button.data('original-icon', action.icon);
@@ -141,7 +148,7 @@
 				$deleteAllButton.trigger('click');
 			});
 			
-			customButtons.push($button);
+			$deleteAllButtonCustom = $button;
 			
 			// Masquer le bouton original
 			$deleteAllButton.hide();
@@ -159,7 +166,14 @@
 				// Vérifier si c'est une action personnalisée
 				if (customActions[value]) {
 					var action = customActions[value];
-					var $button = $('<button type="button" class="' + action.buttonClass + '" title="' + action.title + '" data-action="' + value + '">' + action.icon + '</button>');
+					var buttonAttributes = 'class="' + action.buttonClass + '" title="' + action.title + '" data-action="' + value + '"';
+					
+					// Ajouter l'attribut data-always-visible si l'action est toujours visible
+					if (action.alwaysVisible) {
+						buttonAttributes += ' data-always-visible="true"';
+					}
+					
+					var $button = $('<button type="button" ' + buttonAttributes + '>' + action.icon + '</button>');
 					
 					// Stocker l'icône originale dans les données du bouton
 					$button.data('original-icon', action.icon);
@@ -392,7 +406,7 @@
 		});
 		
 		// Créer le bouton "Filtres" pour ouvrir le sur-panel
-		var $filtersButton = $('<button type="button" class="ngBetterInterface-filters-button" title="Filtres"><span class="dashicons dashicons-filter"></span></button>');
+		var $filtersButton = $('<button type="button" class="ngBetterInterface-filters-button" title="Filtres"><span class="material-icons">filter_list</span><span class="ngBetterInterface-filters-badge"></span></button>');
 		
 		// Créer le voile sombre
 		var $filtersOverlay = $('<div class="ngBetterInterface-filters-overlay"></div>');
@@ -400,7 +414,115 @@
 		// Créer le sur-panel des filtres
 		var $filtersPanel = $('<div class="ngBetterInterface-filters-panel"></div>');
 		var $filtersPanelContent = $('<div class="ngBetterInterface-filters-panel-content"></div>');
-		var $filtersPanelHeader = $('<div class="ngBetterInterface-filters-panel-header"><h3><span class="dashicons dashicons-filter"></span> Filtres</h3><button type="button" class="ngBetterInterface-filters-close"><span class="dashicons dashicons-no-alt"></span></button></div>');
+		var $filtersPanelHeader = $('<div class="ngBetterInterface-filters-panel-header"><h3><span class="material-icons">filter_list</span> <span class="ngBetterInterface-filters-panel-title"></span></h3><button type="button" class="ngBetterInterface-filters-close"><span class="dashicons dashicons-no-alt"></span></button></div>');
+		
+		// Créer le bouton de réinitialisation en bas du panel
+		var $filtersResetButton = $('<div class="ngBetterInterface-filters-reset-container"><button type="button" class="ngBetterInterface-filters-reset-button"><span class="material-icons">filter_list_off</span> Réinitialiser les filtres</button></div>');
+		
+		// Détecter et créer le bouton "Ajouter" personnalisé
+		var $addButton = null;
+		
+		// Tableau des conditions pour détecter les boutons "Ajouter"
+		var addButtonConditions = [
+			{
+				selector: '.wrap h1.wp-heading-inline + a.page-title-action[href*="wp-admin/post-new.php"]',
+				description: 'Bouton Ajouter WordPress standard'
+			},
+			{
+				selector: '#wpcf7-contact-form-list-table h1 + a[href*="wpcf7-new"]',
+				description: 'Bouton Ajouter Contact Form 7'
+			}
+			// Ajouter facilement d'autres conditions ici
+			// {
+			//     selector: 'SELECTEUR_CSS',
+			//     description: 'Description du bouton'
+			// }
+		];
+		
+		// Chercher le premier bouton "Ajouter" qui correspond aux conditions
+		var $originalAddButton = null;
+		for (var i = 0; i < addButtonConditions.length; i++) {
+			var condition = addButtonConditions[i];
+			var $foundButton = $(condition.selector);
+			if ($foundButton.length > 0) {
+				$originalAddButton = $foundButton;
+				console.log('Bouton "Ajouter" détecté:', condition.description);
+				break;
+			}
+		}
+		
+		if ($originalAddButton && $originalAddButton.length > 0) {
+			var addButtonHref = $originalAddButton.attr('href');
+			
+			// Créer le gros bouton "Ajouter"
+			$addButton = $('<a href="' + addButtonHref + '" class="ngBetterInterface-add-button"><span class="material-icons">add</span></a>');
+			
+			// Masquer le bouton original
+			$originalAddButton.hide();
+		}
+		
+		// Détecter et créer la modale de recherche
+		var $searchModal = null;
+		var $searchButton = null;
+		var $originalSearchBox = $('.subsubsub + #posts-filter .search-box, .subsubsub + #comments-form .search-box, #wpcf7-contact-form-list-table .search-box');
+		if ($originalSearchBox.length > 0) {
+			// Créer le bouton "Rechercher" dans la barre flottante
+			$searchButton = $('<button type="button" class="ngBetterInterface-search-button" title="Rechercher"><span class="material-icons">search</span></button>');
+			
+			// Créer la modale de recherche
+			$searchModal = $('<div class="ngBetterInterface-search-modal"><div class="ngBetterInterface-search-modal-content"><div class="ngBetterInterface-search-modal-header"><h3><span class="material-icons">search</span> Rechercher</h3><button type="button" class="ngBetterInterface-search-modal-close"><span class="dashicons dashicons-no-alt"></span></button></div><div class="ngBetterInterface-search-modal-body"></div></div></div>');
+			
+			// Cloner le contenu de la search-box dans la modale
+			var $searchBoxClone = $originalSearchBox.clone();
+			$searchModal.find('.ngBetterInterface-search-modal-body').append($searchBoxClone);
+			
+			// Gérer la soumission de la recherche dans la modale
+			function performSearch() {
+				var searchQuery = $searchModal.find('input[type="search"], input[type="text"]').val().trim();
+				
+				if (searchQuery) {
+					// Construire la nouvelle URL avec le paramètre de recherche
+					var currentUrl = window.location.href;
+					var newUrl;
+					
+					// Supprimer le paramètre paged s'il existe (retour à la première page)
+					currentUrl = currentUrl.replace(/[?&]paged=\d+/, '');
+					
+					// Vérifier si le paramètre s existe déjà avec une regex plus précise
+					if (currentUrl.match(/[?&]s=/)) {
+						// Remplacer le paramètre s existant
+						newUrl = currentUrl.replace(/[?&]s=[^&]*/, function(match) {
+							return match.charAt(0) === '?' ? '?s=' + encodeURIComponent(searchQuery) : '&s=' + encodeURIComponent(searchQuery);
+						});
+					} else {
+						// Ajouter le paramètre s
+						var separator = currentUrl.includes('?') ? '&' : '?';
+						newUrl = currentUrl + separator + 's=' + encodeURIComponent(searchQuery);
+					}
+					
+					console.log(newUrl)
+					// Rediriger vers la nouvelle URL
+					window.location.href = newUrl;
+				}
+			}
+			
+			// Gérer la touche Entrée sur l'input de recherche
+			$searchModal.find('input[type="search"], input[type="text"]').on('keypress', function(e){
+				if (e.which === 13) { // Touche Entrée
+					e.preventDefault();
+					performSearch();
+				}
+			});
+			
+			// Gérer le clic sur le bouton de recherche
+			$searchModal.find('input[type="submit"], button[type="submit"]').on('click', function(e){
+				e.preventDefault();
+				performSearch();
+			});
+			
+			// Masquer la search-box originale
+			$originalSearchBox.hide();
+		}
 		
 		// Récupérer les filtres depuis le DOM original
 		$nav.find('.actions > *').each(function(){
@@ -440,63 +562,218 @@
 				});
 			}
 			
-			// Pour les selects, synchroniser avec l'original
-			if ($clone.is('select')) {
-				$clone.on('change', function(){
-					$original.val($(this).val()).trigger('change');
-				});
-				$original.on('change', function(){
-					$clone.val($(this).val());
-				});
-			}
+					// Pour les selects, synchroniser avec l'original
+		if ($clone.is('select')) {
+			$clone.on('change', function(){
+				$original.val($(this).val()).trigger('change');
+				updateFiltersBadge(); // Mettre à jour le badge
+			});
+			$original.on('change', function(){
+				$clone.val($(this).val());
+				updateFiltersBadge(); // Mettre à jour le badge
+			});
+		}
 			
-			// Pour les inputs, synchroniser avec l'original
-			if ($clone.is('input[type="text"], input[type="search"], input[type="date"], input[type="number"]')) {
-				$clone.on('input', function(){
-					$original.val($(this).val()).trigger('input');
-				});
-				$original.on('input', function(){
-					$clone.val($(this).val());
-				});
-			}
+					// Pour les inputs, synchroniser avec l'original
+		if ($clone.is('input[type="text"], input[type="search"], input[type="date"], input[type="number"]')) {
+			$clone.on('input', function(){
+				$original.val($(this).val()).trigger('input');
+				updateFiltersBadge(); // Mettre à jour le badge
+			});
+			$original.on('input', function(){
+				$clone.val($(this).val());
+				updateFiltersBadge(); // Mettre à jour le badge
+			});
+		}
 			
 			$filtersPanelContent.append($clone);
 		});
 		
 		// Assembler le panel des filtres
-		$filtersPanel.append($filtersPanelHeader).append($filtersPanelContent);
+		$filtersPanel.append($filtersPanelHeader).append($filtersPanelContent).append($filtersResetButton);
 		
 		// Gérer l'ouverture/fermeture du panel des filtres
 		$filtersButton.on('click', function(e){
 			e.preventDefault();
+			
+			// Définir le titre du panel à partir du bouton filtres
+			var filterButtonTitle = $filtersButton.attr('title') || 'Filtres';
+			$filtersPanel.find('.ngBetterInterface-filters-panel-title').text(filterButtonTitle);
+			
 			$filtersPanel.addClass('ngBetterInterface-filters-panel-open');
 			$filtersOverlay.addClass('ngBetterInterface-filters-overlay-open');
 			$filtersButton.addClass('active');
+			
+			// Changer l'icône vers filter_list_off
+			$filtersButton.find('.material-icons').text('filter_list_off'); // Changed to filter_list_off
+			
+			// Surbrillance des filtres actifs
+			highlightActiveFilters();
+		});
+		
+		// Gérer l'ouverture/fermeture de la modale de recherche
+		if ($searchButton && $searchModal) {
+			$searchButton.on('click', function(e){
+				e.preventDefault();
+				$searchModal.addClass('ngBetterInterface-search-modal-open');
+				$searchButton.addClass('active');
+				
+				// Focus sur l'input de recherche
+				setTimeout(function(){
+					$searchModal.find('input[type="search"], input[type="text"]').focus();
+				}, 300);
+			});
+			
+			// Fermer la modale avec le bouton close
+			$searchModal.find('.ngBetterInterface-search-modal-close').on('click', function(e){
+				e.preventDefault();
+				closeSearchModal();
+			});
+			
+			// Fermer la modale en cliquant en dehors
+			$searchModal.on('click', function(e){
+				if (e.target === this) {
+					closeSearchModal();
+				}
+			});
+			
+			// Fermer la modale avec la touche Escape
+			$(document).on('keydown', function(e){
+				if (e.key === 'Escape') {
+					// Fermer la modale de recherche si elle est ouverte
+					if ($searchModal && $searchModal.hasClass('ngBetterInterface-search-modal-open')) {
+						closeSearchModal();
+					}
+					// Fermer le panel de filtres s'il est ouvert
+					if ($filtersPanel && $filtersPanel.hasClass('ngBetterInterface-filters-panel-open')) {
+						closeFiltersPanel();
+					}
+				}
+			});
+		}
+		
+		// Fonction pour fermer la modale de recherche
+		function closeSearchModal() {
+			$searchModal.removeClass('ngBetterInterface-search-modal-open');
+			$searchButton.removeClass('active');
+		}
+		
+		// Fonction pour fermer le panel et changer l'icône
+		function closeFiltersPanel() {
+			$filtersPanel.removeClass('ngBetterInterface-filters-panel-open');
+			$filtersOverlay.removeClass('ngBetterInterface-filters-overlay-open');
+			$filtersButton.removeClass('active');
+			
+			// Changer l'icône vers filter_list_off
+			$filtersButton.find('.material-icons').text('filter_list');
+		}
+		
+		// Fonction pour réinitialiser tous les filtres
+		function resetAllFilters() {
+			// Réinitialiser tous les selects à la première option
+			$filtersPanelContent.find('select').each(function(){
+				var $select = $(this);
+				var $original = $nav.find('select[name="' + $select.attr('name') + '"]');
+				$select.prop('selectedIndex', 0);
+				$original.prop('selectedIndex', 0).trigger('change');
+			});
+			
+			// Réinitialiser tous les inputs
+			$filtersPanelContent.find('input[type="text"], input[type="search"], input[type="date"], input[type="number"]').each(function(){
+				var $input = $(this);
+				var $original = $nav.find('input[name="' + $input.attr('name') + '"]');
+				$input.val('');
+				$original.val('').trigger('input');
+			});
+			
+			// Mettre à jour le badge
+			updateFiltersBadge();
+			
+			// Déclencher le clic sur le bouton submit filter_action dans le panel
+			var $filterSubmitButton = $filtersPanelContent.find('input[type="submit"][name="filter_action"]');
+			if ($filterSubmitButton.length > 0) {
+				$filterSubmitButton.trigger('click');
+			}
+		}
+		
+		// Gérer le clic sur le bouton de réinitialisation
+		$filtersPanel.find('.ngBetterInterface-filters-reset-button').on('click', function(e){
+			e.preventDefault();
+			resetAllFilters();
 		});
 		
 		$filtersPanel.find('.ngBetterInterface-filters-close').on('click', function(e){
 			e.preventDefault();
-			$filtersPanel.removeClass('ngBetterInterface-filters-panel-open');
-			$filtersOverlay.removeClass('ngBetterInterface-filters-overlay-open');
-			$filtersButton.removeClass('active');
+			closeFiltersPanel();
 		});
 		
 		// Fermer le panel en cliquant à l'extérieur ou sur l'overlay
 		$(document).on('click', function(e){
 			if (!$(e.target).closest('.ngBetterInterface-filters-panel').length && 
 				!$(e.target).closest('.ngBetterInterface-filters-button').length) {
-				$filtersPanel.removeClass('ngBetterInterface-filters-panel-open');
-				$filtersOverlay.removeClass('ngBetterInterface-filters-overlay-open');
-				$filtersButton.removeClass('active');
+				closeFiltersPanel();
 			}
 		});
 		
 		// Fermer en cliquant sur l'overlay
 		$filtersOverlay.on('click', function(e){
-			$filtersPanel.removeClass('ngBetterInterface-filters-panel-open');
-			$filtersOverlay.removeClass('ngBetterInterface-filters-overlay-open');
-			$filtersButton.removeClass('active');
+			closeFiltersPanel();
 		});
+		
+		// Fonction pour compter les filtres actifs
+		function updateFiltersBadge() {
+			var activeFiltersCount = 0;
+			
+			// Compter les selects qui ne sont pas sur la première option
+			$filtersPanelContent.find('select').each(function(){
+				var $select = $(this);
+				var selectedIndex = $select.prop('selectedIndex');
+				if (selectedIndex > 0) { // Pas la première option (généralement "Tous" ou "-1")
+					activeFiltersCount++;
+				}
+			});
+			
+			// Compter les inputs avec une valeur
+			$filtersPanelContent.find('input[type="text"], input[type="search"], input[type="date"], input[type="number"]').each(function(){
+				var $input = $(this);
+				var value = $input.val().trim();
+				if (value !== '' && value !== '0') {
+					activeFiltersCount++;
+				}
+			});
+			
+			// Mettre à jour le badge
+			var $badge = $filtersButton.find('.ngBetterInterface-filters-badge');
+			if (activeFiltersCount > 0) {
+				$badge.text(activeFiltersCount).show();
+			} else {
+				$badge.hide();
+			}
+		}
+		
+		// Fonction pour surbriller les filtres actifs
+		function highlightActiveFilters() {
+			// Retirer toutes les surbrillances existantes
+			$filtersPanelContent.find('.ngBetterInterface-filter-active-highlight').removeClass('ngBetterInterface-filter-active-highlight');
+			
+			// Surbriller les selects actifs
+			$filtersPanelContent.find('select').each(function(){
+				var $select = $(this);
+				var selectedIndex = $select.prop('selectedIndex');
+				if (selectedIndex > 0) {
+					$select.addClass('ngBetterInterface-filter-active-highlight');
+				}
+			});
+			
+			// Surbriller les inputs avec une valeur
+			$filtersPanelContent.find('input[type="text"], input[type="search"], input[type="date"], input[type="number"]').each(function(){
+				var $input = $(this);
+				var value = $input.val().trim();
+				if (value !== '' && value !== '0') {
+					$input.addClass('ngBetterInterface-filter-active-highlight');
+				}
+			});
+		}
 		
 		// Créer la pagination moderne
 		var currentPage = 1;
@@ -609,30 +886,62 @@
 		
 		$paginationContainer.append($paginationElements);
 		
-		// Ajouter le bouton filtres en premier si il y a des filtres
-		if ($filtersPanelContent.children().length > 0) {
-			$actionsContainer.prepend($filtersButton);
+		// Assembler la barre flottante avec le nouvel ordre
+		// GAUCHE : Bouton Ajouter + Compteur + Actions
+		var $leftSection = $('<div class="ngBetterInterface-floating-left"></div>');
+		
+		// Ajouter le bouton "Ajouter" en premier à gauche
+		if ($addButton) {
+			$leftSection.append($addButton);
 		}
 		
-		// Assembler la barre
+		// Ajouter le compteur après le bouton "Ajouter"
+		$leftSection.append($counter);
+		
+		// Ajouter les actions après le compteur
 		if ($actionsContainer.children().length > 0) {
-			$floatingBar.append($actionsContainer);
+			$leftSection.append($actionsContainer);
 		}
 		
-		// Ajouter la pagination à droite
+		$floatingBar.append($leftSection);
+		
+		// DROITE : Delete All + Recherche + Filtres + Pagination
 		var $rightSection = $('<div class="ngBetterInterface-floating-right"></div>');
+		
+		// Ajouter le bouton delete_all en premier à droite
+		if ($deleteAllButtonCustom) {
+			$rightSection.append($deleteAllButtonCustom);
+		}
+		
+		// Ajouter le bouton recherche après delete_all
+		if ($searchButton) {
+			$rightSection.append($searchButton);
+		}
+		
+		// Ajouter le bouton filtres après recherche
+		if ($filtersPanelContent.children().length > 0) {
+			$rightSection.append($filtersButton);
+		}
+		
+		// Ajouter la pagination en dernier à droite
 		if ($paginationContainer.children().length > 0) {
 			$rightSection.append($paginationContainer);
 		}
 		
-		if ($rightSection.children().length > 0) {
-			$floatingBar.append($rightSection);
-		}
+		$floatingBar.append($rightSection);
 		
 		// Ajouter le panel des filtres et l'overlay au body
 		if ($filtersPanelContent.children().length > 0) {
 			$('body').append($filtersOverlay);
 			$('body').append($filtersPanel);
+			
+			// Initialiser le badge des filtres
+			updateFiltersBadge();
+		}
+		
+		// Ajouter la modale de recherche au body
+		if ($searchModal) {
+			$('body').append($searchModal);
 		}
 		
 		// Ajouter au body si on a du contenu
@@ -664,8 +973,21 @@
 		var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
 		var hasSelectedItems = selectedCount > 0;
 		var $actions = $('.ngBetterInterface-floating-actions button, .ngBetterInterface-floating-actions input[type="submit"], .ngBetterInterface-floating-actions select');
-		var $customButtons = $('.ngBetterInterface-trash-button, .ngBetterInterface-edit-button, .ngBetterInterface-update-button');
+		var $customButtons = $('.ngBetterInterface-trash-button, .ngBetterInterface-edit-button, .ngBetterInterface-update-button, .ngBetterInterface-delete-all-button');
 		var $counter = $('.ngBetterInterface-selection-counter');
+		
+		// Vérifier si une case "sélectionner tout" est cochée
+		var $selectAll1 = $('#cb-select-all-1');
+		var $selectAll2 = $('#cb-select-all-2');
+		var isFullySelected = ($selectAll1.length > 0 && $selectAll1.is(':checked')) || ($selectAll2.length > 0 && $selectAll2.is(':checked'));
+		
+		// Ajouter/retirer la classe à la table selon l'état de sélection
+		var $table = $('.wp-list-table');
+		if (isFullySelected) {
+			$table.addClass('ngBetterInterface-table-full-selected');
+		} else {
+			$table.removeClass('ngBetterInterface-table-full-selected');
+		}
 		
 		// Récupérer le nombre total d'éléments depuis .displaying-num
 		var totalItems = 0;
@@ -694,7 +1016,8 @@
 		// Mettre à jour le compteur avec effet de défilement
 		var $counterNumber = $counter.find('.ngBetterInterface-counter-number');
 		var $counterText = $counter.find('.ngBetterInterface-counter-text');
-		var currentValue = parseInt($counterNumber.text()) || 0;
+		var currentValue = $counterNumber.text();
+		var currentText = $counterText.text();
 		
 		// Déterminer la valeur à afficher et le texte
 		var displayValue, displayText;
@@ -706,8 +1029,8 @@
 			displayText = itemName;
 		}
 		
-		// Vérifier si la valeur a changé
-		if (currentValue !== displayValue) {
+		// Vérifier si la valeur ou le texte a changé
+		if (currentValue !== displayValue.toString() || currentText !== displayText) {
 			// Ajouter la classe pour l'animation
 			$counterNumber.addClass('counter-changing');
 			
@@ -722,9 +1045,15 @@
 		// Vérifier s'il y a des filtres actifs
 		var hasActiveFilters = $('.ngBetterInterface-filters-panel-content').children().length > 0;
 		
+		// Vérifier s'il y a des boutons toujours visibles
+		var hasAlwaysVisibleButtons = $('[data-always-visible="true"]').length > 0;
+		
+		// Vérifier s'il y a des boutons dans la barre (ajouter, recherche, filtres, etc.)
+		var hasButtonsInBar = $('.ngBetterInterface-add-button, .ngBetterInterface-search-button, .ngBetterInterface-filters-button, .ngBetterInterface-delete-all-button, .ngBetterInterface-modern-pagination').length > 0;
+		
 		// Afficher/masquer la barre selon les conditions avec animation
 		var $floatingBar = $('.ngBetterInterface-floating-action-bar');
-		if (hasSelectedItems || hasActiveFilters) {
+		if (hasSelectedItems || hasActiveFilters || hasAlwaysVisibleButtons || hasButtonsInBar) {
 			$floatingBar.removeClass('slide-out').addClass('slide-in');
 		} else {
 			$floatingBar.removeClass('slide-in').addClass('slide-out');
@@ -736,12 +1065,13 @@
 			$counter.addClass('has-selection');
 		} else {
 			$actions.prop('disabled', true).addClass('disabled');
-			$customButtons.prop('disabled', true).addClass('disabled');
+			// Désactiver seulement les boutons qui ne sont pas toujours visibles
+			$customButtons.not('[data-always-visible="true"]').prop('disabled', true).addClass('disabled');
 			$counter.removeClass('has-selection');
 		}
 		
-		// Le bouton filtres reste toujours actif
-		$('.ngBetterInterface-filters-button').prop('disabled', false).removeClass('disabled');
+		// Le bouton filtres et les boutons toujours visibles restent actifs
+		$('.ngBetterInterface-filters-button, [data-always-visible="true"]').prop('disabled', false).removeClass('disabled');
 	};
 
 	// Pourquoi: améliorer l'ergonomie des listes WP; un clic sur l'arrière-plan d'une ligne toggle la première case à cocher

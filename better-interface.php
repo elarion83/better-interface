@@ -211,15 +211,15 @@ class BetterInterface {
             true
         );
         
-        		// Localisation pour AJAX
+        // Localisation pour AJAX
 		wp_localize_script('better-interface-mode-selector', 'ngBetterInterface_ajax', [
-			'ajax_url' => admin_url('admin-ajax.php'),
+            'ajax_url' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('ngBetterInterface_nonce'),
-			'current_mode' => $this->current_mode,
-			'available_modes' => $this->available_modes,
+            'current_mode' => $this->current_mode,
+            'available_modes' => $this->available_modes,
 			// Thèmes de couleurs pour l'affichage transformé
-			'current_color_theme' => $this->current_color_theme,
-			'available_color_themes' => $this->available_color_themes,
+            'current_color_theme' => $this->current_color_theme,
+            'available_color_themes' => $this->available_color_themes,
 			// Traductions JavaScript
 			'i18n' => [
 				'please_select_items' => __('Please select at least one item to perform this action on.', 'better-interface'),
@@ -278,6 +278,22 @@ class BetterInterface {
      * Chargement des styles et scripts spécifiques aux plugins en mode moderne
      */
     private function ngBetterInterface_enqueue_plugin_specific_styles() {
+        // Material Icons de Google pour le mode moderne
+        wp_enqueue_style(
+            'material-icons',
+            'https://fonts.googleapis.com/icon?family=Material+Icons',
+            [],
+            null
+        );
+        
+        // Material Icons Outlined de Google pour le mode moderne
+        wp_enqueue_style(
+            'material-icons-outlined',
+            'https://fonts.googleapis.com/icon?family=Material+Icons+Outlined',
+            [],
+            null
+        );
+        
         // Styles pour les scrollbars modernes
         wp_enqueue_style(
             'better-interface-scrollbars',
@@ -290,6 +306,14 @@ class BetterInterface {
         wp_enqueue_style(
             'better-interface-notices',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/notices.css',
+            ['better-interface-modern'],
+            BI_PLUGIN_VERSION
+        );
+
+        // Styles pour la barre flottante
+        wp_enqueue_style(
+            'better-interface-actionbar-logic',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/css/floatingActionBar.css',
             ['better-interface-modern'],
             BI_PLUGIN_VERSION
         );

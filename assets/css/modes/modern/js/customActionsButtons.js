@@ -1,13 +1,33 @@
 /**
  * Better Interface - Configuration des boutons d'actions personnalisées
  * Définition des actions disponibles pour la barre flottante
+ * 
+ * Propriétés disponibles :
+ * - buttonClass: classe CSS du bouton
+ * - title: titre affiché au hover
+ * - icon: icône du bouton (Material Icons recommandé)
+ * - group: groupe pour les boutons liés (null = pas de groupe)
+ * - backgroundColor: couleur de fond du bouton
+ * - hoverBackgroundColor: couleur de fond au hover
+ * - alwaysVisible: true si le bouton doit rester actif même sans sélection (ex: delete_all)
+ * 
+ * Exemple d'action toujours visible :
+ * 'trash': {
+ *     buttonClass: 'ngBetterInterface-delete-all-button',
+ *     title: 'Delete All',
+ *     icon: '<span class="material-icons">delete_sweep</span>',
+ *     group: null,
+ *     backgroundColor: '#dc2626',
+ *     hoverBackgroundColor: '#b91c1c',
+ *     alwaysVisible: true  // Ce bouton reste actif même sans sélection
+ * }
  */
 
 var ngBetterInterfaceCustomActions = {
 	'trash': {
 		buttonClass: 'ngBetterInterface-trash-button',
 		title: 'Move to trash',
-		icon: '<span class="dashicons dashicons-trash"></span>',
+		icon: '<span class="material-icons">delete</span>',
 		group: null,
 		backgroundColor: '#dc3545',
 		hoverBackgroundColor: '#c82333'
@@ -15,7 +35,7 @@ var ngBetterInterfaceCustomActions = {
 	'untrash': {
 		buttonClass: 'ngBetterInterface-untrash-button',
 		title: 'Restore from trash',
-		icon: '<span class="dashicons dashicons-backup"></span>',
+		icon: '<span class="material-icons">restore_page</span>',
 		group: null,
 		backgroundColor: '#28a745',
 		hoverBackgroundColor: '#218838'
@@ -23,7 +43,7 @@ var ngBetterInterfaceCustomActions = {
 	'delete': {
 		buttonClass: 'ngBetterInterface-trash-button',
 		title: 'Delete permanently',
-		icon: '<span class="dashicons dashicons-trash"></span>',
+		icon: '<span class="material-icons">delete_forever</span>',
 		group: null,
 		backgroundColor: '#dc3545',
 		hoverBackgroundColor: '#c82333'
@@ -31,7 +51,7 @@ var ngBetterInterfaceCustomActions = {
 	'edit': {
 		buttonClass: 'ngBetterInterface-edit-button',
 		title: 'Edit selected',
-		icon: '<span class="dashicons dashicons-edit"></span>',
+		icon: '<span class="material-icons">edit</span>',
 		group: null,
 		backgroundColor: '#17a2b8',
 		hoverBackgroundColor: '#138496'
@@ -39,7 +59,7 @@ var ngBetterInterfaceCustomActions = {
 	'update-selected': {
 		buttonClass: 'ngBetterInterface-update-button',
 		title: 'Update selected',
-		icon: '<span class="dashicons dashicons-arrow-up-alt"></span>',
+		icon: '<span class="material-icons">upgrade</span>',
 		group: null,
 		backgroundColor: '#ffc107',
 		hoverBackgroundColor: '#e0a800'
@@ -47,7 +67,7 @@ var ngBetterInterfaceCustomActions = {
 	'delete-selected': {
 		buttonClass: 'ngBetterInterface-trash-button',
 		title: 'Delete selected',
-		icon: '<span class="dashicons dashicons-trash"></span>',
+		icon: '<span class="material-icons">delete</span>',
 		group: null,
 		backgroundColor: '#dc3545',
 		hoverBackgroundColor: '#c82333'
@@ -55,7 +75,7 @@ var ngBetterInterfaceCustomActions = {
 	'approve': {
 		buttonClass: 'ngBetterInterface-approve-button',
 		title: 'Approve',
-		icon: '<span class="dashicons dashicons-thumbs-up"></span>',
+		icon: '<span class="material-icons">thumb_up</span>',
 		group: 'approval',
 		backgroundColor: '#28a745',
 		hoverBackgroundColor: '#218838'
@@ -63,7 +83,7 @@ var ngBetterInterfaceCustomActions = {
 	'unapprove': {
 		buttonClass: 'ngBetterInterface-unapprove-button',
 		title: 'Unapprove',
-		icon: '<span class="dashicons dashicons-thumbs-down"></span>',
+		icon: '<span class="material-icons">thumb_down</span>',
 		group: 'approval',
 		backgroundColor: '#6c757d',
 		hoverBackgroundColor: '#5a6268'
@@ -71,7 +91,7 @@ var ngBetterInterfaceCustomActions = {
 	'spam': {
 		buttonClass: 'ngBetterInterface-spam-button',
 		title: 'Mark as spam',
-		icon: '<span class="dashicons dashicons-flag"></span>',
+		icon: '<span class="material-icons">dangerous</span>',
 		group: null,
 		backgroundColor: '#fd7e14',
 		hoverBackgroundColor: '#e8690b'
@@ -79,7 +99,7 @@ var ngBetterInterfaceCustomActions = {
 	'unspam': {
 		buttonClass: 'ngBetterInterface-unspam-button',
 		title: 'Remove from spam',
-		icon: '<span class="dashicons dashicons-undo"></span>',
+		icon: '<span class="material-icons">check_circle</span>',
 		group: null,
 		backgroundColor: '#6f42c1',
 		hoverBackgroundColor: '#5a32a3'
@@ -87,7 +107,7 @@ var ngBetterInterfaceCustomActions = {
 	'resetpassword': {
 		buttonClass: 'ngBetterInterface-reset-password-button',
 		title: 'Reset password',
-		icon: '<span class="dashicons dashicons-admin-network"></span>',
+		icon: '<span class="material-icons">mail_lock</span>',
 		group: null,
 		backgroundColor: '#20c997',
 		hoverBackgroundColor: '#1ea085'
@@ -95,7 +115,7 @@ var ngBetterInterfaceCustomActions = {
 	'activate-selected': {
 		buttonClass: 'ngBetterInterface-activate-button',
 		title: 'Activate selected',
-		icon: '<span class="dashicons dashicons-yes-alt"></span>',
+		icon: '<span class="material-icons">power</span>',
 		group: 'activation',
 		backgroundColor: '#22c55e',
 		hoverBackgroundColor: '#16a34a'
@@ -103,7 +123,7 @@ var ngBetterInterfaceCustomActions = {
 	'deactivate-selected': {
 		buttonClass: 'ngBetterInterface-deactivate-button',
 		title: 'Deactivate selected',
-		icon: '<span class="dashicons dashicons-no-alt"></span>',
+		icon: '<span class="material-icons">power_off</span>',
 		group: 'activation',
 		backgroundColor: '#ef4444',
 		hoverBackgroundColor: '#c82333'
