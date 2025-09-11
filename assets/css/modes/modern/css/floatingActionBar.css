@@ -356,6 +356,11 @@
     margin-right: -15px;
 }
 
+/* Masquer la pagination si il n'y a qu'une page */
+.ngBetterInterface-floating-pagination:has(.ngBetterInterface-pagination-hide) {
+    display: none;
+}
+
 
 .ngBetterInterface-pagination-last, 
 .ngBetterInterface-pagination-first {
@@ -922,6 +927,32 @@
     font-size: 20px;
     width: 20px;
     height: 20px;
+}
+
+/* Effet de déploiement pour le bouton recherche */
+.ngBetterInterface-search-button:hover,
+.ngBetterInterface-search-button:focus {
+    width: auto !important;
+    min-width: 135px !important;
+    padding: 0 12px !important;
+    gap: 8px !important;
+    border-radius: 8px !important;
+    justify-content: flex-start !important;
+}
+
+.ngBetterInterface-search-button:hover::after,
+.ngBetterInterface-search-button:focus::after {
+    content: 'Rechercher';
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0;
+    animation: slideInText 0.3s ease forwards;
+    pointer-events: none;
 }
 
 /* Modale de recherche */

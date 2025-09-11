@@ -144,8 +144,13 @@
 			$button.on('click', function(e){
 				e.preventDefault();
 				
-				// Déclencher le clic sur le bouton original
-				$deleteAllButton.trigger('click');
+				// Popup de confirmation pour l'action delete_all
+				var confirmText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.confirm_delete_all) || 'Are you sure you want to delete all items? This action cannot be undone.';
+				
+				if (confirm(confirmText)) {
+					// Déclencher le clic sur le bouton original
+					$deleteAllButton.trigger('click');
+				}
 			});
 			
 			$deleteAllButtonCustom = $button;
@@ -802,7 +807,8 @@
 		}
 		
 		// Créer les éléments de pagination
-		var $paginationElements = $('<div class="ngBetterInterface-modern-pagination"></div>');
+		var pageNumberClass = maxPage > 1 ? '' : 'ngBetterInterface-pagination-hide';
+		var $paginationElements = $('<div class="ngBetterInterface-modern-pagination '+pageNumberClass+'"></div>');
 		
 		// Bouton première page
 		if (currentPage > 1) {
