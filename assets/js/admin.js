@@ -481,6 +481,13 @@
 			var $searchBoxClone = $originalSearchBox.clone();
 			$searchModal.find('.ngBetterInterface-search-modal-body').append($searchBoxClone);
 			
+			// Détecter le type de posts actuel
+			var currentPostType = self.detectCurrentPostType();
+			
+			// Créer le container pour les suggestions
+			var $suggestionsContainer = $('<div class="ngBetterInterface-search-suggestions"></div>');
+			$searchModal.find('.ngBetterInterface-search-modal-body').append($suggestionsContainer);
+			
 			// Gérer la soumission de la recherche dans la modale
 			function performSearch() {
 				var searchQuery = $searchModal.find('input[type="search"], input[type="text"]').val().trim();
@@ -517,6 +524,26 @@
 					e.preventDefault();
 					performSearch();
 				}
+			});
+			
+			// Gérer les suggestions en temps réel
+			var searchTimeout;
+			$searchModal.find('input[type="search"], input[type="text"]').on('input', function(){
+				var query = $(this).val().trim();
+				
+				// Effacer le timeout précédent
+				clearTimeout(searchTimeout);
+				
+				// Masquer les suggestions si la requête est trop courte
+				if (query.length < 2) {
+					$suggestionsContainer.empty().hide();
+					return;
+				}
+				
+				// Délai pour éviter trop de requêtes
+				searchTimeout = setTimeout(function(){
+					self.fetchSearchSuggestions(query, currentPostType, $suggestionsContainer);
+				}, 300);
 			});
 			
 			// Gérer le clic sur le bouton de recherche
@@ -803,11 +830,24 @@
 					}
 				}
 			});
-			if (maxPage > 0) totalPages = maxPage;
+			
+			// Logique corrigée : si on trouve des liens, le totalPages = maxPage + 1
+			// car maxPage représente la dernière page accessible, pas le nombre total
+			if (maxPage > 0) {
+				totalPages = maxPage + 1;
+			}
+			
+			// Vérification alternative : chercher dans le texte de pagination existant
+			var paginationText = $pagination.text();
+			var totalMatch = paginationText.match(/(\d+)\s*\/\s*(\d+)/);
+			if (totalMatch && totalMatch[2]) {
+				totalPages = parseInt(totalMatch[2]);
+			}
 		}
 		
 		// Créer les éléments de pagination
-		var pageNumberClass = maxPage > 1 ? '' : 'ngBetterInterface-pagination-hide';
+		// Afficher la pagination si il y a plus d'une page OU si on est sur une page > 1
+		var pageNumberClass = (totalPages > 1 || currentPage > 1) ? '' : 'ngBetterInterface-pagination-hide';
 		var $paginationElements = $('<div class="ngBetterInterface-modern-pagination '+pageNumberClass+'"></div>');
 		
 		// Bouton première page
@@ -1257,6 +1297,196 @@
 		// Déplacer les notices existantes
 		$('.notice, .notice-success, .notice-error, .notice-warning, .notice-info').each(function() {
 			moveNoticeToContainer($(this));
+		});
+	};
+
+	/**
+	 * Détecte le type de posts actuellement affiché
+	 * Utilise les mécanismes WordPress natifs pour identifier le contexte
+	 */
+	BetterInterfaceAdmin.prototype.detectCurrentPostType = function(){
+		// Méthode 1: Via l'URL (le plus fiable)
+		var urlParams = new URLSearchParams(window.location.search);
+		var postType = urlParams.get('post_type');
+		if (postType) {
+			return postType;
+		}
+		
+		// Méthode 2: Via l'URL path
+		var currentPath = window.location.pathname;
+		if (currentPath.includes('/wp-admin/edit.php')) {
+			// Page de liste des posts - par défaut 'post' si pas de post_type dans l'URL
+			return 'post';
+		} else if (currentPath.includes('/wp-admin/upload.php')) {
+			return 'attachment';
+		} else if (currentPath.includes('/wp-admin/edit-comments.php')) {
+			return 'comment';
+		}
+		
+		// Méthode 3: Via le body class
+		var bodyClasses = document.body.className.split(' ');
+		for (var i = 0; i < bodyClasses.length; i++) {
+			if (bodyClasses[i].startsWith('post-type-')) {
+				return bodyClasses[i].replace('post-type-', '');
+			}
+		}
+		
+		// Méthode 4: Via le titre de la page
+		var $pageTitle = $('h1.wp-heading-inline');
+		if ($pageTitle.length > 0) {
+			var title = $pageTitle.text().toLowerCase();
+			if (title.includes('posts') || title.includes('articles') || title.includes('tous les articles')) {
+				return 'post';
+			} else if (title.includes('pages') || title.includes('toutes les pages')) {
+				return 'page';
+			} else if (title.includes('media') || title.includes('médias') || title.includes('bibliothèque')) {
+				return 'attachment';
+			} else if (title.includes('commentaires') || title.includes('comments')) {
+				return 'comment';
+			}
+		}
+		
+		// Méthode 5: Via les inputs cachés
+		var $postTypeInput = $('input[name="post_type"]');
+		if ($postTypeInput.length > 0) {
+			return $postTypeInput.val();
+		}
+		
+		// Méthode 6: Via l'ID de la table
+		var $table = $('.wp-list-table');
+		if ($table.length > 0) {
+			var tableId = $table.attr('id');
+			if (tableId) {
+				if (tableId.includes('posts')) {
+					return 'post';
+				} else if (tableId.includes('pages')) {
+					return 'page';
+				} else if (tableId.includes('media')) {
+					return 'attachment';
+				} else if (tableId.includes('comments')) {
+					return 'comment';
+				}
+			}
+		}
+		
+		// Par défaut, retourner 'post'
+		return 'post';
+	};
+
+	/**
+	 * Récupère les suggestions de recherche via AJAX
+	 * Utilise l'endpoint WordPress natif pour une recherche optimisée
+	 */
+	BetterInterfaceAdmin.prototype.fetchSearchSuggestions = function(query, postType, $container){
+		var self = this;
+		
+		// Debug temporaire
+		console.log('Recherche pour:', query, 'Type:', postType);
+		
+		// Afficher un indicateur de chargement
+		$container.html('<div class="ngBetterInterface-suggestions-loading"><span class="dashicons dashicons-update ngBetterInterface-loading-spinner"></span> Recherche en cours...</div>').show();
+		
+		// Requête AJAX vers l'endpoint WordPress
+		$.ajax({
+			url: (window.ngBetterInterface_ajax && ngBetterInterface_ajax.ajax_url) || ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'ngBetterInterface_search_suggestions',
+				query: query,
+				post_type: postType,
+				limit: 8,
+				nonce: (window.ngBetterInterface_ajax && ngBetterInterface_ajax.nonce) || ''
+			},
+			success: function(response) {
+				console.log('Réponse AJAX:', response);
+				if (response.success && response.data.suggestions.length > 0) {
+					self.displaySearchSuggestions(response.data.suggestions, $container, query);
+				} else {
+					var debugInfo = response.data ? 
+						'<br><small>Debug: Type "' + response.data.post_type + '", ' + (response.data.total || 0) + ' résultats</small>' : '';
+					$container.html('<div class="ngBetterInterface-suggestions-empty">Aucun résultat trouvé pour "' + query + '"' + debugInfo + '</div>').show();
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error('Erreur lors de la recherche:', error, xhr.responseText);
+				$container.html('<div class="ngBetterInterface-suggestions-error">Erreur lors de la recherche: ' + error + '</div>').show();
+			}
+		});
+	};
+
+	/**
+	 * Affiche les suggestions de recherche dans le container
+	 * Crée une interface utilisateur moderne et accessible
+	 */
+	BetterInterfaceAdmin.prototype.displaySearchSuggestions = function(suggestions, $container, query){
+		var self = this;
+		var html = '<div class="ngBetterInterface-suggestions-title">Suggestions</div><div class="ngBetterInterface-suggestions-list">';
+		
+		suggestions.forEach(function(suggestion) {
+			// Mettre en évidence la requête dans le titre
+			var highlightedTitle = suggestion.title.replace(
+				new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'),
+				'<mark>$1</mark>'
+			);
+			
+			// Déterminer l'icône selon le statut
+			var statusIcon = 'dashicons-admin-post';
+			var statusClass = 'status-' + suggestion.status;
+			switch(suggestion.status) {
+				case 'publish':
+					statusIcon = 'dashicons-yes-alt';
+					break;
+				case 'draft':
+					statusIcon = 'dashicons-edit';
+					break;
+				case 'private':
+					statusIcon = 'dashicons-lock';
+					break;
+				case 'trash':
+					statusIcon = 'dashicons-trash';
+					break;
+			}
+			
+			// Formater la date
+			var formattedDate = new Date(suggestion.date).toLocaleDateString('fr-FR');
+			
+			html += '<div class="ngBetterInterface-suggestion-item ' + statusClass + '" data-id="' + suggestion.id + '">';
+			html += '<div class="ngBetterInterface-suggestion-content">';
+			html += '<div class="ngBetterInterface-suggestion-title">' + highlightedTitle + '</div>';
+			if (suggestion.context) {
+				html += '<div class="ngBetterInterface-suggestion-context">' + suggestion.context + '</div>';
+			}
+			html += '<div class="ngBetterInterface-suggestion-meta">';
+			html += '<span class="ngBetterInterface-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + suggestion.status + '</span>';
+			html += '<span class="ngBetterInterface-suggestion-date">' + formattedDate + '</span>';
+			html += '</div>';
+			html += '</div>';
+			html += '<div class="ngBetterInterface-suggestion-actions">';
+			html += '<a href="' + suggestion.edit_url + '" class="ngBetterInterface-suggestion-edit" title="Éditer"><span class="dashicons dashicons-edit"></span></a>';
+			html += '</div>';
+			html += '</div>';
+		});
+		
+		html += '</div>';
+		$container.html(html).show();
+		
+		// Gérer les clics sur les suggestions
+		$container.find('.ngBetterInterface-suggestion-item').on('click', function(e){
+			e.preventDefault();
+			var $item = $(this);
+			var editUrl = $item.find('.ngBetterInterface-suggestion-edit').attr('href');
+			
+			if (editUrl) {
+				// Fermer la modale et rediriger vers l'édition
+				$('.ngBetterInterface-search-modal').removeClass('ngBetterInterface-search-modal-open');
+				$('.ngBetterInterface-search-button').removeClass('active');
+				window.location.href = editUrl;
+			}
+		});
+		
+		// Gérer le clic sur le bouton d'édition
+		$container.find('.ngBetterInterface-suggestion-edit').on('click', function(e){
+			e.stopPropagation(); // Empêcher le clic sur l'item parent
 		});
 	};
 

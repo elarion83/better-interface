@@ -862,7 +862,7 @@
     background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
     border-color: var(--ngBetterInterface-modern-primary-hover) !important;
     box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3) !important;
-    transform: translateY(-10px) rotate(-90deg) !important;
+    transform: translateY(-10px) rotate(90deg) !important;
     color: white !important;
     text-decoration: none !important;
 }
@@ -1038,6 +1038,10 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+}
+
+/* Espacement spécifique pour la boîte de recherche */
+.ngBetterInterface-search-modal-body .search-box {
     gap: 16px;
 }
 
@@ -1080,6 +1084,20 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: 0 2px 4px rgba(6, 182, 212, 0.2) !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+}
+
+/* Icône pour le bouton de recherche dans la modale */
+.ngBetterInterface-search-modal-body input[type="submit"]::before,
+.ngBetterInterface-search-modal-body button[type="submit"]::before {
+    content: '\e8b6'; /* Code de l'icône search de Material Icons */
+    font-family: 'Material Icons' !important;
+    font-size: 18px !important;
+    font-weight: normal !important;
+    line-height: 1 !important;
 }
 
 .ngBetterInterface-search-modal-body input[type="submit"]:hover,
@@ -1088,4 +1106,278 @@
     border-color: #0891b2 !important;
     box-shadow: 0 4px 8px rgba(6, 182, 212, 0.3) !important;
     transform: translateY(-1px) !important;
+}
+
+/* ========================================
+   SUGGESTIONS DE RECHERCHE
+   ======================================== */
+
+/* Container des suggestions */
+.ngBetterInterface-search-suggestions {
+    margin-top: 16px;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 8px;
+    background: var(--ngBetterInterface-modern-bg-primary);
+    border: 1px solid var(--ngBetterInterface-modern-border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+/* Titre des suggestions */
+.ngBetterInterface-suggestions-title {
+    padding: 12px 16px 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ngBetterInterface-modern-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+    background: var(--ngBetterInterface-modern-bg-secondary);
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ngBetterInterface-suggestions-title::before {
+    content: '\e8b6'; /* Icône search de Material Icons */
+    font-family: 'Material Icons';
+    font-size: 16px;
+    color: #06b6d4;
+}
+
+/* Liste des suggestions */
+.ngBetterInterface-suggestions-list {
+    padding: 8px 0;
+    overflow: hidden;
+}
+
+/* État de chargement */
+.ngBetterInterface-suggestions-loading {
+    padding: 16px;
+    text-align: center;
+    color: var(--ngBetterInterface-modern-text-secondary);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.ngBetterInterface-suggestions-loading .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* État vide */
+.ngBetterInterface-suggestions-empty {
+    padding: 16px;
+    text-align: center;
+    color: var(--ngBetterInterface-modern-text-secondary);
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* État d'erreur */
+.ngBetterInterface-suggestions-error {
+    padding: 16px;
+    text-align: center;
+    color: #ef4444;
+    font-size: 14px;
+}
+
+/* Item de suggestion */
+.ngBetterInterface-suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.ngBetterInterface-suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.ngBetterInterface-suggestion-item:hover {
+    background: var(--ngBetterInterface-modern-bg-secondary);
+    transform: translateX(4px);
+}
+
+/* Contenu de la suggestion */
+.ngBetterInterface-suggestion-content {
+    flex: 1;
+    min-width: 0; /* Permet au texte de se tronquer */
+}
+
+/* Titre de la suggestion */
+.ngBetterInterface-suggestion-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ngBetterInterface-modern-text-primary);
+    margin-bottom: 4px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* Mise en évidence du texte recherché */
+.ngBetterInterface-suggestion-title mark {
+    background: rgba(6, 182, 212, 0.2);
+    color: #0891b2;
+    padding: 1px 2px;
+    border-radius: 2px;
+    font-weight: 700;
+}
+
+/* Contexte de la suggestion (catégories, parent, etc.) */
+.ngBetterInterface-suggestion-context {
+    font-size: 12px;
+    color: var(--ngBetterInterface-modern-text-secondary);
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+/* Métadonnées de la suggestion */
+.ngBetterInterface-suggestion-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--ngBetterInterface-modern-text-secondary);
+}
+
+/* Statut de la suggestion */
+.ngBetterInterface-suggestion-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+}
+
+.ngBetterInterface-suggestion-status .dashicons {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* Couleurs selon le statut */
+.ngBetterInterface-suggestion-item.status-publish .ngBetterInterface-suggestion-status {
+    color: #10b981;
+}
+
+.ngBetterInterface-suggestion-item.status-draft .ngBetterInterface-suggestion-status {
+    color: #f59e0b;
+}
+
+.ngBetterInterface-suggestion-item.status-private .ngBetterInterface-suggestion-status {
+    color: #8b5cf6;
+}
+
+.ngBetterInterface-suggestion-item.status-trash .ngBetterInterface-suggestion-status {
+    color: #ef4444;
+}
+
+/* Date de la suggestion */
+.ngBetterInterface-suggestion-date {
+    font-weight: 400;
+}
+
+/* Actions de la suggestion */
+.ngBetterInterface-suggestion-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.ngBetterInterface-suggestion-item:hover .ngBetterInterface-suggestion-actions {
+    opacity: 1;
+}
+
+/* Bouton d'édition */
+.ngBetterInterface-suggestion-edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--ngBetterInterface-modern-primary);
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.ngBetterInterface-suggestion-edit:hover {
+    background: var(--ngBetterInterface-modern-primary-hover);
+    transform: scale(1.1);
+    color: white;
+    text-decoration: none;
+}
+
+.ngBetterInterface-suggestion-edit .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+/* Scrollbar personnalisée pour les suggestions */
+.ngBetterInterface-search-suggestions::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ngBetterInterface-search-suggestions::-webkit-scrollbar-track {
+    background: var(--ngBetterInterface-modern-bg-secondary);
+    border-radius: 3px;
+}
+
+.ngBetterInterface-search-suggestions::-webkit-scrollbar-thumb {
+    background: var(--ngBetterInterface-modern-border-color);
+    border-radius: 3px;
+}
+
+.ngBetterInterface-search-suggestions::-webkit-scrollbar-thumb:hover {
+    background: var(--ngBetterInterface-modern-text-secondary);
+}
+
+/* Animation d'apparition des suggestions */
+.ngBetterInterface-search-suggestions {
+    animation: slideInSuggestions 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInSuggestions {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive pour les suggestions */
+@media (max-width: 768px) {
+    .ngBetterInterface-search-suggestions {
+        max-height: 250px;
+    }
+    
+    .ngBetterInterface-suggestion-item {
+        padding: 10px 12px;
+    }
+    
+    .ngBetterInterface-suggestion-title {
+        font-size: 13px;
+    }
+    
+    .ngBetterInterface-suggestion-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
 }

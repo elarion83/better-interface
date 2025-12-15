@@ -102,6 +102,7 @@ class BetterInterface {
         // Hooks AJAX
         add_action('wp_ajax_ngBetterInterface_save_mode', [$this, 'ngBetterInterface_save_design_mode']);
         add_action('wp_ajax_ngBetterInterface_save_color_theme', [$this, 'ngBetterInterface_save_color_theme']);
+        add_action('wp_ajax_ngBetterInterface_search_suggestions', [$this, 'ngBetterInterface_get_search_suggestions']);
     }
     
     /**
@@ -429,6 +430,165 @@ class BetterInterface {
         ]);
     }
     
+    /**
+     * Récupère les suggestions de recherche pour le type de posts actuel (AJAX)
+     * Utilise les mécanismes WordPress natifs pour une recherche optimisée
+     */
+    public function ngBetterInterface_get_search_suggestions() {
+        // Sécurité
+        if (!wp_verify_nonce($_POST['nonce'], 'ngBetterInterface_nonce')) {
+            wp_die(__('Sécurité violée', 'better-interface'));
+        }
+        if (!current_user_can('edit_posts')) {
+            wp_die(__('Permissions insuffisantes', 'better-interface'));
+        }
+
+        $query = sanitize_text_field($_POST['query'] ?? '');
+        $post_type = sanitize_text_field($_POST['post_type'] ?? 'post');
+        $limit = intval($_POST['limit'] ?? 10);
+
+        if (empty($query) || strlen($query) < 2) {
+            wp_send_json_success(['suggestions' => []]);
+        }
+
+        // Utiliser WP_Query pour récupérer les posts correspondants
+        $args = [
+            'post_type' => $post_type,
+            'post_status' => ['publish', 'draft', 'private'],
+            'posts_per_page' => $limit,
+            's' => $query, // Recherche WordPress native
+            'orderby' => 'relevance',
+            'order' => 'DESC',
+            'suppress_filters' => false, // Permettre aux plugins de modifier la requête
+        ];
+
+        // Pour les commentaires, utiliser une approche différente
+        if ($post_type === 'comment') {
+            // Recherche dans les commentaires
+            $comments = get_comments([
+                'search' => $query,
+                'number' => $limit,
+                'status' => 'all'
+            ]);
+            
+            $suggestions = [];
+            foreach ($comments as $comment) {
+                $suggestions[] = [
+                    'id' => $comment->comment_ID,
+                    'title' => wp_trim_words($comment->comment_content, 10),
+                    'status' => $comment->comment_approved,
+                    'date' => $comment->comment_date,
+                    'edit_url' => admin_url('comment.php?action=editcomment&c=' . $comment->comment_ID),
+                    'context' => 'Commentaire sur: ' . get_the_title($comment->comment_post_ID),
+                    'type' => 'comment'
+                ];
+            }
+            
+            wp_send_json_success([
+                'suggestions' => $suggestions,
+                'query' => $query,
+                'post_type' => $post_type,
+                'total' => count($suggestions)
+            ]);
+        }
+
+        $search_query = new WP_Query($args);
+        $suggestions = [];
+
+        if ($search_query->have_posts()) {
+            while ($search_query->have_posts()) {
+                $search_query->the_post();
+                $post_id = get_the_ID();
+                $post_title = get_the_title();
+                $post_status = get_post_status();
+                $post_date = get_the_date('Y-m-d');
+                
+                // Récupérer l'URL d'édition
+                $edit_url = get_edit_post_link($post_id);
+                
+                // Ajouter des informations contextuelles selon le type
+                $context = '';
+                if ($post_type === 'post') {
+                    $categories = get_the_category();
+                    if (!empty($categories)) {
+                        $context = implode(', ', wp_list_pluck($categories, 'name'));
+                    }
+                } elseif ($post_type === 'page') {
+                    $parent = get_post_parent();
+                    if ($parent) {
+                        $context = 'Enfant de: ' . get_the_title($parent);
+                    }
+                }
+
+                $suggestions[] = [
+                    'id' => $post_id,
+                    'title' => $post_title,
+                    'status' => $post_status,
+                    'date' => $post_date,
+                    'edit_url' => $edit_url,
+                    'context' => $context,
+                    'type' => $post_type
+                ];
+            }
+            wp_reset_postdata();
+        }
+
+        // Si pas assez de résultats, essayer une recherche plus large
+        if (count($suggestions) < $limit) {
+            $fallback_args = [
+                'post_type' => $post_type,
+                'post_status' => ['publish', 'draft', 'private'],
+                'posts_per_page' => $limit - count($suggestions),
+                's' => $query,
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'suppress_filters' => false,
+            ];
+
+            $fallback_query = new WP_Query($fallback_args);
+            if ($fallback_query->have_posts()) {
+                while ($fallback_query->have_posts()) {
+                    $fallback_query->the_post();
+                    $post_id = get_the_ID();
+                    
+                    // Éviter les doublons
+                    $exists = false;
+                    foreach ($suggestions as $suggestion) {
+                        if ($suggestion['id'] === $post_id) {
+                            $exists = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!$exists) {
+                        $suggestions[] = [
+                            'id' => $post_id,
+                            'title' => get_the_title(),
+                            'status' => get_post_status(),
+                            'date' => get_the_date('Y-m-d'),
+                            'edit_url' => get_edit_post_link($post_id),
+                            'context' => '',
+                            'type' => $post_type
+                        ];
+                    }
+                }
+                wp_reset_postdata();
+            }
+        }
+
+        wp_send_json_success([
+            'suggestions' => $suggestions,
+            'query' => $query,
+            'post_type' => $post_type,
+            'total' => count($suggestions),
+            'debug' => [
+                'found_posts' => $search_query->found_posts,
+                'post_count' => $search_query->post_count,
+                'args_used' => $args
+            ]
+        ]);
+    }
+
     /**
      * Obtient le mode actuel
      */

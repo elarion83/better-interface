@@ -1350,3 +1350,14 @@ span.count.count-highlight {
     border: 2px solid var(--ngBetterInterface-modern-secondary) !important;
     overflow: hidden !important;
 }
+
+
+.meta-box-sortables.ui-sortable.empty-container {
+    border-radius: 8px !important;
+    outline-color: var(--ngBetterInterface-modern-primary) !important;
+    transition: outline-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.meta-box-sortables.ui-sortable.empty-container:hover {
+    outline-color: var(--ngBetterInterface-modern-primary-hover) !important;
+}
