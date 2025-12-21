@@ -12,8 +12,6 @@ if (!defined('ABSPATH')) {
 // Récupération de l'instance du plugin
 $ngBetterInterface = BetterInterface::get_instance();
 $is_transformed = $ngBetterInterface->ngBetterInterface_get_current_mode() === 'modern';
-$current_color_theme = $ngBetterInterface->ngBetterInterface_get_current_color_theme();
-$available_color_themes = $ngBetterInterface->ngBetterInterface_get_available_color_themes();
 $custom_css = get_option('bi_custom_css', '');
 $custom_js = get_option('bi_custom_js', '');
 ?>
@@ -79,53 +77,6 @@ $custom_js = get_option('bi_custom_js', '');
             </div>
         </div>
 
-        <!-- Section des thèmes de couleurs (uniquement si l'affichage transformé est activé) -->
-        <?php if ($is_transformed) : ?>
-        <div class="ngBetterInterface-section">
-            <h2><?php _e('Thèmes de Couleurs', 'better-interface'); ?></h2>
-            <p><?php _e('Personnalisez l\'apparence de votre interface avec nos thèmes de couleurs modernes :', 'better-interface'); ?></p>
-            
-            <div class="ngBetterInterface-themes-grid">
-                <?php foreach ($available_color_themes as $theme_key => $theme_name) : ?>
-                    <div class="ngBetterInterface-theme-card <?php echo ($current_color_theme === $theme_key) ? 'active' : ''; ?>" data-theme="<?php echo esc_attr($theme_key); ?>">
-                        <div class="ngBetterInterface-theme-preview">
-                            <div class="ngBetterInterface-theme-colors">
-                                <div class="ngBetterInterface-color-primary" style="background: var(--ngBetterInterface-<?php echo esc_attr($theme_key); ?>-primary);"></div>
-                                <div class="ngBetterInterface-color-accent" style="background: var(--ngBetterInterface-<?php echo esc_attr($theme_key); ?>-accent);"></div>
-                                <div class="ngBetterInterface-color-secondary" style="background: var(--ngBetterInterface-<?php echo esc_attr($theme_key); ?>-secondary);"></div>
-                            </div>
-                            <div class="ngBetterInterface-theme-preview-ui">
-                                <div class="ngBetterInterface-preview-header-mini"></div>
-                                <div class="ngBetterInterface-preview-sidebar-mini"></div>
-                                <div class="ngBetterInterface-preview-content-mini"></div>
-                            </div>
-                        </div>
-                        <div class="ngBetterInterface-theme-info">
-                            <h3><?php echo esc_html($theme_name); ?></h3>
-                            <p class="ngBetterInterface-theme-description">
-                                <?php
-                                switch ($theme_key) {
-                                    case 'ocean': _e('Bleu océan moderne et apaisant.', 'better-interface'); break;
-                                    case 'midnight': _e('Noir minuit sobre et professionnel.', 'better-interface'); break;
-                                    case 'teal': _e('Turquoise élégant et sophistiqué.', 'better-interface'); break;
-                                }
-                                ?>
-                            </p>
-                            <?php if ($current_color_theme === $theme_key) : ?>
-                                <span class="ngBetterInterface-current-badge"><?php _e('Actuel', 'better-interface'); ?></span>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-            
-            <div class="ngBetterInterface-theme-actions">
-                <button type="button" class="button button-primary ngBetterInterface-save-theme" disabled>
-                    <?php _e('Appliquer le thème sélectionné', 'better-interface'); ?>
-                </button>
-            </div>
-        </div>
-        <?php endif; ?>
 
         <!-- Section informations -->
         <div class="ngBetterInterface-section">

@@ -3,7 +3,7 @@
  * Plugin Name: Better Interface
  * Plugin URI: https://github.com/nicolasgruwe/better-interface
  * Description: Modernise l'interface administrateur WordPress avec 2 modes de design différents
- * Version: 1.0.0
+ * Version: 1.1.1
  * Author: Nicolas Gruwe
  * Author URI: https://nicolasgruwe.com
  * License: GPL v2 or later
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Définition des constantes du plugin
-define('BI_PLUGIN_VERSION', '1.0.0');
+define('BI_PLUGIN_VERSION', '1.1.1');
 define('BI_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('BI_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('BI_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -54,7 +54,7 @@ class BetterInterface {
      * Thème de couleurs actuel pour le mode moderne
      * Pourquoi: permet de piloter les variables CSS et l’aperçu des thèmes
      */
-    private $current_color_theme = 'ocean';
+    private $current_color_theme = 'midnight';
 
     /**
      * Thèmes de couleurs disponibles pour le mode moderne
@@ -116,8 +116,13 @@ class BetterInterface {
         $this->current_mode = get_option('ngBetterInterface_design_mode', 'default');
 
         // Récupération du thème de couleurs actuel (pour le mode moderne)
-        // Pourquoi: utilisé par la page d’admin pour afficher et manipuler les thèmes
-        $this->current_color_theme = get_option('ngBetterInterface_color_theme', 'ocean');
+        // Pourquoi: utilisé par la page d'admin pour afficher et manipuler les thèmes
+        // Forcer "midnight" par défaut et toujours
+        $saved_theme = get_option('ngBetterInterface_color_theme', 'midnight');
+        $this->current_color_theme = 'midnight'; // Toujours "midnight" pour l'instant
+        if ($saved_theme !== 'midnight') {
+            update_option('ngBetterInterface_color_theme', 'midnight');
+        }
     }
     
     /**
@@ -144,7 +149,10 @@ class BetterInterface {
             add_option('ngBetterInterface_design_mode', 'default');
         }
         if (!get_option('ngBetterInterface_color_theme')) {
-            add_option('ngBetterInterface_color_theme', 'ocean');
+            add_option('ngBetterInterface_color_theme', 'midnight');
+        } else {
+            // Forcer "midnight" même si une autre valeur existe
+            update_option('ngBetterInterface_color_theme', 'midnight');
         }
         
         // Flush des règles de réécriture
@@ -256,9 +264,9 @@ class BetterInterface {
                 BI_PLUGIN_VERSION
             );
 
-            // Si le mode est moderne, charger le CSS du thème choisi (sauf 'ocean' qui est par défaut dans modern.css)
-            if ($mode === 'modern' && !empty($this->current_color_theme) && $this->current_color_theme !== 'ocean') {
-                $theme = $this->current_color_theme;
+            // Si le mode est moderne, charger toujours le thème "midnight"
+            if ($mode === 'modern') {
+                $theme = 'midnight';
                 wp_enqueue_style(
                     "better-interface-theme-{$theme}",
                     BI_PLUGIN_URL . "assets/css/themes/{$theme}.css",
@@ -330,6 +338,22 @@ class BetterInterface {
         wp_enqueue_style(
             'better-interface-contact-form-7',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/contact-form-7.css',
+            ['better-interface-modern'],
+            BI_PLUGIN_VERSION
+        );
+        
+        // Styles pour Elementor
+        wp_enqueue_style(
+            'better-interface-elementor',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/elementor.css',
+            ['better-interface-modern'],
+            BI_PLUGIN_VERSION
+        );
+        
+        // Styles pour Woocommerce
+        wp_enqueue_style(
+            'better-interface-woocommerce',
+            BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/woocommerce.css',
             ['better-interface-modern'],
             BI_PLUGIN_VERSION
         );

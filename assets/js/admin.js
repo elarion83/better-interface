@@ -3,7 +3,7 @@
 	function BetterInterfaceAdmin(){
 		this.currentMode = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_mode) || 'default';
 		this.availableModes = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.available_modes) || {};
-		this.currentColorTheme = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_color_theme) || 'ocean';
+		this.currentColorTheme = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_color_theme) || 'midnight';
 		this.availableColorThemes = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.available_color_themes) || {};
 		this.ajaxUrl = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.ajax_url) || ajaxurl;
 		this.nonce = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.nonce) || '';
@@ -1186,6 +1186,9 @@
 		$(document).on('click', 'a[href*="admin.php"], a[href*="post.php"], a[href*="edit.php"], a[href*="upload.php"], a[href*="users.php"], a[href*="plugins.php"], a[href*="themes.php"], a[href*="options-general.php"], a[href*="tools.php"], a[href*="edit-comments.php"]', function(e){
 			var href = $(this).attr('href');
 			
+			// Ignorer si Ctrl/Cmd ou le bouton du milieu de la souris est enfoncé (ouvrir dans un nouvel onglet)
+			if (e.ctrlKey || e.metaKey || e.which === 2) return;
+			
 			// Ignorer les liens avec des ancres ou des paramètres spécifiques
 			if (href.indexOf('#') === 0 || href.indexOf('javascript:') === 0) return;
 			
@@ -1486,6 +1489,9 @@
 		
 		// Gérer les clics sur les suggestions
 		$container.find('.ngBetterInterface-suggestion-item').on('click', function(e){
+			// Ignorer si Ctrl/Cmd ou le bouton du milieu de la souris est enfoncé (ouvrir dans un nouvel onglet)
+			if (e.ctrlKey || e.metaKey || e.which === 2) return;
+			
 			e.preventDefault();
 			var $item = $(this);
 			var editUrl = $item.find('.ngBetterInterface-suggestion-edit').attr('href');

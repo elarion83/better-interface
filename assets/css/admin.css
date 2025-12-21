@@ -7,10 +7,10 @@
    VARIABLES CSS GLOBALES
    ======================================== */
 :root {
-    --ngBetterInterface-primary: #6366f1;
-    --ngBetterInterface-primary-hover: #4f46e5;
+    --ngBetterInterface-primary: #1e293b;
+    --ngBetterInterface-primary-hover: #0f172a;
     --ngBetterInterface-secondary: #f8fafc;
-    --ngBetterInterface-accent: #06b6d4;
+    --ngBetterInterface-accent: #475569;
     --ngBetterInterface-success: #10b981;
     --ngBetterInterface-warning: #f59e0b;
     --ngBetterInterface-error: #ef4444;
@@ -144,7 +144,7 @@
 
 .ngBetterInterface-toggle-card.active {
     border-color: var(--ngBetterInterface-primary);
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(6, 182, 212, 0.05));
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.05), rgba(71, 85, 105, 0.05));
     box-shadow: var(--ngBetterInterface-shadow-medium);
 }
 
@@ -185,7 +185,7 @@
 }
 
 .ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-main {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(6, 182, 212, 0.05));
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.05), rgba(71, 85, 105, 0.05));
 }
 
 .ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-bar {
@@ -193,7 +193,7 @@
 }
 
 .ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-content-area {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.02), rgba(6, 182, 212, 0.02));
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.02), rgba(71, 85, 105, 0.02));
 }
 
 .ngBetterInterface-preview-header {
@@ -618,15 +618,15 @@ input:checked + .ngBetterInterface-slider:before {
 }
 
 .ngBetterInterface-theme-card:hover {
-    border-color: #6366f1;
+    border-color: #1e293b;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 8px 25px rgba(30, 41, 59, 0.15);
 }
 
 .ngBetterInterface-theme-card.active {
-    border-color: #6366f1;
-    background: linear-gradient(135deg, #f8fafc, #e0e7ff);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+    border-color: #1e293b;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    box-shadow: 0 8px 25px rgba(30, 41, 59, 0.2);
 }
 
 /* Aperçu des thèmes */
@@ -658,7 +658,7 @@ input:checked + .ngBetterInterface-slider:before {
 
 .ngBetterInterface-preview-header-mini {
     flex: 1;
-    background: linear-gradient(135deg, #6366f1, #06b6d4);
+    background: linear-gradient(135deg, #1e293b, #475569);
     border-radius: 4px;
     opacity: 0.8;
 }
@@ -697,7 +697,7 @@ input:checked + .ngBetterInterface-slider:before {
     position: absolute;
     top: 12px;
     right: 12px;
-    background: #6366f1;
+    background: #1e293b;
     color: white;
     padding: 4px 8px;
     border-radius: 12px;

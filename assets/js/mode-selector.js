@@ -2,7 +2,7 @@
 	// ToggleSelector: gère uniquement le toggle de l'affichage transformé et la sélection des thèmes
 	function ToggleSelector(){
 		this.isTransformed = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_mode === 'modern') || false;
-		this.currentColorTheme = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_color_theme) || 'ocean';
+		this.currentColorTheme = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_color_theme) || 'midnight';
 		this.availableColorThemes = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.available_color_themes) || {};
 		this.ajaxUrl = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.ajax_url) || ajaxurl;
 		this.nonce = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.nonce) || '';

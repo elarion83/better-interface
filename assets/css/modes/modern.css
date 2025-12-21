@@ -486,12 +486,43 @@ select.ngBetterInterface-modern-input {
     position: relative;
 }
 
+/* Style sobre et premium pour le message "aucun résultat" */
 #the-list tr.no-items td {
     text-align: center;
-    font-size: 1.5em;  
-    background: var(--ngBetterInterface-modern-accent);
-    color: white;
-    font-weight: bold;
+    padding: 60px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ngBetterInterface-modern-text-secondary);
+    background: linear-gradient(135deg, rgba(75, 85, 99, 0.03) 0%, rgba(55, 65, 81, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: 
+        inset 0 1px 3px rgba(255, 255, 255, 0.05),
+        0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet de glow subtil */
+#the-list tr.no-items td::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Texte du message */
+#the-list tr.no-items td p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    letter-spacing: 0.3px;
+    opacity: 0.85;
 }
 
 /* Sélection de ligne moderne: état visuel quand la ligne est cochée */
@@ -613,6 +644,10 @@ th.check-column label, td.check-column label {
     font-weight: 600;
     color: var(--ngBetterInterface-modern-text-primary);
     border-radius: var(--ngBetterInterface-modern-border-radius) var(--ngBetterInterface-modern-border-radius) 0 0;
+}
+
+.postbox .postbox-header .hndle {
+    border-bottom: none;
 }
 
 /* ========================================

@@ -10,7 +10,7 @@
 /* Container pour les notices positionnées à droite */
 .ngBetterInterface-notices-container {
     position: fixed;
-    bottom: 85px;
+    bottom: 95px;
     right: 12px;
     z-index: 999999;
     display: flex;
