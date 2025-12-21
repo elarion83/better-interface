@@ -83,6 +83,18 @@
     transition: background 0.2s;
 }
 
+/* Titre du contexte (thème) dans les notices */
+.ngBetterInterface-notice-context-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ngBetterInterface-modern-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+}
+
 /* Reset du padding des paragraphes dans les notices */
 .ngBetterInterface-notices-container .notice p {
     padding: 0;

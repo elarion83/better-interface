@@ -1262,6 +1262,20 @@
 				return;
 			}
 			
+			// Extraire le nom du thème si la notice est dans un div.theme
+			var $themeDiv = $notice.closest('.theme');
+			if ($themeDiv.length > 0) {
+				var themeSlug = $themeDiv.attr('data-slug');
+				if (themeSlug && !$notice.find('.ngBetterInterface-notice-context-title').length) {
+					// Formater le nom du thème (slug vers nom lisible)
+					var themeName = themeSlug.replace(/-/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
+					
+					// Ajouter le titre du thème au début de la notice
+					var $contextTitle = $('<div class="ngBetterInterface-notice-context-title">' + themeName + '</div>');
+					$notice.prepend($contextTitle);
+				}
+			}
+			
 			if ($notice.closest('.ngBetterInterface-notices-container').length === 0) {
 				$('.ngBetterInterface-notices-container').append($notice);
 			}

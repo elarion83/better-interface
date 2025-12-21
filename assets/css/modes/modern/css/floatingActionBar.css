@@ -151,14 +151,29 @@
     height: 20px;
 }
 
-/* Bouton delete_all carré */
+/* Bouton delete_all carré - Design Premium */
 .ngBetterInterface-delete-all-button {
     width: 44px !important;
     height: 44px !important;
-    border: none !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
     min-width: 44px !important;
     border-radius: 8px !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        0 1px 2px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.ngBetterInterface-delete-all-button:hover {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-1px) !important;
 }
 
 /* Badge des filtres actifs */
@@ -450,19 +465,26 @@
     display: none;
 }
 
-/* Compteur d'éléments sélectionnés */
+/* Compteur d'éléments sélectionnés - Design Premium */
 .ngBetterInterface-selection-counter {
-	background: rgba(16, 185, 129, 0.1);
+	background: linear-gradient(135deg, rgba(75, 85, 99, 0.15) 0%, rgba(55, 65, 81, 0.1) 100%);
 	color: var(--ngBetterInterface-modern-text-secondary);
-	padding: 6px 12px;
-	border-radius: 20px;
-	border: 1px solid rgba(16, 185, 129, 0.2);
-	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	padding: 8px 16px;
+	border-radius: 12px;
+	border: 1.5px solid rgba(255, 255, 255, 0.08);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	white-space: nowrap;
 	display: flex;
     overflow: hidden;
 	align-items: center;
-    transform:scale(1.2);
+    transform: scale(1.2);
+	box-shadow: 
+		0 2px 8px rgba(0, 0, 0, 0.1),
+		0 1px 2px rgba(0, 0, 0, 0.05),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	position: relative;
 }
 
 .ngBetterInterface-floating-left {
@@ -479,15 +501,22 @@
 	line-height: 1;
 }
 
-/* Numéro du compteur */
+/* Numéro du compteur - Design Premium */
 .ngBetterInterface-counter-number {
 	font-size: 16px;
 	font-weight: 700;
 	color: var(--ngBetterInterface-modern-text-primary);
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	display: block;
 	line-height: 1;
-	margin-bottom: 1px;
+	margin-bottom: 6px;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	letter-spacing: -0.5px;
+}
+
+.ngBetterInterface-selection-counter.has-selection .ngBetterInterface-counter-number {
+	color: white;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Animation de défilement du compteur */
@@ -514,30 +543,82 @@
 	}
 }
 
-/* Texte du compteur */
+/* Texte du compteur - Design Premium */
 .ngBetterInterface-counter-text {
-	font-size: 11px;
+	font-size: 9px;
 	font-weight: 500;
-	color: var(--ngBetterInterface-modern-text-primary);
+	color: var(--ngBetterInterface-modern-text-secondary);
+	text-transform: uppercase;
+	letter-spacing: 0.8px;
+	opacity: 0.7;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	margin-top: 2px;
+}
+
+.ngBetterInterface-selection-counter.has-selection .ngBetterInterface-counter-text {
+	color: rgba(255, 255, 255, 0.75);
+	opacity: 0.85;
 }
 
 .ngBetterInterface-selection-counter.has-selection {
-	background: #10b981;
+	background: linear-gradient(135deg, #4b5563 0%, #374151 50%, #1f2937 100%);
 	color: white;
-	border-color: #10b981;
-	box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+	border-color: rgba(255, 255, 255, 0.15);
+	box-shadow: 
+		0 4px 12px rgba(0, 0, 0, 0.25),
+		0 2px 4px rgba(0, 0, 0, 0.15),
+		inset 0 1px 0 rgba(255, 255, 255, 0.1),
+		inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+		0 0 0 1px rgba(255, 255, 255, 0.05);
+	transform: scale(1.2);
+	position: relative;
 }
-.ngBetterInterface-selection-counter.has-selection *{
+
+.ngBetterInterface-selection-counter.has-selection::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+	border-radius: 12px;
+	pointer-events: none;
+}
+
+.ngBetterInterface-selection-counter.has-selection * {
 	color: white;
 }
 
-/* Bouton de désélection intégré au compteur */
+/* Bouton de désélection intégré au compteur - Design Premium */
 .ngBetterInterface-selection-counter .ngBetterInterface-deselect-all {
-	background: transparent !important;
-	border: none !important;
-	padding: 0 !important;
+	background: rgba(255, 255, 255, 0.1) !important;
+	border: 1px solid rgba(255, 255, 255, 0.15) !important;
+	border-radius: 6px !important;
+	padding: 4px !important;
 	cursor: pointer !important;
-	margin-left: 8px !important;
+	margin-left: 10px !important;
+	width: 24px !important;
+	height: 24px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+}
+
+.ngBetterInterface-selection-counter .ngBetterInterface-deselect-all:hover {
+	background: rgba(255, 255, 255, 0.2) !important;
+	border-color: rgba(255, 255, 255, 0.25) !important;
+	transform: scale(1.1);
+}
+
+.ngBetterInterface-selection-counter .ngBetterInterface-deselect-all .dashicons {
+	font-size: 14px !important;
+	width: 14px !important;
+	height: 14px !important;
+	color: rgba(255, 255, 255, 0.9) !important;
 }
 
 
@@ -607,11 +688,25 @@
     align-items: center !important;
     justify-content: center !important;
     color: white !important;
-    border: 1px solid !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        0 1px 2px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     position: relative !important;
     overflow: hidden !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.ngBetterInterface-floating-action-bar .ngBetterInterface-button-group button:hover {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-1px) !important;
 }
 
 /* ========================================
@@ -628,13 +723,34 @@
     align-items: center !important;
     justify-content: center !important;
     color: white !important;
-    border: 1px solid !important;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        0 1px 2px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     position: relative !important;
     overflow: hidden !important;
     cursor: pointer !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Effet de brillance subtil sur les boutons */
+.ngBetterInterface-floating-action-bar button[data-action]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.ngBetterInterface-floating-action-bar button[data-action]:hover::before {
+    left: 100%;
 }
 
 /* États disabled pour tous les boutons */
@@ -685,8 +801,14 @@
     min-width: 135px !important;
     padding: 0 12px !important;
     gap: 8px !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     justify-content: flex-start !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-1px) !important;
 }
 
 .ngBetterInterface-floating-action-bar button[data-action]:hover::after,
@@ -835,46 +957,107 @@
    BOUTON "AJOUTER" PERSONNALISÉ
    ======================================== */
 
-/* Bouton "Ajouter" dans la barre flottante */
+/* Bouton "Ajouter" dans la barre flottante - Design Premium */
 .ngBetterInterface-add-button {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: linear-gradient(135deg, #4b5563, #374151) !important;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #0f172a 100%) !important;
     color: white !important;
-    border: 1px solid var(--ngBetterInterface-modern-primary) !important;
-    border-radius: 50px !important;
+    border: 2px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 50% !important;
     flex-direction: column;
     font-size: 14px !important;
     font-weight: 600 !important;
     text-decoration: none !important;
     cursor: pointer !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2) !important;
     margin-top: -55px;
     flex-flow: column;
     width: 100px;
     height: 100px !important;
     transform: rotate(0deg);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Effet de glow subtil autour du bouton */
+.ngBetterInterface-add-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(75, 85, 99, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+/* Effet de brillance animé */
+.ngBetterInterface-add-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: left 0.6s ease;
+}
+
+.ngBetterInterface-add-button:hover::before {
+    left: 100%;
 }
 
 .ngBetterInterface-add-button:hover {
-    background: linear-gradient(135deg, #374151, #1f2937) !important;
-    border-color: #1f2937 !important;
-    box-shadow: 0 4px 8px rgba(75, 85, 99, 0.3) !important;
-    transform: translateY(-10px) rotate(90deg) !important;
+    background: linear-gradient(135deg, #111827 0%, #0f172a 50%, #1e293b 100%) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 50% !important;
+    box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.4),
+        0 6px 12px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    transform: translateY(-10px) rotate(90deg) scale(1.05) !important;
     color: white !important;
     text-decoration: none !important;
 }
 
-.ngBetterInterface-add-button:active {
-    transform: translateY(0) !important;
-    box-shadow: 0 2px 4px rgba(75, 85, 99, 0.2) !important;
+.ngBetterInterface-add-button:hover::after {
+    opacity: 1;
 }
 
-/* Icône du bouton "Ajouter" */
+.ngBetterInterface-add-button:active {
+    border-radius: 50% !important;
+    transform: translateY(-8px) rotate(90deg) scale(1.02) !important;
+    box-shadow: 
+        0 6px 16px rgba(0, 0, 0, 0.3),
+        0 3px 6px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Icône du bouton "Ajouter" - Design Premium */
 .ngBetterInterface-add-button .material-icons {
     font-size: 65px !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+}
+
+.ngBetterInterface-add-button:hover .material-icons {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+    transform: scale(1.1);
 }
 
 /* ========================================
@@ -997,26 +1180,42 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
-    background: linear-gradient(135deg, #4b5563, #374151);
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #0f172a 100%);
     color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet de glow subtil sur le header */
+.ngBetterInterface-search-modal-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top, rgba(75, 85, 99, 0.3) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .ngBetterInterface-search-modal-header h3 {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     color: white;
     display: flex;
     align-items: center;
     gap: 8px;
+    position: relative;
+    z-index: 1;
 }
 
 .ngBetterInterface-search-modal-header h3 .material-icons {
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
 }
 
 .ngBetterInterface-search-modal-close {
@@ -1024,9 +1223,11 @@
     border: none;
     color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
-    padding: 8px;
+    padding: 6px;
     border-radius: 4px;
     transition: all 0.2s;
+    position: relative;
+    z-index: 1;
 }
 
 .ngBetterInterface-search-modal-close:hover {

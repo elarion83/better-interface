@@ -349,7 +349,7 @@ body {
     height: 30px !important;
     min-height: 30px !important;
     max-height: 30px !important;
-    line-height: 1.2 !important;
+    line-height: 1.5lh !important;
     padding: 0 18px !important;
     border-radius: 6px !important;
     font-size: 15px !important;
@@ -471,7 +471,6 @@ select.ngBetterInterface-modern-input {
     color: var(--ngBetterInterface-modern-text-primary);
     font-weight: 600;
     padding: 16px 12px;
-    border-bottom: 2px solid var(--ngBetterInterface-modern-border-color);
 }
 
 /* Intensification du hover sur les lignes de tableau */
@@ -517,6 +516,11 @@ select.ngBetterInterface-modern-input {
 th.check-column,td.check-column {
     text-align: center !important;
    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color) !important;
+}
+
+/* Supprimer la bordure inférieure pour les td dans tfoot */
+tfoot td.check-column {
+    border-bottom: none !important;
 }
 th.check-column input[type="checkbox"],
 td.check-column input[type="checkbox"] {
@@ -578,16 +582,6 @@ th.check-column label, td.check-column label {
 /* Fusionner les séparateurs internes des lignes sélectionnées */
 .wp-list-table tbody tr.ngBetterInterface-row-selected td {
     border-bottom-color: transparent; /* supprime la bordure interne de la ligne sélectionnée */
-}
-
-/* Début de groupe sélectionné: ajouter une bordure supérieure lisible */
-.wp-list-table tbody tr:not(.ngBetterInterface-row-selected) + tr.ngBetterInterface-row-selected td {
-    border-top: 1px solid rgba(var(--ngBetterInterface-modern-primary-rgb), 0.35);
-}
-
-/* Fin de groupe sélectionné: ajouter une bordure supérieure sur la ligne suivante (sert de bordure basse au groupe) */
-.wp-list-table tbody tr.ngBetterInterface-row-selected + tr:not(.ngBetterInterface-row-selected) td {
-    border-top: 1px solid rgba(var(--ngBetterInterface-modern-primary-rgb), 0.35);
 }
 
 .wp-list-table tbody td {
