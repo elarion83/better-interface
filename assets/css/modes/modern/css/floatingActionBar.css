@@ -94,29 +94,29 @@
     position: relative !important;
     overflow: visible !important;
     cursor: pointer !important;
-    background: #8b5cf6 !important; /* Violet pour les filtres */
-    border-color: #8b5cf6 !important;
+    background: #374151 !important; /* Gris anthracite premium */
+    border-color: #374151 !important;
 }
 
 .ngBetterInterface-filters-button:hover {
-    background: #7c3aed !important; /* Violet plus foncé au hover */
-    border-color: #7c3aed !important;
-    box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3) !important;
+    background: #1f2937 !important; /* Gris plus sombre au hover */
+    border-color: #1f2937 !important;
+    box-shadow: 0 4px 8px rgba(55, 65, 81, 0.3) !important;
     transform: translateY(-1px) !important;
 }
 
 /* État actif quand le panel est ouvert */
 .ngBetterInterface-filters-button.active {
-    background: #7c3aed !important;
-    border-color: #7c3aed !important;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+    background: #1f2937 !important;
+    border-color: #1f2937 !important;
+    box-shadow: 0 4px 12px rgba(55, 65, 81, 0.4) !important;
     transform: translateY(-2px) !important;
 }
 
 .ngBetterInterface-filters-button.active:hover {
-    background: #6d28d9 !important;
-    border-color: #6d28d9 !important;
-    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5) !important;
+    background: #111827 !important;
+    border-color: #111827 !important;
+    box-shadow: 0 6px 16px rgba(55, 65, 81, 0.5) !important;
 }
 
 /* Effet de déploiement pour le bouton filtres */
@@ -166,7 +166,7 @@
     position: absolute;
     top: -4px;
     right: -4px;
-    background: #ef4444;
+    background: #6b7280;
     color: white;
     font-size: 10px;
     font-weight: 700;
@@ -233,7 +233,7 @@
     align-items: center;
     padding: 20px;
     border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    background: linear-gradient(135deg, #374151, #1f2937);
     color: white;
 }
 
@@ -306,27 +306,27 @@
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
-    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    background: linear-gradient(135deg, #6b7280, #4b5563) !important;
     color: white !important;
-    border: 1px solid #dc2626 !important;
+    border: 1px solid #4b5563 !important;
     border-radius: 8px !important;
     font-size: 14px !important;
     font-weight: 600 !important;
     cursor: pointer !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2) !important;
+    box-shadow: 0 2px 4px rgba(75, 85, 99, 0.2) !important;
 }
 
 .ngBetterInterface-filters-reset-button:hover {
-    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
-    border-color: #b91c1c !important;
-    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3) !important;
+    background: linear-gradient(135deg, #4b5563, #374151) !important;
+    border-color: #374151 !important;
+    box-shadow: 0 4px 8px rgba(75, 85, 99, 0.3) !important;
     transform: translateY(-1px) !important;
 }
 
 .ngBetterInterface-filters-reset-button:active {
     transform: translateY(0) !important;
-    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2) !important;
+    box-shadow: 0 2px 4px rgba(75, 85, 99, 0.2) !important;
 }
 
 .ngBetterInterface-filters-reset-button .material-icons {
@@ -337,9 +337,9 @@
 
 /* Surbrillance des filtres actifs */
 .ngBetterInterface-filter-active-highlight {
-    background-color: rgba(139, 92, 246, 0.2) !important;
-    border-color: #8b5cf6 !important;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3) !important;
+    background-color: rgba(55, 65, 81, 0.2) !important;
+    border-color: #374151 !important;
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.3) !important;
     transform: scale(1.02);
 }
     
@@ -566,23 +566,23 @@
 /* Styles spécifiques pour les boutons d'actions */
 .ngBetterInterface-floating-actions button,
 .ngBetterInterface-floating-actions input[type="submit"] {
-    background: var(--ngBetterInterface-modern-primary);
+    background: #6b7280;
     color: white;
-    border: 1px solid var(--ngBetterInterface-modern-primary);
+    border: 1px solid #6b7280;
     border-radius: 6px;
     padding: 8px 16px;
         font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
 }
 
 .ngBetterInterface-floating-actions button:hover:not(.disabled),
 .ngBetterInterface-floating-actions input[type="submit"]:hover:not(.disabled) {
-    background: var(--ngBetterInterface-modern-primary-hover);
-    border-color: var(--ngBetterInterface-modern-primary-hover);
-    box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+    background: #4b5563;
+    border-color: #4b5563;
+    box-shadow: 0 4px 8px rgba(107, 114, 128, 0.3);
     transform: translateY(-1px);
 }
 
@@ -675,7 +675,7 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    color:var(--ngBetterInterface-modern-accent);
+    color: #6b7280;
 }
 
 /* Effet de déploiement pour tous les boutons personnalisés */
@@ -840,7 +840,7 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(135deg, #4b5563, #374151) !important;
     color: white !important;
     border: 1px solid var(--ngBetterInterface-modern-primary) !important;
     border-radius: 50px !important;
@@ -859,9 +859,9 @@
 }
 
 .ngBetterInterface-add-button:hover {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
-    border-color: var(--ngBetterInterface-modern-primary-hover) !important;
-    box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3) !important;
+    background: linear-gradient(135deg, #374151, #1f2937) !important;
+    border-color: #1f2937 !important;
+    box-shadow: 0 4px 8px rgba(75, 85, 99, 0.3) !important;
     transform: translateY(-10px) rotate(90deg) !important;
     color: white !important;
     text-decoration: none !important;
@@ -869,7 +869,7 @@
 
 .ngBetterInterface-add-button:active {
     transform: translateY(0) !important;
-    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2) !important;
+    box-shadow: 0 2px 4px rgba(75, 85, 99, 0.2) !important;
 }
 
 /* Icône du bouton "Ajouter" */
@@ -898,29 +898,29 @@
     position: relative !important;
     overflow: visible !important;
     cursor: pointer !important;
-    background: #06b6d4 !important; /* Cyan pour la recherche */
-    border-color: #06b6d4 !important;
+    background: #4b5563 !important; /* Gris ardoise premium */
+    border-color: #4b5563 !important;
 }
 
 .ngBetterInterface-search-button:hover {
-    background: #0891b2 !important; /* Cyan plus foncé au hover */
-    border-color: #0891b2 !important;
-    box-shadow: 0 4px 8px rgba(6, 182, 212, 0.3) !important;
+    background: #374151 !important; /* Gris plus foncé au hover */
+    border-color: #374151 !important;
+    box-shadow: 0 4px 8px rgba(75, 85, 99, 0.3) !important;
     transform: translateY(-1px) !important;
 }
 
 /* État actif quand la modale est ouverte */
 .ngBetterInterface-search-button.active {
-    background: #0891b2 !important;
-    border-color: #0891b2 !important;
-    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4) !important;
+    background: #374151 !important;
+    border-color: #374151 !important;
+    box-shadow: 0 4px 12px rgba(75, 85, 99, 0.4) !important;
     transform: translateY(-2px) !important;
 }
 
 .ngBetterInterface-search-button.active:hover {
-    background: #0e7490 !important;
-    border-color: #0e7490 !important;
-    box-shadow: 0 6px 16px rgba(6, 182, 212, 0.5) !important;
+    background: #1f2937 !important;
+    border-color: #1f2937 !important;
+    box-shadow: 0 6px 16px rgba(75, 85, 99, 0.5) !important;
 }
 
 .ngBetterInterface-search-button .material-icons {
@@ -999,7 +999,7 @@
     align-items: center;
     padding: 20px;
     border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
-    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    background: linear-gradient(135deg, #4b5563, #374151);
     color: white;
 }
 
@@ -1065,8 +1065,8 @@
 .ngBetterInterface-search-modal-body input[type="search"]:focus,
 .ngBetterInterface-search-modal-body input[type="text"]:focus {
     outline: none !important;
-    border-color: #06b6d4 !important;
-    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1) !important;
+    border-color: #4b5563 !important;
+    box-shadow: 0 0 0 3px rgba(75, 85, 99, 0.1) !important;
 }
 
 .ngBetterInterface-search-modal-body input[type="submit"],
@@ -1074,9 +1074,9 @@
     width: 100% !important;
     height: 44px !important;
     padding: 0 24px !important;
-    background: linear-gradient(135deg, #06b6d4, #0891b2) !important;
+    background: linear-gradient(135deg, #4b5563, #374151) !important;
     color: white !important;
-    border: 1px solid #06b6d4 !important;
+    border: 1px solid #4b5563 !important;
     border-radius: 8px !important;
     font-size: 14px !important;
     font-weight: 600 !important;
@@ -1102,8 +1102,8 @@
 
 .ngBetterInterface-search-modal-body input[type="submit"]:hover,
 .ngBetterInterface-search-modal-body button[type="submit"]:hover {
-    background: linear-gradient(135deg, #0891b2, #0e7490) !important;
-    border-color: #0891b2 !important;
+    background: linear-gradient(135deg, #374151, #1f2937) !important;
+    border-color: #374151 !important;
     box-shadow: 0 4px 8px rgba(6, 182, 212, 0.3) !important;
     transform: translateY(-1px) !important;
 }
@@ -1144,7 +1144,7 @@
     content: '\e8b6'; /* Icône search de Material Icons */
     font-family: 'Material Icons';
     font-size: 16px;
-    color: #06b6d4;
+    color: #4b5563;
 }
 
 /* Liste des suggestions */
@@ -1184,7 +1184,7 @@
 .ngBetterInterface-suggestions-error {
     padding: 16px;
     text-align: center;
-    color: #ef4444;
+    color: #6b7280;
     font-size: 14px;
 }
 
@@ -1227,7 +1227,7 @@
 /* Mise en évidence du texte recherché */
 .ngBetterInterface-suggestion-title mark {
     background: rgba(6, 182, 212, 0.2);
-    color: #0891b2;
+    color: #4b5563;
     padding: 1px 2px;
     border-radius: 2px;
     font-weight: 700;
@@ -1274,11 +1274,11 @@
 }
 
 .ngBetterInterface-suggestion-item.status-private .ngBetterInterface-suggestion-status {
-    color: #8b5cf6;
+    color: #4b5563;
 }
 
 .ngBetterInterface-suggestion-item.status-trash .ngBetterInterface-suggestion-status {
-    color: #ef4444;
+    color: #6b7280;
 }
 
 /* Date de la suggestion */
