@@ -12,6 +12,7 @@ if (!defined('ABSPATH')) {
 // Récupération de l'instance du plugin
 $ngBetterInterface = BetterInterface::get_instance();
 $is_transformed = $ngBetterInterface->ngBetterInterface_get_current_mode() === 'modern';
+$has_valid_license = $ngBetterInterface->ngBetterInterface_has_valid_license();
 $custom_css = get_option('bi_custom_css', '');
 $custom_js = get_option('bi_custom_js', '');
 ?>
@@ -87,12 +88,27 @@ $custom_js = get_option('bi_custom_js', '');
                     <h3><?php _e('Affichage Transformé', 'better-interface'); ?></h3>
                     <p class="ngBetterInterface-info-value"><?php echo $is_transformed ? __('Activé', 'better-interface') : __('Désactivé', 'better-interface'); ?></p>
                 </div>
-                
+
+                <div class="ngBetterInterface-info-card">
+                    <h3><?php _e('Licence', 'better-interface'); ?></h3>
+                    <p class="ngBetterInterface-info-value">
+                        <?php if (function_exists('ngBetterInterface_fs')): ?>
+                            <?php if ($has_valid_license): ?>
+                                <span style="color: #10b981;"><?php _e('Activée', 'better-interface'); ?></span>
+                            <?php else: ?>
+                                <span style="color: #ef4444;"><?php _e('Non activée', 'better-interface'); ?></span>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <span style="color: #f59e0b;"><?php _e('SDK non configuré', 'better-interface'); ?></span>
+                        <?php endif; ?>
+                    </p>
+                </div>
+
                 <div class="ngBetterInterface-info-card">
                     <h3><?php _e('Version', 'better-interface'); ?></h3>
                     <p class="ngBetterInterface-info-value"><?php echo BI_PLUGIN_VERSION; ?></p>
                 </div>
-                
+
                 <div class="ngBetterInterface-info-card">
                     <h3><?php _e('Compatibilité', 'better-interface'); ?></h3>
                     <p class="ngBetterInterface-info-value">WordPress 5.0+</p>
