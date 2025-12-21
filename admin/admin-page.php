@@ -1,6 +1,6 @@
 <?php
 /**
- * Page d'administration du plugin Better Interface
+ * Page d'administration du plugin WP Modern UI
  * Interface moderne pour la gestion de l'affichage transformé
  */
 
@@ -22,7 +22,7 @@ $custom_js = get_option('bi_custom_js', '');
 	<div class="ngBetterInterface-header">
 		<h1 class="ngBetterInterface-title">
             <span class="dashicons dashicons-admin-appearance"></span>
-            <?php _e('Better Interface', 'better-interface'); ?>
+            <?php _e('WP Modern UI', 'better-interface'); ?>
         </h1>
         <p class="ngBetterInterface-description">
             <?php _e('Modernisez votre interface administrateur WordPress avec un design transformé.', 'better-interface'); ?>

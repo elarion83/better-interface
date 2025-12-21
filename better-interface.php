@@ -167,14 +167,13 @@ class BetterInterface {
      * Ajout du menu d'administration
      */
     public function ngBetterInterface_add_admin_menu() {
-        add_menu_page(
-            __('Better Interface', 'better-interface'),
-            __('Better Interface', 'better-interface'),
+        add_submenu_page(
+            'tools.php',
+            __('WP Modern UI', 'better-interface'),
+            __('WP Modern UI', 'better-interface'),
             'manage_options',
             'better-interface',
-            [$this, 'ngBetterInterface_admin_page'],
-            'dashicons-welcome-widgets-menus',
-            60
+            [$this, 'ngBetterInterface_admin_page']
         );
     }
     
