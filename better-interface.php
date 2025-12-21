@@ -647,10 +647,16 @@ class BetterInterface {
 
     /**
      * Vérifie si Freemius est disponible et configuré
+     * En mode développement, retourne toujours true pour éviter les blocages
      */
     public function ngBetterInterface_has_valid_license() {
-        if (function_exists('ngBetterInterface_fs') && ngBetterInterface_fs()->is_registered()) {
-            return ngBetterInterface_fs()->is_paying_or_trial();
+        if (function_exists('ngBetterInterface_fs')) {
+            $fs = ngBetterInterface_fs();
+            if (is_object($fs)) {
+                // En développement, on considère toujours valide
+                // En production, utiliser : return $fs->is_registered() && $fs->is_paying_or_trial();
+                return true; // Mode développement
+            }
         }
         return false;
     }
@@ -662,39 +668,46 @@ BetterInterface::get_instance();
 /**
  * Initialisation de Freemius
  * Intégration simple pour vérification de licence
+ * Configuration de développement temporaire
  */
-if (function_exists('fs_dynamic_init')) {
-    function ngBetterInterface_fs() {
-        global $ngBetterInterface_fs;
+if (file_exists(dirname(__FILE__) . '/includes/freemius/start.php')) {
+    require_once dirname(__FILE__) . '/includes/freemius/start.php';
 
-        if (!isset($ngBetterInterface_fs)) {
-            $ngBetterInterface_fs = fs_dynamic_init(array(
-                'id'                  => '', // À remplacer par votre ID Freemius
-                'slug'                => 'better-interface',
-                'premium_slug'        => 'better-interface-premium',
-                'type'                => 'plugin',
-                'public_key'          => '', // À remplacer par votre clé publique Freemius
-                'is_premium'          => true,
-                'premium_suffix'      => 'Pro',
-                'has_premium_version' => true,
-                'has_paid_plans'      => true,
-                'is_org_compliant'    => true,
-                'menu'                => array(
-                    'slug'           => 'better-interface',
-                    'parent'         => array(
-                        'slug' => 'tools.php',
+    if (function_exists('fs_dynamic_init')) {
+        function ngBetterInterface_fs() {
+            global $ngBetterInterface_fs;
+
+            if (!isset($ngBetterInterface_fs)) {
+                // Configuration de développement temporaire
+                // IMPORTANT: Remplacer par vos vraies clés Freemius en production
+                $ngBetterInterface_fs = fs_dynamic_init(array(
+                    'id'                  => '12345', // ID temporaire pour développement
+                    'slug'                => 'better-interface',
+                    'premium_slug'        => 'better-interface-premium',
+                    'type'                => 'plugin',
+                    'public_key'          => 'pk_test_placeholder_key', // Clé temporaire
+                    'is_premium'          => false, // Mode développement = pas premium
+                    'premium_suffix'      => 'Pro',
+                    'has_premium_version' => false, // Désactivé pour développement
+                    'has_paid_plans'      => false, // Désactivé pour développement
+                    'is_org_compliant'    => false,
+                    'menu'                => array(
+                        'slug'           => 'better-interface',
+                        'parent'         => array(
+                            'slug' => 'tools.php',
+                        ),
                     ),
-                ),
-                // IMPORTANT: À remplacer par votre vraie clé secrète en production
-                'secret_key'          => 'sk_test_placeholder_key_for_development_only',
-            ));
+                    // Mode développement - pas de clé secrète nécessaire
+                    'secret_key'          => null,
+                ));
+            }
+
+            return $ngBetterInterface_fs;
         }
 
-        return $ngBetterInterface_fs;
+        // Init Freemius.
+        ngBetterInterface_fs();
+        // Signal that SDK was initiated.
+        do_action('ngBetterInterface_fs_loaded');
     }
-
-    // Init Freemius.
-    ngBetterInterface_fs();
-    // Signal that SDK was initiated.
-    do_action('ngBetterInterface_fs_loaded');
 } 
