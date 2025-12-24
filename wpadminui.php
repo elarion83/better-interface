@@ -559,12 +559,17 @@ class WPAdminUI {
             
             $suggestions = [];
             foreach ($users as $user) {
+                // URL de visualisation : page de profil de l'utilisateur (front-end)
+                // Pourquoi: permettre de voir le profil public de l'utilisateur
+                $view_url = get_author_posts_url($user->ID);
+                
                 $suggestions[] = [
                     'id' => $user->ID,
                     'title' => $user->display_name . ' (' . $user->user_login . ')',
                     'status' => 'active',
                     'date' => $user->user_registered,
                     'edit_url' => admin_url('user-edit.php?user_id=' . $user->ID),
+                    'view_url' => $view_url,
                     'context' => $user->user_email,
                     'type' => 'user',
                     'role' => !empty($user->roles) ? implode(', ', $user->roles) : ''
@@ -634,6 +639,10 @@ class WPAdminUI {
                 // Récupérer l'URL d'édition
                 $edit_url = get_edit_post_link($post_id);
                 
+                // Récupérer l'URL de visualisation (front-end)
+                // Pourquoi: permettre de voir le post sur le front-end
+                $view_url = get_permalink($post_id);
+                
                 // Ajouter des informations contextuelles selon le type
                 $context = '';
                 if ($post_type === 'post') {
@@ -654,6 +663,7 @@ class WPAdminUI {
                     'status' => $post_status,
                     'date' => $post_date,
                     'edit_url' => $edit_url,
+                    'view_url' => $view_url,
                     'context' => $context,
                     'type' => $post_type
                 ];
@@ -695,6 +705,7 @@ class WPAdminUI {
                             'status' => get_post_status(),
                             'date' => get_the_date('Y-m-d'),
                             'edit_url' => get_edit_post_link($post_id),
+                            'view_url' => get_permalink($post_id),
                             'context' => '',
                             'type' => $post_type
                         ];

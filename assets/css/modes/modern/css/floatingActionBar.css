@@ -1125,7 +1125,7 @@
 
 .ngWPAdminUI-search-button:hover::after,
 .ngWPAdminUI-search-button:focus::after {
-    content: 'Rechercher';
+    content: 'Search';
     position: absolute;
     left: 40px;
     top: 50%;
@@ -1153,6 +1153,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .ngWPAdminUI-search-modal-open {
@@ -1170,6 +1171,9 @@
     overflow: hidden;
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
 }
 
 .ngWPAdminUI-search-modal-open .ngWPAdminUI-search-modal-content {
@@ -1239,6 +1243,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
 /* Espacement spécifique pour la boîte de recherche */
@@ -1249,6 +1254,7 @@
 /* Styles pour les éléments de recherche dans la modale */
 .ngWPAdminUI-search-modal-body input[type="search"],
 .ngWPAdminUI-search-modal-body input[type="text"] {
+    order: 1; /* Premier élément */
     width: 100% !important;
     height: 44px !important;
     padding: 0 16px !important;
@@ -1272,6 +1278,7 @@
 
 .ngWPAdminUI-search-modal-body input[type="submit"],
 .ngWPAdminUI-search-modal-body button[type="submit"] {
+    order: 3; /* Dernier élément (après les suggestions) */
     width: 100% !important;
     height: 44px !important;
     padding: 0 24px !important;
@@ -1313,9 +1320,11 @@
    SUGGESTIONS DE RECHERCHE
    ======================================== */
 
-/* Container des suggestions */
+/* Container des suggestions - positionné entre l'input et le bouton */
 .ngWPAdminUI-search-suggestions {
-    margin-top: 16px;
+    order: 2; /* Positionner entre l'input (order: 1) et le bouton (order: 3) */
+    margin-top: 0;
+    margin-bottom: 0;
     max-height: 300px;
     overflow-y: auto;
     border-radius: 8px;
@@ -1485,6 +1494,16 @@
 /* Date de la suggestion */
 .ngWPAdminUI-suggestion-date {
     font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.ngWPAdminUI-suggestion-date .dashicons {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+    color: var(--ngWPAdminUI-modern-text-secondary);
 }
 
 /* Actions de la suggestion */
@@ -1500,7 +1519,8 @@
     opacity: 1;
 }
 
-/* Bouton d'édition */
+/* Boutons d'action (Voir et Éditer) */
+.ngWPAdminUI-suggestion-view,
 .ngWPAdminUI-suggestion-edit {
     display: flex;
     align-items: center;
@@ -1514,6 +1534,7 @@
     transition: all 0.2s ease;
 }
 
+.ngWPAdminUI-suggestion-view:hover,
 .ngWPAdminUI-suggestion-edit:hover {
     background: var(--ngWPAdminUI-modern-primary-hover);
     transform: scale(1.1);
@@ -1521,6 +1542,7 @@
     text-decoration: none;
 }
 
+.ngWPAdminUI-suggestion-view .dashicons,
 .ngWPAdminUI-suggestion-edit .dashicons {
     font-size: 14px;
     width: 14px;

@@ -288,14 +288,12 @@
     transform: translateX(0) scale(1);
 }
 
-/* Animation de fermeture */
+/* Animation de fermeture - slide fade-out vers la droite uniquement */
 .ngWPAdminUI-premium-notice.ngWPAdminUI-notice-closing {
     opacity: 0 !important;
-    transform: translateX(100px) scale(0.8) !important;
-    margin-bottom: -100% !important;
+    transform: translateX(100%) !important;
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                margin-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     pointer-events: none !important;
 }
 

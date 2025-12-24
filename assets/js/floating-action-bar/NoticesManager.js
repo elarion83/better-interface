@@ -236,19 +236,32 @@
 		 */
 		extractText: function($notice) {
 			var htmlContent = '';
-			var hasLinks = false;
+			var hasHtml = false;
 			
 			// Priorité 1: Contenu dans les éléments body spécifiques
 			var $body = $notice.find(this.selectors.body).first();
 			if ($body.length > 0) {
-				// Vérifier s'il y a des liens
-				hasLinks = $body.find('a').length > 0;
-				if (hasLinks) {
-					// Préserver le HTML avec les liens
+				// Vérifier s'il y a du HTML (liens, balises, etc.)
+				var bodyHtml = $body.html();
+				hasHtml = /<[^>]+>/.test(bodyHtml);
+				if (hasHtml) {
+					// Préserver le HTML avec les liens et autres balises
 					var $bodyClone = $body.clone();
+					// Retirer uniquement les icônes Dashicons pour éviter les duplications
+					// Pourquoi: préserver les liens même si on retire les icônes
+					$bodyClone.find('.dashicons, .ngWPAdminUI-notice-icon').each(function(){
+						var $icon = $(this);
+						var $parentLink = $icon.parent('a');
+						// Si l'icône est dans un lien, retirer uniquement l'icône
+						if ($parentLink.length > 0) {
+							$icon.remove();
+						} else {
+							$icon.remove();
+						}
+					});
 					htmlContent = $bodyClone.html();
 				} else {
-					// Pas de liens, utiliser le texte simple
+					// Pas de HTML, utiliser le texte simple
 					htmlContent = $body.text().trim();
 				}
 			} else {
@@ -262,26 +275,47 @@
 			$clone.find('.ngWPAdminUI-notice-context-title').remove();
 			// Retirer les titres de plugin Freemius
 			$clone.find('.fs-plugin-title').remove();
-			// Retirer les icônes Dashicons pour éviter les duplications
-			// Pourquoi: les icônes sont ajoutées dans le titre premium, pas besoin de les garder dans le texte
-			$clone.find('.dashicons, .ngWPAdminUI-notice-icon').remove();
-				
-				// Vérifier s'il y a des liens
-				hasLinks = $clone.find('a').length > 0;
-				if (hasLinks) {
-					// Préserver le HTML avec les liens
-					htmlContent = $clone.html();
-				} else {
-					// Pas de liens, utiliser le texte simple
-					htmlContent = $clone.text().trim();
-				}
+			
+			// Vérifier AVANT de retirer les icônes s'il y a du HTML (liens, balises, etc.)
+			// Pourquoi: détecter la présence de liens avant de modifier le DOM
+			var cloneHtml = $clone.html();
+			hasHtml = /<[^>]+>/.test(cloneHtml);
+			
+			if (hasHtml) {
+				// Retirer les icônes Dashicons pour éviter les duplications
+				// Pourquoi: les icônes sont ajoutées dans le titre premium, pas besoin de les garder dans le texte
+				// IMPORTANT: préserver les liens même si on retire les icônes
+				$clone.find('.dashicons, .ngWPAdminUI-notice-icon').each(function(){
+					var $icon = $(this);
+					var $parentLink = $icon.parent('a');
+					// Si l'icône est dans un lien, retirer uniquement l'icône, pas le lien
+					if ($parentLink.length > 0) {
+						$icon.remove();
+						// Si le lien devient vide, ajouter le texte du href comme contenu de secours
+						if ($parentLink.text().trim().length === 0 && $parentLink.attr('href')) {
+							var hrefText = $parentLink.attr('href');
+							// Utiliser le texte du lien ou l'URL si pas de texte
+							$parentLink.text(hrefText);
+						}
+					} else {
+						$icon.remove();
+					}
+				});
+				// Préserver le HTML avec les liens et autres balises
+				htmlContent = $clone.html();
+			} else {
+				// Pas de HTML, retirer les icônes et utiliser le texte simple
+				$clone.find('.dashicons, .ngWPAdminUI-notice-icon').remove();
+				htmlContent = $clone.text().trim();
+			}
 			}
 			
 			// Nettoyer le texte (uniquement si c'est du texte simple, pas du HTML)
-			if (!hasLinks) {
+			if (!hasHtml) {
 				htmlContent = this.cleanText(htmlContent);
 			} else {
 				// Si c'est du HTML, nettoyer uniquement les espaces multiples dans le texte
+				// Pourquoi: préserver tous les liens et balises HTML présents dans les notifications
 				htmlContent = htmlContent.replace(/\s+/g, ' ').trim();
 			}
 			

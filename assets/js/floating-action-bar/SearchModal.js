@@ -45,14 +45,18 @@
 			
 			if ($originalSearchBox && $originalSearchBox.length > 0) {
 				// Créer le bouton "Rechercher" dans la barre flottante
-				$searchButton = $('<button type="button" class="ngWPAdminUI-search-button" title="Rechercher"><span class="material-icons">search</span></button>');
+				$searchButton = $('<button type="button" class="ngWPAdminUI-search-button" title="Search"><span class="material-icons">search</span></button>');
 				
 				// Créer la modale de recherche
-				$searchModal = $('<div class="ngWPAdminUI-search-modal"><div class="ngWPAdminUI-search-modal-content"><div class="ngWPAdminUI-search-modal-header"><h3><span class="material-icons">search</span> Rechercher</h3><button type="button" class="ngWPAdminUI-search-modal-close"><span class="dashicons dashicons-no-alt"></span></button></div><div class="ngWPAdminUI-search-modal-body"></div></div></div>');
+				$searchModal = $('<div class="ngWPAdminUI-search-modal"><div class="ngWPAdminUI-search-modal-content"><div class="ngWPAdminUI-search-modal-header"><h3><span class="material-icons">search</span> Search</h3><button type="button" class="ngWPAdminUI-search-modal-close"><span class="dashicons dashicons-no-alt"></span></button></div><div class="ngWPAdminUI-search-modal-body"></div></div></div>');
 				
 				// Cloner le contenu de la search-box dans la modale
 				var $searchBoxClone = $originalSearchBox.clone();
-				$searchModal.find('.ngWPAdminUI-search-modal-body').append($searchBoxClone);
+				
+				// Extraire l'input et le bouton du clone pour réorganiser l'ordre
+				// Pourquoi: placer les suggestions entre l'input et le bouton
+				var $searchInput = $searchBoxClone.find('input[type="search"], input[type="text"]');
+				var $searchSubmit = $searchBoxClone.find('input[type="submit"], button[type="submit"]');
 				
 				// Détecter le type de contenu actuel (posts, comments, users)
 				// Pourquoi: adapter le type selon la page pour les suggestions
@@ -65,7 +69,16 @@
 				
 				// Créer le container pour les suggestions (toujours créé)
 				var $suggestionsContainer = $('<div class="ngWPAdminUI-search-suggestions"></div>');
-				$searchModal.find('.ngWPAdminUI-search-modal-body').append($suggestionsContainer);
+				
+				// Réorganiser dans l'ordre : input, suggestions, bouton
+				var $modalBody = $searchModal.find('.ngWPAdminUI-search-modal-body');
+				if ($searchInput.length) {
+					$modalBody.append($searchInput);
+				}
+				$modalBody.append($suggestionsContainer);
+				if ($searchSubmit.length) {
+					$modalBody.append($searchSubmit);
+				}
 				
 				// Gérer la soumission de la recherche dans la modale
 				function performSearch() {
@@ -179,12 +192,19 @@
 				this.close($searchModal, $searchButton);
 			}.bind(this));
 			
-			// Fermer la modale en cliquant en dehors
+			// Fermer la modale en cliquant sur l'overlay (background)
+			// Pourquoi: détecter les clics sur l'overlay et non sur le contenu de la modale
+			var self = this;
+			var $modalContent = $searchModal.find('.ngWPAdminUI-search-modal-content');
+			
+			// Gérer les clics sur l'overlay
 			$searchModal.on('click', function(e){
-				if (e.target === this) {
-					this.close($searchModal, $searchButton);
+				// Vérifier si le clic est sur l'overlay (pas sur le contenu)
+				// Pourquoi: vérifier que le clic n'est pas sur le contenu ou ses enfants
+				if ($(e.target).closest('.ngWPAdminUI-search-modal-content').length === 0) {
+					self.close($searchModal, $searchButton);
 				}
-			}.bind(this));
+			});
 			
 			// Fermer la modale avec la touche Escape
 			$(document).on('keydown', function(e){

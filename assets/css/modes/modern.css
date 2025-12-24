@@ -1262,7 +1262,7 @@ span.count {
     border-radius: 10px !important;
     min-width: 16px !important;
     height: 16px !important;
-    line-height: 12px !important;
+    line-height: 0.6lh !important;
     text-align: center !important;
     vertical-align: baseline !important;
     box-shadow: 0 1px 3px rgba(var(--ngWPAdminUI-modern-primary-rgb), 0.2) !important;
@@ -1393,4 +1393,12 @@ span.count.count-highlight {
 
 .meta-box-sortables.ui-sortable.empty-container:hover {
     outline-color: var(--ngWPAdminUI-modern-primary-hover) !important;
+}
+
+.ngWPAdminUI-row-selected th.check-column {
+    border: none !important;
+}
+
+#wpadminbar .menupop #wp-admin-bar-user-info a.ab-item:hover {
+    background: transparent !important;
 }

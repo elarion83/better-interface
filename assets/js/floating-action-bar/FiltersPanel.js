@@ -17,7 +17,7 @@
 			}
 			
 			// Créer le bouton "Filtres" pour ouvrir le sur-panel
-			var $filtersButton = $('<button type="button" class="ngWPAdminUI-filters-button" title="Filtres"><span class="material-icons">filter_list</span><span class="ngWPAdminUI-filters-badge"></span></button>');
+			var $filtersButton = $('<button type="button" class="ngWPAdminUI-filters-button" title="Filters"><span class="material-icons">filter_list</span><span class="ngWPAdminUI-filters-badge"></span></button>');
 			
 			// Créer le voile sombre
 			var $filtersOverlay = $('<div class="ngWPAdminUI-filters-overlay"></div>');
@@ -28,7 +28,7 @@
 			var $filtersPanelHeader = $('<div class="ngWPAdminUI-filters-panel-header"><h3><span class="material-icons">filter_list</span> <span class="ngWPAdminUI-filters-panel-title"></span></h3><button type="button" class="ngWPAdminUI-filters-close"><span class="dashicons dashicons-no-alt"></span></button></div>');
 			
 			// Créer le bouton de réinitialisation en bas du panel
-			var $filtersResetButton = $('<div class="ngWPAdminUI-filters-reset-container"><button type="button" class="ngWPAdminUI-filters-reset-button"><span class="material-icons">filter_list_off</span> Réinitialiser les filtres</button></div>');
+			var $filtersResetButton = $('<div class="ngWPAdminUI-filters-reset-container"><button type="button" class="ngWPAdminUI-filters-reset-button"><span class="material-icons">filter_list_off</span> Reset filters</button></div>');
 			
 			// Récupérer les filtres depuis le DOM original
 			// Pourquoi: utiliser customActions depuis la closure (paramètre de la fonction create)
@@ -140,7 +140,7 @@
 				e.preventDefault();
 				
 				// Définir le titre du panel à partir du bouton filtres
-				var filterButtonTitle = $filtersButton.attr('title') || 'Filtres';
+				var filterButtonTitle = $filtersButton.attr('title') || 'Filters';
 				$filtersPanel.find('.ngWPAdminUI-filters-panel-title').text(filterButtonTitle);
 				
 				$filtersPanel.addClass('ngWPAdminUI-filters-panel-open');

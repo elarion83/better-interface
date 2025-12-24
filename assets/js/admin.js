@@ -558,9 +558,7 @@
 				if (response.success && response.data.suggestions.length > 0) {
 					self.displaySearchSuggestions(response.data.suggestions, $container, query);
 				} else {
-					var debugInfo = response.data ? 
-						'<br><small>Debug: Type "' + response.data.post_type + '", ' + (response.data.total || 0) + ' résultats</small>' : '';
-					$container.html('<div class="ngWPAdminUI-suggestions-empty">Aucun résultat trouvé pour "' + query + '"' + debugInfo + '</div>').show();
+					$container.html('<div class="ngWPAdminUI-suggestions-empty">Aucun résultat trouvé pour "' + query + '"</div>').show();
 				}
 			},
 			error: function(xhr, status, error) {
@@ -628,12 +626,20 @@
 			if (suggestion.type === 'user') {
 				html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + (suggestion.role || 'Utilisateur') + '</span>';
 			} else {
-				html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + suggestion.status + '</span>';
+				// Capitaliser la première lettre du statut
+				// Pourquoi: afficher le statut avec une majuscule pour une meilleure lisibilité
+				var statusText = suggestion.status ? suggestion.status.charAt(0).toUpperCase() + suggestion.status.slice(1) : '';
+				html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + statusText + '</span>';
 			}
-			html += '<span class="ngWPAdminUI-suggestion-date">' + formattedDate + '</span>';
+			html += '<span class="ngWPAdminUI-suggestion-date"><span class="dashicons dashicons-calendar-alt"></span> ' + formattedDate + '</span>';
 			html += '</div>';
 			html += '</div>';
 			html += '<div class="ngWPAdminUI-suggestion-actions">';
+			// Bouton "Voir" (front-end) si l'URL est disponible
+			if (suggestion.view_url) {
+				html += '<a href="' + suggestion.view_url + '" target="_blank" class="ngWPAdminUI-suggestion-view" title="Voir"><span class="dashicons dashicons-visibility"></span></a>';
+			}
+			// Bouton "Éditer" (admin)
 			html += '<a href="' + suggestion.edit_url + '" class="ngWPAdminUI-suggestion-edit" title="Éditer"><span class="dashicons dashicons-edit"></span></a>';
 			html += '</div>';
 			html += '</div>';
@@ -659,8 +665,9 @@
 			}
 		});
 		
-		// Gérer le clic sur le bouton d'édition
-		$container.find('.ngWPAdminUI-suggestion-edit').on('click', function(e){
+		// Gérer les clics sur les boutons d'action
+		// Pourquoi: empêcher la propagation pour éviter la redirection vers l'édition
+		$container.find('.ngWPAdminUI-suggestion-edit, .ngWPAdminUI-suggestion-view').on('click', function(e){
 			e.stopPropagation(); // Empêcher le clic sur l'item parent
 		});
 	};
