@@ -47,8 +47,22 @@
 				// Créer le bouton "Rechercher" dans la barre flottante
 				$searchButton = $('<button type="button" class="ngWPAdminUI-search-button" title="Search"><span class="material-icons">search</span></button>');
 				
-				// Créer la modale de recherche
-				$searchModal = $('<div class="ngWPAdminUI-search-modal"><div class="ngWPAdminUI-search-modal-content"><div class="ngWPAdminUI-search-modal-header"><h3><span class="material-icons">search</span> Search</h3><button type="button" class="ngWPAdminUI-search-modal-close"><span class="dashicons dashicons-no-alt"></span></button></div><div class="ngWPAdminUI-search-modal-body"></div></div></div>');
+				// Détecter le type de contenu actuel (posts, comments, users)
+				// Pourquoi: adapter le type selon la page pour les suggestions et le header
+				var currentPostType = null;
+				if (isUsersPage) {
+					currentPostType = 'user';
+				} else if (self.detectCurrentPostType) {
+					currentPostType = self.detectCurrentPostType();
+				}
+				
+				// Formater le nom du type pour l'affichage dans le header
+				// Pourquoi: afficher "Search Posts", "Search Pages", "Search Users", etc.
+				var formattedTypeName = this.formatPostTypeName(currentPostType);
+				var headerTitle = formattedTypeName ? 'Search ' + formattedTypeName : 'Search';
+				
+				// Créer la modale de recherche avec le header dynamique
+				$searchModal = $('<div class="ngWPAdminUI-search-modal"><div class="ngWPAdminUI-search-modal-content"><div class="ngWPAdminUI-search-modal-header"><h3><span class="material-icons">search</span> ' + headerTitle + '</h3><button type="button" class="ngWPAdminUI-search-modal-close"><span class="dashicons dashicons-no-alt"></span></button></div><div class="ngWPAdminUI-search-modal-body"></div></div></div>');
 				
 				// Cloner le contenu de la search-box dans la modale
 				var $searchBoxClone = $originalSearchBox.clone();
@@ -57,15 +71,6 @@
 				// Pourquoi: placer les suggestions entre l'input et le bouton
 				var $searchInput = $searchBoxClone.find('input[type="search"], input[type="text"]');
 				var $searchSubmit = $searchBoxClone.find('input[type="submit"], button[type="submit"]');
-				
-				// Détecter le type de contenu actuel (posts, comments, users)
-				// Pourquoi: adapter le type selon la page pour les suggestions
-				var currentPostType = null;
-				if (isUsersPage) {
-					currentPostType = 'user';
-				} else if (self.detectCurrentPostType) {
-					currentPostType = self.detectCurrentPostType();
-				}
 				
 				// Créer le container pour les suggestions (toujours créé)
 				var $suggestionsContainer = $('<div class="ngWPAdminUI-search-suggestions"></div>');
@@ -215,6 +220,41 @@
 					}
 				}
 			}.bind(this));
+		},
+		
+		/**
+		 * Formate le nom du post type pour l'affichage
+		 * @param {String} postType - Type de contenu (post, page, user, etc.)
+		 * @returns {String} Nom formaté avec première lettre en majuscule et au pluriel
+		 */
+		formatPostTypeName: function(postType) {
+			if (!postType) {
+				return '';
+			}
+			
+			// Mapping des types spéciaux
+			// Pourquoi: utiliser des noms spécifiques pour certains types de contenu
+			var typeMapping = {
+				'user': 'Users',
+				'post': 'Posts',
+				'page': 'Pages',
+				'attachment': 'Media',
+				'comment': 'Comments'
+			};
+			
+			// Si le type est dans le mapping, utiliser la valeur mappée
+			if (typeMapping[postType]) {
+				return typeMapping[postType];
+			}
+			
+			// Sinon, formater le nom : première lettre en majuscule + 's' pour le pluriel
+			var formatted = postType.charAt(0).toUpperCase() + postType.slice(1);
+			// Ajouter 's' pour le pluriel si ce n'est pas déjà au pluriel
+			if (!formatted.endsWith('s')) {
+				formatted += 's';
+			}
+			
+			return formatted;
 		},
 		
 		/**
