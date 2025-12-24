@@ -209,6 +209,16 @@ class WPAdminUI {
             WPAUI_PLUGIN_VERSION
         );
         
+        // Styles spécifiques pour la page de création de post (mode moderne uniquement)
+        if ($this->current_mode === 'modern' && (strpos($hook, 'post-new.php') !== false || strpos($hook, 'post.php') !== false)) {
+            wp_enqueue_style(
+                'wp-admin-ui-post-new',
+                WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/pages/post-new.css',
+                ['wp-admin-ui-modern'],
+                WPAUI_PLUGIN_VERSION
+            );
+        }
+        
         
         // Charger le fichier de configuration centralisé (toujours chargé en premier)
         wp_enqueue_script(

@@ -98,6 +98,15 @@
     border-color: #374151 !important;
 }
 
+/* Bouton avec texte (Actions) - largeur adaptée */
+.ngWPAdminUI-filters-button:has(.ngWPAdminUI-filters-button-text) {
+    width: auto !important;
+    min-width: 100px !important;
+    padding: 0 12px !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
+}
+
 .ngWPAdminUI-filters-button:hover {
     background: #1f2937 !important; /* Gris plus sombre au hover */
     border-color: #1f2937 !important;
@@ -119,9 +128,9 @@
     box-shadow: 0 6px 16px rgba(55, 65, 81, 0.5) !important;
 }
 
-/* Effet de déploiement pour le bouton filtres */
-.ngWPAdminUI-filters-button:hover,
-.ngWPAdminUI-filters-button:focus {
+/* Effet de déploiement pour le bouton filtres (uniquement si pas de texte) */
+.ngWPAdminUI-filters-button:not(:has(.ngWPAdminUI-filters-button-text)):hover,
+.ngWPAdminUI-filters-button:not(:has(.ngWPAdminUI-filters-button-text)):focus {
     width: auto !important;
     min-width: 135px !important;
     padding: 0 12px !important;
@@ -130,8 +139,9 @@
     justify-content: flex-start !important;
 }
 
-.ngWPAdminUI-filters-button:hover::after,
-.ngWPAdminUI-filters-button:focus::after {
+/* Effet ::after uniquement si pas de texte dans le bouton */
+.ngWPAdminUI-filters-button:not(:has(.ngWPAdminUI-filters-button-text)):hover::after,
+.ngWPAdminUI-filters-button:not(:has(.ngWPAdminUI-filters-button-text)):focus::after {
     content: 'Filter';
     position: absolute;
     left: 40px;
@@ -143,6 +153,14 @@
     opacity: 0;
     animation: slideInText 0.3s ease forwards;
     pointer-events: none;
+}
+
+/* Texte du bouton Actions */
+.ngWPAdminUI-filters-button-text {
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 4px;
+    white-space: nowrap;
 }
 
 .ngWPAdminUI-filters-button .material-icons-outlined {

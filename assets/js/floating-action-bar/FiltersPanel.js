@@ -16,24 +16,38 @@
 				customActions = {};
 			}
 			
-			// Créer le bouton "Filtres" pour ouvrir le sur-panel
-			var $filtersButton = $('<button type="button" class="ngWPAdminUI-filters-button" title="Filters"><span class="material-icons">filter_list</span><span class="ngWPAdminUI-filters-badge"></span></button>');
-			
-			// Créer le voile sombre
-			var $filtersOverlay = $('<div class="ngWPAdminUI-filters-overlay"></div>');
-			
-			// Créer le sur-panel des filtres
-			var $filtersPanel = $('<div class="ngWPAdminUI-filters-panel"></div>');
-			var $filtersPanelContent = $('<div class="ngWPAdminUI-filters-panel-content"></div>');
-			var $filtersPanelHeader = $('<div class="ngWPAdminUI-filters-panel-header"><h3><span class="material-icons">filter_list</span> <span class="ngWPAdminUI-filters-panel-title"></span></h3><button type="button" class="ngWPAdminUI-filters-close"><span class="dashicons dashicons-no-alt"></span></button></div>');
-			
-			// Créer le bouton de réinitialisation en bas du panel
-			var $filtersResetButton = $('<div class="ngWPAdminUI-filters-reset-container"><button type="button" class="ngWPAdminUI-filters-reset-button"><span class="material-icons">filter_list_off</span> Reset filters</button></div>');
-			
 			// Récupérer les filtres depuis le DOM original
 			// Pourquoi: utiliser customActions depuis la closure (paramètre de la fonction create)
 			// Note: $nav est .tablenav.top, les filtres sont dans .actions > *
 			var $filtersElements = $nav.find('.actions > *');
+			
+			// Détecter si un select avec l'id #new_role est présent
+			// Pourquoi: si présent, c'est une action et non un filtre, il faut renommer le panel
+			var hasNewRoleSelect = $nav.find('select#new_role').length > 0;
+			var panelType = hasNewRoleSelect ? 'Actions' : 'Filters';
+			var panelIcon = hasNewRoleSelect ? 'settings' : 'filter_list';
+			
+			// Créer le bouton avec le texte approprié selon le type
+			// Pourquoi: afficher "Actions" ou "Filters" sur le bouton
+			// Pour les actions, ne pas afficher le badge (compteur de filtres actifs)
+			var buttonText = hasNewRoleSelect ? 'Actions' : '';
+			var badgeHtml = hasNewRoleSelect ? '' : '<span class="ngWPAdminUI-filters-badge"></span>';
+			var $filtersButton = $('<button type="button" class="ngWPAdminUI-filters-button" title="' + panelType + '"><span class="material-icons">' + panelIcon + '</span>' + (buttonText ? '<span class="ngWPAdminUI-filters-button-text">' + buttonText + '</span>' : '') + badgeHtml + '</button>');
+			
+			// Créer le voile sombre
+			var $filtersOverlay = $('<div class="ngWPAdminUI-filters-overlay"></div>');
+			
+			// Créer le sur-panel des filtres/actions
+			var $filtersPanel = $('<div class="ngWPAdminUI-filters-panel"></div>');
+			var $filtersPanelContent = $('<div class="ngWPAdminUI-filters-panel-content"></div>');
+			var $filtersPanelHeader = $('<div class="ngWPAdminUI-filters-panel-header"><h3><span class="material-icons">' + panelIcon + '</span> <span class="ngWPAdminUI-filters-panel-title"></span></h3><button type="button" class="ngWPAdminUI-filters-close"><span class="dashicons dashicons-no-alt"></span></button></div>');
+			
+			// Créer le bouton de réinitialisation en bas du panel (uniquement pour les filtres)
+			// Pourquoi: les actions n'ont pas besoin de bouton de réinitialisation
+			var $filtersResetButton = null;
+			if (!hasNewRoleSelect) {
+				$filtersResetButton = $('<div class="ngWPAdminUI-filters-reset-container"><button type="button" class="ngWPAdminUI-filters-reset-button"><span class="material-icons">filter_list_off</span> Reset filters</button></div>');
+			}
 			
 			$filtersElements.each(function(){
 				// Vérifier que this est un élément DOM valide
@@ -116,8 +130,12 @@
 				$filtersPanelContent.append($clone);
 			});
 			
-			// Assembler le panel des filtres
-			$filtersPanel.append($filtersPanelHeader).append($filtersPanelContent).append($filtersResetButton);
+			// Assembler le panel des filtres/actions
+			$filtersPanel.append($filtersPanelHeader).append($filtersPanelContent);
+			// Ajouter le bouton de réinitialisation uniquement s'il existe (pour les filtres)
+			if ($filtersResetButton) {
+				$filtersPanel.append($filtersResetButton);
+			}
 			
 			// Configurer les gestionnaires d'événements
 			this.setupEventHandlers($filtersButton, $filtersPanel, $filtersOverlay, $filtersPanelContent, $nav);
@@ -139,26 +157,31 @@
 			$filtersButton.on('click', function(e){
 				e.preventDefault();
 				
-				// Définir le titre du panel à partir du bouton filtres
-				var filterButtonTitle = $filtersButton.attr('title') || 'Filters';
-				$filtersPanel.find('.ngWPAdminUI-filters-panel-title').text(filterButtonTitle);
+				// Définir le titre du panel à partir du bouton filtres/actions
+				var panelTitle = $filtersButton.attr('title') || 'Filters';
+				$filtersPanel.find('.ngWPAdminUI-filters-panel-title').text(panelTitle);
 				
 				$filtersPanel.addClass('ngWPAdminUI-filters-panel-open');
 				$filtersOverlay.addClass('ngWPAdminUI-filters-overlay-open');
 				$filtersButton.addClass('active');
 				
-				// Changer l'icône vers filter_list_off
-				$filtersButton.find('.material-icons').text('filter_list_off');
+				// Changer l'icône vers l'icône de fermeture selon le type
+				var panelType = $filtersButton.attr('title') || 'Filters';
+				var closeIcon = panelType === 'Actions' ? 'close' : 'filter_list_off';
+				$filtersButton.find('.material-icons').text(closeIcon);
 				
 				// Surbrillance des filtres actifs
 				window.FiltersPanel.highlightActiveFilters($filtersPanelContent);
 			});
 			
-			// Gérer le clic sur le bouton de réinitialisation
-			$filtersPanel.find('.ngWPAdminUI-filters-reset-button').on('click', function(e){
-				e.preventDefault();
-				window.FiltersPanel.resetAllFilters($filtersPanelContent, $nav, $filtersButton);
-			});
+			// Gérer le clic sur le bouton de réinitialisation (uniquement si le bouton existe)
+			var $resetButton = $filtersPanel.find('.ngWPAdminUI-filters-reset-button');
+			if ($resetButton.length > 0) {
+				$resetButton.on('click', function(e){
+					e.preventDefault();
+					window.FiltersPanel.resetAllFilters($filtersPanelContent, $nav, $filtersButton);
+				});
+			}
 			
 			$filtersPanel.find('.ngWPAdminUI-filters-close').on('click', function(e){
 				e.preventDefault();
@@ -189,8 +212,10 @@
 			$filtersOverlay.removeClass('ngWPAdminUI-filters-overlay-open');
 			$filtersButton.removeClass('active');
 			
-			// Changer l'icône vers filter_list
-			$filtersButton.find('.material-icons').text('filter_list');
+			// Restaurer l'icône selon le type (Actions ou Filters)
+			var panelType = $filtersButton.attr('title') || 'Filters';
+			var panelIcon = panelType === 'Actions' ? 'settings' : 'filter_list';
+			$filtersButton.find('.material-icons').text(panelIcon);
 		},
 		
 		/**
@@ -225,8 +250,18 @@
 		
 		/**
 		 * Met à jour le badge des filtres actifs
+		 * @param {jQuery} $filtersPanelContent - Contenu du panel
+		 * @param {jQuery} $filtersButton - Bouton de filtres/actions
 		 */
 		updateBadge: function($filtersPanelContent, $filtersButton) {
+			// Vérifier si le bouton a un badge (uniquement pour les filtres, pas pour les actions)
+			// Pourquoi: les actions n'ont pas besoin de badge/compteur
+			var $badge = $filtersButton.find('.ngWPAdminUI-filters-badge');
+			if ($badge.length === 0) {
+				// Pas de badge, c'est une action, ne rien faire
+				return;
+			}
+			
 			var activeFiltersCount = 0;
 			
 			// Compter les selects qui ne sont pas sur la première option
@@ -247,8 +282,7 @@
 				}
 			});
 			
-			// Mettre à jour le badge
-			var $badge = $filtersButton.find('.ngWPAdminUI-filters-badge');
+			// Mettre à jour le badge uniquement s'il existe
 			if (activeFiltersCount > 0) {
 				$badge.text(activeFiltersCount).show();
 			} else {

@@ -1,0 +1,149 @@
+/**
+ * WP Admin UI - Styles pour la page de création de post (post-new.php)
+ * Design moderne pour l'éditeur de contenu WordPress
+ */
+
+/* ========================================
+   PAGE POST-NEW.PHP - ÉDITEUR DE CONTENU
+   ======================================== */
+
+/* Container principal de l'éditeur */
+body.wp-admin.post-new-php {
+    /* Styles globaux pour la page */
+}
+
+/* Header de la page */
+body.wp-admin.post-new-php #wpbody-content {
+    /* Ajustements du contenu principal */
+}
+
+/* Zone de l'éditeur */
+body.wp-admin.post-new-php #post-body-content {
+    /* Styles pour la zone de contenu de l'éditeur */
+}
+
+/* Métaboxes */
+body.wp-admin.post-new-php .postbox {
+    /* Styles pour les métaboxes de l'éditeur */
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
+    border-radius: var(--ngWPAdminUI-modern-border-radius);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-light);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.wp-admin.post-new-php .postbox:hover {
+    box-shadow: var(--ngWPAdminUI-modern-shadow-medium);
+    transform: translateY(-1px);
+}
+
+/* Titre des métaboxes */
+body.wp-admin.post-new-php .postbox-header {
+    background: var(--ngWPAdminUI-modern-bg-secondary);
+    border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color);
+    padding: 12px 16px;
+}
+
+body.wp-admin.post-new-php .postbox-header h2 {
+    color: var(--ngWPAdminUI-modern-text-primary);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Contenu des métaboxes */
+body.wp-admin.post-new-php .inside {
+    padding: 16px;
+    background: var(--ngWPAdminUI-modern-bg-primary);
+}
+
+/* Champs de formulaire */
+body.wp-admin.post-new-php input[type="text"],
+body.wp-admin.post-new-php input[type="url"],
+body.wp-admin.post-new-php input[type="email"],
+body.wp-admin.post-new-php textarea,
+body.wp-admin.post-new-php select {
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: var(--ngWPAdminUI-modern-text-primary);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.wp-admin.post-new-php input[type="text"]:focus,
+body.wp-admin.post-new-php input[type="url"]:focus,
+body.wp-admin.post-new-php input[type="email"]:focus,
+body.wp-admin.post-new-php textarea:focus,
+body.wp-admin.post-new-php select:focus {
+    outline: none;
+    border-color: var(--ngWPAdminUI-modern-accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Boutons de l'éditeur */
+body.wp-admin.post-new-php .button,
+body.wp-admin.post-new-php .button-primary,
+body.wp-admin.post-new-php .button-secondary {
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-light);
+}
+
+body.wp-admin.post-new-php .button:hover,
+body.wp-admin.post-new-php .button-primary:hover,
+body.wp-admin.post-new-php .button-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-medium);
+}
+
+/* Zone de publication */
+body.wp-admin.post-new-php #submitdiv {
+    /* Styles pour la métaboxe de publication */
+}
+
+body.wp-admin.post-new-php #submitdiv .inside {
+    padding: 16px;
+}
+
+/* Bouton Publier */
+body.wp-admin.post-new-php #publish {
+    background: var(--ngWPAdminUI-modern-primary);
+    border-color: var(--ngWPAdminUI-modern-primary);
+    color: white;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.wp-admin.post-new-php #publish:hover {
+    background: var(--ngWPAdminUI-modern-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-medium);
+}
+
+/* Ajustement du line-height pour le bouton Publier dans la zone de publication */
+body.wp-admin.post-new-php #publishing-action #publish {
+    line-height: 0.6lh !important;
+}
+
+/* Barre latérale (sidebar) */
+body.wp-admin.post-new-php #side-sortables {
+    /* Styles pour la barre latérale */
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    body.wp-admin.post-new-php .postbox {
+        margin-bottom: 16px;
+    }
+    
+    body.wp-admin.post-new-php #submitdiv {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+    }
+}
+
