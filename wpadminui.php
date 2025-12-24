@@ -21,15 +21,10 @@ if (!defined('ABSPATH')) {
 }
 
 // Définition des constantes du plugin
-define('BI_PLUGIN_VERSION', '1.1.1');
+define('BI_PLUGIN_VERSION', '1.1.2');
 define('BI_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('BI_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('BI_PLUGIN_BASENAME', plugin_basename(__FILE__));
-
-// Inclusion du SDK Freemius
-if ( file_exists( dirname( __FILE__ ) . '/includes/freemius/start.php' ) ) {
-    require_once dirname( __FILE__ ) . '/includes/freemius/start.php';
-}
 
 /**
  * Classe principale du plugin WP Admin UI
@@ -668,8 +663,12 @@ WPAdminUI::get_instance();
 
 /**
  * Initialisation de Freemius
- * Intégration simple pour vérification de licence
- * Configuration de développement temporaire
+ * Configuration pour plugin SaaS avec 3 plans payants (différents nombres de licences)
+ * 
+ * IMPORTANT: Remplacer les valeurs ci-dessous par vos vraies clés depuis le dashboard Freemius
+ * - ID produit : Dashboard Freemius > Votre produit > Settings > Product ID
+ * - Clé publique : Dashboard Freemius > Votre produit > Settings > Public Key
+ * - Clé secrète : Dashboard Freemius > Votre produit > Settings > Secret Key (pour production)
  */
 if (file_exists(dirname(__FILE__) . '/includes/freemius/start.php')) {
     require_once dirname(__FILE__) . '/includes/freemius/start.php';
@@ -679,26 +678,39 @@ if (file_exists(dirname(__FILE__) . '/includes/freemius/start.php')) {
             global $ngWPAdminUI_fs;
 
             if (!isset($ngWPAdminUI_fs)) {
-                // Configuration de développement temporaire
-                // IMPORTANT: Remplacer par vos vraies clés Freemius en production
+                // Configuration Freemius
+                // Pourquoi: une seule version avec 3 plans payants (différents nombres de licences)
                 $ngWPAdminUI_fs = fs_dynamic_init(array(
-                    'id'                  => '12345', // ID temporaire pour développement
-                    'slug'                => 'wp-admin-ui',
-                    'premium_slug'        => 'wp-admin-ui-premium',
+                    // ID produit Freemius (à remplacer par votre ID réel)
+                    'id'                  => '22370',
+                    
+                    // Slug du plugin (doit correspondre au dossier du plugin)
+                    'slug'                => 'wpadminui',
+                    
+                    // Type de produit
                     'type'                => 'plugin',
-                    'public_key'          => 'pk_test_placeholder_key', // Clé temporaire
-                    'is_premium'          => false, // Mode développement = pas premium
-                    'premium_suffix'      => 'Pro',
-                    'has_premium_version' => false, // Désactivé pour développement
-                    'has_paid_plans'      => false, // Désactivé pour développement
+                    
+                    // Clé publique Freemius (à remplacer par votre clé publique réelle)
+                    'public_key'          => 'pk_9691792992fa2e7d9708b41305d43',
+                    
+                    // Une seule version (pas de freemium)
+                    'is_premium'          => true,
+                    'has_premium_version' => false,
+                    'has_paid_plans'      => true,
+                    
+                    // Conformité WordPress.org (false car plugin premium uniquement)
                     'is_org_compliant'    => false,
+                    
+                    // Menu d'administration
                     'menu'                => array(
                         'slug'           => 'wp-admin-ui',
                         'parent'         => array(
                             'slug' => 'tools.php',
                         ),
                     ),
-                    // Mode développement - pas de clé secrète nécessaire
+                    
+                    // Clé secrète (null en dev, à remplacer par votre clé secrète en production)
+                    // Pourquoi: la clé secrète est nécessaire pour les opérations sensibles
                     'secret_key'          => null,
                 ));
             }
@@ -706,9 +718,11 @@ if (file_exists(dirname(__FILE__) . '/includes/freemius/start.php')) {
             return $ngWPAdminUI_fs;
         }
 
-        // Init Freemius.
+        // Init Freemius
+        // Pourquoi: initialiser le SDK après la définition de la fonction
         ngWPAdminUI_fs();
-        // Signal that SDK was initiated.
+        
+        // Signal que le SDK a été initialisé
         do_action('ngWPAdminUI_fs_loaded');
     }
 } 

@@ -25,7 +25,9 @@
 .ngWPAdminUI-notices-container .notice-success,
 .ngWPAdminUI-notices-container .notice-error,
 .ngWPAdminUI-notices-container .notice-warning,
-.ngWPAdminUI-notices-container .notice-info {
+.ngWPAdminUI-notices-container .notice-info,
+/* Notices Freemius positionnées à droite */
+.ngWPAdminUI-notices-container .fs-notice {
     position: static !important;
     margin: 0 !important;
     width: 100%;
@@ -45,12 +47,17 @@
 .ngWPAdminUI-notices-container .notice-success.is-dismissible,
 .ngWPAdminUI-notices-container .notice-error.is-dismissible,
 .ngWPAdminUI-notices-container .notice-warning.is-dismissible,
-.ngWPAdminUI-notices-container .notice-info.is-dismissible {
+.ngWPAdminUI-notices-container .notice-info.is-dismissible,
+/* Notices Freemius avec bouton de fermeture */
+.ngWPAdminUI-notices-container .fs-notice.fs-sticky {
     position: relative !important;
 }
 
 /* Couleurs spécifiques pour chaque type de notice */
-.ngWPAdminUI-notices-container .notice-success {
+.ngWPAdminUI-notices-container .notice-success,
+/* Notices Freemius de type success */
+.ngWPAdminUI-notices-container .fs-notice.success,
+.ngWPAdminUI-notices-container .fs-notice.updated {
     background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
     border-left: 4px solid var(--ngWPAdminUI-modern-success);
 }
@@ -81,6 +88,44 @@
     background: rgba(255,255,255,0.25);
     border-radius: 50%;
     transition: background 0.2s;
+    cursor: pointer;
+}
+
+/* Bouton de fermeture Freemius (sans fond rond) */
+.ngWPAdminUI-notices-container .fs-notice .fs-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: var(--ngWPAdminUI-modern-text-muted);
+    font-size: 1.2em;
+    background: transparent !important;
+    border-radius: 0;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+/* Style spécifique pour le bouton de fermeture Freemius */
+.ngWPAdminUI-notices-container .fs-notice .fs-close {
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cacher le texte "Dismiss" dans le bouton de fermeture Freemius */
+.ngWPAdminUI-notices-container .fs-notice .fs-close span {
+    display: none !important;
+}
+
+.ngWPAdminUI-notices-container .fs-notice .fs-close:hover {
+    background: transparent !important;
+    color: var(--ngWPAdminUI-modern-text-primary);
+}
+
+.ngWPAdminUI-notices-container .fs-notice .fs-close .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
 }
 
 /* Titre du contexte (thème) dans les notices */
@@ -101,9 +146,46 @@
     margin: 0;
 }
 
+/* Styles spécifiques pour les notices Freemius */
+.ngWPAdminUI-notices-container .fs-notice {
+    padding: 12px 40px 12px 12px !important;
+    background-color: var(--ngWPAdminUI-modern-bg-primary) !important;
+    background: var(--ngWPAdminUI-modern-bg-primary) !important;
+    opacity: 1 !important;
+}
+
+/* Titre du plugin dans les notices Freemius */
+.ngWPAdminUI-notices-container .fs-notice .fs-plugin-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ngWPAdminUI-modern-text-primary);
+    margin-bottom: 8px;
+    display: block !important;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color);
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Corps de la notice Freemius */
+.ngWPAdminUI-notices-container .fs-notice .fs-notice-body {
+    color: var(--ngWPAdminUI-modern-text-primary);
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+}
+
+.ngWPAdminUI-notices-container .fs-notice .fs-notice-body strong {
+    color: var(--ngWPAdminUI-modern-text-primary);
+    font-weight: 600;
+}
+
 /* Effet hover sur les notices */
-.ngWPAdminUI-notices-container .notice {
-    background-color: rgba(255, 255, 255, 0.85) !important;
+.ngWPAdminUI-notices-container .notice,
+/* Notices Freemius avec fond opaque */
+.ngWPAdminUI-notices-container .fs-notice {
+    background-color: rgba(255, 255, 255, 0.95) !important;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -184,7 +266,8 @@
     .ngWPAdminUI-notices-container .notice-success,
     .ngWPAdminUI-notices-container .notice-error,
     .ngWPAdminUI-notices-container .notice-warning,
-    .ngWPAdminUI-notices-container .notice-info {
+    .ngWPAdminUI-notices-container .notice-info,
+    .ngWPAdminUI-notices-container .fs-notice {
         max-width: calc(100vw - 16px);
         font-size: 14px;
     }

@@ -1269,6 +1269,33 @@
 				return;
 			}
 			
+			// Pourquoi: vérifier que la notice n'est pas vide avant de la déplacer
+			// Vérifier si la notice a du contenu visible
+			var hasContent = false;
+			
+			// Vérifier le texte direct
+			var textContent = $notice.text().trim();
+			if (textContent.length > 0) {
+				hasContent = true;
+			}
+			
+			// Vérifier les éléments de contenu spécifiques
+			if (!$notice.find('.notice-dismiss, .fs-close').length || 
+				$notice.find('p, .notice-body, .fs-notice-body, .notice-content, .fs-notice-body').length > 0 ||
+				$notice.find('.fs-plugin-title').length > 0) {
+				// Si la notice a un contenu ou un titre, elle n'est pas vide
+				var bodyContent = $notice.find('.notice-body, .fs-notice-body, .notice-content, p').text().trim();
+				var titleContent = $notice.find('.fs-plugin-title, .notice-title').text().trim();
+				if (bodyContent.length > 0 || titleContent.length > 0 || textContent.length > 10) {
+					hasContent = true;
+				}
+			}
+			
+			// Si la notice est vide, ne pas la déplacer
+			if (!hasContent) {
+				return;
+			}
+			
 			// Extraire le nom du thème si la notice est dans un div.theme
 			var $themeDiv = $notice.closest('.theme');
 			if ($themeDiv.length > 0) {
@@ -1296,12 +1323,14 @@
 						var $node = $(node);
 						
 						// Vérifier si c'est une notice ou contient des notices
-						if ($node.hasClass('notice') || $node.hasClass('notice-success') || $node.hasClass('notice-error') || $node.hasClass('notice-warning') || $node.hasClass('notice-info')) {
+						// Pourquoi: inclure les notices WordPress standard et les notices Freemius
+						if ($node.hasClass('notice') || $node.hasClass('notice-success') || $node.hasClass('notice-error') || $node.hasClass('notice-warning') || $node.hasClass('notice-info') || $node.hasClass('fs-notice')) {
 							moveNoticeToContainer($node);
 						}
 						
 						// Chercher des notices dans les enfants
-						$node.find('.notice, .notice-success, .notice-error, .notice-warning, .notice-info').each(function() {
+						// Pourquoi: détecter les notices WordPress et Freemius dans les éléments enfants
+						$node.find('.notice, .notice-success, .notice-error, .notice-warning, .notice-info, .fs-notice').each(function() {
 							moveNoticeToContainer($(this));
 						});
 					}
@@ -1316,7 +1345,8 @@
 		});
 
 		// Déplacer les notices existantes
-		$('.notice, .notice-success, .notice-error, .notice-warning, .notice-info').each(function() {
+		// Pourquoi: inclure les notices WordPress standard et les notices Freemius au chargement
+		$('.notice, .notice-success, .notice-error, .notice-warning, .notice-info, .fs-notice').each(function() {
 			moveNoticeToContainer($(this));
 		});
 	};

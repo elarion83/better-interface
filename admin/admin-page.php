@@ -118,10 +118,7 @@ $custom_js = get_option('bi_custom_js', '');
             <div class="ngWPAdminUI-actions">
                 <button type="button" class="button ngWPAdminUI-reset-all">
                     <?php _e('Réinitialiser tous les paramètres', 'wp-admin-ui'); ?>
-                </button>
-                <a href="https://github.com/elarion83/wp-admin-ui" target="_blank" class="button">
-                    <?php _e('Documentation', 'wp-admin-ui'); ?>
-                </a>
+                </button> 
             </div>
         </div>
     </div>
