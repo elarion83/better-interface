@@ -3,7 +3,7 @@
  * Plugin Name: WP Admin UI
  * Plugin URI: https://wpadminui.com
  * Description: Modernize the WordPress admin interface with a modern and transformed design
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Nicolas Gruwe
  * Author URI: https://nicolasgruwe.fr
  * License: GPL v2 or later
