@@ -6,7 +6,7 @@
 	window.SearchModal = {
 		/**
 		 * Crée la modale de recherche et le bouton associé
-		 * @param {Object} self - Référence à l'instance BetterInterfaceAdmin
+		 * @param {Object} self - Référence à l'instance WPAdminUI
 		 * @returns {Object} - Objet contenant $searchModal et $searchButton
 		 */
 		create: function(self) {

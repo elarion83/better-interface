@@ -148,7 +148,5 @@ var ngWPAdminUI_CustomActions = {
 };
 
 // Exposer la variable globalement pour qu'elle soit accessible
-// Pourquoi: permettre à ActionButtons.js d'accéder à la configuration
+// Pourquoi: permettre à ActionButtons.js d'accéder à la configuration via WPAdminUI.Config
 window.ngWPAdminUI_CustomActions = ngWPAdminUI_CustomActions;
-// Alias pour compatibilité avec l'ancien nom
-window.ngBetterInterfaceCustomActions = ngWPAdminUI_CustomActions;

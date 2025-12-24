@@ -1,19 +1,21 @@
 (function($){
-	// BetterInterfaceAdmin: gère les interactions de la page d'admin
-	// Pourquoi: utiliser la variable localisée correcte ngWPAdminUI_ajax pour correspondre à la configuration PHP
-	function BetterInterfaceAdmin(){
-		this.currentMode = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.current_mode) || 'default';
-		this.availableModes = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.available_modes) || {};
-		this.currentColorTheme = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.current_color_theme) || 'midnight';
-		this.availableColorThemes = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.available_color_themes) || {};
-		this.ajaxUrl = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.ajax_url) || ajaxurl;
-		this.nonce = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.nonce) || '';
+	// WPAdminUI: gère les interactions de la page d'admin
+	// Pourquoi: utiliser la configuration centralisée WPAdminUI.Config pour accéder aux données
+	function WPAdminUI(){
+		var ajaxData = window.WPAdminUI && window.WPAdminUI.Config ? window.WPAdminUI.Config.getAjaxData() : {};
+		
+		this.currentMode = ajaxData.current_mode || 'default';
+		this.availableModes = ajaxData.available_modes || {};
+		this.currentColorTheme = ajaxData.current_color_theme || 'midnight';
+		this.availableColorThemes = ajaxData.available_color_themes || {};
+		this.ajaxUrl = ajaxData.ajax_url || (typeof ajaxurl !== 'undefined' ? ajaxurl : '');
+		this.nonce = ajaxData.nonce || '';
 
 		this.selectedMode = null;
 		this.selectedTheme = null;
 	}
 
-	BetterInterfaceAdmin.prototype.init = function(){
+	WPAdminUI.prototype.init = function(){
 		this.initAccordionTables();
 		this.bindRowBackgroundSelect();
 		this.bindRowCheckboxSync();
@@ -25,7 +27,7 @@
 
 
 	// ===== Barre d'actions flottante =====
-	BetterInterfaceAdmin.prototype.initAccordionTables = function(){
+	WPAdminUI.prototype.initAccordionTables = function(){
 		var self = this;
 		$('.tablenav.top').each(function(){
 			var $nav = $(this);
@@ -40,14 +42,14 @@
 		});
 	};
 
-	BetterInterfaceAdmin.prototype.isInteractive = function($el){
+	WPAdminUI.prototype.isInteractive = function($el){
 		return $el.is('button, input, select, textarea, a, label, [contenteditable="true"]') || $el.closest('button, input, select, textarea, a, label, [contenteditable="true"]').length > 0;
 	};
 
 
 
 			// Créer une barre d'actions flottante en bas de l'écran
-		BetterInterfaceAdmin.prototype.createFloatingActionBar = function($nav){
+		WPAdminUI.prototype.createFloatingActionBar = function($nav){
 			var self = this;
 			
 			// Créer le container de la barre flottante
@@ -67,8 +69,8 @@
 			var $deleteAllButtonCustom = actionButtonsResult.$deleteAllButtonCustom;
 			
 			// Récupérer customActions pour FiltersPanel
-			// Pourquoi: utiliser la variable correcte ngWPAdminUI_CustomActions qui correspond au fichier customActionsButtons.js
-			var customActions = window.ngWPAdminUI_CustomActions || window.ngBetterInterfaceCustomActions || {};
+			// Pourquoi: utiliser la configuration centralisée pour accéder aux actions personnalisées
+			var customActions = window.WPAdminUI && window.WPAdminUI.Config ? window.WPAdminUI.Config.getCustomActions() : {};
 			
 			// Ajouter le bouton delete_all à gauche du compteur s'il existe
 			if ($deleteAllButtonCustom) {
@@ -191,29 +193,36 @@
 	};
 
 	// Mettre à jour l'état de la barre flottante (activer/désactiver les actions)
-	BetterInterfaceAdmin.prototype.updateFloatingBarState = function(){
-		var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
+	// Pourquoi: utiliser la configuration centralisée pour les sélecteurs et classes
+	WPAdminUI.prototype.updateFloatingBarState = function(){
+		var Config = window.WPAdminUI && window.WPAdminUI.Config ? window.WPAdminUI.Config : {};
+		var selectors = Config.selectors || {};
+		var classes = Config.classes || {};
+		var timings = Config.timings || {};
+		
+		// Utiliser les sélecteurs de la config centralisée
+		var selectedCount = $(selectors.listTableCheckboxChecked || '.wp-list-table tbody input[type="checkbox"]:checked').length;
 		var hasSelectedItems = selectedCount > 0;
-		var $actions = $('.ngWPAdminUI-floating-actions button, .ngWPAdminUI-floating-actions input[type="submit"], .ngWPAdminUI-floating-actions select');
-		var $customButtons = $('.ngWPAdminUI-trash-button, .ngWPAdminUI-edit-button, .ngWPAdminUI-update-button, .ngWPAdminUI-delete-all-button');
-		var $counter = $('.ngWPAdminUI-selection-counter');
+		var $actions = $(selectors.actions || '.ngWPAdminUI-floating-actions button, .ngWPAdminUI-floating-actions input[type="submit"], .ngWPAdminUI-floating-actions select');
+		var $customButtons = $(selectors.customButtons || '.ngWPAdminUI-trash-button, .ngWPAdminUI-edit-button, .ngWPAdminUI-update-button, .ngWPAdminUI-delete-all-button');
+		var $counter = $(selectors.selectionCounter || '.ngWPAdminUI-selection-counter');
 		
 		// Vérifier si une case "sélectionner tout" est cochée
-		var $selectAll1 = $('#cb-select-all-1');
-		var $selectAll2 = $('#cb-select-all-2');
+		var $selectAll1 = $(selectors.selectAll1 || '#cb-select-all-1');
+		var $selectAll2 = $(selectors.selectAll2 || '#cb-select-all-2');
 		var isFullySelected = ($selectAll1.length > 0 && $selectAll1.is(':checked')) || ($selectAll2.length > 0 && $selectAll2.is(':checked'));
 		
 		// Ajouter/retirer la classe à la table selon l'état de sélection
-		var $table = $('.wp-list-table');
+		var $table = $(selectors.listTable || '.wp-list-table');
 		if (isFullySelected) {
-			$table.addClass('ngWPAdminUI-table-full-selected');
+			$table.addClass(classes.tableFullSelected || 'ngWPAdminUI-table-full-selected');
 		} else {
-			$table.removeClass('ngWPAdminUI-table-full-selected');
+			$table.removeClass(classes.tableFullSelected || 'ngWPAdminUI-table-full-selected');
 		}
 		
 		// Récupérer le nombre total d'éléments depuis .displaying-num
 		var totalItems = 0;
-		var $displayingNum = $('.displaying-num');
+		var $displayingNum = $(selectors.displayingNum || '.displaying-num');
 		if ($displayingNum.length > 0) {
 			var displayingText = $displayingNum.text().trim();
 			// Extraire le nombre du texte (gère différents formats)
@@ -228,7 +237,7 @@
 		
 		// Récupérer le nom des éléments depuis le titre de la page
 		var itemName = 'selection';
-		var $pageTitle = $('h1.wp-heading-inline');
+		var $pageTitle = $(selectors.pageTitle || 'h1.wp-heading-inline');
 		if ($pageTitle.length > 0) {
 			itemName = $pageTitle.text().trim().toLowerCase();
 			// Nettoyer le nom (retirer les pluriels, articles, etc.)
@@ -236,8 +245,8 @@
 		}
 		
 		// Mettre à jour le compteur avec effet de défilement
-		var $counterNumber = $counter.find('.ngWPAdminUI-counter-number');
-		var $counterText = $counter.find('.ngWPAdminUI-counter-text');
+		var $counterNumber = $counter.find(selectors.counterNumber || '.ngWPAdminUI-counter-number');
+		var $counterText = $counter.find(selectors.counterText || '.ngWPAdminUI-counter-text');
 		var currentValue = $counterNumber.text();
 		var currentText = $counterText.text();
 		
@@ -254,50 +263,50 @@
 		// Vérifier si la valeur ou le texte a changé
 		if (currentValue !== displayValue.toString() || currentText !== displayText) {
 			// Ajouter la classe pour l'animation
-			$counterNumber.addClass('counter-changing');
+			$counterNumber.addClass(classes.counterChanging || 'counter-changing');
 			
 			// Mettre à jour la valeur et le texte après un court délai pour déclencher l'animation
 			setTimeout(function(){
 				$counterNumber.text(displayValue);
 				$counterText.text(displayText);
-				$counterNumber.removeClass('counter-changing');
-			}, 50);
+				$counterNumber.removeClass(classes.counterChanging || 'counter-changing');
+			}, timings.counterAnimation || 50);
 		}
 		
 		// Vérifier s'il y a des filtres actifs
-		var hasActiveFilters = $('.ngWPAdminUI-filters-panel-content').children().length > 0;
+		var hasActiveFilters = $(selectors.filtersPanelContent || '.ngWPAdminUI-filters-panel-content').children().length > 0;
 		
 		// Vérifier s'il y a des boutons toujours visibles
-		var hasAlwaysVisibleButtons = $('[data-always-visible="true"]').length > 0;
+		var hasAlwaysVisibleButtons = $(selectors.alwaysVisibleButtons || '[data-always-visible="true"]').length > 0;
 		
 		// Vérifier s'il y a des boutons dans la barre (ajouter, recherche, filtres, etc.)
-		var hasButtonsInBar = $('.ngWPAdminUI-add-button, .ngWPAdminUI-search-button, .ngWPAdminUI-filters-button, .ngWPAdminUI-delete-all-button, .ngWPAdminUI-modern-pagination').length > 0;
+		var hasButtonsInBar = $(selectors.addButton + ', ' + selectors.searchButton + ', ' + selectors.filtersButton + ', ' + selectors.deleteAllButton + ', ' + selectors.modernPagination || '.ngWPAdminUI-add-button, .ngWPAdminUI-search-button, .ngWPAdminUI-filters-button, .ngWPAdminUI-delete-all-button, .ngWPAdminUI-modern-pagination').length > 0;
 		
 		// Afficher/masquer la barre selon les conditions avec animation
-		var $floatingBar = $('.ngWPAdminUI-floating-action-bar');
+		var $floatingBar = $(selectors.floatingBar || '.ngWPAdminUI-floating-action-bar');
 		if (hasSelectedItems || hasActiveFilters || hasAlwaysVisibleButtons || hasButtonsInBar) {
-			$floatingBar.removeClass('slide-out').addClass('slide-in');
+			$floatingBar.removeClass(classes.slideOut || 'slide-out').addClass(classes.slideIn || 'slide-in');
 		} else {
-			$floatingBar.removeClass('slide-in').addClass('slide-out');
+			$floatingBar.removeClass(classes.slideIn || 'slide-in').addClass(classes.slideOut || 'slide-out');
 		}
 		
 		if (hasSelectedItems) {
-			$actions.prop('disabled', false).removeClass('disabled');
-			$customButtons.prop('disabled', false).removeClass('disabled');
-			$counter.addClass('has-selection');
+			$actions.prop('disabled', false).removeClass(classes.disabled || 'disabled');
+			$customButtons.prop('disabled', false).removeClass(classes.disabled || 'disabled');
+			$counter.addClass(classes.hasSelection || 'has-selection');
 		} else {
-			$actions.prop('disabled', true).addClass('disabled');
+			$actions.prop('disabled', true).addClass(classes.disabled || 'disabled');
 			// Désactiver seulement les boutons qui ne sont pas toujours visibles
-			$customButtons.not('[data-always-visible="true"]').prop('disabled', true).addClass('disabled');
-			$counter.removeClass('has-selection');
+			$customButtons.not(selectors.alwaysVisibleButtons || '[data-always-visible="true"]').prop('disabled', true).addClass(classes.disabled || 'disabled');
+			$counter.removeClass(classes.hasSelection || 'has-selection');
 		}
 		
 		// Le bouton filtres et les boutons toujours visibles restent actifs
-		$('.ngWPAdminUI-filters-button, [data-always-visible="true"]').prop('disabled', false).removeClass('disabled');
+		$(selectors.filtersButton + ', ' + selectors.alwaysVisibleButtons || '.ngWPAdminUI-filters-button, [data-always-visible="true"]').prop('disabled', false).removeClass(classes.disabled || 'disabled');
 	};
 
 	// Pourquoi: améliorer l'ergonomie des listes WP; un clic sur l'arrière-plan d'une ligne toggle la première case à cocher
-	BetterInterfaceAdmin.prototype.bindRowBackgroundSelect = function(){
+	WPAdminUI.prototype.bindRowBackgroundSelect = function(){
 		var self = this;
 		$(document).on('click', '.wp-list-table tbody tr', function(e){
 			var $target = $(e.target);
@@ -312,7 +321,7 @@
 	};
 
 	// Pourquoi: garder l'état visuel de sélection en phase avec les cases à cocher (sélections individuelles et "tout sélectionner")
-	BetterInterfaceAdmin.prototype.bindRowCheckboxSync = function(){
+	WPAdminUI.prototype.bindRowCheckboxSync = function(){
 		var self = this;
 		// Cases par ligne
 		$(document).on('change', '.wp-list-table tbody tr input[type="checkbox"]', function(){
@@ -332,12 +341,12 @@
 	};
 
 	// Met à jour la classe de sélection sur la ligne (pour les styles modernes)
-	BetterInterfaceAdmin.prototype.updateRowSelectedState = function($row, isSelected){
+	WPAdminUI.prototype.updateRowSelectedState = function($row, isSelected){
 		$row.toggleClass('ngWPAdminUI-row-selected', !!isSelected);
 	};
 
 	// À l'init: synchroniser l'état visuel des lignes déjà sélectionnées
-	BetterInterfaceAdmin.prototype.initializeSelectedRowsState = function(){
+	WPAdminUI.prototype.initializeSelectedRowsState = function(){
 		var self = this;
 		$('.wp-list-table tbody tr').each(function(){
 			var $row = $(this);
@@ -350,7 +359,7 @@
 
 	// ===== TRANSITION DE PAGE SMOOTH =====
 	// Pourquoi: créer une transition fluide lors des changements de page pour une meilleure UX
-	BetterInterfaceAdmin.prototype.initPageTransition = function(){
+	WPAdminUI.prototype.initPageTransition = function(){
 		var self = this;
 		
 		// Créer l'overlay de transition s'il n'existe pas
@@ -415,13 +424,13 @@
 	};
 
 	// Afficher l'overlay de transition
-	BetterInterfaceAdmin.prototype.showPageTransition = function(){
+	WPAdminUI.prototype.showPageTransition = function(){
 		$('.ngWPAdminUI-page-transition-overlay').addClass('active');
 	};
 
 	// ===== SYSTÈME DE POSITIONNEMENT DES NOTICES =====
 	// Pourquoi: organiser les notices WordPress en colonne verticale à droite pour éviter les superpositions
-	BetterInterfaceAdmin.prototype.initNoticesPositioning = function(){
+	WPAdminUI.prototype.initNoticesPositioning = function(){
 		var self = this;
 		
 		// Vérifier si on est sur une page d'édition avec le block editor
@@ -527,7 +536,7 @@
 	 * Détecte le type de posts actuellement affiché
 	 * Utilise les mécanismes WordPress natifs pour identifier le contexte
 	 */
-	BetterInterfaceAdmin.prototype.detectCurrentPostType = function(){
+	WPAdminUI.prototype.detectCurrentPostType = function(){
 		// Méthode 1: Via l'URL (le plus fiable)
 		var urlParams = new URLSearchParams(window.location.search);
 		var postType = urlParams.get('post_type');
@@ -600,7 +609,7 @@
 	 * Récupère les suggestions de recherche via AJAX
 	 * Utilise l'endpoint WordPress natif pour une recherche optimisée
 	 */
-	BetterInterfaceAdmin.prototype.fetchSearchSuggestions = function(query, postType, $container){
+	WPAdminUI.prototype.fetchSearchSuggestions = function(query, postType, $container){
 		var self = this;
 		
 		// Debug temporaire
@@ -642,7 +651,7 @@
 	 * Affiche les suggestions de recherche dans le container
 	 * Crée une interface utilisateur moderne et accessible
 	 */
-	BetterInterfaceAdmin.prototype.displaySearchSuggestions = function(suggestions, $container, query){
+	WPAdminUI.prototype.displaySearchSuggestions = function(suggestions, $container, query){
 		var self = this;
 		var html = '<div class="ngWPAdminUI-suggestions-title">Suggestions</div><div class="ngWPAdminUI-suggestions-list">';
 		
@@ -718,6 +727,6 @@
 	};
 
 	$(function(){
-		(new BetterInterfaceAdmin()).init();
+		(new WPAdminUI()).init();
 	});
 })(jQuery); 

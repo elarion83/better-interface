@@ -11,9 +11,9 @@
 		 * @returns {Object} - Objet contenant $deleteAllButtonCustom et les gestionnaires d'événements
 		 */
 		create: function($nav, $actionsContainer) {
-			// Utiliser la configuration des actions personnalisées depuis le fichier externe
-			// Pourquoi: utiliser la variable correcte ngWPAdminUI_CustomActions qui correspond au fichier customActionsButtons.js
-			var customActions = window.ngWPAdminUI_CustomActions || window.ngBetterInterfaceCustomActions || {};
+			// Utiliser la configuration des actions personnalisées depuis la config centralisée
+			// Pourquoi: utiliser la configuration centralisée pour accéder aux actions personnalisées
+			var customActions = window.WPAdminUI && window.WPAdminUI.Config ? window.WPAdminUI.Config.getCustomActions() : {};
 			
 			// Ajouter le bouton delete_all s'il existe
 			var $deleteAllButton = $nav.find('#delete_all');

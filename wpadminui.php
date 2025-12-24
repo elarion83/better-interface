@@ -210,11 +210,20 @@ class WPAdminUI {
         );
         
         
+        // Charger le fichier de configuration centralisé (toujours chargé en premier)
+        wp_enqueue_script(
+            'wp-admin-ui-config',
+            WPAUI_PLUGIN_URL . 'assets/js/config.js',
+            ['jquery'],
+            WPAUI_PLUGIN_VERSION,
+            true
+        );
+        
         // Script de sélection de mode/thème - toujours chargé
         wp_enqueue_script(
             'wp-admin-ui-mode-selector',
             WPAUI_PLUGIN_URL . 'assets/js/mode-selector.js',
-            ['jquery'],
+            ['jquery', 'wp-admin-ui-config'],
             WPAUI_PLUGIN_VERSION,
             true
         );
@@ -241,7 +250,7 @@ class WPAdminUI {
             wp_enqueue_script(
                 'wp-admin-ui-selection-counter',
                 WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/SelectionCounter.js',
-                ['jquery'],
+                ['jquery', 'wp-admin-ui-config'],
                 WPAUI_PLUGIN_VERSION,
                 true
             );
@@ -285,7 +294,7 @@ class WPAdminUI {
             wp_enqueue_script(
                 'wp-admin-ui-admin',
                 WPAUI_PLUGIN_URL . 'assets/js/admin.js',
-                ['jquery', 'wp-admin-ui-selection-counter', 'wp-admin-ui-add-button', 'wp-admin-ui-action-buttons', 'wp-admin-ui-search-modal', 'wp-admin-ui-filters-panel', 'wp-admin-ui-pagination'],
+                ['jquery', 'wp-admin-ui-config', 'wp-admin-ui-selection-counter', 'wp-admin-ui-add-button', 'wp-admin-ui-action-buttons', 'wp-admin-ui-search-modal', 'wp-admin-ui-filters-panel', 'wp-admin-ui-pagination'],
                 WPAUI_PLUGIN_VERSION,
                 true
             );
