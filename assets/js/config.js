@@ -122,7 +122,8 @@
 			pageTransition: 300,
 			counterAnimation: 50,
 			searchDebounce: 300,
-			resizeDebounce: 250
+			resizeDebounce: 250,
+			noticeAnimation: 300 // Délai d'animation pour les notices (fermeture, etc.)
 		},
 		
 		/**
@@ -236,6 +237,52 @@
 			return ajaxData.i18n[key];
 		}
 		return WPAdminUI.Config.messages[key] || '';
+	};
+	
+	/**
+	 * Fonction debounce pour limiter l'exécution d'une fonction
+	 * Pourquoi: optimiser les performances en limitant les appels fréquents (resize, input, etc.)
+	 * @param {Function} func - Fonction à exécuter
+	 * @param {Number} wait - Délai d'attente en millisecondes
+	 * @param {Boolean} immediate - Si true, exécute immédiatement puis attend
+	 * @returns {Function} Fonction debounced
+	 */
+	WPAdminUI.Config.debounce = function(func, wait, immediate) {
+		var timeout;
+		return function() {
+			var context = this;
+			var args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
+			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
+		};
+	};
+	
+	/**
+	 * Fonction throttle pour limiter l'exécution d'une fonction
+	 * Pourquoi: optimiser les performances en limitant la fréquence d'exécution
+	 * @param {Function} func - Fonction à exécuter
+	 * @param {Number} limit - Délai minimum entre deux exécutions en millisecondes
+	 * @returns {Function} Fonction throttled
+	 */
+	WPAdminUI.Config.throttle = function(func, limit) {
+		var inThrottle;
+		return function() {
+			var args = arguments;
+			var context = this;
+			if (!inThrottle) {
+				func.apply(context, args);
+				inThrottle = true;
+				setTimeout(function() {
+					inThrottle = false;
+				}, limit);
+			}
+		};
 	};
 	
 })(window);

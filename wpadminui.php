@@ -3,7 +3,7 @@
  * Plugin Name: WP Admin UI
  * Plugin URI: https://wpadminui.com
  * Description: Modernize the WordPress admin interface with a modern and transformed design
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Nicolas Gruwe
  * Author URI: https://nicolasgruwe.fr
  * License: GPL v2 or later
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Définition des constantes du plugin
-define('WPAUI_PLUGIN_VERSION', '1.1.3');
+define('WPAUI_PLUGIN_VERSION', '1.1.4');
 define('WPAUI_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('WPAUI_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('WPAUI_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -285,7 +285,14 @@ class WPAdminUI {
             wp_enqueue_script(
                 'wp-admin-ui-pagination',
                 WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/Pagination.js',
-                ['jquery'],
+                ['jquery', 'wp-admin-ui-config'],
+                WPAUI_PLUGIN_VERSION,
+                true
+            );
+            wp_enqueue_script(
+                'wp-admin-ui-notices-manager',
+                WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/NoticesManager.js',
+                ['jquery', 'wp-admin-ui-config'],
                 WPAUI_PLUGIN_VERSION,
                 true
             );
@@ -294,7 +301,7 @@ class WPAdminUI {
             wp_enqueue_script(
                 'wp-admin-ui-admin',
                 WPAUI_PLUGIN_URL . 'assets/js/admin.js',
-                ['jquery', 'wp-admin-ui-config', 'wp-admin-ui-selection-counter', 'wp-admin-ui-add-button', 'wp-admin-ui-action-buttons', 'wp-admin-ui-search-modal', 'wp-admin-ui-filters-panel', 'wp-admin-ui-pagination'],
+                ['jquery', 'wp-admin-ui-config', 'wp-admin-ui-selection-counter', 'wp-admin-ui-add-button', 'wp-admin-ui-action-buttons', 'wp-admin-ui-search-modal', 'wp-admin-ui-filters-panel', 'wp-admin-ui-pagination', 'wp-admin-ui-notices-manager'],
                 WPAUI_PLUGIN_VERSION,
                 true
             );
@@ -517,8 +524,17 @@ class WPAdminUI {
         if (!wp_verify_nonce($_POST['nonce'], 'ngWPAdminUI_nonce')) {
             wp_die(__('Security violation', 'wp-admin-ui'));
         }
-        if (!current_user_can('edit_posts')) {
-            wp_die(__('Insufficient permissions', 'wp-admin-ui'));
+        // Vérifier les permissions selon le type de recherche
+        // Pourquoi: les utilisateurs nécessitent la capacité 'list_users', les posts 'edit_posts'
+        $post_type = sanitize_text_field($_POST['post_type'] ?? 'post');
+        if ($post_type === 'user') {
+            if (!current_user_can('list_users')) {
+                wp_die(__('Insufficient permissions', 'wp-admin-ui'));
+            }
+        } else {
+            if (!current_user_can('edit_posts')) {
+                wp_die(__('Insufficient permissions', 'wp-admin-ui'));
+            }
         }
 
         $query = sanitize_text_field($_POST['query'] ?? '');
@@ -527,6 +543,40 @@ class WPAdminUI {
 
         if (empty($query) || strlen($query) < 2) {
             wp_send_json_success(['suggestions' => []]);
+        }
+
+        // Pour les utilisateurs, utiliser une approche différente
+        if ($post_type === 'user') {
+            // Recherche dans les utilisateurs
+            // Pourquoi: utiliser get_users() pour rechercher dans les utilisateurs WordPress
+            $users = get_users([
+                'search' => '*' . esc_attr($query) . '*',
+                'search_columns' => ['user_login', 'user_nicename', 'user_email', 'display_name'],
+                'number' => $limit,
+                'orderby' => 'display_name',
+                'order' => 'ASC'
+            ]);
+            
+            $suggestions = [];
+            foreach ($users as $user) {
+                $suggestions[] = [
+                    'id' => $user->ID,
+                    'title' => $user->display_name . ' (' . $user->user_login . ')',
+                    'status' => 'active',
+                    'date' => $user->user_registered,
+                    'edit_url' => admin_url('user-edit.php?user_id=' . $user->ID),
+                    'context' => $user->user_email,
+                    'type' => 'user',
+                    'role' => !empty($user->roles) ? implode(', ', $user->roles) : ''
+                ];
+            }
+            
+            wp_send_json_success([
+                'suggestions' => $suggestions,
+                'query' => $query,
+                'post_type' => $post_type,
+                'total' => count($suggestions)
+            ]);
         }
 
         // Utiliser WP_Query pour récupérer les posts correspondants

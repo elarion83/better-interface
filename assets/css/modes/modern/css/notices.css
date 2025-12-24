@@ -12,11 +12,14 @@
     position: fixed;
     bottom: 95px;
     right: 12px;
+    left: auto;
     z-index: 999999;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-width: 360px;
+    width: auto;
+    min-width: 320px;
+    max-width: min(360px, calc(100vw - 24px));
     pointer-events: none;
 }
 
@@ -251,10 +254,330 @@
 }
 
 /* ========================================
+   NOTICES PREMIUM - DESIGN MODERNE
+   ======================================== */
+
+/* Notice premium - Structure de base */
+.ngWPAdminUI-premium-notice {
+    position: relative !important;
+    margin: 0 !important;
+    padding: 16px 48px 16px 20px !important;
+    width: 100%;
+    max-width: 360px;
+    min-width: 320px;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 12px !important;
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        0 4px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(20px) scale(0.95);
+    pointer-events: auto;
+}
+
+/* Animation d'entrée */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-visible {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
+
+/* Animation de fermeture */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-closing {
+    opacity: 0 !important;
+    transform: translateX(100px) scale(0.8) !important;
+    margin-bottom: -100% !important;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    pointer-events: none !important;
+}
+
+/* Contenu de la notice premium */
+.ngWPAdminUI-premium-notice-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Titre de la notice premium */
+.ngWPAdminUI-premium-notice-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--ngWPAdminUI-modern-text-primary);
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Icône dans le titre */
+.ngWPAdminUI-notice-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Texte du titre */
+.ngWPAdminUI-notice-title-text {
+    flex: 1;
+}
+
+/* Couleurs des icônes selon le type de notice */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-success .ngWPAdminUI-notice-icon {
+    color: #10b981;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-error .ngWPAdminUI-notice-icon {
+    color: #ef4444;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-warning .ngWPAdminUI-notice-icon {
+    color: #f59e0b;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-info .ngWPAdminUI-notice-icon {
+    color: #3b82f6;
+}
+
+/* Texte de la notice premium */
+.ngWPAdminUI-premium-notice-text {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--ngWPAdminUI-modern-text-secondary);
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+/* Liens dans les notices premium */
+.ngWPAdminUI-premium-notice-text a {
+    color: var(--ngWPAdminUI-modern-primary, #6366f1);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ngWPAdminUI-premium-notice-text a:hover {
+    color: var(--ngWPAdminUI-modern-primary, #4f46e5);
+    border-bottom-color: var(--ngWPAdminUI-modern-primary, #4f46e5);
+}
+
+/* Liens dans les notices success */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-success .ngWPAdminUI-premium-notice-text a {
+    color: #10b981;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-success .ngWPAdminUI-premium-notice-text a:hover {
+    color: #059669;
+    border-bottom-color: #059669;
+}
+
+/* Liens dans les notices error */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-error .ngWPAdminUI-premium-notice-text a {
+    color: #ef4444;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-error .ngWPAdminUI-premium-notice-text a:hover {
+    color: #dc2626;
+    border-bottom-color: #dc2626;
+}
+
+/* Liens dans les notices warning */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-warning .ngWPAdminUI-premium-notice-text a {
+    color: #f59e0b;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-warning .ngWPAdminUI-premium-notice-text a:hover {
+    color: #d97706;
+    border-bottom-color: #d97706;
+}
+
+/* Liens dans les notices info */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-info .ngWPAdminUI-premium-notice-text a {
+    color: #3b82f6;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-info .ngWPAdminUI-premium-notice-text a:hover {
+    color: #2563eb;
+    border-bottom-color: #2563eb;
+}
+
+/* Types de notices premium avec couleurs spécifiques */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-success {
+    border-left: 4px solid #10b981;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%) !important;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-success::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+    border-radius: 12px 0 0 12px;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-error {
+    border-left: 4px solid #ef4444;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%) !important;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-error::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+    border-radius: 12px 0 0 12px;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-warning {
+    border-left: 4px solid #f59e0b;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%) !important;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-warning::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+    border-radius: 12px 0 0 12px;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-info {
+    border-left: 4px solid #3b82f6;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%) !important;
+}
+
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+    border-radius: 12px 0 0 12px;
+}
+
+/* Bouton dismiss premium */
+.ngWPAdminUI-premium-dismiss {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    width: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.04) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    color: var(--ngWPAdminUI-modern-text-muted) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 10;
+    opacity: 0.6;
+}
+
+.ngWPAdminUI-premium-dismiss .dashicons {
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+}
+
+/* Effet hover premium sur le bouton dismiss */
+.ngWPAdminUI-premium-dismiss:hover {
+    background: rgba(239, 68, 68, 0.15) !important;
+    color: #ef4444 !important;
+    opacity: 1 !important;
+    transform: scale(1.1) rotate(90deg) !important;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2) !important;
+}
+
+.ngWPAdminUI-premium-dismiss:active {
+    transform: scale(0.95) rotate(90deg) !important;
+}
+
+/* Effet hover premium sur la notice */
+.ngWPAdminUI-premium-notice:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.16),
+        0 6px 12px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Effet de brillance au survol */
+.ngWPAdminUI-premium-notice::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+
+.ngWPAdminUI-premium-notice:hover::after {
+    left: 100%;
+}
+
+/* Notices avec dismiss */
+.ngWPAdminUI-premium-notice.ngWPAdminUI-notice-dismissible {
+    padding-right: 48px !important;
+}
+
+/* ========================================
    RESPONSIVE
    ======================================== */
 
 /* Responsive pour les notices */
+@media (max-width: 782px) {
+    .ngWPAdminUI-notices-container {
+        right: 8px;
+        bottom: 8px;
+        max-width: calc(100vw - 16px);
+    }
+    
+    .ngWPAdminUI-premium-notice {
+        max-width: 100%;
+        min-width: 280px;
+    }
+}
+
 @media (max-width: 600px) {
     .ngWPAdminUI-notices-container {
         right: 8px;
@@ -267,8 +590,15 @@
     .ngWPAdminUI-notices-container .notice-error,
     .ngWPAdminUI-notices-container .notice-warning,
     .ngWPAdminUI-notices-container .notice-info,
-    .ngWPAdminUI-notices-container .fs-notice {
-        max-width: calc(100vw - 16px);
+    .ngWPAdminUI-notices-container .fs-notice,
+    .ngWPAdminUI-premium-notice {
+        max-width: 100%;
         font-size: 14px;
     }
+    
+    .ngWPAdminUI-premium-notice {
+        padding: 14px 44px 14px 16px !important;
+        min-width: auto;
+    }
 }
+

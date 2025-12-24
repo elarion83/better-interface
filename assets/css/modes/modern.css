@@ -632,6 +632,10 @@ th.check-column label, td.check-column label {
     transition: all var(--ngWPAdminUI-modern-transition-normal);
 }
 
+.postbox.closed .postbox-header {
+    border-bottom: none;
+}
+
 .postbox:hover {
     box-shadow: var(--ngWPAdminUI-modern-shadow-medium);
     transform: translateY(-2px);

@@ -12,9 +12,38 @@
 		create: function(self) {
 			var $searchModal = null;
 			var $searchButton = null;
-			var $originalSearchBox = $('.subsubsub + #posts-filter .search-box, .subsubsub + #comments-form .search-box, #wpcf7-contact-form-list-table .search-box');
 			
-			if ($originalSearchBox.length > 0) {
+			// Détecter si on est sur la page des utilisateurs
+			var isUsersPage = $('body.wp-admin.users-php').length > 0;
+			
+			// Détecter la search-box selon le type de page
+			// Pourquoi: adapter la détection selon la page (posts/comments vs users)
+			var $originalSearchBox = null;
+			
+			if (isUsersPage) {
+				// Pour la page des utilisateurs: chercher l'input #user-search-input, 
+				// puis remonter au formulaire et chercher .search-box
+				var $userSearchInput = $('#user-search-input');
+				if ($userSearchInput.length > 0) {
+					var $userSearchForm = $userSearchInput.closest('form');
+					if ($userSearchForm.length > 0) {
+						var $userSearchBox = $userSearchForm.find('.search-box');
+						if ($userSearchBox.length > 0) {
+							$originalSearchBox = $userSearchBox;
+						}
+					}
+				}
+			} else {
+				// Pour les autres pages: utiliser les sélecteurs standards
+				var searchBoxSelectors = [
+					'.subsubsub + #posts-filter .search-box',
+					'.subsubsub + #comments-form .search-box',
+					'#wpcf7-contact-form-list-table .search-box'
+				];
+				$originalSearchBox = $(searchBoxSelectors.join(', '));
+			}
+			
+			if ($originalSearchBox && $originalSearchBox.length > 0) {
 				// Créer le bouton "Rechercher" dans la barre flottante
 				$searchButton = $('<button type="button" class="ngWPAdminUI-search-button" title="Rechercher"><span class="material-icons">search</span></button>');
 				
@@ -25,10 +54,16 @@
 				var $searchBoxClone = $originalSearchBox.clone();
 				$searchModal.find('.ngWPAdminUI-search-modal-body').append($searchBoxClone);
 				
-				// Détecter le type de posts actuel
-				var currentPostType = self.detectCurrentPostType();
+				// Détecter le type de contenu actuel (posts, comments, users)
+				// Pourquoi: adapter le type selon la page pour les suggestions
+				var currentPostType = null;
+				if (isUsersPage) {
+					currentPostType = 'user';
+				} else if (self.detectCurrentPostType) {
+					currentPostType = self.detectCurrentPostType();
+				}
 				
-				// Créer le container pour les suggestions
+				// Créer le container pour les suggestions (toujours créé)
 				var $suggestionsContainer = $('<div class="ngWPAdminUI-search-suggestions"></div>');
 				$searchModal.find('.ngWPAdminUI-search-modal-body').append($suggestionsContainer);
 				
@@ -56,7 +91,6 @@
 							newUrl = currentUrl + separator + 's=' + encodeURIComponent(searchQuery);
 						}
 						
-						console.log(newUrl)
 						// Rediriger vers la nouvelle URL
 						window.location.href = newUrl;
 					}
@@ -70,25 +104,35 @@
 					}
 				});
 				
-				// Gérer les suggestions en temps réel
-				var searchTimeout;
-				$searchModal.find('input[type="search"], input[type="text"]').on('input', function(){
-					var query = $(this).val().trim();
-					
-					// Effacer le timeout précédent
-					clearTimeout(searchTimeout);
-					
-					// Masquer les suggestions si la requête est trop courte
-					if (query.length < 2) {
-						$suggestionsContainer.empty().hide();
-						return;
-					}
-					
-					// Délai pour éviter trop de requêtes
-					searchTimeout = setTimeout(function(){
+				// Gérer les suggestions en temps réel avec debounce
+				// Pourquoi: utiliser debounce pour limiter les requêtes AJAX lors de la saisie
+				if ($suggestionsContainer && self.fetchSearchSuggestions) {
+					var searchInputHandler = function(){
+						var query = $searchModal.find('input[type="search"], input[type="text"]').val().trim();
+						
+						// Masquer les suggestions si la requête est trop courte
+						if (query.length < 2) {
+							$suggestionsContainer.empty().hide();
+							return;
+						}
+						
+						// Exécuter la recherche avec debounce
 						self.fetchSearchSuggestions(query, currentPostType, $suggestionsContainer);
-					}, 300);
-				});
+					};
+					
+					// Utiliser debounce si disponible dans Config, sinon fallback sur setTimeout
+					var debouncedSearch = (window.WPAdminUI && window.WPAdminUI.Config && window.WPAdminUI.Config.debounce) 
+						? window.WPAdminUI.Config.debounce(searchInputHandler, window.WPAdminUI.Config.search ? window.WPAdminUI.Config.search.debounceDelay || 300 : 300)
+						: (function(){
+							var searchTimeout;
+							return function(){
+								clearTimeout(searchTimeout);
+								searchTimeout = setTimeout(searchInputHandler, 300);
+							};
+						})();
+					
+					$searchModal.find('input[type="search"], input[type="text"]').on('input', debouncedSearch);
+				}
 				
 				// Gérer le clic sur le bouton de recherche
 				$searchModal.find('input[type="submit"], button[type="submit"]').on('click', function(e){

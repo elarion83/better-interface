@@ -24,6 +24,10 @@
 				{
 					selector: 'a.page-title-action[href*="plugin-install.php"]',
 					description: 'Bouton Ajouter Plugins'
+				},
+				{
+					selector: 'h1 + a.page-title-action[href*="user-new.php"]',
+					description: 'Bouton Ajouter Utilisateur'
 				}
 				// Ajouter facilement d'autres conditions ici
 				// {
@@ -39,7 +43,6 @@
 				var $foundButton = $(condition.selector);
 				if ($foundButton.length > 0) {
 					$originalAddButton = $foundButton;
-					console.log('Bouton "Ajouter" détecté:', condition.description);
 					break;
 				}
 			}

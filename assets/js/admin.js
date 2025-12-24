@@ -2,7 +2,11 @@
 	// WPAdminUI: gère les interactions de la page d'admin
 	// Pourquoi: utiliser la configuration centralisée WPAdminUI.Config pour accéder aux données
 	function WPAdminUI(){
-		var ajaxData = window.WPAdminUI && window.WPAdminUI.Config ? window.WPAdminUI.Config.getAjaxData() : {};
+		// Cacher Config dans l'instance pour éviter les accès répétés
+		// Pourquoi: améliorer les performances en évitant les vérifications répétées de window.WPAdminUI
+		this.Config = window.WPAdminUI && window.WPAdminUI.Config ? window.WPAdminUI.Config : {};
+		
+		var ajaxData = this.Config.getAjaxData ? this.Config.getAjaxData() : {};
 		
 		this.currentMode = ajaxData.current_mode || 'default';
 		this.availableModes = ajaxData.available_modes || {};
@@ -36,9 +40,18 @@
 			self.createFloatingActionBar($nav);
 			
 			// Gérer le redimensionnement de la fenêtre pour adapter la largeur
-			$(window).on('resize', function(){
+			// Pourquoi: utiliser throttle pour limiter les exécutions lors du resize
+			var resizeHandler = self.Config.throttle ? self.Config.throttle(function(){
+				var Config = self.Config;
+				var selectors = Config.selectors || {};
+				var classes = Config.classes || {};
+				var breakpoints = Config.breakpoints || {};
+				var $floatingBar = $(selectors.floatingBar || '.ngWPAdminUI-floating-action-bar');
+				$floatingBar.toggleClass(classes.fullWidth || 'ngWPAdminUI-full-width', window.innerWidth < (breakpoints.mobile || 768));
+			}, self.Config.timings ? self.Config.timings.resizeDebounce || 250 : 250) : function(){
 				$('.ngWPAdminUI-floating-action-bar').toggleClass('ngWPAdminUI-full-width', window.innerWidth < 768);
-			});
+			};
+			$(window).on('resize', resizeHandler);
 		});
 	};
 
@@ -70,7 +83,7 @@
 			
 			// Récupérer customActions pour FiltersPanel
 			// Pourquoi: utiliser la configuration centralisée pour accéder aux actions personnalisées
-			var customActions = window.WPAdminUI && window.WPAdminUI.Config ? window.WPAdminUI.Config.getCustomActions() : {};
+			var customActions = self.Config.getCustomActions ? self.Config.getCustomActions() : {};
 			
 			// Ajouter le bouton delete_all à gauche du compteur s'il existe
 			if ($deleteAllButtonCustom) {
@@ -195,7 +208,8 @@
 	// Mettre à jour l'état de la barre flottante (activer/désactiver les actions)
 	// Pourquoi: utiliser la configuration centralisée pour les sélecteurs et classes
 	WPAdminUI.prototype.updateFloatingBarState = function(){
-		var Config = window.WPAdminUI && window.WPAdminUI.Config ? window.WPAdminUI.Config : {};
+		// Utiliser Config depuis l'instance (déjà caché dans le constructeur)
+		var Config = this.Config;
 		var selectors = Config.selectors || {};
 		var classes = Config.classes || {};
 		var timings = Config.timings || {};
@@ -370,6 +384,7 @@
 		// Intercepter les clics sur les liens de navigation
 		$(document).on('click', 'a[href*="admin.php"], a[href*="post.php"], a[href*="edit.php"], a[href*="upload.php"], a[href*="users.php"], a[href*="plugins.php"], a[href*="themes.php"], a[href*="options-general.php"], a[href*="tools.php"], a[href*="edit-comments.php"]', function(e){
 			var href = $(this).attr('href');
+			var $link = $(this);
 			
 			// Ignorer si Ctrl/Cmd ou le bouton du milieu de la souris est enfoncé (ouvrir dans un nouvel onglet)
 			if (e.ctrlKey || e.metaKey || e.which === 2) return;
@@ -378,10 +393,16 @@
 			if (href.indexOf('#') === 0 || href.indexOf('javascript:') === 0) return;
 			
 			// Ignorer les liens qui ouvrent dans un nouvel onglet
-			if ($(this).attr('target') === '_blank') return;
+			if ($link.attr('target') === '_blank') return;
 			
 			// Ignorer les liens de téléchargement
 			if (href.indexOf('download') !== -1 || href.indexOf('export') !== -1) return;
+			
+			// Exception: ignorer le bouton de désactivation de plugin
+			// Pourquoi: le bouton de désactivation nécessite un traitement spécial sans transition
+			if ($link.is('td.plugin-title span.deactivate a')) {
+				return;
+			}
 			
 			// Activer la transition
 			self.showPageTransition();
@@ -429,107 +450,12 @@
 	};
 
 	// ===== SYSTÈME DE POSITIONNEMENT DES NOTICES =====
-	// Pourquoi: organiser les notices WordPress en colonne verticale à droite pour éviter les superpositions
+	// Pourquoi: utiliser le module NoticesManager pour un processus propre et premium
 	WPAdminUI.prototype.initNoticesPositioning = function(){
-		var self = this;
-		
-		// Vérifier si on est sur une page d'édition avec le block editor
-		if ($('#editor.block-editor__container').length > 0) {
-			return; // Ne pas activer le système de notices sur les pages d'édition
+		// Utiliser le module NoticesManager si disponible
+		if (window.NoticesManager && typeof window.NoticesManager.init === 'function') {
+			window.NoticesManager.init();
 		}
-		
-		// Créer le container pour les notices s'il n'existe pas
-		if ($('.ngWPAdminUI-notices-container').length === 0) {
-			$('body').append('<div class="ngWPAdminUI-notices-container"></div>');
-		}
-
-		// Fonction pour déplacer une notice dans le container
-		function moveNoticeToContainer($notice) {
-			// Ignorer les notices avec la classe plugin-dependencies
-			if ($notice.hasClass('plugin-dependencies')) {
-				return;
-			}
-			
-			// Pourquoi: vérifier que la notice n'est pas vide avant de la déplacer
-			// Vérifier si la notice a du contenu visible
-			var hasContent = false;
-			
-			// Vérifier le texte direct
-			var textContent = $notice.text().trim();
-			if (textContent.length > 0) {
-				hasContent = true;
-			}
-			
-			// Vérifier les éléments de contenu spécifiques
-			if (!$notice.find('.notice-dismiss, .fs-close').length || 
-				$notice.find('p, .notice-body, .fs-notice-body, .notice-content, .fs-notice-body').length > 0 ||
-				$notice.find('.fs-plugin-title').length > 0) {
-				// Si la notice a un contenu ou un titre, elle n'est pas vide
-				var bodyContent = $notice.find('.notice-body, .fs-notice-body, .notice-content, p').text().trim();
-				var titleContent = $notice.find('.fs-plugin-title, .notice-title').text().trim();
-				if (bodyContent.length > 0 || titleContent.length > 0 || textContent.length > 10) {
-					hasContent = true;
-				}
-			}
-			
-			// Si la notice est vide, ne pas la déplacer
-			if (!hasContent) {
-				return;
-			}
-			
-			// Extraire le nom du thème si la notice est dans un div.theme
-			var $themeDiv = $notice.closest('.theme');
-			if ($themeDiv.length > 0) {
-				var themeSlug = $themeDiv.attr('data-slug');
-				if (themeSlug && !$notice.find('.ngWPAdminUI-notice-context-title').length) {
-					// Formater le nom du thème (slug vers nom lisible)
-					var themeName = themeSlug.replace(/-/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
-					
-					// Ajouter le titre du thème au début de la notice
-					var $contextTitle = $('<div class="ngWPAdminUI-notice-context-title">' + themeName + '</div>');
-					$notice.prepend($contextTitle);
-				}
-			}
-			
-			if ($notice.closest('.ngWPAdminUI-notices-container').length === 0) {
-				$('.ngWPAdminUI-notices-container').append($notice);
-			}
-		}
-
-		// Observer les nouvelles notices qui apparaissent
-		var observer = new MutationObserver(function(mutations) {
-			mutations.forEach(function(mutation) {
-				mutation.addedNodes.forEach(function(node) {
-					if (node.nodeType === 1) { // Element node
-						var $node = $(node);
-						
-						// Vérifier si c'est une notice ou contient des notices
-						// Pourquoi: inclure les notices WordPress standard et les notices Freemius
-						if ($node.hasClass('notice') || $node.hasClass('notice-success') || $node.hasClass('notice-error') || $node.hasClass('notice-warning') || $node.hasClass('notice-info') || $node.hasClass('fs-notice')) {
-							moveNoticeToContainer($node);
-						}
-						
-						// Chercher des notices dans les enfants
-						// Pourquoi: détecter les notices WordPress et Freemius dans les éléments enfants
-						$node.find('.notice, .notice-success, .notice-error, .notice-warning, .notice-info, .fs-notice').each(function() {
-							moveNoticeToContainer($(this));
-						});
-					}
-				});
-			});
-		});
-
-		// Démarrer l'observation
-		observer.observe(document.body, {
-			childList: true,
-			subtree: true
-		});
-
-		// Déplacer les notices existantes
-		// Pourquoi: inclure les notices WordPress standard et les notices Freemius au chargement
-		$('.notice, .notice-success, .notice-error, .notice-warning, .notice-info, .fs-notice').each(function() {
-			moveNoticeToContainer($(this));
-		});
 	};
 
 	/**
@@ -612,26 +538,23 @@
 	WPAdminUI.prototype.fetchSearchSuggestions = function(query, postType, $container){
 		var self = this;
 		
-		// Debug temporaire
-		console.log('Recherche pour:', query, 'Type:', postType);
-		
 		// Afficher un indicateur de chargement
 		$container.html('<div class="ngWPAdminUI-suggestions-loading"><span class="dashicons dashicons-update ngWPAdminUI-loading-spinner"></span> Recherche en cours...</div>').show();
 		
 		// Requête AJAX vers l'endpoint WordPress
 		// Pourquoi: utiliser les variables et actions AJAX correctes ngWPAdminUI_* pour correspondre aux hooks WordPress
+		// postType peut être 'post', 'page', 'comment', 'user', etc.
 		$.ajax({
 			url: (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.ajax_url) || ajaxurl,
 			type: 'POST',
 			data: {
 				action: 'ngWPAdminUI_search_suggestions',
 				query: query,
-				post_type: postType,
+				post_type: postType || 'post',
 				limit: 8,
 				nonce: (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.nonce) || ''
 			},
 			success: function(response) {
-				console.log('Réponse AJAX:', response);
 				if (response.success && response.data.suggestions.length > 0) {
 					self.displaySearchSuggestions(response.data.suggestions, $container, query);
 				} else {
@@ -641,8 +564,8 @@
 				}
 			},
 			error: function(xhr, status, error) {
-				console.error('Erreur lors de la recherche:', error, xhr.responseText);
-				$container.html('<div class="ngWPAdminUI-suggestions-error">Erreur lors de la recherche: ' + error + '</div>').show();
+				// Afficher un message d'erreur générique pour l'utilisateur
+				$container.html('<div class="ngWPAdminUI-suggestions-error">Erreur lors de la recherche. Veuillez réessayer.</div>').show();
 			}
 		});
 	};
@@ -662,22 +585,33 @@
 				'<mark>$1</mark>'
 			);
 			
-			// Déterminer l'icône selon le statut
+			// Déterminer l'icône selon le type et le statut
+			// Pourquoi: adapter l'affichage selon le type (post, comment, user)
 			var statusIcon = 'dashicons-admin-post';
 			var statusClass = 'status-' + suggestion.status;
-			switch(suggestion.status) {
-				case 'publish':
-					statusIcon = 'dashicons-yes-alt';
-					break;
-				case 'draft':
-					statusIcon = 'dashicons-edit';
-					break;
-				case 'private':
-					statusIcon = 'dashicons-lock';
-					break;
-				case 'trash':
-					statusIcon = 'dashicons-trash';
-					break;
+			
+			// Icônes spécifiques selon le type
+			if (suggestion.type === 'user') {
+				statusIcon = 'dashicons-admin-users';
+				statusClass = 'status-active';
+			} else if (suggestion.type === 'comment') {
+				statusIcon = 'dashicons-admin-comments';
+			} else {
+				// Icônes pour les posts selon le statut
+				switch(suggestion.status) {
+					case 'publish':
+						statusIcon = 'dashicons-yes-alt';
+						break;
+					case 'draft':
+						statusIcon = 'dashicons-edit';
+						break;
+					case 'private':
+						statusIcon = 'dashicons-lock';
+						break;
+					case 'trash':
+						statusIcon = 'dashicons-trash';
+						break;
+				}
 			}
 			
 			// Formater la date
@@ -690,7 +624,12 @@
 				html += '<div class="ngWPAdminUI-suggestion-context">' + suggestion.context + '</div>';
 			}
 			html += '<div class="ngWPAdminUI-suggestion-meta">';
-			html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + suggestion.status + '</span>';
+			// Pour les utilisateurs, afficher le rôle au lieu du statut
+			if (suggestion.type === 'user') {
+				html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + (suggestion.role || 'Utilisateur') + '</span>';
+			} else {
+				html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + suggestion.status + '</span>';
+			}
 			html += '<span class="ngWPAdminUI-suggestion-date">' + formattedDate + '</span>';
 			html += '</div>';
 			html += '</div>';

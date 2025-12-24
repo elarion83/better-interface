@@ -70,7 +70,7 @@
 				try {
 					var $clone = $original.clone();
 				} catch (e) {
-					console.error('Erreur lors du clonage de l\'élément:', e, $original);
+					// Ignorer silencieusement les erreurs de clonage pour éviter de bloquer l'interface
 					return;
 				}
 				
