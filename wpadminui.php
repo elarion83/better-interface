@@ -682,16 +682,16 @@ if (file_exists(dirname(__FILE__) . '/includes/freemius/start.php')) {
                 // Pourquoi: une seule version avec 3 plans payants (différents nombres de licences)
                 $ngWPAdminUI_fs = fs_dynamic_init(array(
                     // ID produit Freemius (à remplacer par votre ID réel)
-                    'id'                  => '22370',
+                    'id'                  => '22549',
                     
                     // Slug du plugin (doit correspondre au dossier du plugin)
-                    'slug'                => 'wpadminui',
+                    'slug'                => 'wp-admin-ui',
                     
                     // Type de produit
                     'type'                => 'plugin',
                     
                     // Clé publique Freemius (à remplacer par votre clé publique réelle)
-                    'public_key'          => 'pk_9691792992fa2e7d9708b41305d43',
+                    'public_key'          => 'pk_3c89decc7c6694d774ed81e1ca7ab',
                     
                     // Une seule version (pas de freemium)
                     'is_premium'          => true,
