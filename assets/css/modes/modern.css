@@ -1402,3 +1402,7 @@ span.count.count-highlight {
 #wpadminbar .menupop #wp-admin-bar-user-info a.ab-item:hover {
     background: transparent !important;
 }
+
+table.plugins .update .check-column{
+    border-bottom: none !important;
+}
