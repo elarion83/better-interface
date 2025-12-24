@@ -20,8 +20,7 @@ $custom_js = get_option('bi_custom_js', '');
 <div class="wrap ngWPAdminUI-admin-page">
 	<div class="ngWPAdminUI-header">
 		<h1 class="ngWPAdminUI-title">
-            <span class="dashicons dashicons-admin-appearance"></span>
-            <?php _e('WP Admin UI', 'wp-admin-ui'); ?>
+            <img src="<?php echo esc_url(WPAUI_PLUGIN_URL . 'assets/img/logo.png'); ?>" alt="<?php esc_attr_e('WP Admin UI', 'wp-admin-ui'); ?>" class="ngWPAdminUI-logo" />
         </h1>
         <p class="ngWPAdminUI-description">
             <?php _e('Modernize your WordPress admin interface with a transformed design.', 'wp-admin-ui'); ?>

@@ -76,6 +76,14 @@
     height: auto;
 }
 
+/* Logo du plugin */
+.ngWPAdminUI-logo {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 .ngWPAdminUI-description {
     font-size: 1.1rem;
     margin: 0;
