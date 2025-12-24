@@ -21,10 +21,10 @@ if (!defined('ABSPATH')) {
 }
 
 // Définition des constantes du plugin
-define('BI_PLUGIN_VERSION', '1.1.2');
-define('BI_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('BI_PLUGIN_PATH', plugin_dir_path(__FILE__));
-define('BI_PLUGIN_BASENAME', plugin_basename(__FILE__));
+define('WPAUI_PLUGIN_VERSION', '1.1.3');
+define('WPAUI_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('WPAUI_PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('WPAUI_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 /**
  * Classe principale du plugin WP Admin UI
@@ -110,7 +110,7 @@ class WPAdminUI {
      */
     public function ngWPAdminUI_init() {
         // Chargement des traductions
-        load_plugin_textdomain('wp-admin-ui', false, dirname(BI_PLUGIN_BASENAME) . '/languages');
+        load_plugin_textdomain('wp-admin-ui', false, dirname(WPAUI_PLUGIN_BASENAME) . '/languages');
         
         // Récupération du mode actuel
         $this->current_mode = get_option('ngWPAdminUI_design_mode', 'default');
@@ -189,7 +189,7 @@ class WPAdminUI {
      * Page d'administration du plugin
      */
     public function ngWPAdminUI_admin_page() {
-        include BI_PLUGIN_PATH . 'admin/admin-page.php';
+        include WPAUI_PLUGIN_PATH . 'admin/admin-page.php';
     }
     
     /**
@@ -204,18 +204,18 @@ class WPAdminUI {
         // Styles principaux
         wp_enqueue_style(
             'wp-admin-ui-admin',
-            BI_PLUGIN_URL . 'assets/css/admin.css',
+            WPAUI_PLUGIN_URL . 'assets/css/admin.css',
             [],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
         
         
         // Script de sélection de mode/thème - toujours chargé
         wp_enqueue_script(
             'wp-admin-ui-mode-selector',
-            BI_PLUGIN_URL . 'assets/js/mode-selector.js',
+            WPAUI_PLUGIN_URL . 'assets/js/mode-selector.js',
             ['jquery'],
-            BI_PLUGIN_VERSION,
+            WPAUI_PLUGIN_VERSION,
             true
         );
         
@@ -239,9 +239,9 @@ class WPAdminUI {
         if ($this->current_mode === 'modern') {
             wp_enqueue_script(
                 'wp-admin-ui-admin',
-                BI_PLUGIN_URL . 'assets/js/admin.js',
+                WPAUI_PLUGIN_URL . 'assets/js/admin.js',
                 ['jquery'],
-                BI_PLUGIN_VERSION,
+                WPAUI_PLUGIN_VERSION,
                 true
             );
         }
@@ -259,9 +259,9 @@ class WPAdminUI {
         if ($mode !== 'default') {
             wp_enqueue_style(
                 "wp-admin-ui-{$mode}",
-                BI_PLUGIN_URL . "assets/css/modes/{$mode}.css",
+                WPAUI_PLUGIN_URL . "assets/css/modes/{$mode}.css",
                 ['wp-admin-ui-admin'],
-                BI_PLUGIN_VERSION
+                WPAUI_PLUGIN_VERSION
             );
 
             // Si le mode est moderne, charger toujours le thème "midnight"
@@ -269,9 +269,9 @@ class WPAdminUI {
                 $theme = 'midnight';
                 wp_enqueue_style(
                     "wp-admin-ui-theme-{$theme}",
-                    BI_PLUGIN_URL . "assets/css/themes/{$theme}.css",
+                    WPAUI_PLUGIN_URL . "assets/css/themes/{$theme}.css",
                     ["wp-admin-ui-{$mode}"],
-                    BI_PLUGIN_VERSION
+                    WPAUI_PLUGIN_VERSION
                 );
             }
             
@@ -305,91 +305,91 @@ class WPAdminUI {
         // Styles pour les scrollbars modernes
         wp_enqueue_style(
             'wp-admin-ui-scrollbars',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/css/scrollbars.css',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/scrollbars.css',
             ['wp-admin-ui-modern'],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
         
         // Styles pour les notices modernes
         wp_enqueue_style(
             'wp-admin-ui-notices',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/css/notices.css',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/notices.css',
             ['wp-admin-ui-modern'],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
 
         // Styles pour la barre flottante
         wp_enqueue_style(
             'wp-admin-ui-actionbar-logic',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/css/floatingActionBar.css',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/floatingActionBar.css',
             ['wp-admin-ui-modern'],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
 
         // Styles pour la logique des boutons modernes
         wp_enqueue_style(
             'wp-admin-ui-buttons-logic',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/css/buttonsLogic.css',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/buttonsLogic.css',
             ['wp-admin-ui-modern'],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
         
         // Styles pour Contact Form 7
         wp_enqueue_style(
             'wp-admin-ui-contact-form-7',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/contact-form-7.css',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/contact-form-7.css',
             ['wp-admin-ui-modern'],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
         
         // Styles pour Elementor
         wp_enqueue_style(
             'wp-admin-ui-elementor',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/elementor.css',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/elementor.css',
             ['wp-admin-ui-modern'],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
         
         // Styles pour Woocommerce
         wp_enqueue_style(
             'wp-admin-ui-woocommerce',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/woocommerce.css',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/woocommerce.css',
             ['wp-admin-ui-modern'],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
         
         // Styles pour la page d'installation de plugins
         wp_enqueue_style(
             'wp-admin-ui-plugins',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/plugins.css',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/plugins.css',
             ['wp-admin-ui-modern'],
-            BI_PLUGIN_VERSION
+            WPAUI_PLUGIN_VERSION
         );
         
         // Scripts de configuration pour le mode moderne
         wp_enqueue_script(
             'wp-admin-ui-custom-actions',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/js/customActionsButtons.js',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/js/customActionsButtons.js',
             ['wp-admin-ui-admin'],
-            BI_PLUGIN_VERSION,
+            WPAUI_PLUGIN_VERSION,
             false
         );
         
         // Script d'application automatique des styles modernes
         wp_enqueue_script(
             'wp-admin-ui-modern-styles',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/js/modernButtonStyles.js',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/js/modernButtonStyles.js',
             ['wp-admin-ui-admin', 'wp-admin-ui-custom-actions'],
-            BI_PLUGIN_VERSION,
+            WPAUI_PLUGIN_VERSION,
             false
         );
         
         // Script d'application des styles de formulaire modernes
         wp_enqueue_script(
             'wp-admin-ui-modern-form-styles',
-            BI_PLUGIN_URL . 'assets/css/modes/modern/js/modernFormStyles.js',
+            WPAUI_PLUGIN_URL . 'assets/css/modes/modern/js/modernFormStyles.js',
             ['wp-admin-ui-admin', 'wp-admin-ui-modern-styles'],
-            BI_PLUGIN_VERSION,
+            WPAUI_PLUGIN_VERSION,
             false
         );
     }

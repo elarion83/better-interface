@@ -172,7 +172,7 @@ Le plugin supporte l'internationalisation avec les fichiers de traduction :
 
 ```php
 // Chargement des traductions
-load_plugin_textdomain('wp-admin-ui', false, dirname(BI_PLUGIN_BASENAME) . '/languages');
+load_plugin_textdomain('wp-admin-ui', false, dirname(WPAUI_PLUGIN_BASENAME) . '/languages');
 ```
 
 ### Fichiers de Traduction

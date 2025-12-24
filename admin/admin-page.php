@@ -106,7 +106,7 @@ $custom_js = get_option('bi_custom_js', '');
 
                 <div class="ngWPAdminUI-info-card">
                     <h3><?php _e('Version', 'wp-admin-ui'); ?></h3>
-                    <p class="ngWPAdminUI-info-value"><?php echo BI_PLUGIN_VERSION; ?></p>
+                    <p class="ngWPAdminUI-info-value"><?php echo WPAUI_PLUGIN_VERSION; ?></p>
                 </div>
 
                 <div class="ngWPAdminUI-info-card">
