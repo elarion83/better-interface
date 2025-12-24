@@ -29,7 +29,14 @@
 			}
 			
 			// Traiter les actions du select et le bouton delete_all
-			var $actionSelect = $nav.find('#bulk-action-selector-top');
+			// Pourquoi: chercher le select dans toute la page, pas seulement dans $nav (plus robuste)
+			var $actionSelect = $nav.find('#bulk-action-selector-top, #bulk-action-selector-bottom').first();
+			// Si pas trouvé dans $nav, chercher dans toute la page
+			if ($actionSelect.length === 0) {
+				$actionSelect = $('#bulk-action-selector-top, #bulk-action-selector-bottom').first();
+			}
+			// Trouver le formulaire parent pour la soumission
+			var $form = $actionSelect.length > 0 ? $actionSelect.closest('form') : $('form').has('select[name="action"], select[name="action2"]').first();
 			var customButtons = [];
 			var groupedButtons = {};
 			
@@ -105,6 +112,7 @@
 						// Configurer l'action du bouton
 						$button.on('click', function(e){
 							e.preventDefault();
+							e.stopPropagation();
 							
 							// Vérifier qu'il y a des éléments sélectionnés
 							var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
@@ -123,19 +131,95 @@
 							// Désactiver le bouton pendant le chargement
 							$(this).prop('disabled', true).addClass('loading');
 							
-							// S'assurer que le select est visible et fonctionnel
-							$actionSelect.show();
+							// Trouver le formulaire qui contient la table
+							// Pourquoi: chercher le formulaire de manière plus robuste pour la production
+							var $targetForm = $('.wp-list-table').closest('form').first();
+							if ($targetForm.length === 0) {
+								// Chercher le formulaire qui contient le select d'action
+								if ($actionSelect.length > 0) {
+									$targetForm = $actionSelect.closest('form').first();
+								}
+							}
+							if ($targetForm.length === 0) {
+								$targetForm = $('form').has('select[name="action"], select[name="action2"]').first();
+							}
+							if ($targetForm.length === 0) {
+								// Dernier recours: chercher n'importe quel formulaire contenant la table
+								$targetForm = $('.wp-list-table').parents('form').first();
+							}
 							
-							// Définir la valeur et déclencher l'action
-							$actionSelect.val(value);
+							// Trouver le select d'action dans le formulaire
+							var $targetSelect = null;
+							if ($targetForm.length > 0) {
+								$targetSelect = $targetForm.find('select[name="action"]').first();
+								if ($targetSelect.length === 0) {
+									$targetSelect = $targetForm.find('select[name="action2"]').first();
+								}
+							}
+							// Si toujours pas trouvé, utiliser le select original
+							if ((!$targetSelect || $targetSelect.length === 0) && $actionSelect.length > 0) {
+								$targetSelect = $actionSelect;
+								// Si le select n'est pas dans un formulaire, trouver le formulaire parent
+								if ($targetForm.length === 0) {
+									$targetForm = $actionSelect.closest('form').first();
+								}
+							}
 							
-							// Déclencher le changement immédiatement
-							$actionSelect.trigger('change');
+							// Définir la valeur de l'action dans le select
+							if ($targetSelect && $targetSelect.length > 0) {
+								$targetSelect.show().val(value).trigger('change');
+							}
 							
-							// Déclencher automatiquement le bouton Apply
-							var $applyButton = $nav.find('input[type="submit"][value="Apply"]');
-							if ($applyButton.length > 0) {
-								$applyButton.show().trigger('click');
+							// Soumettre le formulaire de manière plus robuste
+							// Pourquoi: utiliser la méthode native du DOM pour plus de fiabilité
+							if ($targetForm.length > 0) {
+								// Vérifier qu'il y a des éléments sélectionnés avant de soumettre
+								var hasSelected = $targetForm.find('.wp-list-table tbody input[type="checkbox"]:checked').length > 0;
+								if (hasSelected) {
+									// Utiliser la méthode native du DOM pour soumettre le formulaire
+									// Pourquoi: plus fiable que jQuery submit() en production
+									var formElement = $targetForm[0];
+									if (formElement && typeof formElement.submit === 'function') {
+										formElement.submit();
+									} else {
+										// Fallback sur jQuery submit
+										$targetForm.submit();
+									}
+								} else {
+									// Restaurer le bouton si pas d'éléments sélectionnés
+									var $originalIcon = $(this).data('original-icon');
+									if ($originalIcon) {
+										$(this).html($originalIcon);
+									}
+									$(this).prop('disabled', false).removeClass('loading');
+								}
+							} else {
+								// Fallback: essayer de trouver et déclencher le bouton Apply
+								// Pourquoi: utiliser le sélecteur ultime WordPress pour le bouton Apply
+								// Le bouton Apply a l'id #doaction et suit directement le select #bulk-action-selector-top
+								var $applyButton = $('#bulk-action-selector-top + input#doaction').first();
+								// Si pas trouvé, essayer avec le select du bas
+								if ($applyButton.length === 0) {
+									$applyButton = $('#bulk-action-selector-bottom + input#doaction2').first();
+								}
+								
+								if ($applyButton && $applyButton.length > 0) {
+									// S'assurer que le select a la bonne valeur avant de cliquer
+									if ($targetSelect && $targetSelect.length > 0) {
+										$targetSelect.val(value).trigger('change');
+									}
+									// Utiliser un petit délai pour s'assurer que le select est mis à jour
+									setTimeout(function(){
+										$applyButton.show().trigger('click');
+									}, 10);
+								} else {
+									// Si rien ne fonctionne, restaurer le bouton
+									var $originalIcon = $(this).data('original-icon');
+									if ($originalIcon) {
+										$(this).html($originalIcon);
+									}
+									$(this).prop('disabled', false).removeClass('loading');
+								}
 							}
 						});
 						
@@ -235,7 +319,9 @@
 			// Intercepter les soumissions de formulaires pour détecter les actions AJAX
 			$(document).on('submit', 'form', function(e){
 				var $form = $(this);
-				var $submitButton = $form.find('input[type="submit"][value="Apply"]');
+				// Pourquoi: utiliser le sélecteur ultime WordPress pour le bouton Apply
+				// Le bouton Apply a l'id #doaction ou #doaction2
+				var $submitButton = $form.find('#doaction, #doaction2').first();
 				
 				// Vérifier si c'est un formulaire d'action en lot
 				if ($submitButton.length > 0 && $form.find('select[name="action"], select[name="action2"]').length > 0) {
