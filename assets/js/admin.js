@@ -239,13 +239,14 @@
 		var $displayingNum = $(selectors.displayingNum || '.displaying-num');
 		if ($displayingNum.length > 0) {
 			var displayingText = $displayingNum.text().trim();
-			// Extraire le nombre du texte (gère différents formats)
-			// "Showing 1-20 of 100 items" -> 100
-			// "100 items" -> 100
-			// "Showing 1-20 of 100" -> 100
-			var match = displayingText.match(/(\d+)(?=\s*(?:items?|$))/i) || displayingText.match(/(\d+)$/);
-			if (match) {
-				totalItems = parseInt(match[1]);
+			// Extraire tous les nombres du texte et prendre le plus grand
+			// Pourquoi: le plus grand nombre est généralement le total
+			// Exemples: "Showing 1-20 of 100 items" -> 100, "100 items" -> 100, "1 à 20 sur 100" -> 100
+			var numbers = displayingText.match(/\d+/g);
+			if (numbers && numbers.length > 0) {
+				// Convertir en nombres et prendre le maximum
+				var maxNumber = Math.max.apply(Math, numbers.map(function(n) { return parseInt(n, 10); }));
+				totalItems = maxNumber;
 			}
 		}
 		
