@@ -237,10 +237,55 @@ class WPAdminUI {
         
         // Scripts spécifiques au mode moderne
         if ($this->current_mode === 'modern') {
+            // Charger les modules de la barre d'actions flottante en premier
+            wp_enqueue_script(
+                'wp-admin-ui-selection-counter',
+                WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/SelectionCounter.js',
+                ['jquery'],
+                WPAUI_PLUGIN_VERSION,
+                true
+            );
+            wp_enqueue_script(
+                'wp-admin-ui-add-button',
+                WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/AddButton.js',
+                ['jquery'],
+                WPAUI_PLUGIN_VERSION,
+                true
+            );
+            wp_enqueue_script(
+                'wp-admin-ui-action-buttons',
+                WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/ActionButtons.js',
+                ['jquery'],
+                WPAUI_PLUGIN_VERSION,
+                true
+            );
+            wp_enqueue_script(
+                'wp-admin-ui-search-modal',
+                WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/SearchModal.js',
+                ['jquery'],
+                WPAUI_PLUGIN_VERSION,
+                true
+            );
+            wp_enqueue_script(
+                'wp-admin-ui-filters-panel',
+                WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/FiltersPanel.js',
+                ['jquery'],
+                WPAUI_PLUGIN_VERSION,
+                true
+            );
+            wp_enqueue_script(
+                'wp-admin-ui-pagination',
+                WPAUI_PLUGIN_URL . 'assets/js/floating-action-bar/Pagination.js',
+                ['jquery'],
+                WPAUI_PLUGIN_VERSION,
+                true
+            );
+            
+            // Charger le script principal après les modules
             wp_enqueue_script(
                 'wp-admin-ui-admin',
                 WPAUI_PLUGIN_URL . 'assets/js/admin.js',
-                ['jquery'],
+                ['jquery', 'wp-admin-ui-selection-counter', 'wp-admin-ui-add-button', 'wp-admin-ui-action-buttons', 'wp-admin-ui-search-modal', 'wp-admin-ui-filters-panel', 'wp-admin-ui-pagination'],
                 WPAUI_PLUGIN_VERSION,
                 true
             );

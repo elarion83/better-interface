@@ -31,4 +31,7 @@
 }
 
 /* square buttons of action bar */
-.squareButton {}
+.ngWPAdminUI-modern-button .collapse-button-label {
+    line-height: 0.6lh;
+    font-size: 0.6rem;
+}

@@ -25,6 +25,7 @@ build/
 
 # Build tools
 build_plugin_zip.py
+*.zip
 
 # Freemius SDK
 includes/freemius/
