@@ -3,13 +3,13 @@
    ======================================== */
 
 /* Barre d'actions flottante en bas de l'écran */
-.ngBetterInterface-floating-action-bar {
+.ngWPAdminUI-floating-action-bar {
     position: fixed;
     bottom: 0;
     left: 160px; /* Largeur du menu admin */
     right: 0;
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(255, 255, 255, 0.85) 100%);
-    border-top: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-top: 1px solid var(--ngWPAdminUI-modern-border-color);
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
     z-index: 99999;
     padding: 16px 24px;
@@ -24,29 +24,29 @@
 }
 
 /* Animation slide in */
-.ngBetterInterface-floating-action-bar.slide-in {
+.ngWPAdminUI-floating-action-bar.slide-in {
     transform: translateY(0);
 }
 
 /* Animation slide out */
-.ngBetterInterface-floating-action-bar.slide-out {
+.ngWPAdminUI-floating-action-bar.slide-out {
     transform: translateY(100%);
 }
 
 /* Ajustement quand le menu admin est replié */
-.folded .ngBetterInterface-floating-action-bar {
+.folded .ngWPAdminUI-floating-action-bar {
     left: 36px;
 }
 
 /* Ajustement sur mobile (menu admin masqué) */
 @media (max-width: 960px) {
-    .ngBetterInterface-floating-action-bar {
+    .ngWPAdminUI-floating-action-bar {
         left: 0;
     }
 }
 
 /* Barre en pleine largeur sur mobile/tablette portrait */
-.ngBetterInterface-floating-action-bar.ngBetterInterface-full-width {
+.ngWPAdminUI-floating-action-bar.ngWPAdminUI-full-width {
     left: 0 !important;
     right: 0 !important;
     width: 100vw !important;
@@ -55,14 +55,14 @@
 }
 
 /* Ajustement du contenu sur mobile */
-.ngBetterInterface-floating-action-bar.ngBetterInterface-full-width .ngBetterInterface-floating-actions,
-.ngBetterInterface-floating-action-bar.ngBetterInterface-full-width .ngBetterInterface-floating-right {
+.ngWPAdminUI-floating-action-bar.ngWPAdminUI-full-width .ngWPAdminUI-floating-actions,
+.ngWPAdminUI-floating-action-bar.ngWPAdminUI-full-width .ngWPAdminUI-floating-right {
     gap: 8px;
     flex-wrap: nowrap;
 }
 
 /* Container des actions */
-.ngBetterInterface-floating-actions {
+.ngWPAdminUI-floating-actions {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -70,7 +70,7 @@
 }
 
 /* Section de droite (filtres + pagination) */
-.ngBetterInterface-floating-right {
+.ngWPAdminUI-floating-right {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -78,7 +78,7 @@
 }
 
 /* Bouton filtres */
-.ngBetterInterface-filters-button {
+.ngWPAdminUI-filters-button {
     width: 44px !important;
     height: 44px !important;
     min-width: 44px !important;
@@ -98,7 +98,7 @@
     border-color: #374151 !important;
 }
 
-.ngBetterInterface-filters-button:hover {
+.ngWPAdminUI-filters-button:hover {
     background: #1f2937 !important; /* Gris plus sombre au hover */
     border-color: #1f2937 !important;
     box-shadow: 0 4px 8px rgba(55, 65, 81, 0.3) !important;
@@ -106,22 +106,22 @@
 }
 
 /* État actif quand le panel est ouvert */
-.ngBetterInterface-filters-button.active {
+.ngWPAdminUI-filters-button.active {
     background: #1f2937 !important;
     border-color: #1f2937 !important;
     box-shadow: 0 4px 12px rgba(55, 65, 81, 0.4) !important;
     transform: translateY(-2px) !important;
 }
 
-.ngBetterInterface-filters-button.active:hover {
+.ngWPAdminUI-filters-button.active:hover {
     background: #111827 !important;
     border-color: #111827 !important;
     box-shadow: 0 6px 16px rgba(55, 65, 81, 0.5) !important;
 }
 
 /* Effet de déploiement pour le bouton filtres */
-.ngBetterInterface-filters-button:hover,
-.ngBetterInterface-filters-button:focus {
+.ngWPAdminUI-filters-button:hover,
+.ngWPAdminUI-filters-button:focus {
     width: auto !important;
     min-width: 135px !important;
     padding: 0 12px !important;
@@ -130,8 +130,8 @@
     justify-content: flex-start !important;
 }
 
-.ngBetterInterface-filters-button:hover::after,
-.ngBetterInterface-filters-button:focus::after {
+.ngWPAdminUI-filters-button:hover::after,
+.ngWPAdminUI-filters-button:focus::after {
     content: 'Filter';
     position: absolute;
     left: 40px;
@@ -145,14 +145,14 @@
     pointer-events: none;
 }
 
-.ngBetterInterface-filters-button .material-icons-outlined {
+.ngWPAdminUI-filters-button .material-icons-outlined {
     font-size: 20px;
     width: 20px;
     height: 20px;
 }
 
 /* Bouton delete_all carré - Design Premium */
-.ngBetterInterface-delete-all-button {
+.ngWPAdminUI-delete-all-button {
     width: 44px !important;
     height: 44px !important;
     border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
@@ -167,7 +167,7 @@
     -webkit-backdrop-filter: blur(10px);
 }
 
-.ngBetterInterface-delete-all-button:hover {
+.ngWPAdminUI-delete-all-button:hover {
     border-color: rgba(255, 255, 255, 0.2) !important;
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.2),
@@ -177,7 +177,7 @@
 }
 
 /* Badge des filtres actifs */
-.ngBetterInterface-filters-badge {
+.ngWPAdminUI-filters-badge {
     position: absolute;
     top: -4px;
     right: -4px;
@@ -198,13 +198,13 @@
     transition: all 0.2s ease;
 }
 
-.ngBetterInterface-filters-badge:not(:empty) {
+.ngWPAdminUI-filters-badge:not(:empty) {
     opacity: 1;
     visibility: visible;
 }
 
 /* Overlay sombre pour les filtres */
-.ngBetterInterface-filters-overlay {
+.ngWPAdminUI-filters-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -218,41 +218,41 @@
     cursor: pointer;
 }
 
-.ngBetterInterface-filters-overlay-open {
+.ngWPAdminUI-filters-overlay-open {
     opacity: 1;
     visibility: visible;
 }
 
 /* Panel des filtres */
-.ngBetterInterface-filters-panel {
+.ngWPAdminUI-filters-panel {
     position: fixed;
     top: 0;
     right: -400px;
     width: 400px;
     height: 100vh;
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border-left: 2px solid var(--ngBetterInterface-modern-primary);
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border-left: 2px solid var(--ngWPAdminUI-modern-primary);
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
     z-index: 999998;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
 }
 
-.ngBetterInterface-filters-panel-open {
+.ngWPAdminUI-filters-panel-open {
     right: 0;
 }
 
-.ngBetterInterface-filters-panel-header {
+.ngWPAdminUI-filters-panel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color);
     background: linear-gradient(135deg, #374151, #1f2937);
     color: white;
 }
 
-.ngBetterInterface-filters-panel-header h3 {
+.ngWPAdminUI-filters-panel-header h3 {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
@@ -262,7 +262,7 @@
     gap: 8px;
 }
 
-.ngBetterInterface-filters-panel-header h3 .material-icons {
+.ngWPAdminUI-filters-panel-header h3 .material-icons {
     font-size: 20px;
     width: 20px;
     height: 20px;
@@ -270,7 +270,7 @@
 
 
 
-.ngBetterInterface-filters-close {
+.ngWPAdminUI-filters-close {
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.8);
@@ -280,12 +280,12 @@
     transition: all 0.2s;
 }
 
-.ngBetterInterface-filters-close:hover {
+.ngWPAdminUI-filters-close:hover {
     background: rgba(255, 255, 255, 0.1);
     color: white;
 }
 
-.ngBetterInterface-filters-panel-content {
+.ngWPAdminUI-filters-panel-content {
     padding: 20px;
     padding-bottom: 84px; /* 44px (bouton) + 20px (padding) + 20px (marge) */
     display: flex;
@@ -295,25 +295,25 @@
     overflow: hidden;
 }
 
-.ngBetterInterface-filters-panel-content > * {
+.ngWPAdminUI-filters-panel-content > * {
     width: 100%;
 }
 
 
 /* Container du bouton de réinitialisation en bas du panel */
-.ngBetterInterface-filters-reset-container {
+.ngWPAdminUI-filters-reset-container {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     padding: 20px;
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border-top: 1px solid var(--ngBetterInterface-modern-border-color);
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border-top: 1px solid var(--ngWPAdminUI-modern-border-color);
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Bouton de réinitialisation en pleine largeur */
-.ngBetterInterface-filters-reset-button {
+.ngWPAdminUI-filters-reset-button {
     width: 100% !important;
     height: 44px !important;
     padding: 0 16px !important;
@@ -332,26 +332,26 @@
     box-shadow: 0 2px 4px rgba(75, 85, 99, 0.2) !important;
 }
 
-.ngBetterInterface-filters-reset-button:hover {
+.ngWPAdminUI-filters-reset-button:hover {
     background: linear-gradient(135deg, #4b5563, #374151) !important;
     border-color: #374151 !important;
     box-shadow: 0 4px 8px rgba(75, 85, 99, 0.3) !important;
     transform: translateY(-1px) !important;
 }
 
-.ngBetterInterface-filters-reset-button:active {
+.ngWPAdminUI-filters-reset-button:active {
     transform: translateY(0) !important;
     box-shadow: 0 2px 4px rgba(75, 85, 99, 0.2) !important;
 }
 
-.ngBetterInterface-filters-reset-button .material-icons {
+.ngWPAdminUI-filters-reset-button .material-icons {
     font-size: 18px;
     width: 18px;
     height: 18px;
 }
 
 /* Surbrillance des filtres actifs */
-.ngBetterInterface-filter-active-highlight {
+.ngWPAdminUI-filter-active-highlight {
     background-color: rgba(55, 65, 81, 0.2) !important;
     border-color: #374151 !important;
     box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.3) !important;
@@ -360,7 +360,7 @@
     
 
 /* Pagination moderne */
-.ngBetterInterface-modern-pagination {
+.ngWPAdminUI-modern-pagination {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -372,18 +372,18 @@
 }
 
 /* Masquer la pagination si il n'y a qu'une page */
-.ngBetterInterface-floating-pagination:has(.ngBetterInterface-pagination-hide) {
+.ngWPAdminUI-floating-pagination:has(.ngWPAdminUI-pagination-hide) {
     display: none;
 }
 
 
-.ngBetterInterface-pagination-last, 
-.ngBetterInterface-pagination-first {
+.ngWPAdminUI-pagination-last, 
+.ngWPAdminUI-pagination-first {
     transform:scale(0.8);
 }
 
 /* Boutons de pagination */
-.ngBetterInterface-pagination-btn {
+.ngWPAdminUI-pagination-btn {
     width: 36px !important;
     height: 36px !important;
     min-width: 36px !important;
@@ -399,31 +399,31 @@
     position: relative !important;
     overflow: hidden !important;
     cursor: pointer !important;
-    background: var(--ngBetterInterface-modern-primary) !important;
-    border-color: var(--ngBetterInterface-modern-primary) !important;
+    background: var(--ngWPAdminUI-modern-primary) !important;
+    border-color: var(--ngWPAdminUI-modern-primary) !important;
 }
 
-.ngBetterInterface-pagination-btn:hover {
-    background: var(--ngBetterInterface-modern-primary-hover) !important;
-    border-color: var(--ngBetterInterface-modern-primary-hover) !important;
+.ngWPAdminUI-pagination-btn:hover {
+    background: var(--ngWPAdminUI-modern-primary-hover) !important;
+    border-color: var(--ngWPAdminUI-modern-primary-hover) !important;
     box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3) !important;
     transform: translateY(-1px) !important;
 }
 
-.ngBetterInterface-pagination-btn .dashicons {
+.ngWPAdminUI-pagination-btn .dashicons {
     font-size: 16px;
     width: 16px;
     height: 16px;
 }
 
 /* Input de page */
-.ngBetterInterface-pagination-input {
+.ngWPAdminUI-pagination-input {
     width: 50px;
     height: 28px;
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
     border-radius: 4px;
-    color: var(--ngBetterInterface-modern-text-primary);
+    color: var(--ngWPAdminUI-modern-text-primary);
     font-size: 14px;
     font-weight: 500;
     text-align: center;
@@ -431,19 +431,19 @@
     transition: all 0.2s;
 }
 
-.ngBetterInterface-pagination-input:focus {
+.ngWPAdminUI-pagination-input:focus {
     outline: none;
-    border-color: var(--ngBetterInterface-modern-primary);
+    border-color: var(--ngWPAdminUI-modern-primary);
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
 }
 
-.ngBetterInterface-pagination-input:hover {
-    border-color: var(--ngBetterInterface-modern-primary);
+.ngWPAdminUI-pagination-input:hover {
+    border-color: var(--ngWPAdminUI-modern-primary);
 }
 
 /* Total des pages */
-.ngBetterInterface-pagination-total {
-    color: var(--ngBetterInterface-modern-text-secondary);
+.ngWPAdminUI-pagination-total {
+    color: var(--ngWPAdminUI-modern-text-secondary);
     font-size: 14px;
     font-weight: 500;
     padding: 0 4px;
@@ -451,24 +451,24 @@
 }
 
 
-.ngBetterInterface-floating-pagination {
+.ngWPAdminUI-floating-pagination {
     position: relative;
-    background: rgba(var(--ngBetterInterface-modern-primary-rgb), 0.2);
+    background: rgba(var(--ngWPAdminUI-modern-primary-rgb), 0.2);
     padding: 6px 15px;
     border-radius: 8px;
 }
 
 /* Pagination legacy (masquée) */
-.ngBetterInterface-floating-pagination .tablenav-pages,
-.ngBetterInterface-floating-pagination .wp-pagenavi,
-.ngBetterInterface-floating-pagination .pagination {
+.ngWPAdminUI-floating-pagination .tablenav-pages,
+.ngWPAdminUI-floating-pagination .wp-pagenavi,
+.ngWPAdminUI-floating-pagination .pagination {
     display: none;
 }
 
 /* Compteur d'éléments sélectionnés - Design Premium */
-.ngBetterInterface-selection-counter {
+.ngWPAdminUI-selection-counter {
 	background: linear-gradient(135deg, rgba(75, 85, 99, 0.15) 0%, rgba(55, 65, 81, 0.1) 100%);
-	color: var(--ngBetterInterface-modern-text-secondary);
+	color: var(--ngWPAdminUI-modern-text-secondary);
 	padding: 8px 16px;
 	border-radius: 12px;
 	border: 1.5px solid rgba(255, 255, 255, 0.08);
@@ -487,13 +487,13 @@
 	position: relative;
 }
 
-.ngBetterInterface-floating-left {
+.ngWPAdminUI-floating-left {
     display: flex;
     gap: 30px;
 }
 
 /* Contenu du compteur (numéro + texte empilés) */
-.ngBetterInterface-counter-content {
+.ngWPAdminUI-counter-content {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -502,10 +502,10 @@
 }
 
 /* Numéro du compteur - Design Premium */
-.ngBetterInterface-counter-number {
+.ngWPAdminUI-counter-number {
 	font-size: 16px;
 	font-weight: 700;
-	color: var(--ngBetterInterface-modern-text-primary);
+	color: var(--ngWPAdminUI-modern-text-primary);
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	display: block;
 	line-height: 1;
@@ -514,13 +514,13 @@
 	letter-spacing: -0.5px;
 }
 
-.ngBetterInterface-selection-counter.has-selection .ngBetterInterface-counter-number {
+.ngWPAdminUI-selection-counter.has-selection .ngWPAdminUI-counter-number {
 	color: white;
 	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Animation de défilement du compteur */
-.ngBetterInterface-counter-number.counter-changing {
+.ngWPAdminUI-counter-number.counter-changing {
 	animation: counterScroll 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -544,10 +544,10 @@
 }
 
 /* Texte du compteur - Design Premium */
-.ngBetterInterface-counter-text {
+.ngWPAdminUI-counter-text {
 	font-size: 9px;
 	font-weight: 500;
-	color: var(--ngBetterInterface-modern-text-secondary);
+	color: var(--ngWPAdminUI-modern-text-secondary);
 	text-transform: uppercase;
 	letter-spacing: 0.8px;
 	opacity: 0.7;
@@ -555,12 +555,12 @@
 	margin-top: 2px;
 }
 
-.ngBetterInterface-selection-counter.has-selection .ngBetterInterface-counter-text {
+.ngWPAdminUI-selection-counter.has-selection .ngWPAdminUI-counter-text {
 	color: rgba(255, 255, 255, 0.75);
 	opacity: 0.85;
 }
 
-.ngBetterInterface-selection-counter.has-selection {
+.ngWPAdminUI-selection-counter.has-selection {
 	background: linear-gradient(135deg, #4b5563 0%, #374151 50%, #1f2937 100%);
 	color: white;
 	border-color: rgba(255, 255, 255, 0.15);
@@ -574,7 +574,7 @@
 	position: relative;
 }
 
-.ngBetterInterface-selection-counter.has-selection::before {
+.ngWPAdminUI-selection-counter.has-selection::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -586,12 +586,12 @@
 	pointer-events: none;
 }
 
-.ngBetterInterface-selection-counter.has-selection * {
+.ngWPAdminUI-selection-counter.has-selection * {
 	color: white;
 }
 
 /* Bouton de désélection intégré au compteur - Design Premium */
-.ngBetterInterface-selection-counter .ngBetterInterface-deselect-all {
+.ngWPAdminUI-selection-counter .ngWPAdminUI-deselect-all {
 	background: rgba(255, 255, 255, 0.1) !important;
 	border: 1px solid rgba(255, 255, 255, 0.15) !important;
 	border-radius: 6px !important;
@@ -608,13 +608,13 @@
 	-webkit-backdrop-filter: blur(5px);
 }
 
-.ngBetterInterface-selection-counter .ngBetterInterface-deselect-all:hover {
+.ngWPAdminUI-selection-counter .ngWPAdminUI-deselect-all:hover {
 	background: rgba(255, 255, 255, 0.2) !important;
 	border-color: rgba(255, 255, 255, 0.25) !important;
 	transform: scale(1.1);
 }
 
-.ngBetterInterface-selection-counter .ngBetterInterface-deselect-all .dashicons {
+.ngWPAdminUI-selection-counter .ngWPAdminUI-deselect-all .dashicons {
 	font-size: 14px !important;
 	width: 14px !important;
 	height: 14px !important;
@@ -623,12 +623,12 @@
 
 
 /* Masquer le bouton quand aucun élément n'est sélectionné */
-.ngBetterInterface-selection-counter:not(.has-selection) .ngBetterInterface-deselect-all {
+.ngWPAdminUI-selection-counter:not(.has-selection) .ngWPAdminUI-deselect-all {
 	display: none !important;
 }
 
 /* Container des filtres */
-.ngBetterInterface-floating-filters {
+.ngWPAdminUI-floating-filters {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -636,17 +636,17 @@
 }
 
 /* Actions désactivées quand aucun élément sélectionné */
-.ngBetterInterface-floating-actions button.disabled,
-.ngBetterInterface-floating-actions input[type="submit"].disabled,
-.ngBetterInterface-floating-actions select.disabled {
+.ngWPAdminUI-floating-actions button.disabled,
+.ngWPAdminUI-floating-actions input[type="submit"].disabled,
+.ngWPAdminUI-floating-actions select.disabled {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
 }
 
 /* Styles spécifiques pour les boutons d'actions */
-.ngBetterInterface-floating-actions button,
-.ngBetterInterface-floating-actions input[type="submit"] {
+.ngWPAdminUI-floating-actions button,
+.ngWPAdminUI-floating-actions input[type="submit"] {
     background: #6b7280;
     color: white;
     border: 1px solid #6b7280;
@@ -659,8 +659,8 @@
     box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
 }
 
-.ngBetterInterface-floating-actions button:hover:not(.disabled),
-.ngBetterInterface-floating-actions input[type="submit"]:hover:not(.disabled) {
+.ngWPAdminUI-floating-actions button:hover:not(.disabled),
+.ngWPAdminUI-floating-actions input[type="submit"]:hover:not(.disabled) {
     background: #4b5563;
     border-color: #4b5563;
     box-shadow: 0 4px 8px rgba(107, 114, 128, 0.3);
@@ -672,14 +672,14 @@
    ======================================== */
 
 /* Groupe générique pour tous les boutons groupés */
-.ngBetterInterface-button-group {
+.ngWPAdminUI-button-group {
     display: flex !important;
     align-items: center !important;
     border-radius: 6px !important;
 }
 
 /* Boutons groupés dans la barre flottante */
-.ngBetterInterface-floating-action-bar .ngBetterInterface-button-group button {
+.ngWPAdminUI-floating-action-bar .ngWPAdminUI-button-group button {
     width: 36px !important;
     height: 36px !important;
     min-width: 36px !important;
@@ -700,7 +700,7 @@
     -webkit-backdrop-filter: blur(10px);
 }
 
-.ngBetterInterface-floating-action-bar .ngBetterInterface-button-group button:hover {
+.ngWPAdminUI-floating-action-bar .ngWPAdminUI-button-group button:hover {
     border-color: rgba(255, 255, 255, 0.2) !important;
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.2),
@@ -714,7 +714,7 @@
    ======================================== */
 
 /* Base commune pour tous les boutons personnalisés */
-.ngBetterInterface-floating-action-bar button[data-action] {
+.ngWPAdminUI-floating-action-bar button[data-action] {
     width: 36px;
     height: 36px;
     min-width: 36px;
@@ -738,7 +738,7 @@
 }
 
 /* Effet de brillance subtil sur les boutons */
-.ngBetterInterface-floating-action-bar button[data-action]::before {
+.ngWPAdminUI-floating-action-bar button[data-action]::before {
     content: '';
     position: absolute;
     top: 0;
@@ -749,37 +749,37 @@
     transition: left 0.5s ease;
 }
 
-.ngBetterInterface-floating-action-bar button[data-action]:hover::before {
+.ngWPAdminUI-floating-action-bar button[data-action]:hover::before {
     left: 100%;
 }
 
 /* États disabled pour tous les boutons */
-.ngBetterInterface-floating-action-bar button[data-action]:disabled {
+.ngWPAdminUI-floating-action-bar button[data-action]:disabled {
     opacity: 0.3 !important;
     cursor: not-allowed !important;
 }
 
 /* Classes utilitaires pour les border-radius */
-.ngBetterInterface-floating-action-bar button[data-action].no-br-left ,
-.ngBetterInterface-floating-action-bar button[data-action].no-br-left:hover {
+.ngWPAdminUI-floating-action-bar button[data-action].no-br-left ,
+.ngWPAdminUI-floating-action-bar button[data-action].no-br-left:hover {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
 }
 
-.ngBetterInterface-floating-action-bar button[data-action].no-br-right,
-.ngBetterInterface-floating-action-bar button[data-action].no-br-right:hover {
+.ngWPAdminUI-floating-action-bar button[data-action].no-br-right,
+.ngWPAdminUI-floating-action-bar button[data-action].no-br-right:hover {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
 }
 
 
 /* Boutons avec icônes doubles */
-.ngBetterInterface-floating-action-bar button[data-action] {
+.ngWPAdminUI-floating-action-bar button[data-action] {
     position: relative !important;
 }
 
 /* Icône secondaire (en bas à droite) */
-.ngBetterInterface-floating-action-bar .ngBetterInterface-secondary-icon {
+.ngWPAdminUI-floating-action-bar .ngWPAdminUI-secondary-icon {
     position: absolute !important;
     bottom: 1px !important;
     right: 1px !important;
@@ -795,8 +795,8 @@
 }
 
 /* Effet de déploiement pour tous les boutons personnalisés */
-.ngBetterInterface-floating-action-bar button[data-action]:hover,
-.ngBetterInterface-floating-action-bar button[data-action]:focus {
+.ngWPAdminUI-floating-action-bar button[data-action]:hover,
+.ngWPAdminUI-floating-action-bar button[data-action]:focus {
     width: auto !important;
     min-width: 135px !important;
     padding: 0 12px !important;
@@ -811,8 +811,8 @@
     transform: translateY(-1px) !important;
 }
 
-.ngBetterInterface-floating-action-bar button[data-action]:hover::after,
-.ngBetterInterface-floating-action-bar button[data-action]:focus::after {
+.ngWPAdminUI-floating-action-bar button[data-action]:hover::after,
+.ngWPAdminUI-floating-action-bar button[data-action]:focus::after {
     content: attr(title);
     position: absolute;
     left: 45px;
@@ -838,11 +838,11 @@
 }
 
 /* Animation de rotation pour le spinner de chargement */
-.ngBetterInterface-loading-spinner {
-    animation: ngBetterInterface-spin 1s linear infinite;
+.ngWPAdminUI-loading-spinner {
+    animation: ngWPAdminUI-spin 1s linear infinite;
 }
 
-@keyframes ngBetterInterface-spin {
+@keyframes ngWPAdminUI-spin {
     from {
         transform: rotate(0deg);
     }
@@ -852,7 +852,7 @@
 }
 
 /* Styles pour les boutons en cours de chargement */
-.ngBetterInterface-floating-action-bar button.loading {
+.ngWPAdminUI-floating-action-bar button.loading {
     cursor: not-allowed !important;
     pointer-events: none !important;
 }
@@ -860,11 +860,11 @@
 
 
 /* Styles spécifiques pour les boutons de filtres */
-.ngBetterInterface-floating-filters button,
-.ngBetterInterface-floating-filters input[type="submit"] {
-    background: var(--ngBetterInterface-modern-bg-primary);
-    color: var(--ngBetterInterface-modern-text-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
+.ngWPAdminUI-floating-filters button,
+.ngWPAdminUI-floating-filters input[type="submit"] {
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    color: var(--ngWPAdminUI-modern-text-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
     border-radius: 6px;
     padding: 8px 16px;
     font-size: 14px;
@@ -874,22 +874,22 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.ngBetterInterface-floating-filters button:hover:not(.disabled),
-.ngBetterInterface-floating-filters input[type="submit"]:hover:not(.disabled) {
-    background: var(--ngBetterInterface-modern-bg-secondary);
-    border-color: var(--ngBetterInterface-modern-primary);
+.ngWPAdminUI-floating-filters button:hover:not(.disabled),
+.ngWPAdminUI-floating-filters input[type="submit"]:hover:not(.disabled) {
+    background: var(--ngWPAdminUI-modern-bg-secondary);
+    border-color: var(--ngWPAdminUI-modern-primary);
     box-shadow: 0 2px 6px rgba(99, 102, 241, 0.15);
 }
 
 /* Styles modernes pour les selects dans la barre flottante */
-.ngBetterInterface-floating-action-bar select {
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
+.ngWPAdminUI-floating-action-bar select {
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
     border-radius: 6px;
     padding: 8px 12px;
         font-size: 14px;
     font-weight: 500;
-    color: var(--ngBetterInterface-modern-text-primary);
+    color: var(--ngWPAdminUI-modern-text-primary);
     min-width: 120px;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -902,54 +902,54 @@
     padding-right: 32px;
 }
 
-.ngBetterInterface-floating-action-bar select:hover {
-    border-color: var(--ngBetterInterface-modern-primary);
+.ngWPAdminUI-floating-action-bar select:hover {
+    border-color: var(--ngWPAdminUI-modern-primary);
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
 }
 
-.ngBetterInterface-floating-action-bar select:focus {
+.ngWPAdminUI-floating-action-bar select:focus {
     outline: none;
-    border-color: var(--ngBetterInterface-modern-primary);
+    border-color: var(--ngWPAdminUI-modern-primary);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-.ngBetterInterface-floating-action-bar select option {
-    background: var(--ngBetterInterface-modern-bg-primary);
-    color: var(--ngBetterInterface-modern-text-primary);
+.ngWPAdminUI-floating-action-bar select option {
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    color: var(--ngWPAdminUI-modern-text-primary);
     padding: 8px 12px;
 }
 
 /* Styles pour les inputs dans la barre flottante */
-.ngBetterInterface-floating-action-bar input[type="text"],
-.ngBetterInterface-floating-action-bar input[type="search"],
-.ngBetterInterface-floating-action-bar input[type="date"],
-.ngBetterInterface-floating-action-bar input[type="number"] {
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
+.ngWPAdminUI-floating-action-bar input[type="text"],
+.ngWPAdminUI-floating-action-bar input[type="search"],
+.ngWPAdminUI-floating-action-bar input[type="date"],
+.ngWPAdminUI-floating-action-bar input[type="number"] {
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
     border-radius: 6px;
     padding: 8px 12px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--ngBetterInterface-modern-text-primary);
+    color: var(--ngWPAdminUI-modern-text-primary);
     min-width: 70px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.ngBetterInterface-floating-action-bar input[type="text"]:hover,
-.ngBetterInterface-floating-action-bar input[type="search"]:hover,
-.ngBetterInterface-floating-action-bar input[type="date"]:hover,
-.ngBetterInterface-floating-action-bar input[type="number"]:hover {
-    border-color: var(--ngBetterInterface-modern-primary);
+.ngWPAdminUI-floating-action-bar input[type="text"]:hover,
+.ngWPAdminUI-floating-action-bar input[type="search"]:hover,
+.ngWPAdminUI-floating-action-bar input[type="date"]:hover,
+.ngWPAdminUI-floating-action-bar input[type="number"]:hover {
+    border-color: var(--ngWPAdminUI-modern-primary);
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
 }
 
-.ngBetterInterface-floating-action-bar input[type="text"]:focus,
-.ngBetterInterface-floating-action-bar input[type="search"]:focus,
-.ngBetterInterface-floating-action-bar input[type="date"]:focus,
-.ngBetterInterface-floating-action-bar input[type="number"]:focus {
+.ngWPAdminUI-floating-action-bar input[type="text"]:focus,
+.ngWPAdminUI-floating-action-bar input[type="search"]:focus,
+.ngWPAdminUI-floating-action-bar input[type="date"]:focus,
+.ngWPAdminUI-floating-action-bar input[type="number"]:focus {
     outline: none;
-    border-color: var(--ngBetterInterface-modern-primary);
+    border-color: var(--ngWPAdminUI-modern-primary);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -958,7 +958,7 @@
    ======================================== */
 
 /* Bouton "Ajouter" dans la barre flottante - Design Premium */
-.ngBetterInterface-add-button {
+.ngWPAdminUI-add-button {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -989,7 +989,7 @@
 }
 
 /* Effet de glow subtil autour du bouton */
-.ngBetterInterface-add-button::after {
+.ngWPAdminUI-add-button::after {
     content: '';
     position: absolute;
     top: -50%;
@@ -1003,7 +1003,7 @@
 }
 
 /* Effet de brillance animé */
-.ngBetterInterface-add-button::before {
+.ngWPAdminUI-add-button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1014,11 +1014,11 @@
     transition: left 0.6s ease;
 }
 
-.ngBetterInterface-add-button:hover::before {
+.ngWPAdminUI-add-button:hover::before {
     left: 100%;
 }
 
-.ngBetterInterface-add-button:hover {
+.ngWPAdminUI-add-button:hover {
     background: linear-gradient(135deg, #111827 0%, #0f172a 50%, #1e293b 100%) !important;
     border-color: rgba(255, 255, 255, 0.15) !important;
     border-radius: 50% !important;
@@ -1033,11 +1033,11 @@
     text-decoration: none !important;
 }
 
-.ngBetterInterface-add-button:hover::after {
+.ngWPAdminUI-add-button:hover::after {
     opacity: 1;
 }
 
-.ngBetterInterface-add-button:active {
+.ngWPAdminUI-add-button:active {
     border-radius: 50% !important;
     transform: translateY(-8px) rotate(90deg) scale(1.02) !important;
     box-shadow: 
@@ -1047,7 +1047,7 @@
 }
 
 /* Icône du bouton "Ajouter" - Design Premium */
-.ngBetterInterface-add-button .material-icons {
+.ngWPAdminUI-add-button .material-icons {
     font-size: 65px !important;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1055,7 +1055,7 @@
     z-index: 1;
 }
 
-.ngBetterInterface-add-button:hover .material-icons {
+.ngWPAdminUI-add-button:hover .material-icons {
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
     transform: scale(1.1);
 }
@@ -1065,7 +1065,7 @@
    ======================================== */
 
 /* Bouton de recherche */
-.ngBetterInterface-search-button {
+.ngWPAdminUI-search-button {
     width: 44px !important;
     height: 44px !important;
     min-width: 44px !important;
@@ -1085,7 +1085,7 @@
     border-color: #4b5563 !important;
 }
 
-.ngBetterInterface-search-button:hover {
+.ngWPAdminUI-search-button:hover {
     background: #374151 !important; /* Gris plus foncé au hover */
     border-color: #374151 !important;
     box-shadow: 0 4px 8px rgba(75, 85, 99, 0.3) !important;
@@ -1093,28 +1093,28 @@
 }
 
 /* État actif quand la modale est ouverte */
-.ngBetterInterface-search-button.active {
+.ngWPAdminUI-search-button.active {
     background: #374151 !important;
     border-color: #374151 !important;
     box-shadow: 0 4px 12px rgba(75, 85, 99, 0.4) !important;
     transform: translateY(-2px) !important;
 }
 
-.ngBetterInterface-search-button.active:hover {
+.ngWPAdminUI-search-button.active:hover {
     background: #1f2937 !important;
     border-color: #1f2937 !important;
     box-shadow: 0 6px 16px rgba(75, 85, 99, 0.5) !important;
 }
 
-.ngBetterInterface-search-button .material-icons {
+.ngWPAdminUI-search-button .material-icons {
     font-size: 20px;
     width: 20px;
     height: 20px;
 }
 
 /* Effet de déploiement pour le bouton recherche */
-.ngBetterInterface-search-button:hover,
-.ngBetterInterface-search-button:focus {
+.ngWPAdminUI-search-button:hover,
+.ngWPAdminUI-search-button:focus {
     width: auto !important;
     min-width: 135px !important;
     padding: 0 12px !important;
@@ -1123,8 +1123,8 @@
     justify-content: flex-start !important;
 }
 
-.ngBetterInterface-search-button:hover::after,
-.ngBetterInterface-search-button:focus::after {
+.ngWPAdminUI-search-button:hover::after,
+.ngWPAdminUI-search-button:focus::after {
     content: 'Rechercher';
     position: absolute;
     left: 40px;
@@ -1139,7 +1139,7 @@
 }
 
 /* Modale de recherche */
-.ngBetterInterface-search-modal {
+.ngWPAdminUI-search-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -1155,13 +1155,13 @@
     justify-content: center;
 }
 
-.ngBetterInterface-search-modal-open {
+.ngWPAdminUI-search-modal-open {
     opacity: 1;
     visibility: visible;
 }
 
-.ngBetterInterface-search-modal-content {
-    background: var(--ngBetterInterface-modern-bg-primary);
+.ngWPAdminUI-search-modal-content {
+    background: var(--ngWPAdminUI-modern-bg-primary);
     border-radius: 12px;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     width: 90%;
@@ -1172,11 +1172,11 @@
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.ngBetterInterface-search-modal-open .ngBetterInterface-search-modal-content {
+.ngWPAdminUI-search-modal-open .ngWPAdminUI-search-modal-content {
     transform: scale(1);
 }
 
-.ngBetterInterface-search-modal-header {
+.ngWPAdminUI-search-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1189,7 +1189,7 @@
 }
 
 /* Effet de glow subtil sur le header */
-.ngBetterInterface-search-modal-header::before {
+.ngWPAdminUI-search-modal-header::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1200,7 +1200,7 @@
     pointer-events: none;
 }
 
-.ngBetterInterface-search-modal-header h3 {
+.ngWPAdminUI-search-modal-header h3 {
     margin: 0;
     font-size: 16px;
     font-weight: 600;
@@ -1212,13 +1212,13 @@
     z-index: 1;
 }
 
-.ngBetterInterface-search-modal-header h3 .material-icons {
+.ngWPAdminUI-search-modal-header h3 .material-icons {
     font-size: 18px;
     width: 18px;
     height: 18px;
 }
 
-.ngBetterInterface-search-modal-close {
+.ngWPAdminUI-search-modal-close {
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.8);
@@ -1230,48 +1230,48 @@
     z-index: 1;
 }
 
-.ngBetterInterface-search-modal-close:hover {
+.ngWPAdminUI-search-modal-close:hover {
     background: rgba(255, 255, 255, 0.1);
     color: white;
 }
 
-.ngBetterInterface-search-modal-body {
+.ngWPAdminUI-search-modal-body {
     padding: 20px;
     display: flex;
     flex-direction: column;
 }
 
 /* Espacement spécifique pour la boîte de recherche */
-.ngBetterInterface-search-modal-body .search-box {
+.ngWPAdminUI-search-modal-body .search-box {
     gap: 16px;
 }
 
 /* Styles pour les éléments de recherche dans la modale */
-.ngBetterInterface-search-modal-body input[type="search"],
-.ngBetterInterface-search-modal-body input[type="text"] {
+.ngWPAdminUI-search-modal-body input[type="search"],
+.ngWPAdminUI-search-modal-body input[type="text"] {
     width: 100% !important;
     height: 44px !important;
     padding: 0 16px !important;
-    background: var(--ngBetterInterface-modern-bg-primary) !important;
-    border: 2px solid var(--ngBetterInterface-modern-border-color) !important;
+    background: var(--ngWPAdminUI-modern-bg-primary) !important;
+    border: 2px solid var(--ngWPAdminUI-modern-border-color) !important;
     border-radius: 8px !important;
     font-size: 16px !important;
     font-weight: 500 !important;
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
     box-sizing: border-box !important;
 }
 
-.ngBetterInterface-search-modal-body input[type="search"]:focus,
-.ngBetterInterface-search-modal-body input[type="text"]:focus {
+.ngWPAdminUI-search-modal-body input[type="search"]:focus,
+.ngWPAdminUI-search-modal-body input[type="text"]:focus {
     outline: none !important;
     border-color: #4b5563 !important;
     box-shadow: 0 0 0 3px rgba(75, 85, 99, 0.1) !important;
 }
 
-.ngBetterInterface-search-modal-body input[type="submit"],
-.ngBetterInterface-search-modal-body button[type="submit"] {
+.ngWPAdminUI-search-modal-body input[type="submit"],
+.ngWPAdminUI-search-modal-body button[type="submit"] {
     width: 100% !important;
     height: 44px !important;
     padding: 0 24px !important;
@@ -1292,8 +1292,8 @@
 }
 
 /* Icône pour le bouton de recherche dans la modale */
-.ngBetterInterface-search-modal-body input[type="submit"]::before,
-.ngBetterInterface-search-modal-body button[type="submit"]::before {
+.ngWPAdminUI-search-modal-body input[type="submit"]::before,
+.ngWPAdminUI-search-modal-body button[type="submit"]::before {
     content: '\e8b6'; /* Code de l'icône search de Material Icons */
     font-family: 'Material Icons' !important;
     font-size: 18px !important;
@@ -1301,8 +1301,8 @@
     line-height: 1 !important;
 }
 
-.ngBetterInterface-search-modal-body input[type="submit"]:hover,
-.ngBetterInterface-search-modal-body button[type="submit"]:hover {
+.ngWPAdminUI-search-modal-body input[type="submit"]:hover,
+.ngWPAdminUI-search-modal-body button[type="submit"]:hover {
     background: linear-gradient(135deg, #374151, #1f2937) !important;
     border-color: #374151 !important;
     box-shadow: 0 4px 8px rgba(6, 182, 212, 0.3) !important;
@@ -1314,34 +1314,34 @@
    ======================================== */
 
 /* Container des suggestions */
-.ngBetterInterface-search-suggestions {
+.ngWPAdminUI-search-suggestions {
     margin-top: 16px;
     max-height: 300px;
     overflow-y: auto;
     border-radius: 8px;
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: none;
 }
 
 /* Titre des suggestions */
-.ngBetterInterface-suggestions-title {
+.ngWPAdminUI-suggestions-title {
     padding: 12px 16px 8px 16px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--ngBetterInterface-modern-text-secondary);
+    color: var(--ngWPAdminUI-modern-text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
-    background: var(--ngBetterInterface-modern-bg-secondary);
+    border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color);
+    background: var(--ngWPAdminUI-modern-bg-secondary);
     border-radius: 8px 8px 0 0;
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
-.ngBetterInterface-suggestions-title::before {
+.ngWPAdminUI-suggestions-title::before {
     content: '\e8b6'; /* Icône search de Material Icons */
     font-family: 'Material Icons';
     font-size: 16px;
@@ -1349,16 +1349,16 @@
 }
 
 /* Liste des suggestions */
-.ngBetterInterface-suggestions-list {
+.ngWPAdminUI-suggestions-list {
     padding: 8px 0;
     overflow: hidden;
 }
 
 /* État de chargement */
-.ngBetterInterface-suggestions-loading {
+.ngWPAdminUI-suggestions-loading {
     padding: 16px;
     text-align: center;
-    color: var(--ngBetterInterface-modern-text-secondary);
+    color: var(--ngWPAdminUI-modern-text-secondary);
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -1366,23 +1366,23 @@
     gap: 8px;
 }
 
-.ngBetterInterface-suggestions-loading .dashicons {
+.ngWPAdminUI-suggestions-loading .dashicons {
     font-size: 16px;
     width: 16px;
     height: 16px;
 }
 
 /* État vide */
-.ngBetterInterface-suggestions-empty {
+.ngWPAdminUI-suggestions-empty {
     padding: 16px;
     text-align: center;
-    color: var(--ngBetterInterface-modern-text-secondary);
+    color: var(--ngWPAdminUI-modern-text-secondary);
     font-size: 14px;
     font-style: italic;
 }
 
 /* État d'erreur */
-.ngBetterInterface-suggestions-error {
+.ngWPAdminUI-suggestions-error {
     padding: 16px;
     text-align: center;
     color: #6b7280;
@@ -1390,43 +1390,43 @@
 }
 
 /* Item de suggestion */
-.ngBetterInterface-suggestion-item {
+.ngWPAdminUI-suggestion-item {
     display: flex;
     align-items: center;
     padding: 12px 16px;
-    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color);
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
-.ngBetterInterface-suggestion-item:last-child {
+.ngWPAdminUI-suggestion-item:last-child {
     border-bottom: none;
 }
 
-.ngBetterInterface-suggestion-item:hover {
-    background: var(--ngBetterInterface-modern-bg-secondary);
+.ngWPAdminUI-suggestion-item:hover {
+    background: var(--ngWPAdminUI-modern-bg-secondary);
     transform: translateX(4px);
 }
 
 /* Contenu de la suggestion */
-.ngBetterInterface-suggestion-content {
+.ngWPAdminUI-suggestion-content {
     flex: 1;
     min-width: 0; /* Permet au texte de se tronquer */
 }
 
 /* Titre de la suggestion */
-.ngBetterInterface-suggestion-title {
+.ngWPAdminUI-suggestion-title {
     font-size: 14px;
     font-weight: 600;
-    color: var(--ngBetterInterface-modern-text-primary);
+    color: var(--ngWPAdminUI-modern-text-primary);
     margin-bottom: 4px;
     line-height: 1.4;
     word-wrap: break-word;
 }
 
 /* Mise en évidence du texte recherché */
-.ngBetterInterface-suggestion-title mark {
+.ngWPAdminUI-suggestion-title mark {
     background: rgba(6, 182, 212, 0.2);
     color: #4b5563;
     padding: 1px 2px;
@@ -1435,60 +1435,60 @@
 }
 
 /* Contexte de la suggestion (catégories, parent, etc.) */
-.ngBetterInterface-suggestion-context {
+.ngWPAdminUI-suggestion-context {
     font-size: 12px;
-    color: var(--ngBetterInterface-modern-text-secondary);
+    color: var(--ngWPAdminUI-modern-text-secondary);
     margin-bottom: 4px;
     line-height: 1.3;
 }
 
 /* Métadonnées de la suggestion */
-.ngBetterInterface-suggestion-meta {
+.ngWPAdminUI-suggestion-meta {
     display: flex;
     align-items: center;
     gap: 12px;
     font-size: 11px;
-    color: var(--ngBetterInterface-modern-text-secondary);
+    color: var(--ngWPAdminUI-modern-text-secondary);
 }
 
 /* Statut de la suggestion */
-.ngBetterInterface-suggestion-status {
+.ngWPAdminUI-suggestion-status {
     display: flex;
     align-items: center;
     gap: 4px;
     font-weight: 500;
 }
 
-.ngBetterInterface-suggestion-status .dashicons {
+.ngWPAdminUI-suggestion-status .dashicons {
     font-size: 12px;
     width: 12px;
     height: 12px;
 }
 
 /* Couleurs selon le statut */
-.ngBetterInterface-suggestion-item.status-publish .ngBetterInterface-suggestion-status {
+.ngWPAdminUI-suggestion-item.status-publish .ngWPAdminUI-suggestion-status {
     color: #10b981;
 }
 
-.ngBetterInterface-suggestion-item.status-draft .ngBetterInterface-suggestion-status {
+.ngWPAdminUI-suggestion-item.status-draft .ngWPAdminUI-suggestion-status {
     color: #f59e0b;
 }
 
-.ngBetterInterface-suggestion-item.status-private .ngBetterInterface-suggestion-status {
+.ngWPAdminUI-suggestion-item.status-private .ngWPAdminUI-suggestion-status {
     color: #4b5563;
 }
 
-.ngBetterInterface-suggestion-item.status-trash .ngBetterInterface-suggestion-status {
+.ngWPAdminUI-suggestion-item.status-trash .ngWPAdminUI-suggestion-status {
     color: #6b7280;
 }
 
 /* Date de la suggestion */
-.ngBetterInterface-suggestion-date {
+.ngWPAdminUI-suggestion-date {
     font-weight: 400;
 }
 
 /* Actions de la suggestion */
-.ngBetterInterface-suggestion-actions {
+.ngWPAdminUI-suggestion-actions {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1496,58 +1496,58 @@
     transition: opacity 0.2s ease;
 }
 
-.ngBetterInterface-suggestion-item:hover .ngBetterInterface-suggestion-actions {
+.ngWPAdminUI-suggestion-item:hover .ngWPAdminUI-suggestion-actions {
     opacity: 1;
 }
 
 /* Bouton d'édition */
-.ngBetterInterface-suggestion-edit {
+.ngWPAdminUI-suggestion-edit {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 28px;
     height: 28px;
-    background: var(--ngBetterInterface-modern-primary);
+    background: var(--ngWPAdminUI-modern-primary);
     color: white;
     border-radius: 4px;
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
-.ngBetterInterface-suggestion-edit:hover {
-    background: var(--ngBetterInterface-modern-primary-hover);
+.ngWPAdminUI-suggestion-edit:hover {
+    background: var(--ngWPAdminUI-modern-primary-hover);
     transform: scale(1.1);
     color: white;
     text-decoration: none;
 }
 
-.ngBetterInterface-suggestion-edit .dashicons {
+.ngWPAdminUI-suggestion-edit .dashicons {
     font-size: 14px;
     width: 14px;
     height: 14px;
 }
 
 /* Scrollbar personnalisée pour les suggestions */
-.ngBetterInterface-search-suggestions::-webkit-scrollbar {
+.ngWPAdminUI-search-suggestions::-webkit-scrollbar {
     width: 6px;
 }
 
-.ngBetterInterface-search-suggestions::-webkit-scrollbar-track {
-    background: var(--ngBetterInterface-modern-bg-secondary);
+.ngWPAdminUI-search-suggestions::-webkit-scrollbar-track {
+    background: var(--ngWPAdminUI-modern-bg-secondary);
     border-radius: 3px;
 }
 
-.ngBetterInterface-search-suggestions::-webkit-scrollbar-thumb {
-    background: var(--ngBetterInterface-modern-border-color);
+.ngWPAdminUI-search-suggestions::-webkit-scrollbar-thumb {
+    background: var(--ngWPAdminUI-modern-border-color);
     border-radius: 3px;
 }
 
-.ngBetterInterface-search-suggestions::-webkit-scrollbar-thumb:hover {
-    background: var(--ngBetterInterface-modern-text-secondary);
+.ngWPAdminUI-search-suggestions::-webkit-scrollbar-thumb:hover {
+    background: var(--ngWPAdminUI-modern-text-secondary);
 }
 
 /* Animation d'apparition des suggestions */
-.ngBetterInterface-search-suggestions {
+.ngWPAdminUI-search-suggestions {
     animation: slideInSuggestions 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1564,19 +1564,19 @@
 
 /* Responsive pour les suggestions */
 @media (max-width: 768px) {
-    .ngBetterInterface-search-suggestions {
+    .ngWPAdminUI-search-suggestions {
         max-height: 250px;
     }
     
-    .ngBetterInterface-suggestion-item {
+    .ngWPAdminUI-suggestion-item {
         padding: 10px 12px;
     }
     
-    .ngBetterInterface-suggestion-title {
+    .ngWPAdminUI-suggestion-title {
         font-size: 13px;
     }
     
-    .ngBetterInterface-suggestion-meta {
+    .ngWPAdminUI-suggestion-meta {
         flex-direction: column;
         align-items: flex-start;
         gap: 4px;

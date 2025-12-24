@@ -1,5 +1,5 @@
 /**
- * Better Interface - Styles pour la page d'installation de plugins
+ * WP Admin UI - Styles pour la page d'installation de plugins
  * Styles modernes pour les cartes de plugins et l'interface d'installation
  */
 
@@ -19,21 +19,21 @@ body.plugin-install-php .wp-list-table {
 /* Cartes de plugins modernisées */
 body.plugin-install-php .plugin-card ,
 body.plugin-install-php .wp-filter{
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
-    border-radius: var(--ngBetterInterface-modern-border-radius);
-    box-shadow: var(--ngBetterInterface-modern-shadow-light);
-    transition: all var(--ngBetterInterface-modern-transition-normal);
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
+    border-radius: var(--ngWPAdminUI-modern-border-radius);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-light);
+    transition: all var(--ngWPAdminUI-modern-transition-normal);
     overflow: hidden;
 }
 
 body.plugin-install-php .plugin-card:hover {
-    border-color: var(--ngBetterInterface-modern-primary);
-    box-shadow: var(--ngBetterInterface-modern-shadow-medium);
+    border-color: var(--ngWPAdminUI-modern-primary);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-medium);
     transform: translateY(-2px);
 }
 
 /* Style pour la barre d'action */
-body.plugin-install-php .ngBetterInterface-selection-counter {
+body.plugin-install-php .ngWPAdminUI-selection-counter {
     display: none;
 }

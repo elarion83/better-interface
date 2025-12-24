@@ -33,11 +33,11 @@ Ajoutez simplement un attribut `data-*` à votre bouton :
 Ajoutez directement la classe CSS à votre bouton :
 
 ```html
-<button class="ngBetterInterface-no-border-radius">Mon bouton</button>
-<button class="ngBetterInterface-no-shadow">Mon bouton</button>
-<button class="ngBetterInterface-no-gradient">Mon bouton</button>
-<button class="ngBetterInterface-no-transition">Mon bouton</button>
-<button class="ngBetterInterface-no-hover">Mon bouton</button>
+<button class="ngWPAdminUI-no-border-radius">Mon bouton</button>
+<button class="ngWPAdminUI-no-shadow">Mon bouton</button>
+<button class="ngWPAdminUI-no-gradient">Mon bouton</button>
+<button class="ngWPAdminUI-no-transition">Mon bouton</button>
+<button class="ngWPAdminUI-no-hover">Mon bouton</button>
 ```
 
 ### **3. Configuration JavaScript**
@@ -57,11 +57,11 @@ propertyExclusions: {
 
 | Classe CSS | Effet | Attribut data équivalent |
 |------------|-------|--------------------------|
-| `.ngBetterInterface-no-border-radius` | Supprime le border-radius | `data-no-border-radius` |
-| `.ngBetterInterface-no-shadow` | Supprime l'ombre | `data-no-shadow` |
-| `.ngBetterInterface-no-gradient` | Remplace le gradient par une couleur unie | `data-no-gradient` |
-| `.ngBetterInterface-no-transition` | Supprime les transitions | `data-no-transition` |
-| `.ngBetterInterface-no-hover` | Supprime les effets au hover | `data-no-hover` |
+| `.ngWPAdminUI-no-border-radius` | Supprime le border-radius | `data-no-border-radius` |
+| `.ngWPAdminUI-no-shadow` | Supprime l'ombre | `data-no-shadow` |
+| `.ngWPAdminUI-no-gradient` | Remplace le gradient par une couleur unie | `data-no-gradient` |
+| `.ngWPAdminUI-no-transition` | Supprime les transitions | `data-no-transition` |
+| `.ngWPAdminUI-no-hover` | Supprime les effets au hover | `data-no-hover` |
 
 ## 🎨 **Exemples pratiques**
 
@@ -99,8 +99,8 @@ Pour ajouter de nouvelles classes d'exclusion :
 ```javascript
 // Dans modernButtonStylesConfig.dataExclusions
 dataExclusions: {
-    'data-no-border-radius': 'ngBetterInterface-no-border-radius',
-    'data-no-shadow': 'ngBetterInterface-no-shadow',
-    'data-ma-nouvelle-exclusion': 'ngBetterInterface-ma-nouvelle-classe'
+    'data-no-border-radius': 'ngWPAdminUI-no-border-radius',
+    'data-no-shadow': 'ngWPAdminUI-no-shadow',
+    'data-ma-nouvelle-exclusion': 'ngWPAdminUI-ma-nouvelle-classe'
 }
 ```

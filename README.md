@@ -1,4 +1,4 @@
-# Better Interface - Plugin WordPress
+# WP Admin UI - Plugin WordPress
 
 Un plugin WordPress moderne qui transforme l'interface administrateur avec 2 modes de design différents, créé par Nicolas Gruwe.
 
@@ -24,19 +24,19 @@ Un plugin WordPress moderne qui transforme l'interface administrateur avec 2 mod
 1. Téléchargez le plugin depuis ce repository
 2. Extrayez le fichier ZIP dans le dossier `/wp-content/plugins/`
 3. Activez le plugin via le panneau d'administration WordPress
-4. Accédez à "Better Interface" dans le menu admin
+4. Accédez à "WP Admin UI" dans le menu admin
 
 ### Méthode 2 : Installation via FTP
 
-1. Uploadez le dossier `better-interface` dans `/wp-content/plugins/`
+1. Uploadez le dossier `wp-admin-ui` dans `/wp-content/plugins/`
 2. Activez le plugin depuis l'administration WordPress
-3. Configurez vos préférences dans "Better Interface"
+3. Configurez vos préférences dans "WP Admin UI"
 
 ## 📖 Utilisation
 
 ### Sélection d'un Mode
 
-1. Allez dans **Administration > Better Interface**
+1. Allez dans **Administration > WP Admin UI**
 2. Choisissez un des 2 modes disponibles
 3. Cliquez sur **"Appliquer le mode sélectionné"**
 4. La page se recharge automatiquement avec le nouveau design
@@ -61,8 +61,8 @@ Un plugin WordPress moderne qui transforme l'interface administrateur avec 2 mod
 ### Structure du Plugin
 
 ```
-better-interface/
-├── better-interface.php          # Fichier principal
+wp-admin-ui/
+├── wp-admin-ui.php          # Fichier principal
 ├── admin/
 │   └── admin-page.php           # Page d'administration
 ├── assets/
@@ -152,12 +152,12 @@ bi_ajax.nonce
 ```php
 // Vérification de sécurité
 if (!wp_verify_nonce($_POST['nonce'], 'bi_nonce')) {
-    wp_die(__('Sécurité violée', 'better-interface'));
+    wp_die(__('Sécurité violée', 'wp-admin-ui'));
 }
 
 // Vérification des permissions
 if (!current_user_can('manage_options')) {
-    wp_die(__('Permissions insuffisantes', 'better-interface'));
+    wp_die(__('Permissions insuffisantes', 'wp-admin-ui'));
 }
 
 // Sanitisation des données
@@ -172,14 +172,14 @@ Le plugin supporte l'internationalisation avec les fichiers de traduction :
 
 ```php
 // Chargement des traductions
-load_plugin_textdomain('better-interface', false, dirname(BI_PLUGIN_BASENAME) . '/languages');
+load_plugin_textdomain('wp-admin-ui', false, dirname(BI_PLUGIN_BASENAME) . '/languages');
 ```
 
 ### Fichiers de Traduction
 
-- `better-interface-fr_FR.po` - Français
-- `better-interface-en_US.po` - Anglais
-- `better-interface-de_DE.po` - Allemand
+- `wp-admin-ui-fr_FR.po` - Français
+- `wp-admin-ui-en_US.po` - Anglais
+- `wp-admin-ui-de_DE.po` - Allemand
 
 ## 📊 Performance
 
@@ -278,4 +278,4 @@ Ce plugin est distribué sous licence GPL v2 ou ultérieure.
 
 ---
 
-**Better Interface** - Modernisez votre interface WordPress avec style et simplicité. 
+**WP Admin UI** - Modernisez votre interface WordPress avec style et simplicité. 

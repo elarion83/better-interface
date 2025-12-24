@@ -1,5 +1,5 @@
 /**
- * Better Interface - Configuration des boutons d'actions personnalisées
+ * WP Admin UI - Configuration des boutons d'actions personnalisées
  * Définition des actions disponibles pour la barre flottante
  * 
  * Propriétés disponibles :
@@ -13,7 +13,7 @@
  * 
  * Exemple d'action toujours visible :
  * 'trash': {
- *     buttonClass: 'ngBetterInterface-delete-all-button',
+ *     buttonClass: 'ngWPAdminUI-delete-all-button',
  *     title: 'Delete All',
  *     icon: '<span class="material-icons">delete_sweep</span>',
  *     group: null,
@@ -23,9 +23,10 @@
  * }
  */
 
-var ngBetterInterfaceCustomActions = {
+// Pourquoi: utiliser le préfixe ngWPAdminUI pour la cohérence avec le reste du plugin
+var ngWPAdminUI_CustomActions = {
 	'trash': {
-		buttonClass: 'ngBetterInterface-trash-button',
+		buttonClass: 'ngWPAdminUI-trash-button',
 		title: 'Move to trash',
 		icon: '<span class="material-icons">delete</span>',
 		group: null,
@@ -33,7 +34,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#4b5563'
 	},
 	'untrash': {
-		buttonClass: 'ngBetterInterface-untrash-button',
+		buttonClass: 'ngWPAdminUI-untrash-button',
 		title: 'Restore from trash',
 		icon: '<span class="material-icons">restore_page</span>',
 		group: null,
@@ -41,7 +42,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#374151'
 	},
 	'delete': {
-		buttonClass: 'ngBetterInterface-trash-button',
+		buttonClass: 'ngWPAdminUI-trash-button',
 		title: 'Delete permanently',
 		icon: '<span class="material-icons">delete_forever</span>',
 		group: null,
@@ -49,7 +50,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#4b5563'
 	},
 	'edit': {
-		buttonClass: 'ngBetterInterface-edit-button',
+		buttonClass: 'ngWPAdminUI-edit-button',
 		title: 'Edit selected',
 		icon: '<span class="material-icons">edit</span>',
 		group: null,
@@ -57,7 +58,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#374151'
 	},
 	'update-selected': {
-		buttonClass: 'ngBetterInterface-update-button',
+		buttonClass: 'ngWPAdminUI-update-button',
 		title: 'Update selected',
 		icon: '<span class="material-icons">upgrade</span>',
 		group: null,
@@ -65,7 +66,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#374151'
 	},
 	'delete-selected': {
-		buttonClass: 'ngBetterInterface-trash-button',
+		buttonClass: 'ngWPAdminUI-trash-button',
 		title: 'Delete selected',
 		icon: '<span class="material-icons">delete</span>',
 		group: null,
@@ -73,7 +74,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#c82333'
 	},
 	'approve': {
-		buttonClass: 'ngBetterInterface-approve-button',
+		buttonClass: 'ngWPAdminUI-approve-button',
 		title: 'Approve',
 		icon: '<span class="material-icons">thumb_up</span>',
 		group: 'approval',
@@ -81,7 +82,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#374151'
 	},
 	'unapprove': {
-		buttonClass: 'ngBetterInterface-unapprove-button',
+		buttonClass: 'ngWPAdminUI-unapprove-button',
 		title: 'Unapprove',
 		icon: '<span class="material-icons">thumb_down</span>',
 		group: 'approval',
@@ -89,7 +90,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#4b5563'
 	},
 	'spam': {
-		buttonClass: 'ngBetterInterface-spam-button',
+		buttonClass: 'ngWPAdminUI-spam-button',
 		title: 'Mark as spam',
 		icon: '<span class="material-icons">dangerous</span>',
 		group: null,
@@ -97,7 +98,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#4b5563'
 	},
 	'unspam': {
-		buttonClass: 'ngBetterInterface-unspam-button',
+		buttonClass: 'ngWPAdminUI-unspam-button',
 		title: 'Remove from spam',
 		icon: '<span class="material-icons">check_circle</span>',
 		group: null,
@@ -105,7 +106,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#374151'
 	},
 	'resetpassword': {
-		buttonClass: 'ngBetterInterface-reset-password-button',
+		buttonClass: 'ngWPAdminUI-reset-password-button',
 		title: 'Reset password',
 		icon: '<span class="material-icons">mail_lock</span>',
 		group: null,
@@ -113,7 +114,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#374151'
 	},	
 	'activate-selected': {
-		buttonClass: 'ngBetterInterface-activate-button',
+		buttonClass: 'ngWPAdminUI-activate-button',
 		title: 'Activate selected',
 		icon: '<span class="material-icons">power</span>',
 		group: 'activation',
@@ -121,7 +122,7 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#374151'
 	},
 	'deactivate-selected': {
-		buttonClass: 'ngBetterInterface-deactivate-button',
+		buttonClass: 'ngWPAdminUI-deactivate-button',
 		title: 'Deactivate selected',
 		icon: '<span class="material-icons">power_off</span>',
 		group: 'activation',
@@ -129,17 +130,17 @@ var ngBetterInterfaceCustomActions = {
 		hoverBackgroundColor: '#4b5563'
 	},
 	'enable-auto-update-selected': {
-		buttonClass: 'ngBetterInterface-enable-auto-update-button',
+		buttonClass: 'ngWPAdminUI-enable-auto-update-button',
 		title: 'Enable auto updates',
-		icon: '<span class="dashicons dashicons-update"></span><span class="dashicons dashicons-yes-alt ngBetterInterface-secondary-icon"></span>',
+		icon: '<span class="dashicons dashicons-update"></span><span class="dashicons dashicons-yes-alt ngWPAdminUI-secondary-icon"></span>',
 		group: 'auto-update',
 		backgroundColor: '#4b5563',
 		hoverBackgroundColor: '#374151'
 	},
 	'disable-auto-update-selected': {
-		buttonClass: 'ngBetterInterface-disable-auto-update-button',
+		buttonClass: 'ngWPAdminUI-disable-auto-update-button',
 		title: 'Disable auto updates',
-		icon: '<span class="dashicons dashicons-update"></span><span class="dashicons dashicons-no-alt ngBetterInterface-secondary-icon"></span>',
+		icon: '<span class="dashicons dashicons-update"></span><span class="dashicons dashicons-no-alt ngWPAdminUI-secondary-icon"></span>',
 		group: 'auto-update',
 		backgroundColor: '#6b7280',
 		hoverBackgroundColor: '#4b5563'

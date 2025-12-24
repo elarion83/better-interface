@@ -1,5 +1,5 @@
 /**
- * Better Interface - Styles pour les notices modernes
+ * WP Admin UI - Styles pour les notices modernes
  * Système de positionnement et de style des notices WordPress
  */
 
@@ -8,7 +8,7 @@
    ======================================== */
 
 /* Container pour les notices positionnées à droite */
-.ngBetterInterface-notices-container {
+.ngWPAdminUI-notices-container {
     position: fixed;
     bottom: 95px;
     right: 12px;
@@ -21,19 +21,19 @@
 }
 
 /* Notices WordPress positionnées à droite */
-.ngBetterInterface-notices-container .notice,
-.ngBetterInterface-notices-container .notice-success,
-.ngBetterInterface-notices-container .notice-error,
-.ngBetterInterface-notices-container .notice-warning,
-.ngBetterInterface-notices-container .notice-info {
+.ngWPAdminUI-notices-container .notice,
+.ngWPAdminUI-notices-container .notice-success,
+.ngWPAdminUI-notices-container .notice-error,
+.ngWPAdminUI-notices-container .notice-warning,
+.ngWPAdminUI-notices-container .notice-info {
     position: static !important;
     margin: 0 !important;
     width: 100%;
     max-width: 300px;
     pointer-events: auto;
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
-    border-radius: var(--ngBetterInterface-modern-border-radius);
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
+    border-radius: var(--ngWPAdminUI-modern-border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 4px 10px;
     align-self: flex-end;
@@ -41,42 +41,42 @@
 }
 
 /* Notices avec bouton de fermeture */
-.ngBetterInterface-notices-container .notice.is-dismissible,
-.ngBetterInterface-notices-container .notice-success.is-dismissible,
-.ngBetterInterface-notices-container .notice-error.is-dismissible,
-.ngBetterInterface-notices-container .notice-warning.is-dismissible,
-.ngBetterInterface-notices-container .notice-info.is-dismissible {
+.ngWPAdminUI-notices-container .notice.is-dismissible,
+.ngWPAdminUI-notices-container .notice-success.is-dismissible,
+.ngWPAdminUI-notices-container .notice-error.is-dismissible,
+.ngWPAdminUI-notices-container .notice-warning.is-dismissible,
+.ngWPAdminUI-notices-container .notice-info.is-dismissible {
     position: relative !important;
 }
 
 /* Couleurs spécifiques pour chaque type de notice */
-.ngBetterInterface-notices-container .notice-success {
+.ngWPAdminUI-notices-container .notice-success {
     background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-modern-success);
+    border-left: 4px solid var(--ngWPAdminUI-modern-success);
 }
 
-.ngBetterInterface-notices-container .notice-error {
+.ngWPAdminUI-notices-container .notice-error {
     background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-modern-error);
+    border-left: 4px solid var(--ngWPAdminUI-modern-error);
 }
 
 
-.ngBetterInterface-notices-container .notice-warning {
+.ngWPAdminUI-notices-container .notice-warning {
     background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-modern-warning);
+    border-left: 4px solid var(--ngWPAdminUI-modern-warning);
 }
 
-.ngBetterInterface-notices-container .notice-info {
+.ngWPAdminUI-notices-container .notice-info {
     background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-    border-left: 4px solid var(--ngBetterInterface-modern-accent);
+    border-left: 4px solid var(--ngWPAdminUI-modern-accent);
 }
 
 /* Bouton de fermeture des notices */
-.ngBetterInterface-notices-container .notice .notice-dismiss {
+.ngWPAdminUI-notices-container .notice .notice-dismiss {
     position: absolute;
     top: 8px;
     right: 8px;
-    color: var(--ngBetterInterface-modern-text-muted);
+    color: var(--ngWPAdminUI-modern-text-muted);
     font-size: 1.2em;
     background: rgba(255,255,255,0.25);
     border-radius: 50%;
@@ -84,50 +84,50 @@
 }
 
 /* Titre du contexte (thème) dans les notices */
-.ngBetterInterface-notice-context-title {
+.ngWPAdminUI-notice-context-title {
     font-size: 12px;
     font-weight: 600;
-    color: var(--ngBetterInterface-modern-text-secondary);
+    color: var(--ngWPAdminUI-modern-text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 6px;
     padding-bottom: 6px;
-    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color);
 }
 
 /* Reset du padding des paragraphes dans les notices */
-.ngBetterInterface-notices-container .notice p {
+.ngWPAdminUI-notices-container .notice p {
     padding: 0;
     margin: 0;
 }
 
 /* Effet hover sur les notices */
-.ngBetterInterface-notices-container .notice {
+.ngWPAdminUI-notices-container .notice {
     background-color: rgba(255, 255, 255, 0.85) !important;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.ngBetterInterface-notices-container:hover .notice {
+.ngWPAdminUI-notices-container:hover .notice {
     opacity: 0.8;
     transform: scale(0.98);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
 }
 
-.ngBetterInterface-notices-container .notice:hover {
+.ngWPAdminUI-notices-container .notice:hover {
     opacity: 1.2 !important;
     transform: scale(1.02) !important;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.85) !important;
 }
 
-.ngBetterInterface-notices-container .notice .notice-dismiss:hover {
+.ngWPAdminUI-notices-container .notice .notice-dismiss:hover {
     background: rgba(99,102,241,0.15);
 }
 
 /* Notices WordPress standard */
 .notice.updated {
-    border-left: 4px solid var(--ngBetterInterface-accent);
+    border-left: 4px solid var(--ngWPAdminUI-accent);
     min-height: 35px;
 }
 
@@ -141,7 +141,7 @@
 
 /* Style spécifique pour les boutons de fermeture des notices */
 .notice-dismiss {
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
     font-size: 1.2em !important;
     width: 24px !important;
     height: 24px !important;
@@ -154,7 +154,7 @@
 }
 
 .notice-dismiss:hover {
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
     transform: scale(1.1) !important;
 }
 
@@ -174,17 +174,17 @@
 
 /* Responsive pour les notices */
 @media (max-width: 600px) {
-    .ngBetterInterface-notices-container {
+    .ngWPAdminUI-notices-container {
         right: 8px;
         bottom: 8px;
         max-width: calc(100vw - 16px);
     }
     
-    .ngBetterInterface-notices-container .notice,
-    .ngBetterInterface-notices-container .notice-success,
-    .ngBetterInterface-notices-container .notice-error,
-    .ngBetterInterface-notices-container .notice-warning,
-    .ngBetterInterface-notices-container .notice-info {
+    .ngWPAdminUI-notices-container .notice,
+    .ngWPAdminUI-notices-container .notice-success,
+    .ngWPAdminUI-notices-container .notice-error,
+    .ngWPAdminUI-notices-container .notice-warning,
+    .ngWPAdminUI-notices-container .notice-info {
         max-width: calc(100vw - 16px);
         font-size: 14px;
     }

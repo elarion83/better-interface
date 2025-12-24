@@ -1,10 +1,10 @@
-# French translation for Better Interface
+# French translation for WP Admin UI
 # Copyright (C) 2024 Nicolas Gruwe
-# This file is distributed under the same license as the Better Interface package.
+# This file is distributed under the same license as the WP Admin UI package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Interface 1.0.0\n"
-"Report-Msgid-Bugs-To: https://github.com/nicolasgruwe/better-interface\n"
+"Project-Id-Version: WP Admin UI 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/nicolasgruwe/wp-admin-ui\n"
 "POT-Creation-Date: 2024-01-01 12:00+0000\n"
 "PO-Revision-Date: 2024-01-01 12:00+0000\n"
 "Last-Translator: Nicolas Gruwe <contact@nicolasgruwe.com>\n"
@@ -15,93 +15,93 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: better-interface.php:15
-msgid "Better Interface"
-msgstr "Better Interface"
+#: wp-admin-ui.php:15
+msgid "WP Admin UI"
+msgstr "WP Admin UI"
 
-#: better-interface.php:16
+#: wp-admin-ui.php:16
 msgid "Modernise l'interface administrateur WordPress avec 2 modes de design différents"
 msgstr "Modernise l'interface administrateur WordPress avec 2 modes de design différents"
 
-#: better-interface.php:17
+#: wp-admin-ui.php:17
 msgid "1.0.0"
 msgstr "1.0.0"
 
-#: better-interface.php:18
+#: wp-admin-ui.php:18
 msgid "Nicolas Gruwe"
 msgstr "Nicolas Gruwe"
 
-#: better-interface.php:19
+#: wp-admin-ui.php:19
 msgid "https://nicolasgruwe.com"
 msgstr "https://nicolasgruwe.com"
 
-#: better-interface.php:20
+#: wp-admin-ui.php:20
 msgid "GPL v2 or later"
 msgstr "GPL v2 ou ultérieure"
 
-#: better-interface.php:21
+#: wp-admin-ui.php:21
 msgid "https://www.gnu.org/licenses/gpl-2.0.html"
 msgstr "https://www.gnu.org/licenses/gpl-2.0.html"
 
-#: better-interface.php:22
-msgid "better-interface"
-msgstr "better-interface"
+#: wp-admin-ui.php:22
+msgid "wp-admin-ui"
+msgstr "wp-admin-ui"
 
-#: better-interface.php:23
+#: wp-admin-ui.php:23
 msgid "/languages"
 msgstr "/languages"
 
-#: better-interface.php:24
+#: wp-admin-ui.php:24
 msgid "5.0"
 msgstr "5.0"
 
-#: better-interface.php:25
+#: wp-admin-ui.php:25
 msgid "6.4"
 msgstr "6.4"
 
-#: better-interface.php:26
+#: wp-admin-ui.php:26
 msgid "7.4"
 msgstr "7.4"
 
-#: better-interface.php:89
+#: wp-admin-ui.php:89
 msgid "Classique"
 msgstr "Classique"
 
-#: better-interface.php:90
+#: wp-admin-ui.php:90
 msgid "Moderne"
 msgstr "Moderne"
 
-#: better-interface.php:147
+#: wp-admin-ui.php:147
 msgid "Sécurité violée"
 msgstr "Sécurité violée"
 
-#: better-interface.php:151
+#: wp-admin-ui.php:151
 msgid "Permissions insuffisantes"
 msgstr "Permissions insuffisantes"
 
-#: better-interface.php:155
+#: wp-admin-ui.php:155
 msgid "Mode invalide"
 msgstr "Mode invalide"
 
-#: better-interface.php:162
+#: wp-admin-ui.php:162
 msgid "Mode sauvegardé avec succès"
 msgstr "Mode sauvegardé avec succès"
 
-#: better-interface.php:175
+#: wp-admin-ui.php:175
 msgid "Paramètres réinitialisés"
 msgstr "Paramètres réinitialisés"
 
-#: better-interface.php:322
+#: wp-admin-ui.php:322
 msgid "Thème de couleur invalide"
 msgstr "Thème de couleur invalide"
 
-#: better-interface.php:329
+#: wp-admin-ui.php:329
 msgid "Thème de couleur sauvegardé"
 msgstr "Thème de couleur sauvegardé"
 
 #: admin/admin-page.php:24
-msgid "Better Interface"
-msgstr "Better Interface"
+msgid "WP Admin UI"
+msgstr "WP Admin UI"
 
 #: admin/admin-page.php:27
 msgid "Modernisez votre interface administrateur WordPress avec un design transformé."

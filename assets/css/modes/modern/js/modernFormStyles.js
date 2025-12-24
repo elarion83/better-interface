@@ -1,5 +1,5 @@
 /**
- * Better Interface - Styles modernes pour les formulaires
+ * WP Admin UI - Styles modernes pour les formulaires
  * Applique les classes modernes aux champs de formulaire
  */
 
@@ -55,8 +55,8 @@
             '.notice-dismiss',
             
             // Nos éléments personnalisés
-            '.ngBetterInterface-floating-actions input',
-            '.ngBetterInterface-floating-filters input'
+            '.ngWPAdminUI-floating-actions input',
+            '.ngWPAdminUI-floating-filters input'
         ]
     };
     
@@ -79,8 +79,8 @@
                 });
                 
                 // Appliquer la classe si pas exclu et pas déjà appliquée
-                if (!shouldExclude && !$element.hasClass('ngBetterInterface-modern-input')) {
-                    $element.addClass('ngBetterInterface-modern-input');
+                if (!shouldExclude && !$element.hasClass('ngWPAdminUI-modern-input')) {
+                    $element.addClass('ngWPAdminUI-modern-input');
                 }
             });
         });

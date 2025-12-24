@@ -4,31 +4,31 @@
 
 :root {
     /* Palette de couleurs Teal Moderne */
-    --ngBetterInterface-modern-primary: #0d9488;
-    --ngBetterInterface-modern-primary-hover: #0f766e;
-    --ngBetterInterface-modern-primary-rgb: 13, 148, 136;
-    --ngBetterInterface-modern-secondary: #f0fdfa;
-    --ngBetterInterface-modern-accent: #14b8a6;
-    --ngBetterInterface-modern-accent-rgb: 20, 184, 166;
-    --ngBetterInterface-modern-success: #16a34a;
-    --ngBetterInterface-modern-warning: #f59e0b;
-    --ngBetterInterface-modern-error: #ef4444;
+    --ngWPAdminUI-modern-primary: #0d9488;
+    --ngWPAdminUI-modern-primary-hover: #0f766e;
+    --ngWPAdminUI-modern-primary-rgb: 13, 148, 136;
+    --ngWPAdminUI-modern-secondary: #f0fdfa;
+    --ngWPAdminUI-modern-accent: #14b8a6;
+    --ngWPAdminUI-modern-accent-rgb: 20, 184, 166;
+    --ngWPAdminUI-modern-success: #16a34a;
+    --ngWPAdminUI-modern-warning: #f59e0b;
+    --ngWPAdminUI-modern-error: #ef4444;
     
     /* Couleurs de fond modernes */
-    --ngBetterInterface-modern-bg-primary: #ffffff;
-    --ngBetterInterface-modern-bg-secondary: #f0fdfa;
-    --ngBetterInterface-modern-bg-tertiary: #ccfbf1;
-    --ngBetterInterface-modern-bg-dark: #134e4a;
+    --ngWPAdminUI-modern-bg-primary: #ffffff;
+    --ngWPAdminUI-modern-bg-secondary: #f0fdfa;
+    --ngWPAdminUI-modern-bg-tertiary: #ccfbf1;
+    --ngWPAdminUI-modern-bg-dark: #134e4a;
     
     /* Couleurs de texte modernes */
-    --ngBetterInterface-modern-text-primary: #0f172a;
-    --ngBetterInterface-modern-text-secondary: #374151;
-    --ngBetterInterface-modern-text-muted: #6b7280;
+    --ngWPAdminUI-modern-text-primary: #0f172a;
+    --ngWPAdminUI-modern-text-secondary: #374151;
+    --ngWPAdminUI-modern-text-muted: #6b7280;
     
     /* Bordures et ombres modernes */
-    --ngBetterInterface-modern-border-color: #99f6e4;
-    --ngBetterInterface-modern-shadow-light: 0 1px 3px rgba(13, 148, 136, 0.1), 0 1px 2px rgba(13, 148, 136, 0.06);
-    --ngBetterInterface-modern-shadow-medium: 0 4px 6px rgba(13, 148, 136, 0.07), 0 2px 4px rgba(13, 148, 136, 0.06);
-    --ngBetterInterface-modern-shadow-heavy: 0 10px 15px rgba(13, 148, 136, 0.1), 0 4px 6px rgba(13, 148, 136, 0.05);
-    --ngBetterInterface-modern-shadow-glow: 0 0 20px rgba(13, 148, 136, 0.3);
+    --ngWPAdminUI-modern-border-color: #99f6e4;
+    --ngWPAdminUI-modern-shadow-light: 0 1px 3px rgba(13, 148, 136, 0.1), 0 1px 2px rgba(13, 148, 136, 0.06);
+    --ngWPAdminUI-modern-shadow-medium: 0 4px 6px rgba(13, 148, 136, 0.07), 0 2px 4px rgba(13, 148, 136, 0.06);
+    --ngWPAdminUI-modern-shadow-heavy: 0 10px 15px rgba(13, 148, 136, 0.1), 0 4px 6px rgba(13, 148, 136, 0.05);
+    --ngWPAdminUI-modern-shadow-glow: 0 0 20px rgba(13, 148, 136, 0.3);
 }

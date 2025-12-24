@@ -1,5 +1,5 @@
 /**
- * Better Interface - Styles pour la page d'administration
+ * WP Admin UI - Styles pour la page d'administration
  * Design moderne et responsive pour l'interface de gestion du plugin
  */
 
@@ -7,31 +7,31 @@
    VARIABLES CSS GLOBALES
    ======================================== */
 :root {
-    --ngBetterInterface-primary: #1e293b;
-    --ngBetterInterface-primary-hover: #0f172a;
-    --ngBetterInterface-secondary: #f8fafc;
-    --ngBetterInterface-accent: #475569;
-    --ngBetterInterface-success: #10b981;
-    --ngBetterInterface-warning: #f59e0b;
-    --ngBetterInterface-error: #ef4444;
+    --ngWPAdminUI-primary: #1e293b;
+    --ngWPAdminUI-primary-hover: #0f172a;
+    --ngWPAdminUI-secondary: #f8fafc;
+    --ngWPAdminUI-accent: #475569;
+    --ngWPAdminUI-success: #10b981;
+    --ngWPAdminUI-warning: #f59e0b;
+    --ngWPAdminUI-error: #ef4444;
     
-    --ngBetterInterface-bg-primary: #ffffff;
-    --ngBetterInterface-bg-secondary: #f8fafc;
-    --ngBetterInterface-bg-tertiary: #f1f5f9;
+    --ngWPAdminUI-bg-primary: #ffffff;
+    --ngWPAdminUI-bg-secondary: #f8fafc;
+    --ngWPAdminUI-bg-tertiary: #f1f5f9;
     
-    --ngBetterInterface-text-primary: #0f172a;
-    --ngBetterInterface-text-secondary: #475569;
-    --ngBetterInterface-text-muted: #64748b;
+    --ngWPAdminUI-text-primary: #0f172a;
+    --ngWPAdminUI-text-secondary: #475569;
+    --ngWPAdminUI-text-muted: #64748b;
     
-    --ngBetterInterface-border-color: #e2e8f0;
-    --ngBetterInterface-border-radius: 12px;
-    --ngBetterInterface-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-    --ngBetterInterface-shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
-    --ngBetterInterface-shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --ngWPAdminUI-border-color: #e2e8f0;
+    --ngWPAdminUI-border-radius: 12px;
+    --ngWPAdminUI-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --ngWPAdminUI-shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --ngWPAdminUI-shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
     
-    --ngBetterInterface-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --ngBetterInterface-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --ngBetterInterface-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngWPAdminUI-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngWPAdminUI-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngWPAdminUI-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ========================================
@@ -39,24 +39,24 @@
    ======================================== */
 
 /* Container principal */
-.ngBetterInterface-admin-page {
+.ngWPAdminUI-admin-page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
 /* En-tête de la page */
-.ngBetterInterface-header {
+.ngWPAdminUI-header {
     text-align: center;
     margin-bottom: 40px;
     padding: 30px;
-    background: linear-gradient(135deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
-    border-radius: var(--ngBetterInterface-border-radius);
+    background: linear-gradient(135deg, var(--ngWPAdminUI-primary), var(--ngWPAdminUI-accent));
+    border-radius: var(--ngWPAdminUI-border-radius);
     color: white;
-    box-shadow: var(--ngBetterInterface-shadow-medium);
+    box-shadow: var(--ngWPAdminUI-shadow-medium);
 }
 
-.ngBetterInterface-title {
+.ngWPAdminUI-title {
     font-size: 2rem !important;
     font-weight: 700 !important;
     margin-bottom: 1.5rem !important;
@@ -69,14 +69,14 @@
     background: none !important;
 }
 
-.ngBetterInterface-title .dashicons {
+.ngWPAdminUI-title .dashicons {
     font-size: 2rem;
     width: auto;
     color:white;
     height: auto;
 }
 
-.ngBetterInterface-description {
+.ngWPAdminUI-description {
     font-size: 1.1rem;
     margin: 0;
     opacity: 0.9;
@@ -84,31 +84,31 @@
 }
 
 /* Sections de contenu */
-.ngBetterInterface-section {
-    background: var(--ngBetterInterface-bg-primary);
-    border-radius: var(--ngBetterInterface-border-radius);
+.ngWPAdminUI-section {
+    background: var(--ngWPAdminUI-bg-primary);
+    border-radius: var(--ngWPAdminUI-border-radius);
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: var(--ngBetterInterface-shadow-light);
-    border: 1px solid var(--ngBetterInterface-border-color);
+    box-shadow: var(--ngWPAdminUI-shadow-light);
+    border: 1px solid var(--ngWPAdminUI-border-color);
 }
 
-.ngBetterInterface-section h2 {
-    color: var(--ngBetterInterface-text-primary);
+.ngWPAdminUI-section h2 {
+    color: var(--ngWPAdminUI-text-primary);
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0 0 15px 0;
     padding-bottom: 10px;
 }
 
-.ngBetterInterface-section p {
-    color: var(--ngBetterInterface-text-secondary);
+.ngWPAdminUI-section p {
+    color: var(--ngWPAdminUI-text-secondary);
     margin: 0 0 25px 0;
     line-height: 1.6;
 }
 
 /* Grille des modes de design */
-.ngBetterInterface-modes-grid {
+.ngWPAdminUI-modes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
@@ -116,19 +116,19 @@
 }
 
 /* Section du toggle */
-.ngBetterInterface-toggle-section {
+.ngWPAdminUI-toggle-section {
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
 }
 
 /* Carte du toggle */
-.ngBetterInterface-toggle-card {
-    background: var(--ngBetterInterface-bg-secondary);
-    border: 2px solid var(--ngBetterInterface-border-color);
-    border-radius: var(--ngBetterInterface-border-radius);
+.ngWPAdminUI-toggle-card {
+    background: var(--ngWPAdminUI-bg-secondary);
+    border: 2px solid var(--ngWPAdminUI-border-color);
+    border-radius: var(--ngWPAdminUI-border-radius);
     padding: 30px;
-    transition: all var(--ngBetterInterface-transition-normal);
+    transition: all var(--ngWPAdminUI-transition-normal);
     position: relative;
     overflow: hidden;
     max-width: 500px;
@@ -136,189 +136,189 @@
     cursor: pointer;
 }
 
-.ngBetterInterface-toggle-card:hover {
+.ngWPAdminUI-toggle-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--ngBetterInterface-shadow-medium);
-    border-color: var(--ngBetterInterface-primary);
+    box-shadow: var(--ngWPAdminUI-shadow-medium);
+    border-color: var(--ngWPAdminUI-primary);
 }
 
-.ngBetterInterface-toggle-card.active {
-    border-color: var(--ngBetterInterface-primary);
+.ngWPAdminUI-toggle-card.active {
+    border-color: var(--ngWPAdminUI-primary);
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.05), rgba(71, 85, 105, 0.05));
-    box-shadow: var(--ngBetterInterface-shadow-medium);
+    box-shadow: var(--ngWPAdminUI-shadow-medium);
 }
 
 /* Aperçu visuel du toggle */
-.ngBetterInterface-toggle-preview {
+.ngWPAdminUI-toggle-preview {
     margin-bottom: 20px;
-    transition: all var(--ngBetterInterface-transition-normal);
+    transition: all var(--ngWPAdminUI-transition-normal);
 }
 
 /* Aperçu classique (désactivé) */
-.ngBetterInterface-toggle-preview .ngBetterInterface-preview-header {
+.ngWPAdminUI-toggle-preview .ngWPAdminUI-preview-header {
     background: #f1f5f9;
 }
 
-.ngBetterInterface-toggle-preview .ngBetterInterface-preview-sidebar {
+.ngWPAdminUI-toggle-preview .ngWPAdminUI-preview-sidebar {
     background: #64748b;
 }
 
-.ngBetterInterface-toggle-preview .ngBetterInterface-preview-main {
+.ngWPAdminUI-toggle-preview .ngWPAdminUI-preview-main {
     background: #ffffff;
 }
 
-.ngBetterInterface-toggle-preview .ngBetterInterface-preview-bar {
+.ngWPAdminUI-toggle-preview .ngWPAdminUI-preview-bar {
     background: #f1f5f9;
 }
 
-.ngBetterInterface-toggle-preview .ngBetterInterface-preview-content-area {
+.ngWPAdminUI-toggle-preview .ngWPAdminUI-preview-content-area {
     background: #ffffff;
 }
 
 /* Aperçu moderne (activé) */
-.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-header {
-    background: linear-gradient(135deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
+.ngWPAdminUI-toggle-preview.modern-preview .ngWPAdminUI-preview-header {
+    background: linear-gradient(135deg, var(--ngWPAdminUI-primary), var(--ngWPAdminUI-accent));
 }
 
-.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-sidebar {
-    background: linear-gradient(180deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
+.ngWPAdminUI-toggle-preview.modern-preview .ngWPAdminUI-preview-sidebar {
+    background: linear-gradient(180deg, var(--ngWPAdminUI-primary), var(--ngWPAdminUI-accent));
 }
 
-.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-main {
+.ngWPAdminUI-toggle-preview.modern-preview .ngWPAdminUI-preview-main {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.05), rgba(71, 85, 105, 0.05));
 }
 
-.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-bar {
-    background: linear-gradient(90deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
+.ngWPAdminUI-toggle-preview.modern-preview .ngWPAdminUI-preview-bar {
+    background: linear-gradient(90deg, var(--ngWPAdminUI-primary), var(--ngWPAdminUI-accent));
 }
 
-.ngBetterInterface-toggle-preview.modern-preview .ngBetterInterface-preview-content-area {
+.ngWPAdminUI-toggle-preview.modern-preview .ngWPAdminUI-preview-content-area {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.02), rgba(71, 85, 105, 0.02));
 }
 
-.ngBetterInterface-preview-header {
-    background: var(--ngBetterInterface-bg-tertiary);
+.ngWPAdminUI-preview-header {
+    background: var(--ngWPAdminUI-bg-tertiary);
     padding: 8px 12px;
     border-radius: 6px 6px 0 0;
-    border-bottom: 1px solid var(--ngBetterInterface-border-color);
+    border-bottom: 1px solid var(--ngWPAdminUI-border-color);
 }
 
-.ngBetterInterface-preview-dots {
+.ngWPAdminUI-preview-dots {
     display: flex;
     gap: 6px;
 }
 
-.ngBetterInterface-preview-dots span {
+.ngWPAdminUI-preview-dots span {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--ngBetterInterface-text-muted);
+    background: var(--ngWPAdminUI-text-muted);
 }
 
-.ngBetterInterface-preview-dots span:nth-child(1) { background: var(--ngBetterInterface-error); }
-.ngBetterInterface-preview-dots span:nth-child(2) { background: var(--ngBetterInterface-warning); }
-.ngBetterInterface-preview-dots span:nth-child(3) { background: var(--ngBetterInterface-success); }
+.ngWPAdminUI-preview-dots span:nth-child(1) { background: var(--ngWPAdminUI-error); }
+.ngWPAdminUI-preview-dots span:nth-child(2) { background: var(--ngWPAdminUI-warning); }
+.ngWPAdminUI-preview-dots span:nth-child(3) { background: var(--ngWPAdminUI-success); }
 
-.ngBetterInterface-preview-content {
+.ngWPAdminUI-preview-content {
     display: flex;
     height: 80px;
-    background: var(--ngBetterInterface-bg-primary);
+    background: var(--ngWPAdminUI-bg-primary);
     border-radius: 0 0 6px 6px;
     overflow: hidden;
 }
 
-.ngBetterInterface-preview-sidebar {
+.ngWPAdminUI-preview-sidebar {
     width: 30%;
-    background: var(--ngBetterInterface-text-primary);
+    background: var(--ngWPAdminUI-text-primary);
     position: relative;
 }
 
-.ngBetterInterface-preview-sidebar::before {
+.ngWPAdminUI-preview-sidebar::before {
     content: '';
     position: absolute;
     top: 10px;
     left: 10px;
     width: 60%;
     height: 3px;
-    background: var(--ngBetterInterface-text-muted);
+    background: var(--ngWPAdminUI-text-muted);
     border-radius: 2px;
 }
 
-.ngBetterInterface-preview-sidebar::after {
+.ngWPAdminUI-preview-sidebar::after {
     content: '';
     position: absolute;
     top: 20px;
     left: 10px;
     width: 40%;
     height: 3px;
-    background: var(--ngBetterInterface-text-muted);
+    background: var(--ngWPAdminUI-text-muted);
     border-radius: 2px;
 }
 
-.ngBetterInterface-preview-main {
+.ngWPAdminUI-preview-main {
     flex: 1;
     padding: 10px;
 }
 
-.ngBetterInterface-preview-bar {
+.ngWPAdminUI-preview-bar {
     height: 20px;
-    background: var(--ngBetterInterface-bg-tertiary);
+    background: var(--ngWPAdminUI-bg-tertiary);
     border-radius: 4px;
     margin-bottom: 8px;
 }
 
-.ngBetterInterface-preview-content-area {
+.ngWPAdminUI-preview-content-area {
     height: 30px;
-    background: var(--ngBetterInterface-bg-secondary);
+    background: var(--ngWPAdminUI-bg-secondary);
     border-radius: 4px;
-    border: 1px solid var(--ngBetterInterface-border-color);
+    border: 1px solid var(--ngWPAdminUI-border-color);
 }
 
 /* Informations du toggle */
-.ngBetterInterface-toggle-info {
+.ngWPAdminUI-toggle-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
 }
 
-.ngBetterInterface-toggle-switch {
+.ngWPAdminUI-toggle-switch {
     flex-shrink: 0;
 }
 
-.ngBetterInterface-toggle-text {
+.ngWPAdminUI-toggle-text {
     flex: 1;
 }
 
-.ngBetterInterface-toggle-text h3 {
-    color: var(--ngBetterInterface-text-primary);
+.ngWPAdminUI-toggle-text h3 {
+    color: var(--ngWPAdminUI-text-primary);
     font-size: 1.2rem;
     font-weight: 600;
     margin: 0 0 8px 0;
 }
 
-.ngBetterInterface-toggle-description {
-    color: var(--ngBetterInterface-text-secondary);
+.ngWPAdminUI-toggle-description {
+    color: var(--ngWPAdminUI-text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
     margin: 0;
 }
 
 /* Toggle switch */
-.ngBetterInterface-switch {
+.ngWPAdminUI-switch {
     position: relative;
     display: inline-block;
     width: 60px;
     height: 34px;
 }
 
-.ngBetterInterface-switch input {
+.ngWPAdminUI-switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.ngBetterInterface-slider {
+.ngWPAdminUI-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -330,7 +330,7 @@
     border-radius: 34px;
 }
 
-.ngBetterInterface-slider:before {
+.ngWPAdminUI-slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -342,23 +342,23 @@
     border-radius: 50%;
 }
 
-input:checked + .ngBetterInterface-slider {
-    background-color: var(--ngBetterInterface-primary);
+input:checked + .ngWPAdminUI-slider {
+    background-color: var(--ngWPAdminUI-primary);
 }
 
-input:focus + .ngBetterInterface-slider {
-    box-shadow: 0 0 1px var(--ngBetterInterface-primary);
+input:focus + .ngWPAdminUI-slider {
+    box-shadow: 0 0 1px var(--ngWPAdminUI-primary);
 }
 
-input:checked + .ngBetterInterface-slider:before {
+input:checked + .ngWPAdminUI-slider:before {
     transform: translateX(26px);
 }
 
-.ngBetterInterface-current-badge {
+.ngWPAdminUI-current-badge {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: var(--ngBetterInterface-success);
+    background: var(--ngWPAdminUI-success);
     color: white;
     padding: 4px 8px;
     border-radius: 12px;
@@ -369,84 +369,84 @@ input:checked + .ngBetterInterface-slider:before {
 }
 
 /* Actions du toggle */
-.ngBetterInterface-toggle-actions {
+.ngWPAdminUI-toggle-actions {
     display: flex;
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.ngBetterInterface-toggle-actions .button {
+.ngWPAdminUI-toggle-actions .button {
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
     border-radius: 8px;
-    transition: all var(--ngBetterInterface-transition-fast);
+    transition: all var(--ngWPAdminUI-transition-fast);
     cursor: pointer;
 }
 
-.ngBetterInterface-save-toggle {
-    background: linear-gradient(135deg, var(--ngBetterInterface-primary), var(--ngBetterInterface-accent));
+.ngWPAdminUI-save-toggle {
+    background: linear-gradient(135deg, var(--ngWPAdminUI-primary), var(--ngWPAdminUI-accent));
     color: white;
     border: none;
-    box-shadow: var(--ngBetterInterface-shadow-light);
+    box-shadow: var(--ngWPAdminUI-shadow-light);
 }
 
-.ngBetterInterface-save-toggle:hover:not(:disabled) {
+.ngWPAdminUI-save-toggle:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: var(--ngBetterInterface-shadow-medium);
+    box-shadow: var(--ngWPAdminUI-shadow-medium);
     filter: brightness(1.05);
 }
 
-.ngBetterInterface-save-toggle:disabled {
+.ngWPAdminUI-save-toggle:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 /* Personnalisation avancée retirée: les styles suivants ne sont plus utilisés mais conservés pour référence
-.ngBetterInterface-custom-tabs,
-.ngBetterInterface-tabs-nav,
-.ngBetterInterface-tab-button,
-.ngBetterInterface-tabs-content,
-.ngBetterInterface-tab-content,
-.ngBetterInterface-editor-container,
-.ngBetterInterface-editor-info,
-.ngBetterInterface-custom-actions {
+.ngWPAdminUI-custom-tabs,
+.ngWPAdminUI-tabs-nav,
+.ngWPAdminUI-tab-button,
+.ngWPAdminUI-tabs-content,
+.ngWPAdminUI-tab-content,
+.ngWPAdminUI-editor-container,
+.ngWPAdminUI-editor-info,
+.ngWPAdminUI-custom-actions {
     /* retirés */
 }
 */
 
 /* Section d'informations */
-.ngBetterInterface-info-section {
-    background: var(--ngBetterInterface-bg-secondary);
-    border-radius: var(--ngBetterInterface-border-radius);
+.ngWPAdminUI-info-section {
+    background: var(--ngWPAdminUI-bg-secondary);
+    border-radius: var(--ngWPAdminUI-border-radius);
     padding: 20px;
     margin-top: 30px;
 }
 
-.ngBetterInterface-info-grid {
+.ngWPAdminUI-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
 }
 
-.ngBetterInterface-info-item {
+.ngWPAdminUI-info-item {
     text-align: center;
     padding: 15px;
-    background: var(--ngBetterInterface-bg-primary);
+    background: var(--ngWPAdminUI-bg-primary);
     border-radius: 8px;
-    border: 1px solid var(--ngBetterInterface-border-color);
+    border: 1px solid var(--ngWPAdminUI-border-color);
 }
 
-.ngBetterInterface-info-item h4 {
-    color: var(--ngBetterInterface-text-primary);
+.ngWPAdminUI-info-item h4 {
+    color: var(--ngWPAdminUI-text-primary);
     font-size: 1rem;
     font-weight: 600;
     margin: 0 0 8px 0;
 }
 
-.ngBetterInterface-info-item p {
-    color: var(--ngBetterInterface-text-secondary);
+.ngWPAdminUI-info-item p {
+    color: var(--ngWPAdminUI-text-secondary);
     font-size: 0.9rem;
     margin: 0;
 }
@@ -455,74 +455,74 @@ input:checked + .ngBetterInterface-slider:before {
 
 /* Responsive design */
 @media (max-width: 768px) {
-    .ngBetterInterface-admin-page {
+    .ngWPAdminUI-admin-page {
         padding: 15px;
     }
     
-    .ngBetterInterface-header {
+    .ngWPAdminUI-header {
         padding: 20px;
         margin-bottom: 30px;
     }
     
-    .ngBetterInterface-title {
+    .ngWPAdminUI-title {
         font-size: 2rem;
         flex-direction: column;
         gap: 10px;
     }
     
-    .ngBetterInterface-section {
+    .ngWPAdminUI-section {
         padding: 20px;
         margin-bottom: 20px;
     }
     
-    .ngBetterInterface-modes-grid {
+    .ngWPAdminUI-modes-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
     
-    .ngBetterInterface-mode-actions {
+    .ngWPAdminUI-mode-actions {
         flex-direction: column;
         align-items: center;
     }
     
-    .ngBetterInterface-tabs-nav {
+    .ngWPAdminUI-tabs-nav {
         flex-direction: column;
         gap: 5px;
     }
     
-    .ngBetterInterface-tab-button {
+    .ngWPAdminUI-tab-button {
         border-radius: 6px;
         text-align: left;
     }
     
-    .ngBetterInterface-info-grid {
+    .ngWPAdminUI-info-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .ngBetterInterface-admin-page {
+    .ngWPAdminUI-admin-page {
         padding: 10px;
     }
     
-    .ngBetterInterface-header {
+    .ngWPAdminUI-header {
         padding: 15px;
     }
     
-    .ngBetterInterface-title {
+    .ngWPAdminUI-title {
         font-size: 1.5rem;
     }
     
-    .ngBetterInterface-section {
+    .ngWPAdminUI-section {
         padding: 15px;
     }
     
-    .ngBetterInterface-mode-card {
+    .ngWPAdminUI-mode-card {
         padding: 15px;
     }
     
-    .ngBetterInterface-preview-content {
+    .ngWPAdminUI-preview-content {
         height: 60px;
     }
 }
@@ -532,12 +532,12 @@ input:checked + .ngBetterInterface-slider:before {
    ======================================== */
 
 /* Animation de chargement */
-@keyframes ngBetterInterface-spin {
+@keyframes ngWPAdminUI-spin {
     to { transform: rotate(360deg); }
 }
 
-.ngBetterInterface-loading {
-    animation: ngBetterInterface-spin 1s linear infinite;
+.ngWPAdminUI-loading {
+    animation: ngWPAdminUI-spin 1s linear infinite;
 }
 
 /* ========================================
@@ -545,21 +545,21 @@ input:checked + .ngBetterInterface-slider:before {
    ======================================== */
 
 /* États de focus pour l'accessibilité */
-.ngBetterInterface-mode-card:focus,
-.ngBetterInterface-tab-button:focus,
-.ngBetterInterface-editor-container textarea:focus {
-    outline: 2px solid var(--ngBetterInterface-primary);
+.ngWPAdminUI-mode-card:focus,
+.ngWPAdminUI-tab-button:focus,
+.ngWPAdminUI-editor-container textarea:focus {
+    outline: 2px solid var(--ngWPAdminUI-primary);
     outline-offset: 2px;
 }
 
 /* États de survol améliorés */
-.ngBetterInterface-mode-card:hover .ngBetterInterface-preview-content {
+.ngWPAdminUI-mode-card:hover .ngWPAdminUI-preview-content {
     transform: scale(1.02);
-    transition: transform var(--ngBetterInterface-transition-fast);
+    transition: transform var(--ngWPAdminUI-transition-fast);
 }
 
 /* États de chargement */
-.ngBetterInterface-loading-overlay {
+.ngWPAdminUI-loading-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -569,7 +569,7 @@ input:checked + .ngBetterInterface-slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--ngBetterInterface-border-radius);
+    border-radius: var(--ngWPAdminUI-border-radius);
     z-index: 10;
 }
 
@@ -577,19 +577,19 @@ input:checked + .ngBetterInterface-slider:before {
    UTILITAIRES
    ======================================== */
 
-.ngBetterInterface-hidden {
+.ngWPAdminUI-hidden {
     display: none !important;
 }
 
-.ngBetterInterface-text-center {
+.ngWPAdminUI-text-center {
     text-align: center;
 }
 
-.ngBetterInterface-mt-20 {
+.ngWPAdminUI-mt-20 {
     margin-top: 20px;
 }
 
-.ngBetterInterface-mb-20 {
+.ngWPAdminUI-mb-20 {
     margin-bottom: 20px;
 } 
 
@@ -598,7 +598,7 @@ input:checked + .ngBetterInterface-slider:before {
    ======================================== */
 
 /* Grille des thèmes */
-.ngBetterInterface-themes-grid {
+.ngWPAdminUI-themes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
@@ -606,7 +606,7 @@ input:checked + .ngBetterInterface-slider:before {
 }
 
 /* Cartes de thèmes */
-.ngBetterInterface-theme-card {
+.ngWPAdminUI-theme-card {
     background: white;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
@@ -617,32 +617,32 @@ input:checked + .ngBetterInterface-slider:before {
     overflow: hidden;
 }
 
-.ngBetterInterface-theme-card:hover {
+.ngWPAdminUI-theme-card:hover {
     border-color: #1e293b;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(30, 41, 59, 0.15);
 }
 
-.ngBetterInterface-theme-card.active {
+.ngWPAdminUI-theme-card.active {
     border-color: #1e293b;
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
     box-shadow: 0 8px 25px rgba(30, 41, 59, 0.2);
 }
 
 /* Aperçu des thèmes */
-.ngBetterInterface-theme-preview {
+.ngWPAdminUI-theme-preview {
     margin-bottom: 15px;
 }
 
-.ngBetterInterface-theme-colors {
+.ngWPAdminUI-theme-colors {
     display: flex;
     gap: 8px;
     margin-bottom: 12px;
 }
 
-.ngBetterInterface-color-primary,
-.ngBetterInterface-color-accent,
-.ngBetterInterface-color-secondary {
+.ngWPAdminUI-color-primary,
+.ngWPAdminUI-color-accent,
+.ngWPAdminUI-color-secondary {
     width: 24px;
     height: 24px;
     border-radius: 6px;
@@ -650,27 +650,27 @@ input:checked + .ngBetterInterface-slider:before {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ngBetterInterface-theme-preview-ui {
+.ngWPAdminUI-theme-preview-ui {
     display: flex;
     gap: 4px;
     height: 60px;
 }
 
-.ngBetterInterface-preview-header-mini {
+.ngWPAdminUI-preview-header-mini {
     flex: 1;
     background: linear-gradient(135deg, #1e293b, #475569);
     border-radius: 4px;
     opacity: 0.8;
 }
 
-.ngBetterInterface-preview-sidebar-mini {
+.ngWPAdminUI-preview-sidebar-mini {
     width: 20px;
     background: #1e293b;
     border-radius: 4px;
     opacity: 0.8;
 }
 
-.ngBetterInterface-preview-content-mini {
+.ngWPAdminUI-preview-content-mini {
     flex: 2;
     background: #f8fafc;
     border-radius: 4px;
@@ -678,14 +678,14 @@ input:checked + .ngBetterInterface-slider:before {
 }
 
 /* Informations des thèmes */
-.ngBetterInterface-theme-info h3 {
+.ngWPAdminUI-theme-info h3 {
     margin: 0 0 8px 0;
     font-size: 16px;
     font-weight: 600;
     color: #1e293b;
 }
 
-.ngBetterInterface-theme-description {
+.ngWPAdminUI-theme-description {
     margin: 0;
     font-size: 14px;
     color: #64748b;
@@ -693,7 +693,7 @@ input:checked + .ngBetterInterface-slider:before {
 }
 
 /* Badge actuel */
-.ngBetterInterface-current-badge {
+.ngWPAdminUI-current-badge {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -708,12 +708,12 @@ input:checked + .ngBetterInterface-slider:before {
 }
 
 /* Actions des thèmes */
-.ngBetterInterface-theme-actions {
+.ngWPAdminUI-theme-actions {
     margin-top: 20px;
     text-align: center;
 }
 
-.ngBetterInterface-save-theme {
+.ngWPAdminUI-save-theme {
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
@@ -721,46 +721,46 @@ input:checked + .ngBetterInterface-slider:before {
     transition: all 0.3s cubic-bezier(.4,0,.2,1);
 }
 
-.ngBetterInterface-save-theme:disabled {
+.ngWPAdminUI-save-theme:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 /* Variables CSS pour les aperçus de couleurs */
 :root {
-    --ngBetterInterface-ocean-primary: #6366f1;
-    --ngBetterInterface-ocean-accent: #06b6d4;
-    --ngBetterInterface-ocean-secondary: #f8fafc;
+    --ngWPAdminUI-ocean-primary: #6366f1;
+    --ngWPAdminUI-ocean-accent: #06b6d4;
+    --ngWPAdminUI-ocean-secondary: #f8fafc;
     
-    --ngBetterInterface-midnight-primary: #1e293b;
-    --ngBetterInterface-midnight-accent: #475569;
-    --ngBetterInterface-midnight-secondary: #f8fafc;
+    --ngWPAdminUI-midnight-primary: #1e293b;
+    --ngWPAdminUI-midnight-accent: #475569;
+    --ngWPAdminUI-midnight-secondary: #f8fafc;
     
-    --ngBetterInterface-teal-primary: #0d9488;
-    --ngBetterInterface-teal-accent: #14b8a6;
-    --ngBetterInterface-teal-secondary: #f0fdfa;
+    --ngWPAdminUI-teal-primary: #0d9488;
+    --ngWPAdminUI-teal-accent: #14b8a6;
+    --ngWPAdminUI-teal-secondary: #f0fdfa;
     
 
 }
 
 /* Responsive pour les thèmes */
 @media (max-width: 768px) {
-    .ngBetterInterface-themes-grid {
+    .ngWPAdminUI-themes-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
     
-    .ngBetterInterface-theme-card {
+    .ngWPAdminUI-theme-card {
         padding: 15px;
     }
     
-    .ngBetterInterface-theme-preview-ui {
+    .ngWPAdminUI-theme-preview-ui {
         height: 50px;
     }
     
-    .ngBetterInterface-color-primary,
-    .ngBetterInterface-color-accent,
-    .ngBetterInterface-color-secondary {
+    .ngWPAdminUI-color-primary,
+    .ngWPAdminUI-color-accent,
+    .ngWPAdminUI-color-secondary {
         width: 20px;
         height: 20px;
     }

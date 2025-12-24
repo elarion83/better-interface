@@ -21,13 +21,13 @@ Le plugin est configuré en mode développement avec des paramètres temporaires
 
 ### Configuration Production
 
-Pour passer en production, modifier dans `better-interface.php` la fonction `ngBetterInterface_fs()` :
+Pour passer en production, modifier dans `wp-admin-ui.php` la fonction `ngBetterInterface_fs()` :
 
 ```php
 $ngBetterInterface_fs = fs_dynamic_init(array(
     'id'                  => 'VOTRE_ID_FREEMIUS', // Remplacer par votre ID réel
-    'slug'                => 'better-interface',
-    'premium_slug'        => 'better-interface-premium',
+    'slug'                => 'wp-admin-ui',
+    'premium_slug'        => 'wp-admin-ui-premium',
     'type'                => 'plugin',
     'public_key'          => 'pk_VOTRE_CLE_PUBLIQUE', // Remplacer par votre clé publique
     'is_premium'          => true,
@@ -36,7 +36,7 @@ $ngBetterInterface_fs = fs_dynamic_init(array(
     'has_paid_plans'      => true,
     'is_org_compliant'    => true,
     'menu'                => array(
-        'slug'           => 'better-interface',
+        'slug'           => 'wp-admin-ui',
         'parent'         => array(
             'slug' => 'tools.php',
         ),
@@ -63,8 +63,8 @@ public function ngBetterInterface_has_valid_license() {
 
 ### Vérifier la licence :
 ```php
-$ngBetterInterface = BetterInterface::get_instance();
-$has_valid_license = $ngBetterInterface->ngBetterInterface_has_valid_license();
+$ngWPAdminUI = WPAdminUI::get_instance();
+$has_valid_license = $ngWPAdminUI->ngBetterInterface_has_valid_license();
 ```
 
 ### Méthodes Freemius disponibles :

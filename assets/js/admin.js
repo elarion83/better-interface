@@ -1,12 +1,13 @@
 (function($){
-	// BetterInterfaceAdmin: gère les interactions de la page d’admin
+	// BetterInterfaceAdmin: gère les interactions de la page d'admin
+	// Pourquoi: utiliser la variable localisée correcte ngWPAdminUI_ajax pour correspondre à la configuration PHP
 	function BetterInterfaceAdmin(){
-		this.currentMode = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_mode) || 'default';
-		this.availableModes = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.available_modes) || {};
-		this.currentColorTheme = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.current_color_theme) || 'midnight';
-		this.availableColorThemes = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.available_color_themes) || {};
-		this.ajaxUrl = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.ajax_url) || ajaxurl;
-		this.nonce = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.nonce) || '';
+		this.currentMode = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.current_mode) || 'default';
+		this.availableModes = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.available_modes) || {};
+		this.currentColorTheme = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.current_color_theme) || 'midnight';
+		this.availableColorThemes = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.available_color_themes) || {};
+		this.ajaxUrl = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.ajax_url) || ajaxurl;
+		this.nonce = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.nonce) || '';
 
 		this.selectedMode = null;
 		this.selectedTheme = null;
@@ -34,7 +35,7 @@
 			
 			// Gérer le redimensionnement de la fenêtre pour adapter la largeur
 			$(window).on('resize', function(){
-				$('.ngBetterInterface-floating-action-bar').toggleClass('ngBetterInterface-full-width', window.innerWidth < 768);
+				$('.ngWPAdminUI-floating-action-bar').toggleClass('ngWPAdminUI-full-width', window.innerWidth < 768);
 			});
 		});
 	};
@@ -50,9 +51,9 @@
 			var self = this;
 			
 					// Créer le container de la barre flottante
-		var $floatingBar = $('<div class="ngBetterInterface-floating-action-bar slide-out"></div>');
-		var $actionsContainer = $('<div class="ngBetterInterface-floating-actions"></div>');
-		var $paginationContainer = $('<div class="ngBetterInterface-floating-pagination"></div>');
+		var $floatingBar = $('<div class="ngWPAdminUI-floating-action-bar slide-out"></div>');
+		var $actionsContainer = $('<div class="ngWPAdminUI-floating-actions"></div>');
+		var $paginationContainer = $('<div class="ngWPAdminUI-floating-pagination"></div>');
 		
 		// Récupérer le nom des éléments depuis le titre de la page
 		var itemName = 'selected';
@@ -81,11 +82,12 @@
 
 		
 		// Créer le compteur d'éléments sélectionnés avec bouton de désélection
-		var deselectAllText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.deselect_all) || 'Deselect';
-		var $counter = $('<div class="ngBetterInterface-selection-counter"><div class="ngBetterInterface-counter-content"><span class="ngBetterInterface-counter-number">' + totalItems + '</span><span class="ngBetterInterface-counter-text">' + itemName + '</span></div><button type="button" class="ngBetterInterface-deselect-all" title="' + deselectAllText + '"><span class="dashicons dashicons-no-alt"></span></button></div>');
+		// Pourquoi: utiliser la variable localisée correcte ngWPAdminUI_ajax
+		var deselectAllText = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.i18n && ngWPAdminUI_ajax.i18n.deselect_all) || 'Deselect';
+		var $counter = $('<div class="ngWPAdminUI-selection-counter"><div class="ngWPAdminUI-counter-content"><span class="ngWPAdminUI-counter-number">' + totalItems + '</span><span class="ngWPAdminUI-counter-text">' + itemName + '</span></div><button type="button" class="ngWPAdminUI-deselect-all" title="' + deselectAllText + '"><span class="dashicons dashicons-no-alt"></span></button></div>');
 		
 		// Configurer le bouton de désélection
-		$counter.find('.ngBetterInterface-deselect-all').on('click', function(e){
+		$counter.find('.ngWPAdminUI-deselect-all').on('click', function(e){
 			e.preventDefault();
 			e.stopPropagation();
 			
@@ -109,7 +111,7 @@
 		var $deleteAllButton = $nav.find('#delete_all');
 		if ($deleteAllButton.length > 0) {
 			customActions['delete_all'] = {
-				buttonClass: 'ngBetterInterface-delete-all-button',
+				buttonClass: 'ngWPAdminUI-delete-all-button',
 				title: 'Delete All',
 				icon: '<span class="material-icons">cleaning_services</span>',
 				backgroundColor: '#dc2996',
@@ -145,7 +147,8 @@
 				e.preventDefault();
 				
 				// Popup de confirmation pour l'action delete_all
-				var confirmText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.confirm_delete_all) || 'Are you sure you want to delete all items? This action cannot be undone.';
+				// Pourquoi: utiliser la variable localisée correcte ngWPAdminUI_ajax
+				var confirmText = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.i18n && ngWPAdminUI_ajax.i18n.confirm_delete_all) || 'Are you sure you want to delete all items? This action cannot be undone.';
 				
 				if (confirm(confirmText)) {
 					// Déclencher le clic sur le bouton original
@@ -198,13 +201,14 @@
 						// Vérifier qu'il y a des éléments sélectionnés
 						var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
 						if (selectedCount === 0) {
-							var pleaseSelectText = (window.ngBetterInterface_ajax && ngBetterInterface_ajax.i18n && ngBetterInterface_ajax.i18n.please_select_items) || 'Please select at least one item to perform this action on.';
+							// Pourquoi: utiliser la variable localisée correcte ngWPAdminUI_ajax
+							var pleaseSelectText = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.i18n && ngWPAdminUI_ajax.i18n.please_select_items) || 'Please select at least one item to perform this action on.';
 							alert(pleaseSelectText);
 							return;
 						}
 						
 						// Remplacer l'icône par une icône de chargement WordPress
-						var loadingIcon = '<span class="dashicons dashicons-update ngBetterInterface-loading-spinner"></span>';
+						var loadingIcon = '<span class="dashicons dashicons-update ngWPAdminUI-loading-spinner"></span>';
 						
 						$(this).html(loadingIcon);
 						
@@ -246,7 +250,7 @@
 			Object.keys(groupedButtons).forEach(function(groupName) {
 				var buttons = groupedButtons[groupName];
 				if (buttons.length > 0) {
-					var $group = $('<div class="ngBetterInterface-button-group ngBetterInterface-' + groupName + '-group"></div>');
+					var $group = $('<div class="ngWPAdminUI-button-group ngWPAdminUI-' + groupName + '-group"></div>');
 					buttons.forEach(function($button, index){
 						// Ajouter les classes utilitaires pour les border-radius
 						if (index === 0) {
@@ -268,7 +272,7 @@
 			});
 			
 			// Appliquer les événements hover pour les couleurs personnalisées
-			$('.ngBetterInterface-floating-action-bar button[data-hover-color]').each(function(){
+			$('.ngWPAdminUI-floating-action-bar button[data-hover-color]').each(function(){
 				var $button = $(this);
 				var hoverColor = $button.data('hover-color');
 				var originalColor = $button.css('background');
@@ -316,7 +320,7 @@
 			if ($submitButton.length > 0 && $form.find('select[name="action"], select[name="action2"]').length > 0) {
 				// Trouver le bouton personnalisé correspondant
 				var actionValue = $form.find('select[name="action"]').val() || $form.find('select[name="action2"]').val();
-				var $customButton = $('.ngBetterInterface-floating-action-bar button[data-action="' + actionValue + '"]');
+				var $customButton = $('.ngWPAdminUI-floating-action-bar button[data-action="' + actionValue + '"]');
 				
 				if ($customButton.length > 0) {
 					// Marquer le bouton comme en cours de traitement
@@ -333,7 +337,7 @@
 			// Vérifier si c'est une requête d'action en lot WordPress
 			if (settings.url && (settings.url.includes('admin-ajax.php') || settings.url.includes('edit.php') || settings.url.includes('post.php'))) {
 				// Restaurer tous les boutons en cours de traitement
-				$('.ngBetterInterface-floating-action-bar button.loading').each(function(){
+				$('.ngWPAdminUI-floating-action-bar button.loading').each(function(){
 					var $button = $(this);
 					var $originalIcon = $button.data('original-icon');
 					
@@ -351,7 +355,7 @@
 		// Écouter aussi les redirections et rechargements de page
 		$(window).on('beforeunload', function(){
 			// Restaurer tous les boutons avant le rechargement
-			$('.ngBetterInterface-floating-action-bar button.loading').each(function(){
+			$('.ngWPAdminUI-floating-action-bar button.loading').each(function(){
 				var $button = $(this);
 				var $originalIcon = $button.data('original-icon');
 				
@@ -366,7 +370,7 @@
 		// Écouter aussi les erreurs AJAX pour restaurer les boutons
 		$(document).ajaxError(function(event, xhr, settings, error){
 			// Restaurer tous les boutons en cours de traitement en cas d'erreur
-			$('.ngBetterInterface-floating-action-bar button.loading').each(function(){
+			$('.ngWPAdminUI-floating-action-bar button.loading').each(function(){
 				var $button = $(this);
 				var $originalIcon = $button.data('original-icon');
 				
@@ -387,7 +391,7 @@
 						var node = mutation.addedNodes[i];
 						if (node.nodeType === 1 && node.classList && node.classList.contains('notice')) {
 							// Une notice WordPress est apparue, restaurer les boutons
-							$('.ngBetterInterface-floating-action-bar button.loading').each(function(){
+							$('.ngWPAdminUI-floating-action-bar button.loading').each(function(){
 								var $button = $(this);
 								var $originalIcon = $button.data('original-icon');
 								
@@ -411,18 +415,18 @@
 		});
 		
 		// Créer le bouton "Filtres" pour ouvrir le sur-panel
-		var $filtersButton = $('<button type="button" class="ngBetterInterface-filters-button" title="Filtres"><span class="material-icons">filter_list</span><span class="ngBetterInterface-filters-badge"></span></button>');
+		var $filtersButton = $('<button type="button" class="ngWPAdminUI-filters-button" title="Filtres"><span class="material-icons">filter_list</span><span class="ngWPAdminUI-filters-badge"></span></button>');
 		
 		// Créer le voile sombre
-		var $filtersOverlay = $('<div class="ngBetterInterface-filters-overlay"></div>');
+		var $filtersOverlay = $('<div class="ngWPAdminUI-filters-overlay"></div>');
 		
 		// Créer le sur-panel des filtres
-		var $filtersPanel = $('<div class="ngBetterInterface-filters-panel"></div>');
-		var $filtersPanelContent = $('<div class="ngBetterInterface-filters-panel-content"></div>');
-		var $filtersPanelHeader = $('<div class="ngBetterInterface-filters-panel-header"><h3><span class="material-icons">filter_list</span> <span class="ngBetterInterface-filters-panel-title"></span></h3><button type="button" class="ngBetterInterface-filters-close"><span class="dashicons dashicons-no-alt"></span></button></div>');
+		var $filtersPanel = $('<div class="ngWPAdminUI-filters-panel"></div>');
+		var $filtersPanelContent = $('<div class="ngWPAdminUI-filters-panel-content"></div>');
+		var $filtersPanelHeader = $('<div class="ngWPAdminUI-filters-panel-header"><h3><span class="material-icons">filter_list</span> <span class="ngWPAdminUI-filters-panel-title"></span></h3><button type="button" class="ngWPAdminUI-filters-close"><span class="dashicons dashicons-no-alt"></span></button></div>');
 		
 		// Créer le bouton de réinitialisation en bas du panel
-		var $filtersResetButton = $('<div class="ngBetterInterface-filters-reset-container"><button type="button" class="ngBetterInterface-filters-reset-button"><span class="material-icons">filter_list_off</span> Réinitialiser les filtres</button></div>');
+		var $filtersResetButton = $('<div class="ngWPAdminUI-filters-reset-container"><button type="button" class="ngWPAdminUI-filters-reset-button"><span class="material-icons">filter_list_off</span> Réinitialiser les filtres</button></div>');
 		
 		// Détecter et créer le bouton "Ajouter" personnalisé
 		var $addButton = null;
@@ -460,7 +464,7 @@
 			var addButtonHref = $originalAddButton.attr('href');
 			
 			// Créer le gros bouton "Ajouter"
-			$addButton = $('<a href="' + addButtonHref + '" class="ngBetterInterface-add-button"><span class="material-icons">add</span></a>');
+			$addButton = $('<a href="' + addButtonHref + '" class="ngWPAdminUI-add-button"><span class="material-icons">add</span></a>');
 			
 			// Masquer le bouton original
 			$originalAddButton.hide();
@@ -472,21 +476,21 @@
 		var $originalSearchBox = $('.subsubsub + #posts-filter .search-box, .subsubsub + #comments-form .search-box, #wpcf7-contact-form-list-table .search-box');
 		if ($originalSearchBox.length > 0) {
 			// Créer le bouton "Rechercher" dans la barre flottante
-			$searchButton = $('<button type="button" class="ngBetterInterface-search-button" title="Rechercher"><span class="material-icons">search</span></button>');
+			$searchButton = $('<button type="button" class="ngWPAdminUI-search-button" title="Rechercher"><span class="material-icons">search</span></button>');
 			
 			// Créer la modale de recherche
-			$searchModal = $('<div class="ngBetterInterface-search-modal"><div class="ngBetterInterface-search-modal-content"><div class="ngBetterInterface-search-modal-header"><h3><span class="material-icons">search</span> Rechercher</h3><button type="button" class="ngBetterInterface-search-modal-close"><span class="dashicons dashicons-no-alt"></span></button></div><div class="ngBetterInterface-search-modal-body"></div></div></div>');
+			$searchModal = $('<div class="ngWPAdminUI-search-modal"><div class="ngWPAdminUI-search-modal-content"><div class="ngWPAdminUI-search-modal-header"><h3><span class="material-icons">search</span> Rechercher</h3><button type="button" class="ngWPAdminUI-search-modal-close"><span class="dashicons dashicons-no-alt"></span></button></div><div class="ngWPAdminUI-search-modal-body"></div></div></div>');
 			
 			// Cloner le contenu de la search-box dans la modale
 			var $searchBoxClone = $originalSearchBox.clone();
-			$searchModal.find('.ngBetterInterface-search-modal-body').append($searchBoxClone);
+			$searchModal.find('.ngWPAdminUI-search-modal-body').append($searchBoxClone);
 			
 			// Détecter le type de posts actuel
 			var currentPostType = self.detectCurrentPostType();
 			
 			// Créer le container pour les suggestions
-			var $suggestionsContainer = $('<div class="ngBetterInterface-search-suggestions"></div>');
-			$searchModal.find('.ngBetterInterface-search-modal-body').append($suggestionsContainer);
+			var $suggestionsContainer = $('<div class="ngWPAdminUI-search-suggestions"></div>');
+			$searchModal.find('.ngWPAdminUI-search-modal-body').append($suggestionsContainer);
 			
 			// Gérer la soumission de la recherche dans la modale
 			function performSearch() {
@@ -630,10 +634,10 @@
 			
 			// Définir le titre du panel à partir du bouton filtres
 			var filterButtonTitle = $filtersButton.attr('title') || 'Filtres';
-			$filtersPanel.find('.ngBetterInterface-filters-panel-title').text(filterButtonTitle);
+			$filtersPanel.find('.ngWPAdminUI-filters-panel-title').text(filterButtonTitle);
 			
-			$filtersPanel.addClass('ngBetterInterface-filters-panel-open');
-			$filtersOverlay.addClass('ngBetterInterface-filters-overlay-open');
+			$filtersPanel.addClass('ngWPAdminUI-filters-panel-open');
+			$filtersOverlay.addClass('ngWPAdminUI-filters-overlay-open');
 			$filtersButton.addClass('active');
 			
 			// Changer l'icône vers filter_list_off
@@ -647,7 +651,7 @@
 		if ($searchButton && $searchModal) {
 			$searchButton.on('click', function(e){
 				e.preventDefault();
-				$searchModal.addClass('ngBetterInterface-search-modal-open');
+				$searchModal.addClass('ngWPAdminUI-search-modal-open');
 				$searchButton.addClass('active');
 				
 				// Focus sur l'input de recherche
@@ -657,7 +661,7 @@
 			});
 			
 			// Fermer la modale avec le bouton close
-			$searchModal.find('.ngBetterInterface-search-modal-close').on('click', function(e){
+			$searchModal.find('.ngWPAdminUI-search-modal-close').on('click', function(e){
 				e.preventDefault();
 				closeSearchModal();
 			});
@@ -673,11 +677,11 @@
 			$(document).on('keydown', function(e){
 				if (e.key === 'Escape') {
 					// Fermer la modale de recherche si elle est ouverte
-					if ($searchModal && $searchModal.hasClass('ngBetterInterface-search-modal-open')) {
+					if ($searchModal && $searchModal.hasClass('ngWPAdminUI-search-modal-open')) {
 						closeSearchModal();
 					}
 					// Fermer le panel de filtres s'il est ouvert
-					if ($filtersPanel && $filtersPanel.hasClass('ngBetterInterface-filters-panel-open')) {
+					if ($filtersPanel && $filtersPanel.hasClass('ngWPAdminUI-filters-panel-open')) {
 						closeFiltersPanel();
 					}
 				}
@@ -686,14 +690,14 @@
 		
 		// Fonction pour fermer la modale de recherche
 		function closeSearchModal() {
-			$searchModal.removeClass('ngBetterInterface-search-modal-open');
+			$searchModal.removeClass('ngWPAdminUI-search-modal-open');
 			$searchButton.removeClass('active');
 		}
 		
 		// Fonction pour fermer le panel et changer l'icône
 		function closeFiltersPanel() {
-			$filtersPanel.removeClass('ngBetterInterface-filters-panel-open');
-			$filtersOverlay.removeClass('ngBetterInterface-filters-overlay-open');
+			$filtersPanel.removeClass('ngWPAdminUI-filters-panel-open');
+			$filtersOverlay.removeClass('ngWPAdminUI-filters-overlay-open');
 			$filtersButton.removeClass('active');
 			
 			// Changer l'icône vers filter_list_off
@@ -729,20 +733,20 @@
 		}
 		
 		// Gérer le clic sur le bouton de réinitialisation
-		$filtersPanel.find('.ngBetterInterface-filters-reset-button').on('click', function(e){
+		$filtersPanel.find('.ngWPAdminUI-filters-reset-button').on('click', function(e){
 			e.preventDefault();
 			resetAllFilters();
 		});
 		
-		$filtersPanel.find('.ngBetterInterface-filters-close').on('click', function(e){
+		$filtersPanel.find('.ngWPAdminUI-filters-close').on('click', function(e){
 			e.preventDefault();
 			closeFiltersPanel();
 		});
 		
 		// Fermer le panel en cliquant à l'extérieur ou sur l'overlay
 		$(document).on('click', function(e){
-			if (!$(e.target).closest('.ngBetterInterface-filters-panel').length && 
-				!$(e.target).closest('.ngBetterInterface-filters-button').length) {
+			if (!$(e.target).closest('.ngWPAdminUI-filters-panel').length && 
+				!$(e.target).closest('.ngWPAdminUI-filters-button').length) {
 				closeFiltersPanel();
 			}
 		});
@@ -775,7 +779,7 @@
 			});
 			
 			// Mettre à jour le badge
-			var $badge = $filtersButton.find('.ngBetterInterface-filters-badge');
+			var $badge = $filtersButton.find('.ngWPAdminUI-filters-badge');
 			if (activeFiltersCount > 0) {
 				$badge.text(activeFiltersCount).show();
 			} else {
@@ -786,14 +790,14 @@
 		// Fonction pour surbriller les filtres actifs
 		function highlightActiveFilters() {
 			// Retirer toutes les surbrillances existantes
-			$filtersPanelContent.find('.ngBetterInterface-filter-active-highlight').removeClass('ngBetterInterface-filter-active-highlight');
+			$filtersPanelContent.find('.ngWPAdminUI-filter-active-highlight').removeClass('ngWPAdminUI-filter-active-highlight');
 			
 			// Surbriller les selects actifs
 			$filtersPanelContent.find('select').each(function(){
 				var $select = $(this);
 				var selectedIndex = $select.prop('selectedIndex');
 				if (selectedIndex > 0) {
-					$select.addClass('ngBetterInterface-filter-active-highlight');
+					$select.addClass('ngWPAdminUI-filter-active-highlight');
 				}
 			});
 			
@@ -802,7 +806,7 @@
 				var $input = $(this);
 				var value = $input.val().trim();
 				if (value !== '' && value !== '0') {
-					$input.addClass('ngBetterInterface-filter-active-highlight');
+					$input.addClass('ngWPAdminUI-filter-active-highlight');
 				}
 			});
 		}
@@ -847,12 +851,12 @@
 		
 		// Créer les éléments de pagination
 		// Afficher la pagination si il y a plus d'une page OU si on est sur une page > 1
-		var pageNumberClass = (totalPages > 1 || currentPage > 1) ? '' : 'ngBetterInterface-pagination-hide';
-		var $paginationElements = $('<div class="ngBetterInterface-modern-pagination '+pageNumberClass+'"></div>');
+		var pageNumberClass = (totalPages > 1 || currentPage > 1) ? '' : 'ngWPAdminUI-pagination-hide';
+		var $paginationElements = $('<div class="ngWPAdminUI-modern-pagination '+pageNumberClass+'"></div>');
 		
 		// Bouton première page
 		if (currentPage > 1) {
-			var $firstPageBtn = $('<button type="button" class="ngBetterInterface-pagination-btn ngBetterInterface-pagination-first" title="Première page"><span class="dashicons dashicons-controls-skipback"></span></button>');
+			var $firstPageBtn = $('<button type="button" class="ngWPAdminUI-pagination-btn ngWPAdminUI-pagination-first" title="Première page"><span class="dashicons dashicons-controls-skipback"></span></button>');
 			$firstPageBtn.on('click', function(){
 				changePage(1);
 			});
@@ -861,7 +865,7 @@
 		
 		// Bouton page précédente
 		if (currentPage > 1) {
-			var $prevPageBtn = $('<button type="button" class="ngBetterInterface-pagination-btn ngBetterInterface-pagination-prev" title="Page précédente"><span class="dashicons dashicons-controls-back"></span></button>');
+			var $prevPageBtn = $('<button type="button" class="ngWPAdminUI-pagination-btn ngWPAdminUI-pagination-prev" title="Page précédente"><span class="dashicons dashicons-controls-back"></span></button>');
 			$prevPageBtn.on('click', function(){
 				changePage(currentPage - 1);
 			});
@@ -869,7 +873,7 @@
 		}
 		
 		// Champ de saisie de la page actuelle
-		var $pageInput = $('<input type="number" class="ngBetterInterface-pagination-input" value="' + currentPage + '" min="1" max="' + totalPages + '" title="Page actuelle" />');
+		var $pageInput = $('<input type="number" class="ngWPAdminUI-pagination-input" value="' + currentPage + '" min="1" max="' + totalPages + '" title="Page actuelle" />');
 		$pageInput.on('change', function(){
 			var newPage = parseInt($(this).val());
 			if (newPage >= 1 && newPage <= totalPages) {
@@ -886,16 +890,16 @@
 		$paginationElements.append($pageInput);
 		
 		// Séparateur "sur"
-		var $separator = $('<span class="ngBetterInterface-pagination-separator">/</span>');
+		var $separator = $('<span class="ngWPAdminUI-pagination-separator">/</span>');
 		$paginationElements.append($separator);
 		
 		// Nombre total de pages
-		var $totalPages = $('<span class="ngBetterInterface-pagination-total">' + totalPages + '</span>');
+		var $totalPages = $('<span class="ngWPAdminUI-pagination-total">' + totalPages + '</span>');
 		$paginationElements.append($totalPages);
 		
 		// Bouton page suivante
 		if (currentPage < totalPages) {
-			var $nextPageBtn = $('<button type="button" class="ngBetterInterface-pagination-btn ngBetterInterface-pagination-next" title="Page suivante"><span class="dashicons dashicons-controls-forward"></span></button>');
+			var $nextPageBtn = $('<button type="button" class="ngWPAdminUI-pagination-btn ngWPAdminUI-pagination-next" title="Page suivante"><span class="dashicons dashicons-controls-forward"></span></button>');
 			$nextPageBtn.on('click', function(){
 				changePage(currentPage + 1);
 			});
@@ -904,7 +908,7 @@
 		
 		// Bouton dernière page
 		if (currentPage < totalPages) {
-			var $lastPageBtn = $('<button type="button" class="ngBetterInterface-pagination-btn ngBetterInterface-pagination-last" title="Dernière page"><span class="dashicons dashicons-controls-skipforward"></span></button>');
+			var $lastPageBtn = $('<button type="button" class="ngWPAdminUI-pagination-btn ngWPAdminUI-pagination-last" title="Dernière page"><span class="dashicons dashicons-controls-skipforward"></span></button>');
 			$lastPageBtn.on('click', function(){
 				changePage(totalPages);
 			});
@@ -934,7 +938,7 @@
 		
 		// Assembler la barre flottante avec le nouvel ordre
 		// GAUCHE : Bouton Ajouter + Compteur + Actions
-		var $leftSection = $('<div class="ngBetterInterface-floating-left"></div>');
+		var $leftSection = $('<div class="ngWPAdminUI-floating-left"></div>');
 		
 		// Ajouter le bouton "Ajouter" en premier à gauche
 		if ($addButton) {
@@ -952,7 +956,7 @@
 		$floatingBar.append($leftSection);
 		
 		// DROITE : Delete All + Recherche + Filtres + Pagination
-		var $rightSection = $('<div class="ngBetterInterface-floating-right"></div>');
+		var $rightSection = $('<div class="ngWPAdminUI-floating-right"></div>');
 		
 		// Ajouter le bouton delete_all en premier à droite
 		if ($deleteAllButtonCustom) {
@@ -1004,7 +1008,7 @@
 			
 			// Appliquer la classe de largeur selon le format d'écran
 			if (window.innerWidth < 768) {
-				$floatingBar.addClass('ngBetterInterface-full-width');
+				$floatingBar.addClass('ngWPAdminUI-full-width');
 			}
 			
 			// Masquer la navigation originale seulement sur desktop
@@ -1018,9 +1022,9 @@
 	BetterInterfaceAdmin.prototype.updateFloatingBarState = function(){
 		var selectedCount = $('.wp-list-table tbody input[type="checkbox"]:checked').length;
 		var hasSelectedItems = selectedCount > 0;
-		var $actions = $('.ngBetterInterface-floating-actions button, .ngBetterInterface-floating-actions input[type="submit"], .ngBetterInterface-floating-actions select');
-		var $customButtons = $('.ngBetterInterface-trash-button, .ngBetterInterface-edit-button, .ngBetterInterface-update-button, .ngBetterInterface-delete-all-button');
-		var $counter = $('.ngBetterInterface-selection-counter');
+		var $actions = $('.ngWPAdminUI-floating-actions button, .ngWPAdminUI-floating-actions input[type="submit"], .ngWPAdminUI-floating-actions select');
+		var $customButtons = $('.ngWPAdminUI-trash-button, .ngWPAdminUI-edit-button, .ngWPAdminUI-update-button, .ngWPAdminUI-delete-all-button');
+		var $counter = $('.ngWPAdminUI-selection-counter');
 		
 		// Vérifier si une case "sélectionner tout" est cochée
 		var $selectAll1 = $('#cb-select-all-1');
@@ -1030,9 +1034,9 @@
 		// Ajouter/retirer la classe à la table selon l'état de sélection
 		var $table = $('.wp-list-table');
 		if (isFullySelected) {
-			$table.addClass('ngBetterInterface-table-full-selected');
+			$table.addClass('ngWPAdminUI-table-full-selected');
 		} else {
-			$table.removeClass('ngBetterInterface-table-full-selected');
+			$table.removeClass('ngWPAdminUI-table-full-selected');
 		}
 		
 		// Récupérer le nombre total d'éléments depuis .displaying-num
@@ -1060,8 +1064,8 @@
 		}
 		
 		// Mettre à jour le compteur avec effet de défilement
-		var $counterNumber = $counter.find('.ngBetterInterface-counter-number');
-		var $counterText = $counter.find('.ngBetterInterface-counter-text');
+		var $counterNumber = $counter.find('.ngWPAdminUI-counter-number');
+		var $counterText = $counter.find('.ngWPAdminUI-counter-text');
 		var currentValue = $counterNumber.text();
 		var currentText = $counterText.text();
 		
@@ -1089,16 +1093,16 @@
 		}
 		
 		// Vérifier s'il y a des filtres actifs
-		var hasActiveFilters = $('.ngBetterInterface-filters-panel-content').children().length > 0;
+		var hasActiveFilters = $('.ngWPAdminUI-filters-panel-content').children().length > 0;
 		
 		// Vérifier s'il y a des boutons toujours visibles
 		var hasAlwaysVisibleButtons = $('[data-always-visible="true"]').length > 0;
 		
 		// Vérifier s'il y a des boutons dans la barre (ajouter, recherche, filtres, etc.)
-		var hasButtonsInBar = $('.ngBetterInterface-add-button, .ngBetterInterface-search-button, .ngBetterInterface-filters-button, .ngBetterInterface-delete-all-button, .ngBetterInterface-modern-pagination').length > 0;
+		var hasButtonsInBar = $('.ngWPAdminUI-add-button, .ngWPAdminUI-search-button, .ngWPAdminUI-filters-button, .ngWPAdminUI-delete-all-button, .ngWPAdminUI-modern-pagination').length > 0;
 		
 		// Afficher/masquer la barre selon les conditions avec animation
-		var $floatingBar = $('.ngBetterInterface-floating-action-bar');
+		var $floatingBar = $('.ngWPAdminUI-floating-action-bar');
 		if (hasSelectedItems || hasActiveFilters || hasAlwaysVisibleButtons || hasButtonsInBar) {
 			$floatingBar.removeClass('slide-out').addClass('slide-in');
 		} else {
@@ -1117,7 +1121,7 @@
 		}
 		
 		// Le bouton filtres et les boutons toujours visibles restent actifs
-		$('.ngBetterInterface-filters-button, [data-always-visible="true"]').prop('disabled', false).removeClass('disabled');
+		$('.ngWPAdminUI-filters-button, [data-always-visible="true"]').prop('disabled', false).removeClass('disabled');
 	};
 
 	// Pourquoi: améliorer l'ergonomie des listes WP; un clic sur l'arrière-plan d'une ligne toggle la première case à cocher
@@ -1157,7 +1161,7 @@
 
 	// Met à jour la classe de sélection sur la ligne (pour les styles modernes)
 	BetterInterfaceAdmin.prototype.updateRowSelectedState = function($row, isSelected){
-		$row.toggleClass('ngBetterInterface-row-selected', !!isSelected);
+		$row.toggleClass('ngWPAdminUI-row-selected', !!isSelected);
 	};
 
 	// À l'init: synchroniser l'état visuel des lignes déjà sélectionnées
@@ -1178,8 +1182,8 @@
 		var self = this;
 		
 		// Créer l'overlay de transition s'il n'existe pas
-		if ($('.ngBetterInterface-page-transition-overlay').length === 0) {
-			$('body').append('<div class="ngBetterInterface-page-transition-overlay"></div>');
+		if ($('.ngWPAdminUI-page-transition-overlay').length === 0) {
+			$('body').append('<div class="ngWPAdminUI-page-transition-overlay"></div>');
 		}
 
 		// Intercepter les clics sur les liens de navigation
@@ -1233,14 +1237,14 @@
 		});
 
 		// Intercepter les clics sur les boutons de sauvegarde du plugin
-		$(document).on('click', '.ngBetterInterface-save-toggle, .ngBetterInterface-save-theme', function(){
+		$(document).on('click', '.ngWPAdminUI-save-toggle, .ngWPAdminUI-save-theme', function(){
 			self.showPageTransition();
 		});
 	};
 
 	// Afficher l'overlay de transition
 	BetterInterfaceAdmin.prototype.showPageTransition = function(){
-		$('.ngBetterInterface-page-transition-overlay').addClass('active');
+		$('.ngWPAdminUI-page-transition-overlay').addClass('active');
 	};
 
 	// ===== SYSTÈME DE POSITIONNEMENT DES NOTICES =====
@@ -1254,8 +1258,8 @@
 		}
 		
 		// Créer le container pour les notices s'il n'existe pas
-		if ($('.ngBetterInterface-notices-container').length === 0) {
-			$('body').append('<div class="ngBetterInterface-notices-container"></div>');
+		if ($('.ngWPAdminUI-notices-container').length === 0) {
+			$('body').append('<div class="ngWPAdminUI-notices-container"></div>');
 		}
 
 		// Fonction pour déplacer une notice dans le container
@@ -1269,18 +1273,18 @@
 			var $themeDiv = $notice.closest('.theme');
 			if ($themeDiv.length > 0) {
 				var themeSlug = $themeDiv.attr('data-slug');
-				if (themeSlug && !$notice.find('.ngBetterInterface-notice-context-title').length) {
+				if (themeSlug && !$notice.find('.ngWPAdminUI-notice-context-title').length) {
 					// Formater le nom du thème (slug vers nom lisible)
 					var themeName = themeSlug.replace(/-/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
 					
 					// Ajouter le titre du thème au début de la notice
-					var $contextTitle = $('<div class="ngBetterInterface-notice-context-title">' + themeName + '</div>');
+					var $contextTitle = $('<div class="ngWPAdminUI-notice-context-title">' + themeName + '</div>');
 					$notice.prepend($contextTitle);
 				}
 			}
 			
-			if ($notice.closest('.ngBetterInterface-notices-container').length === 0) {
-				$('.ngBetterInterface-notices-container').append($notice);
+			if ($notice.closest('.ngWPAdminUI-notices-container').length === 0) {
+				$('.ngWPAdminUI-notices-container').append($notice);
 			}
 		}
 
@@ -1401,18 +1405,19 @@
 		console.log('Recherche pour:', query, 'Type:', postType);
 		
 		// Afficher un indicateur de chargement
-		$container.html('<div class="ngBetterInterface-suggestions-loading"><span class="dashicons dashicons-update ngBetterInterface-loading-spinner"></span> Recherche en cours...</div>').show();
+		$container.html('<div class="ngWPAdminUI-suggestions-loading"><span class="dashicons dashicons-update ngWPAdminUI-loading-spinner"></span> Recherche en cours...</div>').show();
 		
 		// Requête AJAX vers l'endpoint WordPress
+		// Pourquoi: utiliser les variables et actions AJAX correctes ngWPAdminUI_* pour correspondre aux hooks WordPress
 		$.ajax({
-			url: (window.ngBetterInterface_ajax && ngBetterInterface_ajax.ajax_url) || ajaxurl,
+			url: (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.ajax_url) || ajaxurl,
 			type: 'POST',
 			data: {
-				action: 'ngBetterInterface_search_suggestions',
+				action: 'ngWPAdminUI_search_suggestions',
 				query: query,
 				post_type: postType,
 				limit: 8,
-				nonce: (window.ngBetterInterface_ajax && ngBetterInterface_ajax.nonce) || ''
+				nonce: (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.nonce) || ''
 			},
 			success: function(response) {
 				console.log('Réponse AJAX:', response);
@@ -1421,12 +1426,12 @@
 				} else {
 					var debugInfo = response.data ? 
 						'<br><small>Debug: Type "' + response.data.post_type + '", ' + (response.data.total || 0) + ' résultats</small>' : '';
-					$container.html('<div class="ngBetterInterface-suggestions-empty">Aucun résultat trouvé pour "' + query + '"' + debugInfo + '</div>').show();
+					$container.html('<div class="ngWPAdminUI-suggestions-empty">Aucun résultat trouvé pour "' + query + '"' + debugInfo + '</div>').show();
 				}
 			},
 			error: function(xhr, status, error) {
 				console.error('Erreur lors de la recherche:', error, xhr.responseText);
-				$container.html('<div class="ngBetterInterface-suggestions-error">Erreur lors de la recherche: ' + error + '</div>').show();
+				$container.html('<div class="ngWPAdminUI-suggestions-error">Erreur lors de la recherche: ' + error + '</div>').show();
 			}
 		});
 	};
@@ -1437,7 +1442,7 @@
 	 */
 	BetterInterfaceAdmin.prototype.displaySearchSuggestions = function(suggestions, $container, query){
 		var self = this;
-		var html = '<div class="ngBetterInterface-suggestions-title">Suggestions</div><div class="ngBetterInterface-suggestions-list">';
+		var html = '<div class="ngWPAdminUI-suggestions-title">Suggestions</div><div class="ngWPAdminUI-suggestions-list">';
 		
 		suggestions.forEach(function(suggestion) {
 			// Mettre en évidence la requête dans le titre
@@ -1467,19 +1472,19 @@
 			// Formater la date
 			var formattedDate = new Date(suggestion.date).toLocaleDateString('fr-FR');
 			
-			html += '<div class="ngBetterInterface-suggestion-item ' + statusClass + '" data-id="' + suggestion.id + '">';
-			html += '<div class="ngBetterInterface-suggestion-content">';
-			html += '<div class="ngBetterInterface-suggestion-title">' + highlightedTitle + '</div>';
+			html += '<div class="ngWPAdminUI-suggestion-item ' + statusClass + '" data-id="' + suggestion.id + '">';
+			html += '<div class="ngWPAdminUI-suggestion-content">';
+			html += '<div class="ngWPAdminUI-suggestion-title">' + highlightedTitle + '</div>';
 			if (suggestion.context) {
-				html += '<div class="ngBetterInterface-suggestion-context">' + suggestion.context + '</div>';
+				html += '<div class="ngWPAdminUI-suggestion-context">' + suggestion.context + '</div>';
 			}
-			html += '<div class="ngBetterInterface-suggestion-meta">';
-			html += '<span class="ngBetterInterface-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + suggestion.status + '</span>';
-			html += '<span class="ngBetterInterface-suggestion-date">' + formattedDate + '</span>';
+			html += '<div class="ngWPAdminUI-suggestion-meta">';
+			html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + suggestion.status + '</span>';
+			html += '<span class="ngWPAdminUI-suggestion-date">' + formattedDate + '</span>';
 			html += '</div>';
 			html += '</div>';
-			html += '<div class="ngBetterInterface-suggestion-actions">';
-			html += '<a href="' + suggestion.edit_url + '" class="ngBetterInterface-suggestion-edit" title="Éditer"><span class="dashicons dashicons-edit"></span></a>';
+			html += '<div class="ngWPAdminUI-suggestion-actions">';
+			html += '<a href="' + suggestion.edit_url + '" class="ngWPAdminUI-suggestion-edit" title="Éditer"><span class="dashicons dashicons-edit"></span></a>';
 			html += '</div>';
 			html += '</div>';
 		});
@@ -1488,24 +1493,24 @@
 		$container.html(html).show();
 		
 		// Gérer les clics sur les suggestions
-		$container.find('.ngBetterInterface-suggestion-item').on('click', function(e){
+		$container.find('.ngWPAdminUI-suggestion-item').on('click', function(e){
 			// Ignorer si Ctrl/Cmd ou le bouton du milieu de la souris est enfoncé (ouvrir dans un nouvel onglet)
 			if (e.ctrlKey || e.metaKey || e.which === 2) return;
 			
 			e.preventDefault();
 			var $item = $(this);
-			var editUrl = $item.find('.ngBetterInterface-suggestion-edit').attr('href');
+			var editUrl = $item.find('.ngWPAdminUI-suggestion-edit').attr('href');
 			
 			if (editUrl) {
 				// Fermer la modale et rediriger vers l'édition
-				$('.ngBetterInterface-search-modal').removeClass('ngBetterInterface-search-modal-open');
-				$('.ngBetterInterface-search-button').removeClass('active');
+				$('.ngWPAdminUI-search-modal').removeClass('ngWPAdminUI-search-modal-open');
+				$('.ngWPAdminUI-search-button').removeClass('active');
 				window.location.href = editUrl;
 			}
 		});
 		
 		// Gérer le clic sur le bouton d'édition
-		$container.find('.ngBetterInterface-suggestion-edit').on('click', function(e){
+		$container.find('.ngWPAdminUI-suggestion-edit').on('click', function(e){
 			e.stopPropagation(); // Empêcher le clic sur l'item parent
 		});
 	};

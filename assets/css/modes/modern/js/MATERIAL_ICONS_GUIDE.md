@@ -29,7 +29,7 @@
 ```javascript
 // Dans customActionsButtons.js
 {
-    buttonClass: 'ngBetterInterface-edit-button',
+    buttonClass: 'ngWPAdminUI-edit-button',
     title: 'Edit',
     icon: '<span class="material-icons">edit</span>',
     backgroundColor: '#3b82f6',
@@ -61,21 +61,21 @@
 // Exemple de configuration complète
 var ngBetterInterfaceCustomActions = {
     'edit': {
-        buttonClass: 'ngBetterInterface-edit-button',
+        buttonClass: 'ngWPAdminUI-edit-button',
         title: 'Edit Selected',
         icon: '<span class="material-icons">edit</span>',
         backgroundColor: '#3b82f6',
         hoverBackgroundColor: '#2563eb'
     },
     'delete': {
-        buttonClass: 'ngBetterInterface-delete-button',
+        buttonClass: 'ngWPAdminUI-delete-button',
         title: 'Delete Selected',
         icon: '<span class="material-icons">delete</span>',
         backgroundColor: '#ef4444',
         hoverBackgroundColor: '#dc2626'
     },
     'approve': {
-        buttonClass: 'ngBetterInterface-approve-button',
+        buttonClass: 'ngWPAdminUI-approve-button',
         title: 'Approve Selected',
         icon: '<span class="material-icons">thumb_up</span>',
         backgroundColor: '#10b981',

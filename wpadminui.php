@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Better Interface
- * Plugin URI: https://github.com/nicolasgruwe/better-interface
+ * Plugin Name: WP Admin UI
+ * Plugin URI: https://wpadminui.com
  * Description: Modernise l'interface administrateur WordPress avec 2 modes de design différents
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Nicolas Gruwe
- * Author URI: https://nicolasgruwe.com
+ * Author URI: https://nicolasgruwe.fr
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: better-interface
+ * Text Domain: wp-admin-ui
  * Domain Path: /languages
  * Requires at least: 5.0
  * Tested up to: 6.4
@@ -32,10 +32,10 @@ if ( file_exists( dirname( __FILE__ ) . '/includes/freemius/start.php' ) ) {
 }
 
 /**
- * Classe principale du plugin Better Interface
+ * Classe principale du plugin WP Admin UI
  * Gère l'initialisation et la coordination des fonctionnalités
  */
-class BetterInterface {
+class WPAdminUI {
     
     /**
      * Instance unique de la classe (pattern Singleton)
@@ -75,7 +75,7 @@ class BetterInterface {
      * Constructeur privé (Singleton)
      */
     private function __construct() {
-        $this->ngBetterInterface_init_hooks();
+        $this->ngWPAdminUI_init_hooks();
     }
     
     /**
@@ -91,73 +91,73 @@ class BetterInterface {
     /**
      * Initialise les hooks WordPress
      */
-    private function ngBetterInterface_init_hooks() {
+    private function ngWPAdminUI_init_hooks() {
         // Hooks d'activation/désactivation
-        register_activation_hook(__FILE__, [$this, 'ngBetterInterface_activate']);
-        register_deactivation_hook(__FILE__, [$this, 'ngBetterInterface_deactivate']);
+        register_activation_hook(__FILE__, [$this, 'ngWPAdminUI_activate']);
+        register_deactivation_hook(__FILE__, [$this, 'ngWPAdminUI_deactivate']);
         
         // Hooks d'initialisation
-        add_action('init', [$this, 'ngBetterInterface_init']);
-        add_action('admin_init', [$this, 'ngBetterInterface_admin_init']);
+        add_action('init', [$this, 'ngWPAdminUI_init']);
+        add_action('admin_init', [$this, 'ngWPAdminUI_admin_init']);
         
         // Hooks pour l'interface admin
-        add_action('admin_enqueue_scripts', [$this, 'ngBetterInterface_enqueue_admin_assets']);
-        add_action('admin_menu', [$this, 'ngBetterInterface_add_admin_menu']);
+        add_action('admin_enqueue_scripts', [$this, 'ngWPAdminUI_enqueue_admin_assets']);
+        add_action('admin_menu', [$this, 'ngWPAdminUI_add_admin_menu']);
         
         // Hooks AJAX
-        add_action('wp_ajax_ngBetterInterface_save_mode', [$this, 'ngBetterInterface_save_design_mode']);
-        add_action('wp_ajax_ngBetterInterface_save_color_theme', [$this, 'ngBetterInterface_save_color_theme']);
-        add_action('wp_ajax_ngBetterInterface_search_suggestions', [$this, 'ngBetterInterface_get_search_suggestions']);
+        add_action('wp_ajax_ngWPAdminUI_save_mode', [$this, 'ngWPAdminUI_save_design_mode']);
+        add_action('wp_ajax_ngWPAdminUI_save_color_theme', [$this, 'ngWPAdminUI_save_color_theme']);
+        add_action('wp_ajax_ngWPAdminUI_search_suggestions', [$this, 'ngWPAdminUI_get_search_suggestions']);
     }
     
     /**
      * Initialisation du plugin
      */
-    public function ngBetterInterface_init() {
+    public function ngWPAdminUI_init() {
         // Chargement des traductions
-        load_plugin_textdomain('better-interface', false, dirname(BI_PLUGIN_BASENAME) . '/languages');
+        load_plugin_textdomain('wp-admin-ui', false, dirname(BI_PLUGIN_BASENAME) . '/languages');
         
         // Récupération du mode actuel
-        $this->current_mode = get_option('ngBetterInterface_design_mode', 'default');
+        $this->current_mode = get_option('ngWPAdminUI_design_mode', 'default');
 
         // Récupération du thème de couleurs actuel (pour le mode moderne)
         // Pourquoi: utilisé par la page d'admin pour afficher et manipuler les thèmes
         // Forcer "midnight" par défaut et toujours
-        $saved_theme = get_option('ngBetterInterface_color_theme', 'midnight');
+        $saved_theme = get_option('ngWPAdminUI_color_theme', 'midnight');
         $this->current_color_theme = 'midnight'; // Toujours "midnight" pour l'instant
         if ($saved_theme !== 'midnight') {
-            update_option('ngBetterInterface_color_theme', 'midnight');
+            update_option('ngWPAdminUI_color_theme', 'midnight');
         }
     }
     
     /**
      * Initialisation spécifique à l'admin
      */
-    public function ngBetterInterface_admin_init() {
+    public function ngWPAdminUI_admin_init() {
         // Vérification des permissions
         if (!current_user_can('manage_options')) {
             return;
         }
         
         // Enregistrement des paramètres
-        register_setting('ngBetterInterface_settings', 'ngBetterInterface_design_mode');
+        register_setting('ngWPAdminUI_settings', 'ngWPAdminUI_design_mode');
         // Thème de couleurs du mode moderne
-        register_setting('ngBetterInterface_settings', 'ngBetterInterface_color_theme');
+        register_setting('ngWPAdminUI_settings', 'ngWPAdminUI_color_theme');
     }
     
     /**
      * Activation du plugin
      */
-    public function ngBetterInterface_activate() {
+    public function ngWPAdminUI_activate() {
         // Création des options par défaut
-        if (!get_option('ngBetterInterface_design_mode')) {
-            add_option('ngBetterInterface_design_mode', 'default');
+        if (!get_option('ngWPAdminUI_design_mode')) {
+            add_option('ngWPAdminUI_design_mode', 'default');
         }
-        if (!get_option('ngBetterInterface_color_theme')) {
-            add_option('ngBetterInterface_color_theme', 'midnight');
+        if (!get_option('ngWPAdminUI_color_theme')) {
+            add_option('ngWPAdminUI_color_theme', 'midnight');
         } else {
             // Forcer "midnight" même si une autre valeur existe
-            update_option('ngBetterInterface_color_theme', 'midnight');
+            update_option('ngWPAdminUI_color_theme', 'midnight');
         }
         
         // Flush des règles de réécriture
@@ -167,9 +167,9 @@ class BetterInterface {
     /**
      * Désactivation du plugin
      */
-    public function ngBetterInterface_deactivate() {
+    public function ngWPAdminUI_deactivate() {
         // Nettoyage des options (optionnel - commenté pour préserver les données)
-        // delete_option('ngBetterInterface_design_mode');
+        // delete_option('ngWPAdminUI_design_mode');
         
         flush_rewrite_rules();
     }
@@ -179,28 +179,28 @@ class BetterInterface {
     /**
      * Ajout du menu d'administration
      */
-    public function ngBetterInterface_add_admin_menu() {
+    public function ngWPAdminUI_add_admin_menu() {
         add_submenu_page(
             'tools.php',
-            __('WP Modern UI', 'better-interface'),
-            __('WP Modern UI', 'better-interface'),
+            __('WP Admin UI', 'wp-admin-ui'),
+            __('WP Admin UI', 'wp-admin-ui'),
             'manage_options',
-            'better-interface',
-            [$this, 'ngBetterInterface_admin_page']
+            'wp-admin-ui',
+            [$this, 'ngWPAdminUI_admin_page']
         );
     }
     
     /**
      * Page d'administration du plugin
      */
-    public function ngBetterInterface_admin_page() {
+    public function ngWPAdminUI_admin_page() {
         include BI_PLUGIN_PATH . 'admin/admin-page.php';
     }
     
     /**
      * Chargement des assets admin
      */
-    public function ngBetterInterface_enqueue_admin_assets($hook) {
+    public function ngWPAdminUI_enqueue_admin_assets($hook) {
         // Chargement uniquement sur les pages admin
         if (!is_admin()) {
             return;
@@ -208,7 +208,7 @@ class BetterInterface {
         
         // Styles principaux
         wp_enqueue_style(
-            'better-interface-admin',
+            'wp-admin-ui-admin',
             BI_PLUGIN_URL . 'assets/css/admin.css',
             [],
             BI_PLUGIN_VERSION
@@ -217,7 +217,7 @@ class BetterInterface {
         
         // Script de sélection de mode/thème - toujours chargé
         wp_enqueue_script(
-            'better-interface-mode-selector',
+            'wp-admin-ui-mode-selector',
             BI_PLUGIN_URL . 'assets/js/mode-selector.js',
             ['jquery'],
             BI_PLUGIN_VERSION,
@@ -225,9 +225,9 @@ class BetterInterface {
         );
         
         // Localisation pour AJAX
-		wp_localize_script('better-interface-mode-selector', 'ngBetterInterface_ajax', [
+		wp_localize_script('wp-admin-ui-mode-selector', 'ngWPAdminUI_ajax', [
             'ajax_url' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce('ngBetterInterface_nonce'),
+			'nonce' => wp_create_nonce('ngWPAdminUI_nonce'),
             'current_mode' => $this->current_mode,
             'available_modes' => $this->available_modes,
 			// Thèmes de couleurs pour l'affichage transformé
@@ -235,15 +235,15 @@ class BetterInterface {
             'available_color_themes' => $this->available_color_themes,
 			// Traductions JavaScript
 			'i18n' => [
-				'please_select_items' => __('Please select at least one item to perform this action on.', 'better-interface'),
-				'deselect_all' => __('Désélectionner tout', 'better-interface'),
+				'please_select_items' => __('Please select at least one item to perform this action on.', 'wp-admin-ui'),
+				'deselect_all' => __('Désélectionner tout', 'wp-admin-ui'),
 			],
 		]);
         
         // Scripts spécifiques au mode moderne
         if ($this->current_mode === 'modern') {
             wp_enqueue_script(
-                'better-interface-admin',
+                'wp-admin-ui-admin',
                 BI_PLUGIN_URL . 'assets/js/admin.js',
                 ['jquery'],
                 BI_PLUGIN_VERSION,
@@ -252,20 +252,20 @@ class BetterInterface {
         }
         
         // Styles spécifiques au mode
-        $this->ngBetterInterface_enqueue_mode_specific_assets();
+        $this->ngWPAdminUI_enqueue_mode_specific_assets();
     }
     
     /**
      * Chargement des assets spécifiques au mode
      */
-    private function ngBetterInterface_enqueue_mode_specific_assets() {
+    private function ngWPAdminUI_enqueue_mode_specific_assets() {
         $mode = $this->current_mode;
         
         if ($mode !== 'default') {
             wp_enqueue_style(
-                "better-interface-{$mode}",
+                "wp-admin-ui-{$mode}",
                 BI_PLUGIN_URL . "assets/css/modes/{$mode}.css",
-                ['better-interface-admin'],
+                ['wp-admin-ui-admin'],
                 BI_PLUGIN_VERSION
             );
 
@@ -273,16 +273,16 @@ class BetterInterface {
             if ($mode === 'modern') {
                 $theme = 'midnight';
                 wp_enqueue_style(
-                    "better-interface-theme-{$theme}",
+                    "wp-admin-ui-theme-{$theme}",
                     BI_PLUGIN_URL . "assets/css/themes/{$theme}.css",
-                    ["better-interface-{$mode}"],
+                    ["wp-admin-ui-{$mode}"],
                     BI_PLUGIN_VERSION
                 );
             }
             
             // Si le mode est moderne, charger les styles spécifiques aux plugins
             if ($mode === 'modern') {
-                $this->ngBetterInterface_enqueue_plugin_specific_styles();
+                $this->ngWPAdminUI_enqueue_plugin_specific_styles();
             }
         }
     }
@@ -290,7 +290,7 @@ class BetterInterface {
     /**
      * Chargement des styles et scripts spécifiques aux plugins en mode moderne
      */
-    private function ngBetterInterface_enqueue_plugin_specific_styles() {
+    private function ngWPAdminUI_enqueue_plugin_specific_styles() {
         // Material Icons de Google pour le mode moderne
         wp_enqueue_style(
             'material-icons',
@@ -309,91 +309,91 @@ class BetterInterface {
         
         // Styles pour les scrollbars modernes
         wp_enqueue_style(
-            'better-interface-scrollbars',
+            'wp-admin-ui-scrollbars',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/scrollbars.css',
-            ['better-interface-modern'],
+            ['wp-admin-ui-modern'],
             BI_PLUGIN_VERSION
         );
         
         // Styles pour les notices modernes
         wp_enqueue_style(
-            'better-interface-notices',
+            'wp-admin-ui-notices',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/notices.css',
-            ['better-interface-modern'],
+            ['wp-admin-ui-modern'],
             BI_PLUGIN_VERSION
         );
 
         // Styles pour la barre flottante
         wp_enqueue_style(
-            'better-interface-actionbar-logic',
+            'wp-admin-ui-actionbar-logic',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/floatingActionBar.css',
-            ['better-interface-modern'],
+            ['wp-admin-ui-modern'],
             BI_PLUGIN_VERSION
         );
 
         // Styles pour la logique des boutons modernes
         wp_enqueue_style(
-            'better-interface-buttons-logic',
+            'wp-admin-ui-buttons-logic',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/buttonsLogic.css',
-            ['better-interface-modern'],
+            ['wp-admin-ui-modern'],
             BI_PLUGIN_VERSION
         );
         
         // Styles pour Contact Form 7
         wp_enqueue_style(
-            'better-interface-contact-form-7',
+            'wp-admin-ui-contact-form-7',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/contact-form-7.css',
-            ['better-interface-modern'],
+            ['wp-admin-ui-modern'],
             BI_PLUGIN_VERSION
         );
         
         // Styles pour Elementor
         wp_enqueue_style(
-            'better-interface-elementor',
+            'wp-admin-ui-elementor',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/elementor.css',
-            ['better-interface-modern'],
+            ['wp-admin-ui-modern'],
             BI_PLUGIN_VERSION
         );
         
         // Styles pour Woocommerce
         wp_enqueue_style(
-            'better-interface-woocommerce',
+            'wp-admin-ui-woocommerce',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/woocommerce.css',
-            ['better-interface-modern'],
+            ['wp-admin-ui-modern'],
             BI_PLUGIN_VERSION
         );
         
         // Styles pour la page d'installation de plugins
         wp_enqueue_style(
-            'better-interface-plugins',
+            'wp-admin-ui-plugins',
             BI_PLUGIN_URL . 'assets/css/modes/modern/css/plugins/plugins.css',
-            ['better-interface-modern'],
+            ['wp-admin-ui-modern'],
             BI_PLUGIN_VERSION
         );
         
         // Scripts de configuration pour le mode moderne
         wp_enqueue_script(
-            'better-interface-custom-actions',
+            'wp-admin-ui-custom-actions',
             BI_PLUGIN_URL . 'assets/css/modes/modern/js/customActionsButtons.js',
-            ['better-interface-admin'],
+            ['wp-admin-ui-admin'],
             BI_PLUGIN_VERSION,
             false
         );
         
         // Script d'application automatique des styles modernes
         wp_enqueue_script(
-            'better-interface-modern-styles',
+            'wp-admin-ui-modern-styles',
             BI_PLUGIN_URL . 'assets/css/modes/modern/js/modernButtonStyles.js',
-            ['better-interface-admin', 'better-interface-custom-actions'],
+            ['wp-admin-ui-admin', 'wp-admin-ui-custom-actions'],
             BI_PLUGIN_VERSION,
             false
         );
         
         // Script d'application des styles de formulaire modernes
         wp_enqueue_script(
-            'better-interface-modern-form-styles',
+            'wp-admin-ui-modern-form-styles',
             BI_PLUGIN_URL . 'assets/css/modes/modern/js/modernFormStyles.js',
-            ['better-interface-admin', 'better-interface-modern-styles'],
+            ['wp-admin-ui-admin', 'wp-admin-ui-modern-styles'],
             BI_PLUGIN_VERSION,
             false
         );
@@ -402,28 +402,29 @@ class BetterInterface {
     /**
      * Sauvegarde du mode de design (AJAX)
      */
-    public function ngBetterInterface_save_design_mode() {
+    public function ngWPAdminUI_save_design_mode() {
         // Vérification de sécurité
-        if (!wp_verify_nonce($_POST['nonce'], 'ngBetterInterface_nonce')) {
-            wp_die(__('Sécurité violée', 'better-interface'));
+        if (!wp_verify_nonce($_POST['nonce'], 'ngWPAdminUI_nonce')) {
+            wp_die(__('Sécurité violée', 'wp-admin-ui'));
         }
         
         if (!current_user_can('manage_options')) {
-            wp_die(__('Permissions insuffisantes', 'better-interface'));
+            wp_die(__('Permissions insuffisantes', 'wp-admin-ui'));
         }
         
         $mode = sanitize_text_field($_POST['mode']);
         
         // Vérification que le mode est valide
         if (!array_key_exists($mode, $this->available_modes)) {
-            wp_send_json_error(__('Mode invalide', 'better-interface'));
+            wp_send_json_error(__('Mode invalide', 'wp-admin-ui'));
         }
         
-        // Sauvegarde
-        update_option('ngBetterInterface_design_mode', $mode);
+        // Sauvegarde du mode sélectionné
+        // Pourquoi: utiliser la variable $mode au lieu d'une valeur en dur pour permettre de basculer entre 'default' et 'modern'
+        update_option('ngWPAdminUI_design_mode', $mode);
         
         wp_send_json_success([
-            'message' => __('Mode sauvegardé avec succès', 'better-interface'),
+            'message' => __('Mode sauvegardé avec succès', 'wp-admin-ui'),
             'mode' => $mode
         ]);
     }
@@ -434,26 +435,26 @@ class BetterInterface {
      * Sauvegarde du thème de couleur (AJAX)
      * Pourquoi: permet de changer dynamiquement la palette via variables CSS
      */
-    public function ngBetterInterface_save_color_theme() {
+    public function ngWPAdminUI_save_color_theme() {
         // Sécurité
-        if (!wp_verify_nonce($_POST['nonce'], 'ngBetterInterface_nonce')) {
-            wp_die(__('Sécurité violée', 'better-interface'));
+        if (!wp_verify_nonce($_POST['nonce'], 'ngWPAdminUI_nonce')) {
+            wp_die(__('Sécurité violée', 'wp-admin-ui'));
         }
         if (!current_user_can('manage_options')) {
-            wp_die(__('Permissions insuffisantes', 'better-interface'));
+            wp_die(__('Permissions insuffisantes', 'wp-admin-ui'));
         }
 
         $theme = sanitize_text_field($_POST['theme'] ?? '');
 
         if (!array_key_exists($theme, $this->available_color_themes)) {
-            wp_send_json_error(['message' => __('Thème de couleur invalide', 'better-interface')]);
+            wp_send_json_error(['message' => __('Thème de couleur invalide', 'wp-admin-ui')]);
         }
 
-        update_option('ngBetterInterface_color_theme', $theme);
+        update_option('ngWPAdminUI_color_theme', $theme);
         $this->current_color_theme = $theme;
 
         wp_send_json_success([
-            'message' => __('Thème de couleur sauvegardé', 'better-interface'),
+            'message' => __('Thème de couleur sauvegardé', 'wp-admin-ui'),
             'theme' => $theme,
         ]);
     }
@@ -462,13 +463,13 @@ class BetterInterface {
      * Récupère les suggestions de recherche pour le type de posts actuel (AJAX)
      * Utilise les mécanismes WordPress natifs pour une recherche optimisée
      */
-    public function ngBetterInterface_get_search_suggestions() {
+    public function ngWPAdminUI_get_search_suggestions() {
         // Sécurité
-        if (!wp_verify_nonce($_POST['nonce'], 'ngBetterInterface_nonce')) {
-            wp_die(__('Sécurité violée', 'better-interface'));
+        if (!wp_verify_nonce($_POST['nonce'], 'ngWPAdminUI_nonce')) {
+            wp_die(__('Sécurité violée', 'wp-admin-ui'));
         }
         if (!current_user_can('edit_posts')) {
-            wp_die(__('Permissions insuffisantes', 'better-interface'));
+            wp_die(__('Permissions insuffisantes', 'wp-admin-ui'));
         }
 
         $query = sanitize_text_field($_POST['query'] ?? '');
@@ -620,28 +621,28 @@ class BetterInterface {
     /**
      * Obtient le mode actuel
      */
-    public function ngBetterInterface_get_current_mode() {
+    public function ngWPAdminUI_get_current_mode() {
         return $this->current_mode;
     }
     
     /**
      * Obtient le thème de couleur actuel (mode moderne)
      */
-    public function ngBetterInterface_get_current_color_theme() {
+    public function ngWPAdminUI_get_current_color_theme() {
         return $this->current_color_theme;
     }
     
     /**
      * Obtient les thèmes de couleur disponibles (mode moderne)
      */
-    public function ngBetterInterface_get_available_color_themes() {
+    public function ngWPAdminUI_get_available_color_themes() {
         return $this->available_color_themes;
     }
     
     /**
      * Obtient les modes disponibles
      */
-    public function ngBetterInterface_get_available_modes() {
+    public function ngWPAdminUI_get_available_modes() {
         return $this->available_modes;
     }
 
@@ -649,9 +650,9 @@ class BetterInterface {
      * Vérifie si Freemius est disponible et configuré
      * En mode développement, retourne toujours true pour éviter les blocages
      */
-    public function ngBetterInterface_has_valid_license() {
-        if (function_exists('ngBetterInterface_fs')) {
-            $fs = ngBetterInterface_fs();
+    public function ngWPAdminUI_has_valid_license() {
+        if (function_exists('ngWPAdminUI_fs')) {
+            $fs = ngWPAdminUI_fs();
             if (is_object($fs)) {
                 // En développement, on considère toujours valide
                 // En production, utiliser : return $fs->is_registered() && $fs->is_paying_or_trial();
@@ -663,7 +664,7 @@ class BetterInterface {
 }
 
 // Initialisation du plugin
-BetterInterface::get_instance();
+WPAdminUI::get_instance();
 
 /**
  * Initialisation de Freemius
@@ -674,16 +675,16 @@ if (file_exists(dirname(__FILE__) . '/includes/freemius/start.php')) {
     require_once dirname(__FILE__) . '/includes/freemius/start.php';
 
     if (function_exists('fs_dynamic_init')) {
-        function ngBetterInterface_fs() {
-            global $ngBetterInterface_fs;
+        function ngWPAdminUI_fs() {
+            global $ngWPAdminUI_fs;
 
-            if (!isset($ngBetterInterface_fs)) {
+            if (!isset($ngWPAdminUI_fs)) {
                 // Configuration de développement temporaire
                 // IMPORTANT: Remplacer par vos vraies clés Freemius en production
-                $ngBetterInterface_fs = fs_dynamic_init(array(
+                $ngWPAdminUI_fs = fs_dynamic_init(array(
                     'id'                  => '12345', // ID temporaire pour développement
-                    'slug'                => 'better-interface',
-                    'premium_slug'        => 'better-interface-premium',
+                    'slug'                => 'wp-admin-ui',
+                    'premium_slug'        => 'wp-admin-ui-premium',
                     'type'                => 'plugin',
                     'public_key'          => 'pk_test_placeholder_key', // Clé temporaire
                     'is_premium'          => false, // Mode développement = pas premium
@@ -692,7 +693,7 @@ if (file_exists(dirname(__FILE__) . '/includes/freemius/start.php')) {
                     'has_paid_plans'      => false, // Désactivé pour développement
                     'is_org_compliant'    => false,
                     'menu'                => array(
-                        'slug'           => 'better-interface',
+                        'slug'           => 'wp-admin-ui',
                         'parent'         => array(
                             'slug' => 'tools.php',
                         ),
@@ -702,12 +703,12 @@ if (file_exists(dirname(__FILE__) . '/includes/freemius/start.php')) {
                 ));
             }
 
-            return $ngBetterInterface_fs;
+            return $ngWPAdminUI_fs;
         }
 
         // Init Freemius.
-        ngBetterInterface_fs();
+        ngWPAdminUI_fs();
         // Signal that SDK was initiated.
-        do_action('ngBetterInterface_fs_loaded');
+        do_action('ngWPAdminUI_fs_loaded');
     }
 } 

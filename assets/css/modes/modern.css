@@ -1,5 +1,5 @@
 /**
- * Better Interface - Mode Moderne
+ * WP Admin UI - Mode Moderne
  * Design moderne avec des couleurs vives et des animations fluides
  */
 
@@ -8,39 +8,39 @@
    ======================================== */
 :root {
     /* Palette de couleurs moderne */
-    --ngBetterInterface-modern-primary: #6366f1;
-    --ngBetterInterface-modern-primary-hover: #4f46e5;
-    --ngBetterInterface-modern-primary-rgb: 99, 102, 241;
-    --ngBetterInterface-modern-secondary: #f8fafc;
-    --ngBetterInterface-modern-accent: #06b6d4;
-    --ngBetterInterface-modern-accent-rgb: 6, 182, 212;
-    --ngBetterInterface-modern-success: #10b981;
-    --ngBetterInterface-modern-warning: #f59e0b;
-    --ngBetterInterface-modern-error: #ef4444;
+    --ngWPAdminUI-modern-primary: #6366f1;
+    --ngWPAdminUI-modern-primary-hover: #4f46e5;
+    --ngWPAdminUI-modern-primary-rgb: 99, 102, 241;
+    --ngWPAdminUI-modern-secondary: #f8fafc;
+    --ngWPAdminUI-modern-accent: #06b6d4;
+    --ngWPAdminUI-modern-accent-rgb: 6, 182, 212;
+    --ngWPAdminUI-modern-success: #10b981;
+    --ngWPAdminUI-modern-warning: #f59e0b;
+    --ngWPAdminUI-modern-error: #ef4444;
     
     /* Couleurs de fond modernes */
-    --ngBetterInterface-modern-bg-primary: #ffffff;
-    --ngBetterInterface-modern-bg-secondary: #f8fafc;
-    --ngBetterInterface-modern-bg-tertiary: #f1f5f9;
-    --ngBetterInterface-modern-bg-dark: #1e293b;
+    --ngWPAdminUI-modern-bg-primary: #ffffff;
+    --ngWPAdminUI-modern-bg-secondary: #f8fafc;
+    --ngWPAdminUI-modern-bg-tertiary: #f1f5f9;
+    --ngWPAdminUI-modern-bg-dark: #1e293b;
     
     /* Couleurs de texte modernes */
-    --ngBetterInterface-modern-text-primary: #0f172a;
-    --ngBetterInterface-modern-text-secondary: #475569;
-    --ngBetterInterface-modern-text-muted: #64748b;
+    --ngWPAdminUI-modern-text-primary: #0f172a;
+    --ngWPAdminUI-modern-text-secondary: #475569;
+    --ngWPAdminUI-modern-text-muted: #64748b;
     
     /* Bordures et ombres modernes */
-    --ngBetterInterface-modern-border-color: #e2e8f0;
-    --ngBetterInterface-modern-border-radius: 12px;
-    --ngBetterInterface-modern-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-    --ngBetterInterface-modern-shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
-    --ngBetterInterface-modern-shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-    --ngBetterInterface-modern-shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+    --ngWPAdminUI-modern-border-color: #e2e8f0;
+    --ngWPAdminUI-modern-border-radius: 12px;
+    --ngWPAdminUI-modern-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --ngWPAdminUI-modern-shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --ngWPAdminUI-modern-shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --ngWPAdminUI-modern-shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
     
     /* Transitions modernes */
-    --ngBetterInterface-modern-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --ngBetterInterface-modern-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --ngBetterInterface-modern-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngWPAdminUI-modern-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngWPAdminUI-modern-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --ngWPAdminUI-modern-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ========================================
@@ -49,8 +49,8 @@
 
 /* Application des variables modernes */
 body {
-    background: var(--ngBetterInterface-modern-bg-secondary);
-    color: var(--ngBetterInterface-modern-text-primary);
+    background: var(--ngWPAdminUI-modern-bg-secondary);
+    color: var(--ngWPAdminUI-modern-text-primary);
 }
 
 /* ========================================
@@ -58,7 +58,7 @@ body {
    ======================================== */
 
 /* Overlay de transition pour les changements de page */
-.ngBetterInterface-page-transition-overlay {
+.ngWPAdminUI-page-transition-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -77,14 +77,14 @@ body {
     pointer-events: none;
 }
 
-.ngBetterInterface-page-transition-overlay.active {
+.ngWPAdminUI-page-transition-overlay.active {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
 }
 
 /* Animation de chargement subtile */
-.ngBetterInterface-page-transition-overlay::before {
+.ngWPAdminUI-page-transition-overlay::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -93,18 +93,18 @@ body {
     height: 40px;
     margin: -20px 0 0 -20px;
     border: 3px solid rgba(99, 102, 241, 0.2);
-    border-top: 3px solid var(--ngBetterInterface-modern-primary);
+    border-top: 3px solid var(--ngWPAdminUI-modern-primary);
     border-radius: 50%;
-    animation: ngBetterInterface-spin 1s linear infinite;
+    animation: ngWPAdminUI-spin 1s linear infinite;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.ngBetterInterface-page-transition-overlay.active::before {
+.ngWPAdminUI-page-transition-overlay.active::before {
     opacity: 1;
 }
 
-@keyframes ngBetterInterface-spin {
+@keyframes ngWPAdminUI-spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
@@ -115,8 +115,8 @@ body {
 
 /* Barre d'administration moderne */
 #wpadminbar {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent));
-    box-shadow: var(--ngBetterInterface-modern-shadow-medium);
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent));
+    box-shadow: var(--ngWPAdminUI-modern-shadow-medium);
     backdrop-filter: blur(10px);
 }
 
@@ -154,7 +154,7 @@ body {
 #wpadminbar .ab-item:focus,
 #wpadminbar .ab-item:active,
 #wpadminbar .hover>.ab-item {
-    background: var(--ngBetterInterface-modern-accent) !important;
+    background: var(--ngWPAdminUI-modern-accent) !important;
     color: #fff !important;
 }
 
@@ -167,19 +167,19 @@ body {
 
 #wp-admin-bar-root-default li:hover > a,
 #wp-admin-bar-root-default li a:hover {
-    background: var(--ngBetterInterface-modern-accent);
+    background: var(--ngWPAdminUI-modern-accent);
     color: #fff !important;
 }
 
 #wp-admin-bar-root-default li:active > a,
 #wp-admin-bar-root-default li a:active {
-    background: var(--ngBetterInterface-modern-primary);
+    background: var(--ngWPAdminUI-modern-primary);
     color: #fff !important;
 }
 
 /* Sous-menus de la barre admin */
 #wpadminbar .menupop .ab-sub-wrapper {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-accent), var(--ngBetterInterface-modern-primary));
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-accent), var(--ngWPAdminUI-modern-primary));
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0 0 8px 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -229,11 +229,11 @@ body {
 
 /* Menu principal moderne */
 #adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head, #adminmenu .wp-menu-arrow, #adminmenu .wp-menu-arrow div, #adminmenu li.current a.menu-top, #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
-   background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent));
+   background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent));
 }
 #adminmenu {
-    background: var(--ngBetterInterface-modern-bg-dark);
-    box-shadow: var(--ngBetterInterface-modern-shadow-medium);
+    background: var(--ngWPAdminUI-modern-bg-dark);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-medium);
     border-right: none;
     margin: 0;
 }
@@ -246,7 +246,7 @@ body {
 #adminmenu li.wp-menu-open .wp-submenu,
 #adminmenu li.opensub > a.menu-top,
 #adminmenu li.menu-top.current {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-accent), var(--ngBetterInterface-modern-primary));
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-accent), var(--ngWPAdminUI-modern-primary));
     color: #fff;
     border-radius: 0 !important;
 }
@@ -256,17 +256,17 @@ body {
     padding: 0; /* padding encore réduit */
     font-weight: 500;
     border-radius: 0 !important; /* coins carrés */
-    transition: all var(--ngBetterInterface-modern-transition-fast);
+    transition: all var(--ngWPAdminUI-modern-transition-fast);
 }
 
 #adminmenu li.menu-top > a:hover {
     color: white;
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent));
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent));
 }
 
 #adminmenu .wp-menu-image:before {
     color: rgba(255, 255, 255, 0.7);
-    transition: all var(--ngBetterInterface-modern-transition-fast);
+    transition: all var(--ngWPAdminUI-modern-transition-fast);
 }
 
 #adminmenu li.menu-top:hover .wp-menu-image:before {
@@ -275,10 +275,10 @@ body {
 
 /* Sous-menus modernes */
 #adminmenu .wp-submenu {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)); /* plus moderne et visible */
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)); /* plus moderne et visible */
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--ngBetterInterface-modern-border-radius);
-    box-shadow: var(--ngBetterInterface-modern-shadow-heavy);
+    border-radius: var(--ngWPAdminUI-modern-border-radius);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-heavy);
     backdrop-filter: blur(10px);
 }
 
@@ -286,7 +286,7 @@ body {
     color: #fff;
     padding: 8px 16px; /* réduit */
     font-size: 15px;
-    transition: all var(--ngBetterInterface-modern-transition-fast);
+    transition: all var(--ngWPAdminUI-modern-transition-fast);
 }
 
 #adminmenu .wp-submenu a:hover {
@@ -312,7 +312,7 @@ body {
 #adminmenu .wp-not-current-submenu.wp-menu-separator {
     height: 3px !important;
     margin:   0;
-    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(90deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
     border: none !important;
     border-radius: 2px !important;
     opacity: 0.8;
@@ -325,16 +325,16 @@ body {
 
 /* Zone de contenu principale */
 #wpcontent {
-    background: var(--ngBetterInterface-modern-bg-secondary);
+    background: var(--ngWPAdminUI-modern-bg-secondary);
 }
 
 /* En-têtes de pages modernes */
 .wrap h1 {
-    color: var(--ngBetterInterface-modern-text-primary);
+    color: var(--ngWPAdminUI-modern-text-primary);
     font-weight: 700;
     font-size: 2rem;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent));
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -345,7 +345,7 @@ body {
    ======================================== */
 
 /* Classes pour appliquer le style moderne aux boutons */
-.ngBetterInterface-modern-button {
+.ngWPAdminUI-modern-button {
     height: 30px !important;
     min-height: 30px !important;
     max-height: 30px !important;
@@ -354,7 +354,7 @@ body {
     border-radius: 6px !important;
     font-size: 15px !important;
     font-weight: 600 !important;
-    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(90deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
     color: #fff !important;
     border: none !important;
     box-shadow: 0 2px 8px rgba(99,102,241,0.10);
@@ -365,15 +365,15 @@ body {
     cursor: pointer;
 }
 
-.ngBetterInterface-modern-button:hover {
+.ngWPAdminUI-modern-button:hover {
     filter: brightness(1.15) saturate(1.2) drop-shadow(0 0 8px rgba(99,102,241,0.18));
     box-shadow: 0 6px 20px rgba(99,102,241,0.18);
-    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(90deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
 }
 
 /* Style spécifique pour les inputs de type button et submit */
-input[type="button"].ngBetterInterface-modern-input,
-input[type="submit"].ngBetterInterface-modern-input {
+input[type="button"].ngWPAdminUI-modern-input,
+input[type="submit"].ngWPAdminUI-modern-input {
     height: 30px !important;
     min-height: 30px !important;
     max-height: 30px !important;
@@ -382,7 +382,7 @@ input[type="submit"].ngBetterInterface-modern-input {
     border-radius: 6px !important;
     font-size: 15px !important;
     font-weight: 600 !important;
-    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(90deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
     color: #fff !important;
     border: none !important;
     box-shadow: 0 2px 8px rgba(99,102,241,0.10);
@@ -393,11 +393,11 @@ input[type="submit"].ngBetterInterface-modern-input {
     cursor: pointer;
 }
 
-input[type="button"].ngBetterInterface-modern-input:hover,
-input[type="submit"].ngBetterInterface-modern-input:hover {
+input[type="button"].ngWPAdminUI-modern-input:hover,
+input[type="submit"].ngWPAdminUI-modern-input:hover {
     filter: brightness(1.15) saturate(1.2) drop-shadow(0 0 8px rgba(99,102,241,0.18));
     box-shadow: 0 6px 20px rgba(99,102,241,0.18);
-    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(90deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
 }
 
 
@@ -407,39 +407,39 @@ input[type="submit"].ngBetterInterface-modern-input:hover {
    ======================================== */
 
 /* Classes pour les champs de formulaire modernes (text, email, password, etc.) */
-input[type="text"].ngBetterInterface-modern-input,
-input[type="email"].ngBetterInterface-modern-input,
-input[type="password"].ngBetterInterface-modern-input,
-input[type="url"].ngBetterInterface-modern-input,
-input[type="number"].ngBetterInterface-modern-input,
-textarea.ngBetterInterface-modern-input,
-select.ngBetterInterface-modern-input {
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1.5px solid var(--ngBetterInterface-modern-border-color);
+input[type="text"].ngWPAdminUI-modern-input,
+input[type="email"].ngWPAdminUI-modern-input,
+input[type="password"].ngWPAdminUI-modern-input,
+input[type="url"].ngWPAdminUI-modern-input,
+input[type="number"].ngWPAdminUI-modern-input,
+textarea.ngWPAdminUI-modern-input,
+select.ngWPAdminUI-modern-input {
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1.5px solid var(--ngWPAdminUI-modern-border-color);
     border-radius: 6px;
-    color: var(--ngBetterInterface-modern-text-primary);
+    color: var(--ngWPAdminUI-modern-text-primary);
     font-size: 15px;
     padding: 7px 12px;
     min-height: 36px;
     box-shadow: none;
-    transition: border-color var(--ngBetterInterface-modern-transition-fast), box-shadow var(--ngBetterInterface-modern-transition-fast);
+    transition: border-color var(--ngWPAdminUI-modern-transition-fast), box-shadow var(--ngWPAdminUI-modern-transition-fast);
     outline: none;
 }
 
-input[type="text"].ngBetterInterface-modern-input:focus,
-input[type="email"].ngBetterInterface-modern-input:focus,
-input[type="password"].ngBetterInterface-modern-input:focus,
-input[type="url"].ngBetterInterface-modern-input:focus,
-input[type="number"].ngBetterInterface-modern-input:focus,
-textarea.ngBetterInterface-modern-input:focus,
-select.ngBetterInterface-modern-input:focus {
-    border-color: var(--ngBetterInterface-modern-primary);
+input[type="text"].ngWPAdminUI-modern-input:focus,
+input[type="email"].ngWPAdminUI-modern-input:focus,
+input[type="password"].ngWPAdminUI-modern-input:focus,
+input[type="url"].ngWPAdminUI-modern-input:focus,
+input[type="number"].ngWPAdminUI-modern-input:focus,
+textarea.ngWPAdminUI-modern-input:focus,
+select.ngWPAdminUI-modern-input:focus {
+    border-color: var(--ngWPAdminUI-modern-primary);
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.10);
     outline: none;
 }
 
 /* Style spécifique pour les selects */
-select.ngBetterInterface-modern-input {
+select.ngWPAdminUI-modern-input {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -455,10 +455,10 @@ select.ngBetterInterface-modern-input {
    ======================================== */
 
 .wp-list-table {
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border-radius: var(--ngBetterInterface-modern-border-radius);
-    box-shadow: var(--ngBetterInterface-modern-shadow-light);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border-radius: var(--ngWPAdminUI-modern-border-radius);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-light);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
     overflow: visible;
 }
 
@@ -467,8 +467,8 @@ select.ngBetterInterface-modern-input {
 }
 
 .wp-list-table thead th {
-    background: var(--ngBetterInterface-modern-bg-secondary);
-    color: var(--ngBetterInterface-modern-text-primary);
+    background: var(--ngWPAdminUI-modern-bg-secondary);
+    color: var(--ngWPAdminUI-modern-text-primary);
     font-weight: 600;
     padding: 16px 12px;
 }
@@ -476,10 +476,10 @@ select.ngBetterInterface-modern-input {
 /* Intensification du hover sur les lignes de tableau */
 .wp-list-table tbody tr {
     cursor: pointer;
-    transition: all var(--ngBetterInterface-modern-transition-fast);
+    transition: all var(--ngWPAdminUI-modern-transition-fast);
 }
 .wp-list-table tbody tr:hover {
-    background: var(--ngBetterInterface-modern-bg-secondary);
+    background: var(--ngWPAdminUI-modern-bg-secondary);
     transform: scale(1.025);
     box-shadow: 0 6px 24px rgba(99,102,241,0.20), 0 1.5px 4px rgba(0,0,0,0.18);
     z-index: 2;
@@ -492,7 +492,7 @@ select.ngBetterInterface-modern-input {
     padding: 60px 20px;
     font-size: 15px;
     font-weight: 500;
-    color: var(--ngBetterInterface-modern-text-secondary);
+    color: var(--ngWPAdminUI-modern-text-secondary);
     background: linear-gradient(135deg, rgba(75, 85, 99, 0.03) 0%, rgba(55, 65, 81, 0.05) 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
@@ -526,27 +526,27 @@ select.ngBetterInterface-modern-input {
 }
 
 /* Sélection de ligne moderne: état visuel quand la ligne est cochée */
-.wp-list-table tbody tr.ngBetterInterface-row-selected {
-    border-left: 4px solid var(--ngBetterInterface-modern-primary);
+.wp-list-table tbody tr.ngWPAdminUI-row-selected {
+    border-left: 4px solid var(--ngWPAdminUI-modern-primary);
     position: relative;
     transform: none;
-    background-color: var(--ngBetterInterface-modern-bg-primary);
-    background-image: linear-gradient(90deg, rgba(var(--ngBetterInterface-modern-accent-rgb), 0.18) 0%, rgba(16, 185, 129, 0.08) 35%, rgba(16, 185, 129, 0) 70%);
+    background-color: var(--ngWPAdminUI-modern-bg-primary);
+    background-image: linear-gradient(90deg, rgba(var(--ngWPAdminUI-modern-accent-rgb), 0.18) 0%, rgba(16, 185, 129, 0.08) 35%, rgba(16, 185, 129, 0) 70%);
     background-repeat: no-repeat;
 }
 
 /* Pas de sur-zoom ni d'ombre quand sélectionnée */
-.wp-list-table tbody tr.ngBetterInterface-row-selected:hover {
+.wp-list-table tbody tr.ngWPAdminUI-row-selected:hover {
     transform: none;
     box-shadow: none;
-    background-color: var(--ngBetterInterface-modern-bg-primary);
-    background-image: linear-gradient(90deg, rgba(var(--ngBetterInterface-modern-accent-rgb), 0.18) 0%, rgba(16, 185, 129, 0.08) 35%, rgba(16, 185, 129, 0) 70%);
+    background-color: var(--ngWPAdminUI-modern-bg-primary);
+    background-image: linear-gradient(90deg, rgba(var(--ngWPAdminUI-modern-accent-rgb), 0.18) 0%, rgba(16, 185, 129, 0.08) 35%, rgba(16, 185, 129, 0) 70%);
 }
 
 /* Rendre la zone de la case à cocher visuellement propre: masquer l'input mais conserver l'accessibilité */
 th.check-column,td.check-column {
     text-align: center !important;
-   border-bottom: 1px solid var(--ngBetterInterface-modern-border-color) !important;
+   border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color) !important;
 }
 
 /* Supprimer la bordure inférieure pour les td dans tfoot */
@@ -572,16 +572,16 @@ th.check-column label, td.check-column label {
     border-radius: 6px;
     border: 2px solid rgba(99, 102, 241, 0.25);
     background: rgba(255, 255, 255, 0.9);
-    transition: all var(--ngBetterInterface-modern-transition-fast);
+    transition: all var(--ngWPAdminUI-modern-transition-fast);
     cursor: pointer;
     position: relative;
 }
 
 /* Icône de sélection (check) quand la ligne est sélectionnée */
-.wp-list-table tbody tr.ngBetterInterface-row-selected th.check-column label::after,
-.wp-list-table tbody tr.ngBetterInterface-row-selected td.check-column label::after,
-.wp-list-table.ngBetterInterface-table-full-selected thead td.check-column label::after,
-.wp-list-table.ngBetterInterface-table-full-selected tfoot td.check-column label::after {
+.wp-list-table tbody tr.ngWPAdminUI-row-selected th.check-column label::after,
+.wp-list-table tbody tr.ngWPAdminUI-row-selected td.check-column label::after,
+.wp-list-table.ngWPAdminUI-table-full-selected thead td.check-column label::after,
+.wp-list-table.ngWPAdminUI-table-full-selected tfoot td.check-column label::after {
     content: '✓';
     position: absolute;
     color: #fff;
@@ -590,11 +590,11 @@ th.check-column label, td.check-column label {
 }
 
 /* Effet coloré sur l'indicateur quand sélectionné */
-.wp-list-table tbody tr.ngBetterInterface-row-selected th.check-column label,
-.wp-list-table tbody tr.ngBetterInterface-row-selected td.check-column label,
-.wp-list-table.ngBetterInterface-table-full-selected thead td.check-column label,
-.wp-list-table.ngBetterInterface-table-full-selected tfoot td.check-column label  {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent));
+.wp-list-table tbody tr.ngWPAdminUI-row-selected th.check-column label,
+.wp-list-table tbody tr.ngWPAdminUI-row-selected td.check-column label,
+.wp-list-table.ngWPAdminUI-table-full-selected thead td.check-column label,
+.wp-list-table.ngWPAdminUI-table-full-selected tfoot td.check-column label  {
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent));
     border-color: transparent;
     box-shadow: 0 2px 8px rgba(99,102,241,0.25);
 }
@@ -606,18 +606,18 @@ th.check-column label, td.check-column label {
 }
 
 /* Unifier la bordure gauche entre lignes sélectionnées consécutives */
-.wp-list-table tbody tr.ngBetterInterface-row-selected + tr.ngBetterInterface-row-selected {
-    border-left-color: var(--ngBetterInterface-modern-primary);
+.wp-list-table tbody tr.ngWPAdminUI-row-selected + tr.ngWPAdminUI-row-selected {
+    border-left-color: var(--ngWPAdminUI-modern-primary);
 }
 
 /* Fusionner les séparateurs internes des lignes sélectionnées */
-.wp-list-table tbody tr.ngBetterInterface-row-selected td {
+.wp-list-table tbody tr.ngWPAdminUI-row-selected td {
     border-bottom-color: transparent; /* supprime la bordure interne de la ligne sélectionnée */
 }
 
 .wp-list-table tbody td {
     padding: 16px 12px;
-    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+    border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color);
 }
 
 /* ========================================
@@ -625,25 +625,25 @@ th.check-column label, td.check-column label {
    ======================================== */
 
 .postbox {
-    background: var(--ngBetterInterface-modern-bg-primary);
-    border: 1px solid var(--ngBetterInterface-modern-border-color);
-    border-radius: var(--ngBetterInterface-modern-border-radius);
-    box-shadow: var(--ngBetterInterface-modern-shadow-light);
-    transition: all var(--ngBetterInterface-modern-transition-normal);
+    background: var(--ngWPAdminUI-modern-bg-primary);
+    border: 1px solid var(--ngWPAdminUI-modern-border-color);
+    border-radius: var(--ngWPAdminUI-modern-border-radius);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-light);
+    transition: all var(--ngWPAdminUI-modern-transition-normal);
 }
 
 .postbox:hover {
-    box-shadow: var(--ngBetterInterface-modern-shadow-medium);
+    box-shadow: var(--ngWPAdminUI-modern-shadow-medium);
     transform: translateY(-2px);
 }
 
 .postbox .hndle {
-    background: var(--ngBetterInterface-modern-bg-secondary);
-    border-bottom: 1px solid var(--ngBetterInterface-modern-border-color);
+    background: var(--ngWPAdminUI-modern-bg-secondary);
+    border-bottom: 1px solid var(--ngWPAdminUI-modern-border-color);
     padding: 10px 12px; /* réduit */
     font-weight: 600;
-    color: var(--ngBetterInterface-modern-text-primary);
-    border-radius: var(--ngBetterInterface-modern-border-radius) var(--ngBetterInterface-modern-border-radius) 0 0;
+    color: var(--ngWPAdminUI-modern-text-primary);
+    border-radius: var(--ngWPAdminUI-modern-border-radius) var(--ngWPAdminUI-modern-border-radius) 0 0;
 }
 
 .postbox .postbox-header .hndle {
@@ -694,7 +694,7 @@ th.check-column label, td.check-column label {
 
 /* Focus visible amélioré */
 *:focus {
-    outline: 2px solid var(--ngBetterInterface-modern-accent);
+    outline: 2px solid var(--ngWPAdminUI-modern-accent);
     outline-offset: 0px;
     border-radius: 4px;
 }
@@ -702,21 +702,21 @@ th.check-column label, td.check-column label {
 /* Contraste élevé */
 @media (prefers-contrast: high) {
     :root {
-        --ngBetterInterface-modern-border-color: #000000;
-        --ngBetterInterface-modern-text-secondary: #000000;
+        --ngWPAdminUI-modern-border-color: #000000;
+        --ngWPAdminUI-modern-text-secondary: #000000;
     }
 }
 
 /* Mode sombre du système */
 @media (prefers-color-scheme: dark) {
     :root {
-        --ngBetterInterface-modern-bg-primary: #1e293b;
-        --ngBetterInterface-modern-bg-secondary: #334155;
-        --ngBetterInterface-modern-bg-tertiary: #475569;
-        --ngBetterInterface-modern-text-primary: #f8fafc;
-        --ngBetterInterface-modern-text-secondary: #cbd5e1;
-        --ngBetterInterface-modern-text-muted: #94a3b8;
-        --ngBetterInterface-modern-border-color: #475569;
+        --ngWPAdminUI-modern-bg-primary: #1e293b;
+        --ngWPAdminUI-modern-bg-secondary: #334155;
+        --ngWPAdminUI-modern-bg-tertiary: #475569;
+        --ngWPAdminUI-modern-text-primary: #f8fafc;
+        --ngWPAdminUI-modern-text-secondary: #cbd5e1;
+        --ngWPAdminUI-modern-text-muted: #94a3b8;
+        --ngWPAdminUI-modern-border-color: #475569;
     }
 }
 
@@ -726,7 +726,7 @@ th.check-column label, td.check-column label {
 /* Correction couleur du border-right du menu admin */
 #adminmenu li.wp-has-submenu.wp-not-current-submenu.opensub:hover::after,
 #adminmenu li.wp-has-submenu.wp-not-current-submenu:focus-within::after {
-    border-right-color: var(--ngBetterInterface-modern-primary);
+    border-right-color: var(--ngWPAdminUI-modern-primary);
 } 
 
 .wp-has-current-submenu .wp-submenu {
@@ -744,7 +744,7 @@ h1 + a.page-title-action {
     border-radius: 6px !important;
     font-size: 15px !important;
     font-weight: 600 !important;
-    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(90deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
     color: #fff !important;
     border: none !important;
     box-shadow: 0 2px 8px rgba(99,102,241,0.10);
@@ -759,7 +759,7 @@ h1 + a.page-title-action {
 h1 + a.page-title-action:hover {
     filter: brightness(1.15) saturate(1.2) drop-shadow(0 0 8px rgba(99,102,241,0.18));
     box-shadow: 0 6px 20px rgba(99,102,241,0.18);
-    background: linear-gradient(90deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(90deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
 } 
 
 /* ========================================
@@ -807,7 +807,7 @@ h1 + a.page-title-action:hover {
 
 /* Titre de la section */
 #screen-options-wrap legend {
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
     font-size: 18px !important;
     font-weight: 700 !important;
     margin-bottom: 16px !important;
@@ -843,7 +843,7 @@ h1 + a.page-title-action:hover {
 
 /* Titre des fieldsets */
 #adv-settings fieldset legend {
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
     font-size: 14px !important;
     font-weight: 600 !important;
     margin-bottom: 8px !important;
@@ -872,7 +872,7 @@ h1 + a.page-title-action:hover {
     transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
     cursor: pointer;
     font-weight: 500 !important;
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
     position: relative;
     overflow: hidden;
     flex-grow: 1;
@@ -905,8 +905,8 @@ h1 + a.page-title-action:hover {
 
 /* État checked des checkboxes */
 #screen-options-wrap input[type="checkbox"]:checked {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
-    border-color: var(--ngBetterInterface-modern-primary) !important;
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
+    border-color: var(--ngWPAdminUI-modern-primary) !important;
     box-shadow: 0 1px 4px rgba(99, 102, 241, 0.25) !important;
 }
 
@@ -930,7 +930,7 @@ h1 + a.page-title-action:hover {
 /* Focus states pour l'accessibilité */
 #screen-options-wrap input[type="checkbox"]:focus,
 #screen-options-wrap label:focus-within {
-    outline: 2px solid var(--ngBetterInterface-modern-accent) !important;
+    outline: 2px solid var(--ngWPAdminUI-modern-accent) !important;
     outline-offset: 0px !important;
 }
 
@@ -1071,7 +1071,7 @@ h1 + a.page-title-action:hover {
 .contextual-help-tabs a {
     display: block !important;
     padding: 12px 20px !important;
-    color: var(--ngBetterInterface-modern-text-secondary) !important;
+    color: var(--ngWPAdminUI-modern-text-secondary) !important;
     text-decoration: none !important;
     font-weight: 500 !important;
     border-radius: 8px !important;
@@ -1082,7 +1082,7 @@ h1 + a.page-title-action:hover {
 }
 
 .contextual-help-tabs a:hover {
-    color: var(--ngBetterInterface-modern-primary) !important;
+    color: var(--ngWPAdminUI-modern-primary) !important;
     background: rgba(99, 102, 241, 0.05) !important;
     border-color: rgba(99, 102, 241, 0.1) !important;
 }
@@ -1092,7 +1092,7 @@ h1 + a.page-title-action:hover {
     border-left: none;
 }
 .contextual-help-tabs li.active a {
-    color: var(--ngBetterInterface-modern-primary) !important;
+    color: var(--ngWPAdminUI-modern-primary) !important;
     background: rgba(99, 102, 241, 0.08) !important;
     border-color: rgba(99, 102, 241, 0.2) !important;
     border-bottom-color: transparent !important;
@@ -1111,7 +1111,7 @@ h1 + a.page-title-action:hover {
     padding: 20px !important;
     border: 1px solid rgba(99, 102, 241, 0.1) !important;
     line-height: 1.6 !important;
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
 }
 
 .help-tab-content p {
@@ -1124,20 +1124,20 @@ h1 + a.page-title-action:hover {
 }
 
 .help-tab-content strong {
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
     font-weight: 600 !important;
 }
 
 .help-tab-content a {
-    color: var(--ngBetterInterface-modern-primary) !important;
+    color: var(--ngWPAdminUI-modern-primary) !important;
     text-decoration: none !important;
     border-bottom: 1px solid rgba(99, 102, 241, 0.3) !important;
     transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
 }
 
 .help-tab-content a:hover {
-    color: var(--ngBetterInterface-modern-accent) !important;
-    border-bottom-color: var(--ngBetterInterface-modern-accent) !important;
+    color: var(--ngWPAdminUI-modern-accent) !important;
+    border-bottom-color: var(--ngWPAdminUI-modern-accent) !important;
 }
 
 /* Sidebar d'aide */
@@ -1154,7 +1154,7 @@ h1 + a.page-title-action:hover {
     margin-bottom: 12px !important;
     font-size: 14px !important;
     line-height: 1.5 !important;
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
 }
 
 .contextual-help-sidebar p:last-child {
@@ -1162,20 +1162,20 @@ h1 + a.page-title-action:hover {
 }
 
 .contextual-help-sidebar strong {
-    color: var(--ngBetterInterface-modern-text-primary) !important;
+    color: var(--ngWPAdminUI-modern-text-primary) !important;
     font-weight: 600 !important;
 }
 
 .contextual-help-sidebar a {
-    color: var(--ngBetterInterface-modern-primary) !important;
+    color: var(--ngWPAdminUI-modern-primary) !important;
     text-decoration: none !important;
     border-bottom: 1px solid rgba(99, 102, 241, 0.3) !important;
     transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
 }
 
 .contextual-help-sidebar a:hover {
-    color: var(--ngBetterInterface-modern-accent) !important;
-    border-bottom-color: var(--ngBetterInterface-modern-accent) !important;
+    color: var(--ngWPAdminUI-modern-accent) !important;
+    border-bottom-color: var(--ngWPAdminUI-modern-accent) !important;
 }
 
 /* Responsive design */
@@ -1250,7 +1250,7 @@ h1 + a.page-title-action:hover {
 }
 span.count {
     display: inline-block !important;
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
     color: white !important;
     font-size: 11px !important;
     font-weight: 600 !important;
@@ -1261,50 +1261,50 @@ span.count {
     line-height: 12px !important;
     text-align: center !important;
     vertical-align: baseline !important;
-    box-shadow: 0 1px 3px rgba(var(--ngBetterInterface-modern-primary-rgb), 0.2) !important;
+    box-shadow: 0 1px 3px rgba(var(--ngWPAdminUI-modern-primary-rgb), 0.2) !important;
     transition: all 0.25s cubic-bezier(.4,0,.2,1) !important;
     position: relative;
     top: -1px;
 }
 
 #adminmenu .menu-counter {
-   background:linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+   background:linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
 }
 
 /* Hover effect pour les pastilles */
 span.count:hover {
     transform: scale(1.1) !important;
-    box-shadow: 0 2px 6px rgba(var(--ngBetterInterface-modern-primary-rgb), 0.3) !important;
+    box-shadow: 0 2px 6px rgba(var(--ngWPAdminUI-modern-primary-rgb), 0.3) !important;
     filter: brightness(1.1) !important;
 }
 
 /* Variantes de couleurs selon le contexte */
 span.count.count-success {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-success), #059669) !important;
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-success), #059669) !important;
     box-shadow: 0 1px 3px rgba(16, 185, 129, 0.2) !important;
 }
 
 span.count.count-warning {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-warning), #d97706) !important;
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-warning), #d97706) !important;
     box-shadow: 0 1px 3px rgba(245, 158, 11, 0.2) !important;
 }
 
 span.count.count-error {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-error), #dc2626) !important;
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-error), #dc2626) !important;
     box-shadow: 0 1px 3px rgba(239, 68, 68, 0.2) !important;
 }
 
 span.count.count-info {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-accent), #0891b2) !important;
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-accent), #0891b2) !important;
     box-shadow: 0 1px 3px rgba(6, 182, 212, 0.2) !important;
 }
 
 /* Animation de pulsation pour les compteurs importants */
 span.count.count-highlight {
-    animation: ngBetterInterface-count-pulse 2s infinite;
+    animation: ngWPAdminUI-count-pulse 2s infinite;
 }
 
-@keyframes ngBetterInterface-count-pulse {
+@keyframes ngWPAdminUI-count-pulse {
     0%, 100% {
         transform: scale(1);
         box-shadow: 0 1px 3px rgba(99, 102, 241, 0.2);
@@ -1338,28 +1338,28 @@ span.count.count-highlight {
 
 /* Responsive pour le panel des filtres */
 @media (max-width: 768px) {
-    .ngBetterInterface-filters-panel {
+    .ngWPAdminUI-filters-panel {
         width: 100vw;
         right: -100vw;
     }
     
-    .ngBetterInterface-floating-right {
+    .ngWPAdminUI-floating-right {
         gap: 12px;
     }
     
-    .ngBetterInterface-filters-button {
+    .ngWPAdminUI-filters-button {
         padding: 0;
     }
 } 
 
 
 /* Classes pour personnaliser les couleurs */
-.ngBetterInterface-custom-bg {
-    background: var(--ngBetterInterface-custom-color, #007cba) !important;
+.ngWPAdminUI-custom-bg {
+    background: var(--ngWPAdminUI-custom-color, #007cba) !important;
 }
 
-.ngBetterInterface-custom-bg:hover {
-    background: var(--ngBetterInterface-custom-hover-color, #005a87) !important;
+.ngWPAdminUI-custom-bg:hover {
+    background: var(--ngWPAdminUI-custom-hover-color, #005a87) !important;
 }
 
 .subsubsub {
@@ -1372,21 +1372,21 @@ span.count.count-highlight {
 
 /* Lien actif dans la sous-navigation */
 .subsubsub li a.current {
-    background: linear-gradient(135deg, var(--ngBetterInterface-modern-primary), var(--ngBetterInterface-modern-accent)) !important;
+    background: linear-gradient(135deg, var(--ngWPAdminUI-modern-primary), var(--ngWPAdminUI-modern-accent)) !important;
     color: white !important;
     padding: 4px 10px !important;
     border-radius: 20px !important;
-    border: 2px solid var(--ngBetterInterface-modern-secondary) !important;
+    border: 2px solid var(--ngWPAdminUI-modern-secondary) !important;
     overflow: hidden !important;
 }
 
 
 .meta-box-sortables.ui-sortable.empty-container {
     border-radius: 8px !important;
-    outline-color: var(--ngBetterInterface-modern-primary) !important;
+    outline-color: var(--ngWPAdminUI-modern-primary) !important;
     transition: outline-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .meta-box-sortables.ui-sortable.empty-container:hover {
-    outline-color: var(--ngBetterInterface-modern-primary-hover) !important;
+    outline-color: var(--ngWPAdminUI-modern-primary-hover) !important;
 }

@@ -1,5 +1,5 @@
 /**
- * Better Interface - Application automatique des styles modernes
+ * WP Admin UI - Application automatique des styles modernes
  * Applique les classes modernes aux éléments WordPress appropriés
  */
 
@@ -27,7 +27,7 @@
             '.postbox .button',
             '.meta-box-sortables .button',
             '#collapse-menu button',
-            '.ngBetterInterface-filters-panel-content input[type="submit"]'
+            '.ngWPAdminUI-filters-panel-content input[type="submit"]'
         ],
         
         // Éléments à exclure (ne pas styler)
@@ -44,7 +44,7 @@
             '#wp-content-editor-tools button',
             '.interface-interface-skeleton__editor button',
             '.components-popover button',
-            '.ngBetterInterface-floating-actions button'
+            '.ngWPAdminUI-floating-actions button'
         ],
         
         // Configuration des exclusions de propriétés par sélecteur
@@ -56,11 +56,11 @@
         
         // Classes d'exclusion automatiques basées sur les attributs data
         dataExclusions: {
-            'data-no-border-radius': 'ngBetterInterface-no-border-radius',
-            'data-no-shadow': 'ngBetterInterface-no-shadow',
-            'data-no-gradient': 'ngBetterInterface-no-gradient',
-            'data-no-transition': 'ngBetterInterface-no-transition',
-            'data-no-hover': 'ngBetterInterface-no-hover'
+            'data-no-border-radius': 'ngWPAdminUI-no-border-radius',
+            'data-no-shadow': 'ngWPAdminUI-no-shadow',
+            'data-no-gradient': 'ngWPAdminUI-no-gradient',
+            'data-no-transition': 'ngWPAdminUI-no-transition',
+            'data-no-hover': 'ngWPAdminUI-no-hover'
         }
     };
     
@@ -83,8 +83,8 @@
                 });
                 
                 // Appliquer la classe si pas exclu et pas déjà appliquée
-                if (!shouldExclude && !$element.hasClass('ngBetterInterface-modern-button')) {
-                    $element.addClass('ngBetterInterface-modern-button');
+                if (!shouldExclude && !$element.hasClass('ngWPAdminUI-modern-button')) {
+                    $element.addClass('ngWPAdminUI-modern-button');
                     
                     // Appliquer les classes d'exclusion basées sur les attributs data
                     Object.keys(modernButtonStylesConfig.dataExclusions).forEach(function(dataAttr) {
@@ -97,7 +97,7 @@
                     Object.keys(modernButtonStylesConfig.propertyExclusions).forEach(function(selector) {
                         if ($element.is(selector)) {
                             modernButtonStylesConfig.propertyExclusions[selector].forEach(function(property) {
-                                var exclusionClass = 'ngBetterInterface-no-' + property;
+                                var exclusionClass = 'ngWPAdminUI-no-' + property;
                                 $element.addClass(exclusionClass);
                             });
                         }

@@ -1,4 +1,4 @@
-# Better Interface - Styles Modernes
+# WP Admin UI - Styles Modernes
 
 ## 🎯 Approche par Inclusion
 
@@ -24,7 +24,7 @@ assets/css/modes/modern/
 
 ```javascript
 {
-    buttonClass: 'ngBetterInterface-trash-button',     // Classe CSS du bouton
+    buttonClass: 'ngWPAdminUI-trash-button',     // Classe CSS du bouton
     title: 'Move to trash',                            // Titre du bouton
     icon: '<span class="dashicons dashicons-trash"></span>', // Icône
     group: null,                                       // Groupe (pour les boutons liés)
@@ -58,18 +58,18 @@ Ces fichiers sont chargés automatiquement en mode moderne et peuvent être éte
 ### 🔧 Classes CSS disponibles
 
 #### Boutons
-- `.ngBetterInterface-modern-button` : Style moderne pour les boutons `<button>`
-- `input[type="button"].ngBetterInterface-modern-input` : Style moderne pour les inputs de type button
-- `input[type="submit"].ngBetterInterface-modern-input` : Style moderne pour les inputs de type submit
+- `.ngWPAdminUI-modern-button` : Style moderne pour les boutons `<button>`
+- `input[type="button"].ngWPAdminUI-modern-input` : Style moderne pour les inputs de type button
+- `input[type="submit"].ngWPAdminUI-modern-input` : Style moderne pour les inputs de type submit
 
 #### Formulaires
-- `input[type="text"].ngBetterInterface-modern-input` : Style moderne pour les champs texte
-- `input[type="email"].ngBetterInterface-modern-input` : Style moderne pour les champs email
-- `input[type="password"].ngBetterInterface-modern-input` : Style moderne pour les champs mot de passe
-- `input[type="url"].ngBetterInterface-modern-input` : Style moderne pour les champs URL
-- `input[type="number"].ngBetterInterface-modern-input` : Style moderne pour les champs numériques
-- `textarea.ngBetterInterface-modern-input` : Style moderne pour les zones de texte
-- `select.ngBetterInterface-modern-input` : Style moderne pour les listes déroulantes
+- `input[type="text"].ngWPAdminUI-modern-input` : Style moderne pour les champs texte
+- `input[type="email"].ngWPAdminUI-modern-input` : Style moderne pour les champs email
+- `input[type="password"].ngWPAdminUI-modern-input` : Style moderne pour les champs mot de passe
+- `input[type="url"].ngWPAdminUI-modern-input` : Style moderne pour les champs URL
+- `input[type="number"].ngWPAdminUI-modern-input` : Style moderne pour les champs numériques
+- `textarea.ngWPAdminUI-modern-input` : Style moderne pour les zones de texte
+- `select.ngWPAdminUI-modern-input` : Style moderne pour les listes déroulantes
 
 ### 🚀 Avantages de cette approche
 
@@ -89,15 +89,15 @@ Vous pouvez aussi appliquer manuellement les classes :
 
 ```html
 <!-- Boutons modernes -->
-<button class="ngBetterInterface-modern-button">Mon bouton</button>
-<input type="submit" class="ngBetterInterface-modern-input" value="Envoyer">
-<input type="button" class="ngBetterInterface-modern-input" value="Annuler">
+<button class="ngWPAdminUI-modern-button">Mon bouton</button>
+<input type="submit" class="ngWPAdminUI-modern-input" value="Envoyer">
+<input type="button" class="ngWPAdminUI-modern-input" value="Annuler">
 
 <!-- Champs de formulaire modernes -->
-<input type="text" class="ngBetterInterface-modern-input" placeholder="Nom">
-<input type="email" class="ngBetterInterface-modern-input" placeholder="Email">
-<textarea class="ngBetterInterface-modern-input" placeholder="Message"></textarea>
-<select class="ngBetterInterface-modern-input">
+<input type="text" class="ngWPAdminUI-modern-input" placeholder="Nom">
+<input type="email" class="ngWPAdminUI-modern-input" placeholder="Email">
+<textarea class="ngWPAdminUI-modern-input" placeholder="Message"></textarea>
+<select class="ngWPAdminUI-modern-input">
     <option>Option 1</option>
     <option>Option 2</option>
 </select>
@@ -121,8 +121,8 @@ Le système utilise :
 ### 🎨 Personnalisation
 
 Les styles sont définis dans `modern.css` avec les variables CSS :
-- `--ngBetterInterface-modern-primary`
-- `--ngBetterInterface-modern-accent`
-- `--ngBetterInterface-modern-bg-primary`
-- `--ngBetterInterface-modern-border-color`
-- `--ngBetterInterface-modern-text-primary`
+- `--ngWPAdminUI-modern-primary`
+- `--ngWPAdminUI-modern-accent`
+- `--ngWPAdminUI-modern-bg-primary`
+- `--ngWPAdminUI-modern-border-color`
+- `--ngWPAdminUI-modern-text-primary`
