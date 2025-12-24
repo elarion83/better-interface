@@ -36,14 +36,14 @@
 			
 			if (isTransformed) {
 				$card.addClass('active');
-				$title.text('Activé');
-				$description.text('Interface moderne avec des couleurs vives et des animations fluides.');
+				$title.text('Enabled');
+				$description.text('Modern interface with vibrant colors and smooth animations.');
 				// Aperçu moderne avec des couleurs vives
 				$preview.addClass('modern-preview');
 			} else {
 				$card.removeClass('active');
-				$title.text('Désactivé');
-				$description.text('Interface classique WordPress avec des améliorations subtiles.');
+				$title.text('Disabled');
+				$description.text('Classic WordPress interface with subtle improvements.');
 				// Aperçu classique avec des couleurs neutres
 				$preview.removeClass('modern-preview');
 			}

@@ -191,6 +191,22 @@ msgstr "Version"
 msgid "Compatibilité"
 msgstr "Compatibility"
 
+#: admin/admin-page.php:93
+msgid "Licence"
+msgstr "License"
+
+#: admin/admin-page.php:97
+msgid "Activée"
+msgstr "Activated"
+
+#: admin/admin-page.php:99
+msgid "Non activée"
+msgstr "Not activated"
+
+#: admin/admin-page.php:102
+msgid "SDK non configuré"
+msgstr "SDK not configured"
+
 #: admin/admin-page.php:155
 msgid "Réinitialiser tous les paramètres"
 msgstr "Reset all settings"

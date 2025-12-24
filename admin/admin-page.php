@@ -24,15 +24,15 @@ $custom_js = get_option('bi_custom_js', '');
             <?php _e('WP Admin UI', 'wp-admin-ui'); ?>
         </h1>
         <p class="ngWPAdminUI-description">
-            <?php _e('Modernisez votre interface administrateur WordPress avec un design transformé.', 'wp-admin-ui'); ?>
+            <?php _e('Modernize your WordPress admin interface with a transformed design.', 'wp-admin-ui'); ?>
         </p>
     </div>
 
     <div class="ngWPAdminUI-content">
         <!-- Section de l'affichage transformé -->
         <div class="ngWPAdminUI-section">
-            <h2><?php _e('Affichage Transformé', 'wp-admin-ui'); ?></h2>
-            <p><?php _e('Activez ou désactivez l\'affichage transformé de votre interface administrateur :', 'wp-admin-ui'); ?></p>
+            <h2><?php _e('Transformed Display', 'wp-admin-ui'); ?></h2>
+            <p><?php _e('Enable or disable the transformed display of your admin interface:', 'wp-admin-ui'); ?></p>
             
             <div class="ngWPAdminUI-toggle-section">
                 <div class="ngWPAdminUI-toggle-card <?php echo $is_transformed ? 'active' : ''; ?>" data-transformed="<?php echo $is_transformed ? '1' : '0'; ?>">
@@ -60,11 +60,11 @@ $custom_js = get_option('bi_custom_js', '');
                             </label>
                         </div>
                         <div class="ngWPAdminUI-toggle-text">
-                            <h3><?php echo $is_transformed ? __('Activé', 'wp-admin-ui') : __('Désactivé', 'wp-admin-ui'); ?></h3>
+                            <h3><?php echo $is_transformed ? __('Enabled', 'wp-admin-ui') : __('Disabled', 'wp-admin-ui'); ?></h3>
                             <p class="ngWPAdminUI-toggle-description">
                                 <?php echo $is_transformed 
-                                    ? __('Interface moderne avec des couleurs vives et des animations fluides.', 'wp-admin-ui')
-                                    : __('Interface classique WordPress avec des améliorations subtiles.', 'wp-admin-ui'); ?>
+                                    ? __('Modern interface with vibrant colors and smooth animations.', 'wp-admin-ui')
+                                    : __('Classic WordPress interface with subtle improvements.', 'wp-admin-ui'); ?>
                             </p>
                         </div>
                     </div>
@@ -73,7 +73,7 @@ $custom_js = get_option('bi_custom_js', '');
             
             <div class="ngWPAdminUI-toggle-actions">
                 <button type="button" class="button button-primary ngWPAdminUI-save-toggle" disabled>
-                    <?php _e('Appliquer les changements', 'wp-admin-ui'); ?>
+                    <?php _e('Apply changes', 'wp-admin-ui'); ?>
                 </button>
             </div>
         </div>
@@ -81,25 +81,25 @@ $custom_js = get_option('bi_custom_js', '');
 
         <!-- Section informations -->
         <div class="ngWPAdminUI-section">
-            <h2><?php _e('Informations', 'wp-admin-ui'); ?></h2>
+            <h2><?php _e('Information', 'wp-admin-ui'); ?></h2>
             
             <div class="ngWPAdminUI-info-grid">
                 <div class="ngWPAdminUI-info-card">
-                    <h3><?php _e('Affichage Transformé', 'wp-admin-ui'); ?></h3>
-                    <p class="ngWPAdminUI-info-value"><?php echo $is_transformed ? __('Activé', 'wp-admin-ui') : __('Désactivé', 'wp-admin-ui'); ?></p>
+                    <h3><?php _e('Transformed Display', 'wp-admin-ui'); ?></h3>
+                    <p class="ngWPAdminUI-info-value"><?php echo $is_transformed ? __('Enabled', 'wp-admin-ui') : __('Disabled', 'wp-admin-ui'); ?></p>
                 </div>
 
                 <div class="ngWPAdminUI-info-card">
-                    <h3><?php _e('Licence', 'wp-admin-ui'); ?></h3>
+                    <h3><?php _e('License', 'wp-admin-ui'); ?></h3>
                     <p class="ngWPAdminUI-info-value">
                         <?php if (function_exists('ngWPAdminUI_fs')): ?>
                             <?php if ($has_valid_license): ?>
-                                <span style="color: #10b981;"><?php _e('Activée', 'wp-admin-ui'); ?></span>
+                                <span style="color: #10b981;"><?php _e('Activated', 'wp-admin-ui'); ?></span>
                             <?php else: ?>
-                                <span style="color: #ef4444;"><?php _e('Non activée', 'wp-admin-ui'); ?></span>
+                                <span style="color: #ef4444;"><?php _e('Not activated', 'wp-admin-ui'); ?></span>
                             <?php endif; ?>
                         <?php else: ?>
-                            <span style="color: #f59e0b;"><?php _e('SDK non configuré', 'wp-admin-ui'); ?></span>
+                            <span style="color: #f59e0b;"><?php _e('SDK not configured', 'wp-admin-ui'); ?></span>
                         <?php endif; ?>
                     </p>
                 </div>
@@ -110,16 +110,11 @@ $custom_js = get_option('bi_custom_js', '');
                 </div>
 
                 <div class="ngWPAdminUI-info-card">
-                    <h3><?php _e('Compatibilité', 'wp-admin-ui'); ?></h3>
+                    <h3><?php _e('Compatibility', 'wp-admin-ui'); ?></h3>
                     <p class="ngWPAdminUI-info-value">WordPress 5.0+</p>
                 </div>
             </div>
-            
-            <div class="ngWPAdminUI-actions">
-                <button type="button" class="button ngWPAdminUI-reset-all">
-                    <?php _e('Réinitialiser tous les paramètres', 'wp-admin-ui'); ?>
-                </button> 
-            </div>
+
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Admin UI
  * Plugin URI: https://wpadminui.com
- * Description: Modernise l'interface administrateur WordPress avec 2 modes de design différents
+ * Description: Modernize the WordPress admin interface with a modern and transformed design
  * Version: 1.1.2
  * Author: Nicolas Gruwe
  * Author URI: https://nicolasgruwe.fr
@@ -46,8 +46,8 @@ class WPAdminUI {
      * Modes de design disponibles
      */
     private $available_modes = [
-        'default' => 'Classique',
-        'modern' => 'Moderne'
+        'default' => 'Classic',
+        'modern' => 'Modern'
     ];
 
     /**
@@ -231,7 +231,7 @@ class WPAdminUI {
 			// Traductions JavaScript
 			'i18n' => [
 				'please_select_items' => __('Please select at least one item to perform this action on.', 'wp-admin-ui'),
-				'deselect_all' => __('Désélectionner tout', 'wp-admin-ui'),
+				'deselect_all' => __('Deselect all', 'wp-admin-ui'),
 			],
 		]);
         
@@ -400,18 +400,18 @@ class WPAdminUI {
     public function ngWPAdminUI_save_design_mode() {
         // Vérification de sécurité
         if (!wp_verify_nonce($_POST['nonce'], 'ngWPAdminUI_nonce')) {
-            wp_die(__('Sécurité violée', 'wp-admin-ui'));
+            wp_die(__('Security violation', 'wp-admin-ui'));
         }
         
         if (!current_user_can('manage_options')) {
-            wp_die(__('Permissions insuffisantes', 'wp-admin-ui'));
+            wp_die(__('Insufficient permissions', 'wp-admin-ui'));
         }
         
         $mode = sanitize_text_field($_POST['mode']);
         
         // Vérification que le mode est valide
         if (!array_key_exists($mode, $this->available_modes)) {
-            wp_send_json_error(__('Mode invalide', 'wp-admin-ui'));
+            wp_send_json_error(__('Invalid mode', 'wp-admin-ui'));
         }
         
         // Sauvegarde du mode sélectionné
@@ -419,7 +419,7 @@ class WPAdminUI {
         update_option('ngWPAdminUI_design_mode', $mode);
         
         wp_send_json_success([
-            'message' => __('Mode sauvegardé avec succès', 'wp-admin-ui'),
+            'message' => __('Mode saved successfully', 'wp-admin-ui'),
             'mode' => $mode
         ]);
     }
@@ -433,23 +433,23 @@ class WPAdminUI {
     public function ngWPAdminUI_save_color_theme() {
         // Sécurité
         if (!wp_verify_nonce($_POST['nonce'], 'ngWPAdminUI_nonce')) {
-            wp_die(__('Sécurité violée', 'wp-admin-ui'));
+            wp_die(__('Security violation', 'wp-admin-ui'));
         }
         if (!current_user_can('manage_options')) {
-            wp_die(__('Permissions insuffisantes', 'wp-admin-ui'));
+            wp_die(__('Insufficient permissions', 'wp-admin-ui'));
         }
 
         $theme = sanitize_text_field($_POST['theme'] ?? '');
 
         if (!array_key_exists($theme, $this->available_color_themes)) {
-            wp_send_json_error(['message' => __('Thème de couleur invalide', 'wp-admin-ui')]);
+            wp_send_json_error(['message' => __('Invalid color theme', 'wp-admin-ui')]);
         }
 
         update_option('ngWPAdminUI_color_theme', $theme);
         $this->current_color_theme = $theme;
 
         wp_send_json_success([
-            'message' => __('Thème de couleur sauvegardé', 'wp-admin-ui'),
+            'message' => __('Color theme saved', 'wp-admin-ui'),
             'theme' => $theme,
         ]);
     }
@@ -461,10 +461,10 @@ class WPAdminUI {
     public function ngWPAdminUI_get_search_suggestions() {
         // Sécurité
         if (!wp_verify_nonce($_POST['nonce'], 'ngWPAdminUI_nonce')) {
-            wp_die(__('Sécurité violée', 'wp-admin-ui'));
+            wp_die(__('Security violation', 'wp-admin-ui'));
         }
         if (!current_user_can('edit_posts')) {
-            wp_die(__('Permissions insuffisantes', 'wp-admin-ui'));
+            wp_die(__('Insufficient permissions', 'wp-admin-ui'));
         }
 
         $query = sanitize_text_field($_POST['query'] ?? '');
