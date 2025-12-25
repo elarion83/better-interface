@@ -370,9 +370,8 @@
 
 /* Surbrillance des filtres actifs */
 .ngWPAdminUI-filter-active-highlight {
-    background-color: rgba(55, 65, 81, 0.2) !important;
     border-color: #374151 !important;
-    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.3) !important;
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.5) !important;
     transform: scale(1.02);
 }
     
