@@ -170,7 +170,39 @@
 								$targetSelect.show().val(value).trigger('change');
 							}
 							
-							// Soumettre le formulaire de manière plus robuste
+							// Pour l'action "edit", WordPress utilise un système d'édition inline
+							// Pourquoi: l'action "edit" affiche une section d'édition en lot sans recharger la page
+							// Il faut cliquer sur le bouton Apply mais WordPress ne soumet pas le formulaire
+							if (value === 'edit') {
+								// Trouver le bouton Apply (#doaction)
+								var $applyButton = $('#bulk-action-selector-top + input#doaction').first();
+								if ($applyButton.length === 0) {
+									$applyButton = $('#bulk-action-selector-bottom + input#doaction2').first();
+								}
+								
+								if ($applyButton && $applyButton.length > 0) {
+									// S'assurer que le select a la bonne valeur
+									if ($targetSelect && $targetSelect.length > 0) {
+										$targetSelect.val(value).trigger('change');
+									}
+									
+									// Restaurer le bouton avant de cliquer
+									var $originalIcon = $(this).data('original-icon');
+									if ($originalIcon) {
+										$(this).html($originalIcon);
+									}
+									$(this).prop('disabled', false).removeClass('loading');
+									
+									// Cliquer sur le bouton Apply pour déclencher l'affichage de la section d'édition
+									// Pourquoi: WordPress gère l'action "edit" via le clic sur Apply sans soumettre le formulaire
+									setTimeout(function(){
+										$applyButton.show().trigger('click');
+									}, 10);
+									return;
+								}
+							}
+							
+							// Pour les autres actions, soumettre le formulaire de manière plus robuste
 							// Pourquoi: utiliser la méthode native du DOM pour plus de fiabilité
 							if ($targetForm.length > 0) {
 								// Vérifier qu'il y a des éléments sélectionnés avant de soumettre

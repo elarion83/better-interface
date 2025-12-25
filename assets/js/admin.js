@@ -206,20 +206,36 @@
 	};
 
 	// Mettre à jour l'état de la barre flottante (activer/désactiver les actions)
-	// Pourquoi: utiliser la configuration centralisée pour les sélecteurs et classes
+	// Pourquoi: orchestrer les différentes responsabilités via des méthodes spécialisées
 	WPAdminUI.prototype.updateFloatingBarState = function(){
-		// Utiliser Config depuis l'instance (déjà caché dans le constructeur)
 		var Config = this.Config;
 		var selectors = Config.selectors || {};
 		var classes = Config.classes || {};
-		var timings = Config.timings || {};
 		
-		// Utiliser les sélecteurs de la config centralisée
+		// Calculer l'état de sélection (données brutes)
+		var selectionState = this.calculateSelectionState(selectors, classes);
+		
+		// Mettre à jour l'affichage du compteur
+		this.updateCounterDisplay(selectionState, selectors, classes, Config.timings || {});
+		
+		// Gérer la visibilité de la barre flottante
+		this.toggleFloatingBarVisibility(selectionState, selectors, classes);
+		
+		// Mettre à jour l'état des boutons
+		this.updateButtonsState(selectionState, selectors, classes);
+	};
+
+	/**
+	 * Calcule l'état de sélection (données brutes)
+	 * Pourquoi: séparer le calcul des données de leur affichage (Single Responsibility Principle)
+	 * @param {Object} selectors - Sélecteurs CSS depuis la config
+	 * @param {Object} classes - Classes CSS depuis la config
+	 * @returns {Object} État de sélection avec toutes les données nécessaires
+	 */
+	WPAdminUI.prototype.calculateSelectionState = function(selectors, classes) {
+		// Compter les éléments sélectionnés
 		var selectedCount = $(selectors.listTableCheckboxChecked || '.wp-list-table tbody input[type="checkbox"]:checked').length;
 		var hasSelectedItems = selectedCount > 0;
-		var $actions = $(selectors.actions || '.ngWPAdminUI-floating-actions button, .ngWPAdminUI-floating-actions input[type="submit"], .ngWPAdminUI-floating-actions select');
-		var $customButtons = $(selectors.customButtons || '.ngWPAdminUI-trash-button, .ngWPAdminUI-edit-button, .ngWPAdminUI-update-button, .ngWPAdminUI-delete-all-button');
-		var $counter = $(selectors.selectionCounter || '.ngWPAdminUI-selection-counter');
 		
 		// Vérifier si une case "sélectionner tout" est cochée
 		var $selectAll1 = $(selectors.selectAll1 || '#cb-select-all-1');
@@ -259,35 +275,6 @@
 			itemName = itemName.replace(/^all\s+/i, '').replace(/^manage\s+/i, '').replace(/^edit\s+/i, '');
 		}
 		
-		// Mettre à jour le compteur avec effet de défilement
-		var $counterNumber = $counter.find(selectors.counterNumber || '.ngWPAdminUI-counter-number');
-		var $counterText = $counter.find(selectors.counterText || '.ngWPAdminUI-counter-text');
-		var currentValue = $counterNumber.text();
-		var currentText = $counterText.text();
-		
-		// Déterminer la valeur à afficher et le texte
-		var displayValue, displayText;
-		if (hasSelectedItems) {
-			displayValue = selectedCount + ' / ' + totalItems;
-			displayText = 'selected';
-		} else {
-			displayValue = totalItems;
-			displayText = itemName;
-		}
-		
-		// Vérifier si la valeur ou le texte a changé
-		if (currentValue !== displayValue.toString() || currentText !== displayText) {
-			// Ajouter la classe pour l'animation
-			$counterNumber.addClass(classes.counterChanging || 'counter-changing');
-			
-			// Mettre à jour la valeur et le texte après un court délai pour déclencher l'animation
-			setTimeout(function(){
-				$counterNumber.text(displayValue);
-				$counterText.text(displayText);
-				$counterNumber.removeClass(classes.counterChanging || 'counter-changing');
-			}, timings.counterAnimation || 50);
-		}
-		
 		// Vérifier s'il y a des filtres actifs
 		var hasActiveFilters = $(selectors.filtersPanelContent || '.ngWPAdminUI-filters-panel-content').children().length > 0;
 		
@@ -297,26 +284,115 @@
 		// Vérifier s'il y a des boutons dans la barre (ajouter, recherche, filtres, etc.)
 		var hasButtonsInBar = $(selectors.addButton + ', ' + selectors.searchButton + ', ' + selectors.filtersButton + ', ' + selectors.deleteAllButton + ', ' + selectors.modernPagination || '.ngWPAdminUI-add-button, .ngWPAdminUI-search-button, .ngWPAdminUI-filters-button, .ngWPAdminUI-delete-all-button, .ngWPAdminUI-modern-pagination').length > 0;
 		
-		// Afficher/masquer la barre selon les conditions avec animation
+		return {
+			selectedCount: selectedCount,
+			hasSelectedItems: hasSelectedItems,
+			isFullySelected: isFullySelected,
+			totalItems: totalItems,
+			itemName: itemName,
+			hasActiveFilters: hasActiveFilters,
+			hasAlwaysVisibleButtons: hasAlwaysVisibleButtons,
+			hasButtonsInBar: hasButtonsInBar
+		};
+	};
+
+	/**
+	 * Met à jour l'affichage du compteur avec animation
+	 * Pourquoi: séparer la logique d'affichage du compteur (Single Responsibility Principle)
+	 * @param {Object} selectionState - État de sélection calculé
+	 * @param {Object} selectors - Sélecteurs CSS depuis la config
+	 * @param {Object} classes - Classes CSS depuis la config
+	 * @param {Object} timings - Délais d'animation depuis la config
+	 */
+	WPAdminUI.prototype.updateCounterDisplay = function(selectionState, selectors, classes, timings) {
+		var $counter = $(selectors.selectionCounter || '.ngWPAdminUI-selection-counter');
+		if ($counter.length === 0) return;
+		
+		var $counterNumber = $counter.find(selectors.counterNumber || '.ngWPAdminUI-counter-number');
+		var $counterText = $counter.find(selectors.counterText || '.ngWPAdminUI-counter-text');
+		var currentValue = $counterNumber.text();
+		var currentText = $counterText.text();
+		
+		// Déterminer la valeur à afficher et le texte
+		var displayValue, displayText;
+		if (selectionState.hasSelectedItems) {
+			displayValue = selectionState.selectedCount + ' / ' + selectionState.totalItems;
+			displayText = 'selected';
+		} else {
+			displayValue = selectionState.totalItems;
+			displayText = selectionState.itemName;
+		}
+		
+		// Vérifier si la valeur ou le texte a changé
+		if (currentValue !== displayValue.toString() || currentText !== displayText) {
+			// Ajouter la classe pour l'animation
+			$counterNumber.addClass(classes.counterChanging || 'counter-changing');
+			
+			// Mettre à jour la valeur et le texte après un court délai pour déclencher l'animation
+			// Pourquoi: utiliser setTimeout pour permettre au navigateur de détecter le changement de classe
+			setTimeout(function(){
+				$counterNumber.text(displayValue);
+				$counterText.text(displayText);
+				$counterNumber.removeClass(classes.counterChanging || 'counter-changing');
+			}, timings.counterAnimation || 50);
+		}
+	};
+
+	/**
+	 * Gère la visibilité de la barre flottante avec animation
+	 * Pourquoi: séparer la logique d'affichage/masquage (Single Responsibility Principle)
+	 * @param {Object} selectionState - État de sélection calculé
+	 * @param {Object} selectors - Sélecteurs CSS depuis la config
+	 * @param {Object} classes - Classes CSS depuis la config
+	 */
+	WPAdminUI.prototype.toggleFloatingBarVisibility = function(selectionState, selectors, classes) {
 		var $floatingBar = $(selectors.floatingBar || '.ngWPAdminUI-floating-action-bar');
-		if (hasSelectedItems || hasActiveFilters || hasAlwaysVisibleButtons || hasButtonsInBar) {
+		if ($floatingBar.length === 0) return;
+		
+		// Déterminer si la barre doit être visible
+		// Pourquoi: la barre est visible si au moins une condition est remplie
+		var shouldBeVisible = selectionState.hasSelectedItems || 
+		                      selectionState.hasActiveFilters || 
+		                      selectionState.hasAlwaysVisibleButtons || 
+		                      selectionState.hasButtonsInBar;
+		
+		// Appliquer les classes d'animation
+		if (shouldBeVisible) {
 			$floatingBar.removeClass(classes.slideOut || 'slide-out').addClass(classes.slideIn || 'slide-in');
 		} else {
 			$floatingBar.removeClass(classes.slideIn || 'slide-in').addClass(classes.slideOut || 'slide-out');
 		}
+	};
+
+	/**
+	 * Met à jour l'état (actif/inactif) des boutons de la barre flottante
+	 * Pourquoi: séparer la logique d'activation/désactivation des boutons (Single Responsibility Principle)
+	 * @param {Object} selectionState - État de sélection calculé
+	 * @param {Object} selectors - Sélecteurs CSS depuis la config
+	 * @param {Object} classes - Classes CSS depuis la config
+	 */
+	WPAdminUI.prototype.updateButtonsState = function(selectionState, selectors, classes) {
+		var $actions = $(selectors.actions || '.ngWPAdminUI-floating-actions button, .ngWPAdminUI-floating-actions input[type="submit"], .ngWPAdminUI-floating-actions select');
+		var $customButtons = $(selectors.customButtons || '.ngWPAdminUI-trash-button, .ngWPAdminUI-edit-button, .ngWPAdminUI-update-button, .ngWPAdminUI-delete-all-button');
+		var $counter = $(selectors.selectionCounter || '.ngWPAdminUI-selection-counter');
 		
-		if (hasSelectedItems) {
+		// Mettre à jour l'état selon la sélection
+		if (selectionState.hasSelectedItems) {
+			// Activer tous les boutons si des éléments sont sélectionnés
 			$actions.prop('disabled', false).removeClass(classes.disabled || 'disabled');
 			$customButtons.prop('disabled', false).removeClass(classes.disabled || 'disabled');
 			$counter.addClass(classes.hasSelection || 'has-selection');
 		} else {
+			// Désactiver les boutons si aucun élément n'est sélectionné
 			$actions.prop('disabled', true).addClass(classes.disabled || 'disabled');
 			// Désactiver seulement les boutons qui ne sont pas toujours visibles
+			// Pourquoi: certains boutons (comme delete_all) doivent rester actifs même sans sélection
 			$customButtons.not(selectors.alwaysVisibleButtons || '[data-always-visible="true"]').prop('disabled', true).addClass(classes.disabled || 'disabled');
 			$counter.removeClass(classes.hasSelection || 'has-selection');
 		}
 		
 		// Le bouton filtres et les boutons toujours visibles restent actifs
+		// Pourquoi: ces boutons ne dépendent pas de la sélection
 		$(selectors.filtersButton + ', ' + selectors.alwaysVisibleButtons || '.ngWPAdminUI-filters-button, [data-always-visible="true"]').prop('disabled', false).removeClass(classes.disabled || 'disabled');
 	};
 
@@ -434,6 +510,13 @@
 			
 			// Ignorer les formulaires AJAX ou avec des actions spécifiques
 			if ($form.hasClass('no-transition') || action.indexOf('ajax') !== -1) return;
+			
+			// Ignorer les soumissions de formulaires avec l'action "edit" en bulk
+			// Pourquoi: l'action "edit" ne doit pas déclencher de transition car elle affiche une section inline
+			var $actionSelect = $form.find('select[name="action"], select[name="action2"]');
+			if ($actionSelect.length > 0 && $actionSelect.val() === 'edit') {
+				return;
+			}
 			
 			// Activer la transition
 			self.showPageTransition();
