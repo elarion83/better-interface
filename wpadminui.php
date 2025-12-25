@@ -239,6 +239,10 @@ class WPAdminUI {
         );
         
         // Localisation pour AJAX
+		// Pourquoi: convertir la locale WordPress (ex: 'fr_FR') en format JavaScript (ex: 'fr-FR')
+		$wp_locale = get_locale();
+		$js_locale = str_replace('_', '-', $wp_locale);
+		
 		wp_localize_script('wp-admin-ui-mode-selector', 'ngWPAdminUI_ajax', [
             'ajax_url' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('ngWPAdminUI_nonce'),
@@ -247,6 +251,8 @@ class WPAdminUI {
 			// Thèmes de couleurs pour l'affichage transformé
             'current_color_theme' => $this->current_color_theme,
             'available_color_themes' => $this->available_color_themes,
+			// Locale WordPress pour le formatage de dates
+			'locale' => $js_locale,
 			// Traductions JavaScript
 			'i18n' => [
 				'please_select_items' => __('Please select at least one item to perform this action on.', 'wp-admin-ui'),
@@ -528,214 +534,313 @@ class WPAdminUI {
     /**
      * Récupère les suggestions de recherche pour le type de posts actuel (AJAX)
      * Utilise les mécanismes WordPress natifs pour une recherche optimisée
+     * Pourquoi: factoriser en méthodes séparées pour améliorer la maintenabilité
      */
     public function ngWPAdminUI_get_search_suggestions() {
         // Sécurité
-        if (!wp_verify_nonce($_POST['nonce'], 'ngWPAdminUI_nonce')) {
+        if (!wp_verify_nonce($_POST['nonce'] ?? '', 'ngWPAdminUI_nonce')) {
             wp_die(__('Security violation', 'wp-admin-ui'));
-        }
-        // Vérifier les permissions selon le type de recherche
-        // Pourquoi: les utilisateurs nécessitent la capacité 'list_users', les posts 'edit_posts'
-        $post_type = sanitize_text_field($_POST['post_type'] ?? 'post');
-        if ($post_type === 'user') {
-            if (!current_user_can('list_users')) {
-                wp_die(__('Insufficient permissions', 'wp-admin-ui'));
-            }
-        } else {
-            if (!current_user_can('edit_posts')) {
-                wp_die(__('Insufficient permissions', 'wp-admin-ui'));
-            }
         }
 
         $query = sanitize_text_field($_POST['query'] ?? '');
         $post_type = sanitize_text_field($_POST['post_type'] ?? 'post');
         $limit = intval($_POST['limit'] ?? 10);
 
+        // Validation de la requête
         if (empty($query) || strlen($query) < 2) {
             wp_send_json_success(['suggestions' => []]);
         }
 
-        // Pour les utilisateurs, utiliser une approche différente
-        if ($post_type === 'user') {
-            // Recherche dans les utilisateurs
-            // Pourquoi: utiliser get_users() pour rechercher dans les utilisateurs WordPress
-            $users = get_users([
-                'search' => '*' . esc_attr($query) . '*',
-                'search_columns' => ['user_login', 'user_nicename', 'user_email', 'display_name'],
-                'number' => $limit,
-                'orderby' => 'display_name',
-                'order' => 'ASC'
-            ]);
-            
-            $suggestions = [];
-            foreach ($users as $user) {
-                // URL de visualisation : page de profil de l'utilisateur (front-end)
-                // Pourquoi: permettre de voir le profil public de l'utilisateur
-                $view_url = get_author_posts_url($user->ID);
-                
-                $suggestions[] = [
-                    'id' => $user->ID,
-                    'title' => $user->display_name . ' (' . $user->user_login . ')',
-                    'status' => 'active',
-                    'date' => $user->user_registered,
-                    'edit_url' => admin_url('user-edit.php?user_id=' . $user->ID),
-                    'view_url' => $view_url,
-                    'context' => $user->user_email,
-                    'type' => 'user',
-                    'role' => !empty($user->roles) ? implode(', ', $user->roles) : ''
-                ];
-            }
-            
-            wp_send_json_success([
-                'suggestions' => $suggestions,
-                'query' => $query,
-                'post_type' => $post_type,
-                'total' => count($suggestions)
-            ]);
+        // Vérifier les permissions selon le type de recherche
+        // Pourquoi: les utilisateurs nécessitent la capacité 'list_users', les posts 'edit_posts'
+        if (!$this->ngWPAdminUI_check_search_permissions($post_type)) {
+            wp_die(__('Insufficient permissions', 'wp-admin-ui'));
         }
 
-        // Utiliser WP_Query pour récupérer les posts correspondants
-        $args = [
-            'post_type' => $post_type,
-            'post_status' => ['publish', 'draft', 'private'],
-            'posts_per_page' => $limit,
-            's' => $query, // Recherche WordPress native
-            'orderby' => 'relevance',
-            'order' => 'DESC',
-            'suppress_filters' => false, // Permettre aux plugins de modifier la requête
-        ];
-
-        // Pour les commentaires, utiliser une approche différente
-        if ($post_type === 'comment') {
-            // Recherche dans les commentaires
-            $comments = get_comments([
-                'search' => $query,
-                'number' => $limit,
-                'status' => 'all'
-            ]);
-            
-            $suggestions = [];
-            foreach ($comments as $comment) {
-                $suggestions[] = [
-                    'id' => $comment->comment_ID,
-                    'title' => wp_trim_words($comment->comment_content, 10),
-                    'status' => $comment->comment_approved,
-                    'date' => $comment->comment_date,
-                    'edit_url' => admin_url('comment.php?action=editcomment&c=' . $comment->comment_ID),
-                    'context' => 'Commentaire sur: ' . get_the_title($comment->comment_post_ID),
-                    'type' => 'comment'
-                ];
-            }
-            
-            wp_send_json_success([
-                'suggestions' => $suggestions,
-                'query' => $query,
-                'post_type' => $post_type,
-                'total' => count($suggestions)
-            ]);
-        }
-
-        $search_query = new WP_Query($args);
+        // Router vers la méthode appropriée selon le type
+        // Pourquoi: séparer la logique par type pour améliorer la maintenabilité
         $suggestions = [];
-
-        if ($search_query->have_posts()) {
-            while ($search_query->have_posts()) {
-                $search_query->the_post();
-                $post_id = get_the_ID();
-                $post_title = get_the_title();
-                $post_status = get_post_status();
-                $post_date = get_the_date('Y-m-d');
-                
-                // Récupérer l'URL d'édition
-                $edit_url = get_edit_post_link($post_id);
-                
-                // Récupérer l'URL de visualisation (front-end)
-                // Pourquoi: permettre de voir le post sur le front-end
-                $view_url = get_permalink($post_id);
-                
-                // Ajouter des informations contextuelles selon le type
-                $context = '';
-                if ($post_type === 'post') {
-                    $categories = get_the_category();
-                    if (!empty($categories)) {
-                        $context = implode(', ', wp_list_pluck($categories, 'name'));
-                    }
-                } elseif ($post_type === 'page') {
-                    $parent = get_post_parent();
-                    if ($parent) {
-                        $context = 'Enfant de: ' . get_the_title($parent);
-                    }
-                }
-
-                $suggestions[] = [
-                    'id' => $post_id,
-                    'title' => $post_title,
-                    'status' => $post_status,
-                    'date' => $post_date,
-                    'edit_url' => $edit_url,
-                    'view_url' => $view_url,
-                    'context' => $context,
-                    'type' => $post_type
-                ];
-            }
-            wp_reset_postdata();
-        }
-
-        // Si pas assez de résultats, essayer une recherche plus large
-        if (count($suggestions) < $limit) {
-            $fallback_args = [
-                'post_type' => $post_type,
-                'post_status' => ['publish', 'draft', 'private'],
-                'posts_per_page' => $limit - count($suggestions),
-                's' => $query,
-                'orderby' => 'date',
-                'order' => 'DESC',
-                'suppress_filters' => false,
-            ];
-
-            $fallback_query = new WP_Query($fallback_args);
-            if ($fallback_query->have_posts()) {
-                while ($fallback_query->have_posts()) {
-                    $fallback_query->the_post();
-                    $post_id = get_the_ID();
-                    
-                    // Éviter les doublons
-                    $exists = false;
-                    foreach ($suggestions as $suggestion) {
-                        if ($suggestion['id'] === $post_id) {
-                            $exists = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!$exists) {
-                        $suggestions[] = [
-                            'id' => $post_id,
-                            'title' => get_the_title(),
-                            'status' => get_post_status(),
-                            'date' => get_the_date('Y-m-d'),
-                            'edit_url' => get_edit_post_link($post_id),
-                            'view_url' => get_permalink($post_id),
-                            'context' => '',
-                            'type' => $post_type
-                        ];
-                    }
-                }
-                wp_reset_postdata();
+        
+        // Vérifier si c'est une taxonomie (tags, categories, etc.)
+        $taxonomy = get_taxonomy($post_type);
+        if ($taxonomy) {
+            $suggestions = $this->ngWPAdminUI_search_terms($query, $post_type, $limit);
+        } else {
+            switch ($post_type) {
+                case 'user':
+                    $suggestions = $this->ngWPAdminUI_search_users($query, $limit);
+                    break;
+                case 'comment':
+                    $suggestions = $this->ngWPAdminUI_search_comments($query, $limit);
+                    break;
+                default:
+                    $suggestions = $this->ngWPAdminUI_search_posts($query, $post_type, $limit);
+                    break;
             }
         }
 
+        // Retourner les résultats
         wp_send_json_success([
             'suggestions' => $suggestions,
             'query' => $query,
             'post_type' => $post_type,
-            'total' => count($suggestions),
-            'debug' => [
-                'found_posts' => $search_query->found_posts,
-                'post_count' => $search_query->post_count,
-                'args_used' => $args
-            ]
+            'total' => count($suggestions)
         ]);
+    }
+
+    /**
+     * Vérifie les permissions pour la recherche selon le type
+     * @param string $post_type Type de contenu recherché
+     * @return bool True si l'utilisateur a les permissions
+     */
+    private function ngWPAdminUI_check_search_permissions($post_type) {
+        if ($post_type === 'user') {
+            return current_user_can('list_users');
+        }
+        return current_user_can('edit_posts');
+    }
+
+    /**
+     * Recherche des utilisateurs
+     * @param string $query Terme de recherche
+     * @param int $limit Nombre maximum de résultats
+     * @return array Tableau de suggestions
+     */
+    private function ngWPAdminUI_search_users($query, $limit) {
+        $users = get_users([
+            'search' => '*' . esc_attr($query) . '*',
+            'search_columns' => ['user_login', 'user_nicename', 'user_email', 'display_name'],
+            'number' => $limit,
+            'orderby' => 'display_name',
+            'order' => 'ASC'
+        ]);
+        
+        $suggestions = [];
+        foreach ($users as $user) {
+            $suggestions[] = [
+                'id' => $user->ID,
+                'title' => $user->display_name . ' (' . $user->user_login . ')',
+                'status' => 'active',
+                'date' => $user->user_registered,
+                'edit_url' => admin_url('user-edit.php?user_id=' . $user->ID),
+                'view_url' => get_author_posts_url($user->ID),
+                'context' => $user->user_email,
+                'type' => 'user',
+                'role' => !empty($user->roles) ? implode(', ', $user->roles) : ''
+            ];
+        }
+        
+        return $suggestions;
+    }
+
+    /**
+     * Recherche des commentaires
+     * @param string $query Terme de recherche
+     * @param int $limit Nombre maximum de résultats
+     * @return array Tableau de suggestions
+     */
+    private function ngWPAdminUI_search_comments($query, $limit) {
+        $comments = get_comments([
+            'search' => $query,
+            'number' => $limit,
+            'status' => 'all'
+        ]);
+        
+        $suggestions = [];
+        foreach ($comments as $comment) {
+            $suggestions[] = [
+                'id' => $comment->comment_ID,
+                'title' => wp_trim_words($comment->comment_content, 10),
+                'status' => $comment->comment_approved,
+                'date' => $comment->comment_date,
+                'edit_url' => admin_url('comment.php?action=editcomment&c=' . $comment->comment_ID),
+                'context' => __('Comment on:', 'wp-admin-ui') . ' ' . get_the_title($comment->comment_post_ID),
+                'type' => 'comment'
+            ];
+        }
+        
+        return $suggestions;
+    }
+
+    /**
+     * Recherche des posts (posts, pages, custom post types)
+     * @param string $query Terme de recherche
+     * @param string $post_type Type de post
+     * @param int $limit Nombre maximum de résultats
+     * @return array Tableau de suggestions
+     */
+    private function ngWPAdminUI_search_posts($query, $post_type, $limit) {
+        // Recherche principale avec WP_Query
+        $args = [
+            'post_type' => $post_type,
+            'post_status' => ['publish', 'draft', 'private'],
+            'posts_per_page' => $limit,
+            's' => $query,
+            'orderby' => 'relevance',
+            'order' => 'DESC',
+            'suppress_filters' => false,
+        ];
+
+        $search_query = new WP_Query($args);
+        $suggestions = [];
+
+        // Traiter les résultats de la recherche principale
+        if ($search_query->have_posts()) {
+            while ($search_query->have_posts()) {
+                $search_query->the_post();
+                $suggestions[] = $this->ngWPAdminUI_format_post_suggestion(get_the_ID(), $post_type);
+            }
+            wp_reset_postdata();
+        }
+
+        // Recherche de fallback si pas assez de résultats
+        if (count($suggestions) < $limit) {
+            $suggestions = array_merge(
+                $suggestions,
+                $this->ngWPAdminUI_search_posts_fallback($query, $post_type, $limit - count($suggestions), $suggestions)
+            );
+        }
+
+        return $suggestions;
+    }
+
+    /**
+     * Recherche de fallback pour les posts (recherche plus large)
+     * @param string $query Terme de recherche
+     * @param string $post_type Type de post
+     * @param int $limit Nombre maximum de résultats supplémentaires
+     * @param array $existing_suggestions Suggestions existantes pour éviter les doublons
+     * @return array Tableau de suggestions supplémentaires
+     */
+    private function ngWPAdminUI_search_posts_fallback($query, $post_type, $limit, $existing_suggestions) {
+        $existing_ids = array_column($existing_suggestions, 'id');
+        
+        $fallback_args = [
+            'post_type' => $post_type,
+            'post_status' => ['publish', 'draft', 'private'],
+            'posts_per_page' => $limit,
+            's' => $query,
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'suppress_filters' => false,
+            'post__not_in' => $existing_ids, // Éviter les doublons
+        ];
+
+        $fallback_query = new WP_Query($fallback_args);
+        $suggestions = [];
+
+        if ($fallback_query->have_posts()) {
+            while ($fallback_query->have_posts()) {
+                $fallback_query->the_post();
+                $suggestions[] = $this->ngWPAdminUI_format_post_suggestion(get_the_ID(), $post_type);
+            }
+            wp_reset_postdata();
+        }
+
+        return $suggestions;
+    }
+
+    /**
+     * Formate une suggestion de post pour l'affichage
+     * @param int $post_id ID du post
+     * @param string $post_type Type de post
+     * @return array Tableau formaté de la suggestion
+     */
+    private function ngWPAdminUI_format_post_suggestion($post_id, $post_type) {
+        // Récupérer les informations du post
+        $post_title = get_the_title($post_id);
+        $post_status = get_post_status($post_id);
+        $post_date = get_the_date('Y-m-d', $post_id);
+        $edit_url = get_edit_post_link($post_id);
+        $view_url = get_permalink($post_id);
+        
+        // Construire le contexte selon le type
+        $context = $this->ngWPAdminUI_get_post_context($post_id, $post_type);
+
+        return [
+            'id' => $post_id,
+            'title' => $post_title,
+            'status' => $post_status,
+            'date' => $post_date,
+            'edit_url' => $edit_url,
+            'view_url' => $view_url,
+            'context' => $context,
+            'type' => $post_type
+        ];
+    }
+
+    /**
+     * Récupère le contexte d'un post selon son type
+     * @param int $post_id ID du post
+     * @param string $post_type Type de post
+     * @return string Contexte formaté
+     */
+    private function ngWPAdminUI_get_post_context($post_id, $post_type) {
+        $context = '';
+        
+        if ($post_type === 'post') {
+            $categories = get_the_category($post_id);
+            if (!empty($categories)) {
+                $context = implode(', ', wp_list_pluck($categories, 'name'));
+            }
+        } elseif ($post_type === 'page') {
+            $parent = get_post_parent($post_id);
+            if ($parent) {
+                $context = __('Child of:', 'wp-admin-ui') . ' ' . get_the_title($parent);
+            }
+        }
+        
+        return $context;
+    }
+
+    /**
+     * Recherche des termes de taxonomie (tags, categories, etc.)
+     * @param string $query Terme de recherche
+     * @param string $taxonomy Nom de la taxonomie
+     * @param int $limit Nombre maximum de résultats
+     * @return array Tableau de suggestions
+     */
+    private function ngWPAdminUI_search_terms($query, $taxonomy, $limit) {
+        $terms = get_terms([
+            'taxonomy' => $taxonomy,
+            'search' => $query,
+            'number' => $limit,
+            'hide_empty' => false,
+            'orderby' => 'name',
+            'order' => 'ASC'
+        ]);
+        
+        $suggestions = [];
+        
+        if (!is_wp_error($terms) && !empty($terms)) {
+            foreach ($terms as $term) {
+                // Récupérer l'URL d'édition du terme
+                $edit_url = admin_url('term.php?taxonomy=' . $taxonomy . '&tag_ID=' . $term->term_id);
+                
+                // Récupérer l'URL de visualisation (archive du terme)
+                $view_url = get_term_link($term);
+                
+                // Construire le contexte (nombre de posts associés)
+                $context = '';
+                if ($term->count > 0) {
+                    $context = sprintf(_n('%d item', '%d items', $term->count, 'wp-admin-ui'), $term->count);
+                }
+                
+                $suggestions[] = [
+                    'id' => $term->term_id,
+                    'title' => $term->name,
+                    'status' => 'active',
+                    'date' => '', // Les termes n'ont pas de date
+                    'edit_url' => $edit_url,
+                    'view_url' => $view_url,
+                    'context' => $context,
+                    'type' => $taxonomy,
+                    'slug' => $term->slug
+                ];
+            }
+        }
+        
+        return $suggestions;
     }
 
     /**

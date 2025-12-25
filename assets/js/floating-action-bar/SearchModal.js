@@ -15,9 +15,11 @@
 			
 			// Détecter si on est sur la page des utilisateurs
 			var isUsersPage = $('body.wp-admin.users-php').length > 0;
+			// Détecter si on est sur la page des tags
+			var isTagsPage = $('body.wp-admin.edit-tags-php').length > 0;
 			
 			// Détecter la search-box selon le type de page
-			// Pourquoi: adapter la détection selon la page (posts/comments vs users)
+			// Pourquoi: adapter la détection selon la page (posts/comments vs users vs tags)
 			var $originalSearchBox = null;
 			
 			if (isUsersPage) {
@@ -30,6 +32,19 @@
 						var $userSearchBox = $userSearchForm.find('.search-box');
 						if ($userSearchBox.length > 0) {
 							$originalSearchBox = $userSearchBox;
+						}
+					}
+				}
+			} else if (isTagsPage) {
+				// Pour la page des tags: chercher l'input #tag-search-input,
+				// puis remonter au formulaire et chercher .search-box
+				var $tagSearchInput = $('#tag-search-input');
+				if ($tagSearchInput.length > 0) {
+					var $tagSearchForm = $tagSearchInput.closest('form');
+					if ($tagSearchForm.length > 0) {
+						var $tagSearchBox = $tagSearchForm.find('.search-box');
+						if ($tagSearchBox.length > 0) {
+							$originalSearchBox = $tagSearchBox;
 						}
 					}
 				}
@@ -47,19 +62,39 @@
 				// Créer le bouton "Rechercher" dans la barre flottante
 				$searchButton = $('<button type="button" class="ngWPAdminUI-search-button" title="Search"><span class="material-icons">search</span></button>');
 				
-				// Détecter le type de contenu actuel (posts, comments, users)
+				// Détecter le type de contenu actuel (posts, comments, users, tags)
 				// Pourquoi: adapter le type selon la page pour les suggestions et le header
 				var currentPostType = null;
 				if (isUsersPage) {
 					currentPostType = 'user';
+				} else if (isTagsPage) {
+					// Pour les tags, on peut détecter la taxonomie depuis l'URL ou le body
+					// Par défaut, on utilise 'post_tag' mais on peut le détecter dynamiquement
+					var urlParams = new URLSearchParams(window.location.search);
+					currentPostType = urlParams.get('taxonomy') || 'post_tag';
 				} else if (self.detectCurrentPostType) {
 					currentPostType = self.detectCurrentPostType();
 				}
 				
-				// Formater le nom du type pour l'affichage dans le header
-				// Pourquoi: afficher "Search Posts", "Search Pages", "Search Users", etc.
-				var formattedTypeName = this.formatPostTypeName(currentPostType);
-				var headerTitle = formattedTypeName ? 'Search ' + formattedTypeName : 'Search';
+				// Récupérer le texte du bouton de recherche original pour le titre
+				// Pourquoi: utiliser le texte du bouton original qui contient le bon nom (ex: "Search Tags" au lieu du slug)
+				var $originalSearchSubmit = $originalSearchBox.find('input[type="submit"], button[type="submit"]');
+				var headerTitle = 'Search';
+				if ($originalSearchSubmit.length > 0) {
+					var buttonText = $originalSearchSubmit.val() || $originalSearchSubmit.text() || '';
+					// Si le bouton a un texte, l'utiliser pour le titre
+					if (buttonText && buttonText.trim()) {
+						headerTitle = buttonText.trim();
+					} else {
+						// Sinon, formater le nom du type
+						var formattedTypeName = this.formatPostTypeName(currentPostType);
+						headerTitle = formattedTypeName ? 'Search ' + formattedTypeName : 'Search';
+					}
+				} else {
+					// Fallback: formater le nom du type
+					var formattedTypeName = this.formatPostTypeName(currentPostType);
+					headerTitle = formattedTypeName ? 'Search ' + formattedTypeName : 'Search';
+				}
 				
 				// Créer la modale de recherche avec le header dynamique
 				$searchModal = $('<div class="ngWPAdminUI-search-modal"><div class="ngWPAdminUI-search-modal-content"><div class="ngWPAdminUI-search-modal-header"><h3><span class="material-icons">search</span> ' + headerTitle + '</h3><button type="button" class="ngWPAdminUI-search-modal-close"><span class="dashicons dashicons-no-alt"></span></button></div><div class="ngWPAdminUI-search-modal-body"></div></div></div>');

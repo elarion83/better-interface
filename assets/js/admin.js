@@ -540,7 +540,7 @@
 		var self = this;
 		
 		// Afficher un indicateur de chargement
-		$container.html('<div class="ngWPAdminUI-suggestions-loading"><span class="dashicons dashicons-update ngWPAdminUI-loading-spinner"></span> Recherche en cours...</div>').show();
+		$container.html('<div class="ngWPAdminUI-suggestions-loading"><span class="dashicons dashicons-update ngWPAdminUI-loading-spinner"></span> Searching...</div>').show();
 		
 		// Requête AJAX vers l'endpoint WordPress
 		// Pourquoi: utiliser les variables et actions AJAX correctes ngWPAdminUI_* pour correspondre aux hooks WordPress
@@ -559,12 +559,12 @@
 				if (response.success && response.data.suggestions.length > 0) {
 					self.displaySearchSuggestions(response.data.suggestions, $container, query);
 				} else {
-					$container.html('<div class="ngWPAdminUI-suggestions-empty">Aucun résultat trouvé pour "' + query + '"</div>').show();
+					$container.html('<div class="ngWPAdminUI-suggestions-empty">No results found for "' + query + '"</div>').show();
 				}
 			},
 			error: function(xhr, status, error) {
 				// Afficher un message d'erreur générique pour l'utilisateur
-				$container.html('<div class="ngWPAdminUI-suggestions-error">Erreur lors de la recherche. Veuillez réessayer.</div>').show();
+				$container.html('<div class="ngWPAdminUI-suggestions-error">Error during search. Please try again.</div>').show();
 			}
 		});
 	};
@@ -613,8 +613,10 @@
 				}
 			}
 			
-			// Formater la date
-			var formattedDate = new Date(suggestion.date).toLocaleDateString('fr-FR');
+			// Formater la date selon la locale WordPress
+			// Pourquoi: utiliser la locale de WordPress pour un formatage cohérent avec l'interface
+			var locale = (window.ngWPAdminUI_ajax && ngWPAdminUI_ajax.locale) || navigator.language || 'en-US';
+			var formattedDate = new Date(suggestion.date).toLocaleDateString(locale);
 			
 			html += '<div class="ngWPAdminUI-suggestion-item ' + statusClass + '" data-id="' + suggestion.id + '">';
 			html += '<div class="ngWPAdminUI-suggestion-content">';
@@ -625,7 +627,7 @@
 			html += '<div class="ngWPAdminUI-suggestion-meta">';
 			// Pour les utilisateurs, afficher le rôle au lieu du statut
 			if (suggestion.type === 'user') {
-				html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + (suggestion.role || 'Utilisateur') + '</span>';
+				html += '<span class="ngWPAdminUI-suggestion-status"><span class="dashicons ' + statusIcon + '"></span> ' + (suggestion.role || 'User') + '</span>';
 			} else {
 				// Capitaliser la première lettre du statut
 				// Pourquoi: afficher le statut avec une majuscule pour une meilleure lisibilité
@@ -638,10 +640,10 @@
 			html += '<div class="ngWPAdminUI-suggestion-actions">';
 			// Bouton "Voir" (front-end) si l'URL est disponible
 			if (suggestion.view_url) {
-				html += '<a href="' + suggestion.view_url + '" target="_blank" class="ngWPAdminUI-suggestion-view" title="Voir"><span class="dashicons dashicons-visibility"></span></a>';
+				html += '<a href="' + suggestion.view_url + '" target="_blank" class="ngWPAdminUI-suggestion-view" title="View"><span class="dashicons dashicons-visibility"></span></a>';
 			}
 			// Bouton "Éditer" (admin)
-			html += '<a href="' + suggestion.edit_url + '" class="ngWPAdminUI-suggestion-edit" title="Éditer"><span class="dashicons dashicons-edit"></span></a>';
+			html += '<a href="' + suggestion.edit_url + '" class="ngWPAdminUI-suggestion-edit" title="Edit"><span class="dashicons dashicons-edit"></span></a>';
 			html += '</div>';
 			html += '</div>';
 		});

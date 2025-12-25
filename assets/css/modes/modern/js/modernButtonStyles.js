@@ -44,7 +44,8 @@
             '#wp-content-editor-tools button',
             '.interface-interface-skeleton__editor button',
             '.components-popover button',
-            '.ngWPAdminUI-floating-actions button'
+            '.ngWPAdminUI-floating-actions button',
+            'form#addtag button.upload_image_button'
         ],
         
         // Configuration des exclusions de propriétés par sélecteur
